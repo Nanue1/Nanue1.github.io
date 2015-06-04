@@ -1,0 +1,26 @@
+
+ 参考
+  http://easwy.com/blog/archives/advanced-vim-skills-taglist-plugin/
+
+1)、vimrc 文件
+	cp /usr/share/vim/vim70/vimrc_example.vim ~/.vimrc 
+	filetype plugin indent on
+
+2)、安装taglist
+ 	 cp taglist_46.zip ~/.vim
+  	 unzip taglist_46.zip 
+	要使用taglist plugin，必须满足：
+
+	1、：filetype on
+	2、系统中装了Exuberant ctags工具，
+	  并且taglist plugin能够找到此工具
+	 （因为taglist需要调用它来生成tag文件）
+	yum install ctags
+	3、vim支持system()调用
+
+	vim 1.java +Tlistopen
+3)、HTML 插件
+   http://www.vim.org/scripts/script.php?script_id=453
+   http://christianrobinson.name/vim/HTML/
+   
+   :help 'runtimepath'

@@ -1,0 +1,21 @@
+
+title: Emacs_Use
+date: 2015-06-4 20:17:16
+categories: Editor
+toc: true
+tags: Emacs
+---
+ 参考文档
+  http://www.cnblogs.com/yjie/p/4059145.html
+** Emacs中使用shell
+	1、 这是插件吗 ansi-term，multi-term 
+	2、 Meta-x 输入 shell回车进入 感觉效果不是很好
+** shell mode 多窗口管理
+	C-x 0 关闭当前光标所在窗口
+	C-x 1 关闭其他所以窗口
+	C-x 2 上下两个窗口
+	C-x 3 上两下一
+** 安装主题
+	参考http://www.linuxidc.com/Linux/2012-10/72342.htm
+	下载http://download.savannah.gnu.org/releases/color-theme/
+**

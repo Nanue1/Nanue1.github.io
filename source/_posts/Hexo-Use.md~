@@ -43,14 +43,15 @@ categories: Configure
 		deploy:
 		  type: git # 注意git前面的空格
 		  repository: https://github.com/username/username.github.io.git
-		  branch: master #仓库名使用ID建立的必须把blog放到master中
+		  branch: gh-pages
 	 hexo d  (需要安装 npm install hexo-deployer-git --save)
-       这里多次报错都是因为_config.yml里面的格式问题，真是醉了
+     这里多次报错都是因为_config.yml里面的格式问题，真是醉了
 
 
-##5）上传项目到github分支
-	cd ~/blog
+##5）项目目录
+	mkdir ~/BLOG
     本地提交： 
+  	cd ~/BLOG/
 	git init
 	git add .
 	git commit -m "第一次提交"
@@ -65,24 +66,4 @@ categories: Configure
 		http://rongjih.blog.163.com/blog/static/335744612010112562833316/
 
 
-##6）Hexo 主题使用记录
-	1、文章开头
-		title: Git_Base
-		date: 2015-06-04 19:15:23
-		tags: Hexo
-		toc: true
-		categories: Configure
-		---
-	2、主题
-	wixo主题： http://wzpan.github.io/hexo-theme-wixo/
-	NexT主题： https://github.com/iissnan/hexo-theme-next
 
-	3、categories和tags 找不到
-	   hexo new page categories
-	$ hexo new page tags
-	$ hexo new page categories
-	$ vim source/tags/index.md 
-	### add line: type: "tags"
-	$ vim source/categories/index.md
-	### add line: type: "categories"
-	$ git pull
