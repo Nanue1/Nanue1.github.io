@@ -127,4 +127,4 @@ deploy:
        repository: git@github.com:Nanue1/Nanue1.github.io.git 
 #  repo: git@github.com:Nanue1/Nanue1.github.io.git
      			#  repo: https://github.com/Nanue1/Nanue1.github.io.git
-       branch: master
+       branch: gh-pages
