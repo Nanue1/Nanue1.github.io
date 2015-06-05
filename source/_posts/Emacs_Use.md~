@@ -18,7 +18,4 @@ tags: Emacs
 ** 安装主题
 	参考http://www.linuxidc.com/Linux/2012-10/72342.htm
 	下载http://download.savannah.gnu.org/releases/color-theme/
-** 安装Markdown插件
-	参考：http://www.tuicool.com/articles/zmu63iQ
-	再安装MD文件转HTML的编译环境： yum  install pandoc
-	
+**

@@ -59,7 +59,7 @@ categories: Configure
 	git push origin SRC150604		创建远程分支
 	git push origin :SRC150604		删除远程分支
 	git push origin SRC150604:SRC150604 本地分支传到远程分支
-	删除远程仓库文件：先删除本地  再  git add -A 
+
  
     参考文档： http://www.zhixing123.cn/ubuntu/37865.html
 		http://rongjih.blog.163.com/blog/static/335744612010112562833316/

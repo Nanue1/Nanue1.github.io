@@ -18,6 +18,11 @@ keywords: "Nanue1'blog"
 # Set rss to specific value if you have burned your feed already.
 rss:
 
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+
 # Icon fonts
 # Place your font into next/source/fonts, specify directory-name and font-name here
 # Avialable: default | linecons | fifty-shades | feather
