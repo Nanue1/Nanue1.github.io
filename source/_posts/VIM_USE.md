@@ -21,7 +21,7 @@ tags: Vim
 	在Github vim-scripts 用户下的repos,只需要写出repos名称
 	在Github其他用户下的repos, 需要写出”用户名/repos名”
 	不在Github上的插件，需要写出git全路径
-
+<!--more-->
 ##3)、安装taglist
  	 cp taglist_46.zip ~/.vim
   	 unzip taglist_46.zip 

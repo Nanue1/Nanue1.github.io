@@ -13,11 +13,15 @@ categories: Configure
 	1、生成SSH认证密钥： ssh-keygen -t rsa -C "manue1@foxmail.com"
 	2、复制密钥到github： 
 		配置Key:https://help.github.com/articles/generating-ssh-keys/
-		复制这个 ~/.ssh/id_rsa.pub
+        ssh-agent -s
+        eval $(ssh-agent -s)
+        ssh-add ~/.ssh/id_rsa
+    复制这个 ~/.ssh/id_rsa.pub
 	3、帐号认证：
 	 git config --global user.name "Nanue1"
   	 git config --global user.email "manue1@foxmail.com"
   	 ssh git@github.com
+<!--more-->     
 ##3)安装Hexo
 	npm install hexo -g 
 	安装不上的看这里：http://www.freehao123.com/hexo-node-js/
