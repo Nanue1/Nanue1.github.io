@@ -7,23 +7,26 @@ categories: Configure
 #Hexo在Centos下使用
 
 ##1）环境搭建
-    安装node.js：  sudo yum install nodejs sudo yum install npm
+    安装node.js：  sudo yum install nodejs
+                   sudo yum install npm
 	安装git ：     sudo yum install git  git-gui
 ##2)本地连接github
 	1、生成SSH认证密钥： ssh-keygen -t rsa -C "manue1@foxmail.com"
 	2、复制密钥到github： 
 		配置Key:https://help.github.com/articles/generating-ssh-keys/
+       
         ssh-agent -s
         eval $(ssh-agent -s)
         ssh-add ~/.ssh/id_rsa
     复制这个 ~/.ssh/id_rsa.pub
+         xclip -sel clip < ~/.ssh/id_rsa.pub
 	3、帐号认证：
-	 git config --global user.name "Nanue1"
-  	 git config --global user.email "manue1@foxmail.com"
-  	 ssh git@github.com
+	   git config --global user.name "Nanue1"
+  	   git config --global user.email "manue1@foxmail.com"
+  	   ssh git@github.com
 <!--more-->     
 ##3)安装Hexo
-	npm install hexo -g 
+	npm install -g hexo 
 	安装不上的看这里：http://www.freehao123.com/hexo-node-js/
 	更新安装源：（三选一）
 		1.通过config命令:
