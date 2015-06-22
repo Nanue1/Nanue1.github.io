@@ -70,7 +70,7 @@ categories: Configure
  
     参考文档： http://www.zhixing123.cn/ubuntu/37865.html
 		http://rongjih.blog.163.com/blog/static/335744612010112562833316/
-
+    git clone url -b SRC150604 new_name 
 
 ##6）Hexo 主题使用记录
 	1、文章开头
