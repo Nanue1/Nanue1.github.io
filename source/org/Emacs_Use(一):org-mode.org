@@ -1,8 +1,6 @@
 
 * Org-mode 
-#+BEGIN_EXAMPLE
  Org-mode is an Emacs mode for note keeping, project planning, TODO lists and authoring
-#+END_EXAMPLE
 ** Basic Grammar
 *** 章节
 #+BEGIN_EXAMPLE
@@ -49,30 +47,12 @@
 *** 链接
     =【[链接地址][内容名称]】=
 *** 代办事项（TODO）
-#+BEGIN_EXAMPLE
-*** DONE 个人时间管理工具（GDT)
-    C-c C-t  修改TODO状态
-*** TODO 任务一 [ ]						       :Java:
-*** TODO 任务二
-    - sub1 [1/2]
-    - sub2 [30%]
-    - sub3
-
-*** DONE
-    
-操作命令：
-- C-c C-t 转换TODO状态到DONE
-- C-c / t 以树的形式展现TODO
-- C-c C-c 改变checkbox的状态
-- C-c ,   设置优先级 包括放括号内的ABC
-- M-S-RET 插入同级TODO
-#+END_EXAMPLE 
-*** 标签Tags                                                                    :py:
-#+BEGIN_EXAMPLE
-操作命令：
-- C-c C-q 在条目上添加标签
-- C-c / m 生成带标签的树
-#+END_EXAMPLE
+ + 操作命令：
+  - C-c C-t 转换TODO状态到DONE
+  - C-c / t 以树的形式展现TODO
+  - C-c C-c 改变checkbox的状态
+  - C-c ,   设置优先级 包括放括号内的ABC
+  - M-S-RET 插入同级TODO
 *** 时间
 #+BEGIN_EXAMPLE
      C-c C-s 开始时间
@@ -86,43 +66,14 @@
      C-c C-t  选择TODO 的管理选项
 #+END_EXAMPLE
 
-*** 文本格式
-#+BEGIN_EXAMPLE
-   *粗体*
-   /斜体/
-   +删除线+
-   _下划线_
-   =等宽字=
-#+END_EXAMPLE
 *** 富文本导出     
-***** 设置标题和目录
-#+TITLE
-#+OPTIONS：toc：2  
-   很多选项
-***** 添加引用
-#+BEGIN_QUOTE
-    我是傻逼
-        ----by 美国大兵
-#+END_QUOTE
-      
-***** 设置居中
-#+BEGIN_CENTER
-   这里字体居中吗
-#+END_CENTER
-
 ***** 设置样例
 #+BEGIN_EXAMPLE
     这里的内容直接导出不会被转义
 #+END_EXAMPLE
     
 ***** 设置注释
-#+BEGIN_COMMET
-    这里的注释不会被导出
-
-#+END_COMMET
-
 ***** 插入代码
-      # + BEGIN_SRC
 #+BEGIN_SRC java:
 public class TestReg {
 

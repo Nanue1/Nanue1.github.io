@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Nanue1's blog
+title: Manue1's blog
 subtitle: 你跟，或者不跟我，我的手就在你手里，不舍 不弃
 description: 	 你跟，或者不跟我，我的手就在你手里  	不舍 不弃
 author: Nanue1
@@ -68,8 +68,8 @@ pagination_dir: page
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: next
-#theme: wixo
+#theme: next
+theme: wixo
 
 # =============================================================================
 # NexT Theme configuration
@@ -87,11 +87,12 @@ disqus_shortname:
 # Social links
 social:
   GitHub: https://github.com/Nanue1
- # Twitter: https://twitter.com/iissnan
   Weibo: http://weibo.com/Nanue1
   DouBan: http://www.douban.com/people/manue1
-  ZhiHu: http://www.zhihu.com/people/manue1
-
+  ZhiHu: http://www.zhihu.com/people/Nanue1
+  友情连接:
+ # link s
+  manue1: http://manue1.com/
 
 # Creative Commons 4.0 International License.
 # http://creativecommons.org/

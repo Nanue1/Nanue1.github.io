@@ -1,14 +1,14 @@
 
-    title: Emacs_Use（一）:org-mode
-    date: 2015-06-17 19:15:23
-    tags: Emacs
-    toc: true
-    categories: Editor
+title: Emacs 使用笔记
+date: 2016-01-07 19:15:23
+tags: Emacs
+toc: true
+categories: Configure
+---
 
-----
 # Org-mode<a id="sec-1" name="sec-1"></a>
 
-    Org-mode is an Emacs mode for note keeping, project planning, TODO lists and authoring
+Org-mode is an Emacs mode for note keeping, project planning, TODO lists and authoring
 
 ## Basic Grammar<a id="sec-1-1" name="sec-1-1"></a>
 
@@ -30,7 +30,7 @@
        1）[ ]有序子任务一
        2）[x]有序子任务二
     2. [ ]有序列表任务二
-<!--more-->
+
 ### 脚注<a id="sec-1-1-3" name="sec-1-1-3"></a>
 
 ### 表格<a id="sec-1-1-4" name="sec-1-1-4"></a>
@@ -94,39 +94,14 @@
 
 ### 代办事项（TODO）<a id="sec-1-1-6" name="sec-1-1-6"></a>
 
-\#+BEGIN<sub>EXAMPLE</sub>
+-   操作命令：
+    -   C-c C-t 转换TODO状态到DONE
+    -   C-c / t 以树的形式展现TODO
+    -   C-c C-c 改变checkbox的状态
+    -   C-c ,   设置优先级 包括放括号内的ABC
+    -   M-S-RET 插入同级TODO
 
-### DONE 个人时间管理工具（GDT)<a id="sec-1-1-7" name="sec-1-1-7"></a>
-
-C-c C-t  修改TODO状态
-
-### TODO 任务一 [ ]     :Java:<a id="sec-1-1-8" name="sec-1-1-8"></a>
-
-### TODO 任务二<a id="sec-1-1-9" name="sec-1-1-9"></a>
-
--   sub1 <code>[1/2]</code>
--   sub2 <code>[30%]</code>
--   sub3
-
-### DONE <a id="sec-1-1-10" name="sec-1-1-10"></a>
-
-操作命令：
-
--   C-c C-t 转换TODO状态到DONE
--   C-c / t 以树的形式展现TODO
--   C-c C-c 改变checkbox的状态
--   C-c ,   设置优先级 包括放括号内的ABC
--   M-S-RET 插入同级TODO
-
-\#+END<sub>EXAMPLE</sub> 
-
-### 标签Tags     :py:<a id="sec-1-1-11" name="sec-1-1-11"></a>
-
-    操作命令：
-    - C-c C-q 在条目上添加标签
-    - C-c / m 生成带标签的树
-
-### 时间<a id="sec-1-1-12" name="sec-1-1-12"></a>
+### 时间<a id="sec-1-1-7" name="sec-1-1-7"></a>
 
     C-c C-s 开始时间
     C-c C-d 结束时间
@@ -138,47 +113,16 @@ C-c C-t  修改TODO状态
     加入时间戳++1d 每天都要完成的任务<2015-06-15 Mon ++1d> 
     C-c C-t  选择TODO 的管理选项
 
-### 文本格式<a id="sec-1-1-13" name="sec-1-1-13"></a>
+### 富文本导出<a id="sec-1-1-8" name="sec-1-1-8"></a>
 
-    *粗体*
-    /斜体/
-    +删除线+
-    _下划线_
-    =等宽字=
-
-### 富文本导出<a id="sec-1-1-14" name="sec-1-1-14"></a>
-
-1.  设置标题和目录
-
-    \#+TITLE
-    \\#+OPTIONS：toc：2  
-       很多选项
-
-2.  添加引用
-
-    > 我是傻逼
-    >     -&#x2014;by 美国大兵
-
-3.  设置居中
-
-    <div class="center">
-    这里字体居中吗
-    </div>
-
-4.  设置样例
+1.  设置样例
 
         这里的内容直接导出不会被转义
 
-5.  设置注释
+2.  设置注释
 
-    <div class="commet">
-    这里的注释不会被导出
-    
-    </div>
+3.  插入代码
 
-6.  插入代码
-
-    
         public class TestReg {
         
             public static void main(String[] args) {

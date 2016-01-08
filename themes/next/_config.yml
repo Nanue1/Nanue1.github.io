@@ -11,7 +11,7 @@ menu:
 favicon: /favicon.ico
 
 # Set default keywords (Use a comma to separate)
-keywords: "Nanue1'blog"
+keywords: "Manue1'blog"
 
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
@@ -34,7 +34,7 @@ icon_font: default
 # Code Highlight theme
 # Available value: normal | night | night eighties | night blue | night bright
 # https://github.com/chriskempson/tomorrow-theme
-highlight_theme: normal
+highlight_theme: night
 
 
 # MathJax Support
@@ -79,3 +79,7 @@ images: images
 
 # Theme version
 version: 0.4.3
+# 自动生成摘要
+auto_excerpt:
+ enable: true
+ length: 150
