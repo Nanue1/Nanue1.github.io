@@ -9,6 +9,7 @@ menu:
   categories: 分類
   tags: 標籤
   about: 關於
+  search: 檢索
 
 
 sidebar:
@@ -16,6 +17,7 @@ sidebar:
   toc: 文章目錄
 
 post:
+  sticky: 置頂
   posted: 發表於
   in: 分類於
   read_more: 閱讀全文

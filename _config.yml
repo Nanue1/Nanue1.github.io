@@ -69,7 +69,7 @@ pagination_dir: page
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
 #theme: next
-theme: wixo
+theme: next
 
 # =============================================================================
 # NexT Theme configuration
