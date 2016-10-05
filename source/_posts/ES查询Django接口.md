@@ -12,6 +12,8 @@ tags: elasticsearch
 Django urls 设置:
     > urlpatterns = [ url(r'^ipasset4/query', 'api.task.ipasset4_query')]
 
+<!-- more -->
+
 ES查询语句构造:
   ```json
   {"query":
@@ -24,7 +26,6 @@ ES查询语句构造:
       }
   } 
   ```
-<!-- more -->
 
 ## 代码区
 
