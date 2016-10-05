@@ -31,6 +31,7 @@ code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
 
+
 # Writing
 new_post_name: :title.md # File name of new posts
 default_layout: post
@@ -83,15 +84,12 @@ duoshuo_shortname: nanue1
 # Disqus
 disqus_shortname: 
 
-
 # Social links
 social:
   GitHub: https://github.com/Nanue1
   Weibo: http://weibo.com/Nanue1
   DouBan: http://www.douban.com/people/manue1
   ZhiHu: http://www.zhihu.com/people/Nanue1
-  友情连接:
- # link s
   manue1: http://manue1.com/
 
 # Creative Commons 4.0 International License.
