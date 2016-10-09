@@ -116,6 +116,11 @@ since: 2015
 # =============================================================================
 # End NexT Theme configuration
 # =============================================================================
+
+search:
+  path: search.xml
+  field: post
+
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 #deploy:
