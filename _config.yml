@@ -82,7 +82,7 @@ avatar: https://avatars2.githubusercontent.com/u/12669211?v=3&s=460
 duoshuo_shortname: nanue1
 
 # Disqus
-disqus_shortname: 
+#disqus_shortname: 
 
 # Social links
 social:
@@ -90,7 +90,7 @@ social:
   Weibo: http://weibo.com/Nanue1
   DouBan: http://www.douban.com/people/manue1
   ZhiHu: http://www.zhihu.com/people/Nanue1
-  manue1: http://manue1.com/
+ # manue1: http://manue1.com/
 
 # Creative Commons 4.0 International License.
 # http://creativecommons.org/
