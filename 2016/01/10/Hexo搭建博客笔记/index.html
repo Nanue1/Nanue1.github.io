@@ -1,194 +1,153 @@
-<!doctype html>
-<html class="theme-next use-motion theme-next-mist">
+<!DOCTYPE html>
+<html lang=zh>
 <head>
-  
-
-<meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-
-  <meta name="google-site-verification" content="VvyjvVXcJQa0QklHipu6pwm2PJGnnchIqX7s5JbbT_0" />
-
-
-
-
-
-  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
-
-
-<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
-
-
-    <meta name="description" content="你跟，或者不跟我，我的手就在你手里  	不舍 不弃" />
-
-
-
-  <meta name="keywords" content="hexo," />
-
-
-
-
-
-  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.3" />
-
-
-
-<script type="text/javascript" id="hexo.configuration">
-  var CONFIG = {
-    scheme: 'Mist',
-    analytics: {
-      baidu: 'bb0ad85433961b909a06c7e67cc31157',
-      google: ''
-    },
-    sidebar: 'always'
-  };
-</script>
-
-
-  <script type="text/javascript" src="/js/analytics_baidu-analytics.js"></script>
-
-
-
-  <title> Hexo搭建博客笔记 // Manue1's blog </title>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="对于个人的博客,我自己的定位需求,其实主要还是方便以后查看,作为一个内容的展示平台,并不需要多少花哨的渲染,相比而言hexo使用markdown,完美支持我自己的需求,ok下面记录下我ubuntu下的配置方式,避免后续环境迁移再折腾.在这里平时可以将public目录上传到个人vps服务器上发布,利用git托管也是很不错的选择,master存放静态文件,分支存放hexo源文件.
+环境准备
+安装nod">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo搭建博客笔记">
+<meta property="og:url" content="http://yoursite.com/2016/01/10/Hexo搭建博客笔记/index.html">
+<meta property="og:site_name" content="Manue1's blog">
+<meta property="og:description" content="对于个人的博客,我自己的定位需求,其实主要还是方便以后查看,作为一个内容的展示平台,并不需要多少花哨的渲染,相比而言hexo使用markdown,完美支持我自己的需求,ok下面记录下我ubuntu下的配置方式,避免后续环境迁移再折腾.在这里平时可以将public目录上传到个人vps服务器上发布,利用git托管也是很不错的选择,master存放静态文件,分支存放hexo源文件.
+环境准备
+安装nod">
+<meta property="og:updated_time" content="2017-02-18T12:20:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo搭建博客笔记">
+<meta name="twitter:description" content="对于个人的博客,我自己的定位需求,其实主要还是方便以后查看,作为一个内容的展示平台,并不需要多少花哨的渲染,相比而言hexo使用markdown,完美支持我自己的需求,ok下面记录下我ubuntu下的配置方式,避免后续环境迁移再折腾.在这里平时可以将public目录上传到个人vps服务器上发布,利用git托管也是很不错的选择,master存放静态文件,分支存放hexo源文件.
+环境准备
+安装nod">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Hexo搭建博客笔记</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+    <link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+    <!-- jquery -->
+    <script src="/lib/jquery/jquery.min.js"></script>
 </head>
 
 <body>
-<!--[if lte IE 8]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari." style='margin-left:auto;margin-right:auto;display: block;'/></a></div> <![endif]-->
-  <div class="container one-column page-post-detail">
-    <div class="headband"></div>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/Nanue1">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2016/01/10/博客初衷/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover='$("#i-prev").toggle();' onmouseout='$("#i-prev").toggle();'></i></a></li>
+        
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2016/01/10/Hexo搭建博客笔记/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2016/01/10/Hexo搭建博客笔记/&text=Hexo搭建博客笔记"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2016/01/10/Hexo搭建博客笔记/&title=Hexo搭建博客笔记"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2016/01/10/Hexo搭建博客笔记/&is_video=false&description=Hexo搭建博客笔记"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Hexo搭建博客笔记&body=Check out this article: http://yoursite.com/2016/01/10/Hexo搭建博客笔记/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2016/01/10/Hexo搭建博客笔记/&title=Hexo搭建博客笔记"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2016/01/10/Hexo搭建博客笔记/&title=Hexo搭建博客笔记"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2016/01/10/Hexo搭建博客笔记/&title=Hexo搭建博客笔记"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2016/01/10/Hexo搭建博客笔记/&title=Hexo搭建博客笔记"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2016/01/10/Hexo搭建博客笔记/&name=Hexo搭建博客笔记&description=&lt;p&gt;对于个人的博客,我自己的定位需求,其实主要还是方便以后查看,作为一个内容的展示平台,并不需要多少花哨的渲染,相比而言hexo使用markdown,完美支持我自己的需求,ok下面记录下我ubuntu下的配置方式,避免后续环境迁移再折腾.&lt;br&gt;在这里平时可以将public目录上传到个人vps服务器上发布,利用git托管也是很不错的选择,master存放静态文件,分支存放hexo源文件.&lt;/p&gt;
+&lt;h2 id=&quot;环境准备&quot;&gt;&lt;a href=&quot;#环境准备&quot; class=&quot;headerlink&quot; title=&quot;环境准备&quot;&gt;&lt;/a&gt;环境准备&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;安装node.js,npm,git&lt;br&gt;&lt;code&gt;sudo apt-get install nodejs&lt;/code&gt;&lt;br&gt;&lt;code&gt;sudo apt-get install git&lt;/code&gt;&lt;br&gt; 这里推荐使用 &lt;a href=&quot;https://github.com/creationix/nvm#install-script&quot;&gt;nvm&lt;/a&gt; 安装 nodejs  &lt;a href=&quot;https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server#how-to-install-using-nvm&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
 
-    <div id="header" class="header">
-      <div class="header-inner">
-        <h1 class="site-meta">
-  <span class="logo-line-before"><i></i></span>
-  <a href="/" class="brand">
-      <span class="logo">
-        <i class="icon-logo"></i>
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境准备"><span class="toc-number">1.</span> <span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo设置"><span class="toc-number">2.</span> <span class="toc-text">hexo设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用github备份博客"><span class="toc-number">3.</span> <span class="toc-text">用github备份博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo-主题使用"><span class="toc-number">4.</span> <span class="toc-text">Hexo 主题使用</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Hexo搭建博客笔记
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Manue1's blog</span>
       </span>
-      <span class="site-title">Manue1's blog</span>
-  </a>
-  <span class="logo-line-after"><i></i></span>
-</h1>
-
-
-  <ul id="menu" class="menu">
-     
-    <!--增加swiftype搜索功能-->
-    <form class="menu-item menu-item-search">
-      <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
-    </form>
-    
-    <script type="text/javascript">
-      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-      _st('install','apqscvSKs5t2azRkar11','2.0.0');
-    </script>
-    <!--增加swiftype搜索功能end-->
-    
-    
       
-      <li class="menu-item menu-item-home">
-        <a href="/">
-          <i class="menu-item-icon icon-home"></i> <br />
-          首页
-        </a>
-      </li>
-    
-      
-      <li class="menu-item menu-item-categories">
-        <a href="/categories">
-          <i class="menu-item-icon icon-categories"></i> <br />
-          分类
-        </a>
-      </li>
-    
-      
-      <li class="menu-item menu-item-archives">
-        <a href="/archives">
-          <i class="menu-item-icon icon-archives"></i> <br />
-          归档
-        </a>
-      </li>
-    
-      
-      <li class="menu-item menu-item-tags">
-        <a href="/tags">
-          <i class="menu-item-icon icon-tags"></i> <br />
-          标签
-        </a>
-      </li>
-    
-  </ul>
-
-
-      </div>
+    <div class="postdate">
+        <time datetime="2016-01-11T01:01:25.000Z" itemprop="datePublished">2016-01-10</time>
     </div>
 
-    <div id="main" class="main">
-      <div class="main-inner">
-        <div id="content" class="content">
-          
-
-  <div id="posts" class="posts-expand">
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
 
       
-      
-        <h1 class="post-title">
-          
-          
-            
-              Hexo搭建博客笔记
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2016-01-10
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/Configure/">Configure</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2016/01/10/Hexo搭建博客笔记/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/10/Hexo搭建博客笔记/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/hexo/">hexo</a>
     </div>
 
-    <div class="post-body">
 
-      
-      
+    </div>
+  </header>
+  
 
-      
-        <p>对于个人的博客,我自己的定位需求,其实主要还是方便以后查看,作为一个内容的展示平台,并不需要多少花哨的渲染,相比而言hexo使用markdown,完美支持我自己的需求,ok下面记录下我ubuntu下的配置方式,避免后续环境迁移再折腾.<br>在这里平时可以将public目录上传到个人vps服务器上发布,利用git托管也是很不错的选择,master存放静态文件,分支存放hexo源文件.</p>
+  <div class="content" itemprop="articleBody">
+    <p>对于个人的博客,我自己的定位需求,其实主要还是方便以后查看,作为一个内容的展示平台,并不需要多少花哨的渲染,相比而言hexo使用markdown,完美支持我自己的需求,ok下面记录下我ubuntu下的配置方式,避免后续环境迁移再折腾.<br>在这里平时可以将public目录上传到个人vps服务器上发布,利用git托管也是很不错的选择,master存放静态文件,分支存放hexo源文件.</p>
 <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ol>
 <li><p>安装node.js,npm,git<br><code>sudo apt-get install nodejs</code><br><code>sudo apt-get install git</code><br> 这里推荐使用 <a href="https://github.com/creationix/nvm#install-script" target="_blank" rel="external">nvm</a> 安装 nodejs  <a href="https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server#how-to-install-using-nvm" target="_blank" rel="external">参考</a></p>
  <a id="more"></a>
@@ -239,392 +198,101 @@
 </li>
 </ol>
 
-      
-    </div>
-
-    <div class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/hexo/"> #hexo </a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/01/10/博客初衷/">博客初衷</a>
-            
-          </div>
-
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </div>
   </div>
+</article>
 
 
 
+    </div>
     
-      <div class="comments" id="comments">
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/Nanue1">Projects</a></li>
         
-          <div class="ds-thread" data-thread-key="2016/01/10/Hexo搭建博客笔记/"
-               data-title="Hexo搭建博客笔记" data-url="http://yoursite.com/2016/01/10/Hexo搭建博客笔记/">
-          </div>
-        
-      </div>
-    
-  </div>
-
-
-        </div>
-
-        
-      </div>
-
-
-      
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+      </ul>
     </div>
-  </div>
 
-  <div id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <div class="site-overview">
-        <div class="site-author motion-element">
-          <img class="site-author-image" src="https://avatars2.githubusercontent.com/u/12669211?v=3&s=460" alt="Nanue1" />
-          <p class="site-author-name">Nanue1</p>
-        </div>
-        <p class="site-description motion-element">你跟，或者不跟我，我的手就在你手里  	不舍 不弃</p>
-        <div class="site-state motion-element">
-          <div class="site-state-item site-state-posts">
-            <a href="/archives">
-              <span class="site-state-item-count">2</span>
-              <span class="site-state-item-name">日志</span>
-            </a>
-          </div>
-
-          <div class="site-state-item site-state-categories">
-            <a href="/categories">
-              <span class="site-state-item-count">1</span>
-              <span class="site-state-item-name">分类</span>
-              </a>
-          </div>
-
-          <div class="site-state-item site-state-tags">
-            <a href="/tags">
-              <span class="site-state-item-count">2</span>
-              <span class="site-state-item-name">标签</span>
-              </a>
-          </div>
-
-        </div>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-              <a href="https://github.com/Nanue1" target="_blank">GitHub</a>
-            </span>
-            
-              <span class="links-of-author-item">
-              <a href="http://weibo.com/Nanue1" target="_blank">Weibo</a>
-            </span>
-            
-              <span class="links-of-author-item">
-              <a href="http://www.douban.com/people/manue1" target="_blank">DouBan</a>
-            </span>
-            
-              <span class="links-of-author-item">
-              <a href="http://www.zhihu.com/people/Nanue1" target="_blank">ZhiHu</a>
-            </span>
-            
-          
-        </div>
-
-        
-        
-          <div class="cc-license motion-element">
-            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
-              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
-            </a>
-          </div>
-        
-
-      </div>
-
-      
-        <div class="post-toc-wrap sidebar-panel-active">
-          <div class="post-toc-indicator-top post-toc-indicator"></div>
-          <div class="post-toc">
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo设置"><span class="nav-number">2.</span> <span class="nav-text">hexo设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用github备份博客"><span class="nav-number">3.</span> <span class="nav-text">用github备份博客</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo-主题使用"><span class="nav-number">4.</span> <span class="nav-text">Hexo 主题使用</span></a></li></ol></div>
-            
-          </div>
-          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
-        </div>
-      
-
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境准备"><span class="toc-number">1.</span> <span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo设置"><span class="toc-number">2.</span> <span class="toc-text">hexo设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用github备份博客"><span class="toc-number">3.</span> <span class="toc-text">用github备份博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo-主题使用"><span class="toc-number">4.</span> <span class="toc-text">Hexo 主题使用</span></a></li></ol>
     </div>
-  </div>
 
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2016/01/10/Hexo搭建博客笔记/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2016/01/10/Hexo搭建博客笔记/&text=Hexo搭建博客笔记"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2016/01/10/Hexo搭建博客笔记/&title=Hexo搭建博客笔记"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2016/01/10/Hexo搭建博客笔记/&is_video=false&description=Hexo搭建博客笔记"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Hexo搭建博客笔记&body=Check out this article: http://yoursite.com/2016/01/10/Hexo搭建博客笔记/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2016/01/10/Hexo搭建博客笔记/&title=Hexo搭建博客笔记"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2016/01/10/Hexo搭建博客笔记/&title=Hexo搭建博客笔记"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2016/01/10/Hexo搭建博客笔记/&title=Hexo搭建博客笔记"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2016/01/10/Hexo搭建博客笔记/&title=Hexo搭建博客笔记"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2016/01/10/Hexo搭建博客笔记/&name=Hexo搭建博客笔记&description=&lt;p&gt;对于个人的博客,我自己的定位需求,其实主要还是方便以后查看,作为一个内容的展示平台,并不需要多少花哨的渲染,相比而言hexo使用markdown,完美支持我自己的需求,ok下面记录下我ubuntu下的配置方式,避免后续环境迁移再折腾.&lt;br&gt;在这里平时可以将public目录上传到个人vps服务器上发布,利用git托管也是很不错的选择,master存放静态文件,分支存放hexo源文件.&lt;/p&gt;
+&lt;h2 id=&quot;环境准备&quot;&gt;&lt;a href=&quot;#环境准备&quot; class=&quot;headerlink&quot; title=&quot;环境准备&quot;&gt;&lt;/a&gt;环境准备&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;安装node.js,npm,git&lt;br&gt;&lt;code&gt;sudo apt-get install nodejs&lt;/code&gt;&lt;br&gt;&lt;code&gt;sudo apt-get install git&lt;/code&gt;&lt;br&gt; 这里推荐使用 &lt;a href=&quot;https://github.com/creationix/nvm#install-script&quot;&gt;nvm&lt;/a&gt; 安装 nodejs  &lt;a href=&quot;https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server#how-to-install-using-nvm&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
 
     </div>
 
-    <div id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">
-  
-  &copy; &nbsp;  2015 - 
-  2017
-  <span class="with-love">
-    <i class="icon-heart"></i>
-  </span>
-  <span class="author">Nanue1</span>
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
 </div>
 
-<div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
-  </a>
-</div>
-
-
-
-      </div>
-    </div>
-
-    <div class="back-to-top"></div>
-  </div>
-
-  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
-
-  
-  
-
-  
-  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
-  <script type="text/javascript" src="/js/fancy-box.js"></script>
-
-
-  <script type="text/javascript" src="/js/helpers.js"></script>
-  
-
-  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
-  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
-
-  <script type="text/javascript" src="/js/motion_global.js" id="motion.global"></script>
-
-
-
-
-  
-  
-<script type="text/javascript" src="/js/bootstrap.scrollspy.js" id="bootstrap.scrollspy.custom"></script>
-
-
-<script type="text/javascript" id="sidebar.toc.highlight">
-  $(document).ready(function () {
-    var tocSelector = '.post-toc';
-    var $tocSelector = $(tocSelector);
-    var activeCurrentSelector = '.active-current';
-
-    $tocSelector
-      .on('activate.bs.scrollspy', function () {
-        var $currentActiveElement = $(tocSelector + ' .active').last();
-
-        removeCurrentActiveClass();
-        $currentActiveElement.addClass('active-current');
-
-        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
-      })
-      .on('clear.bs.scrollspy', function () {
-        removeCurrentActiveClass();
-      });
-
-    function removeCurrentActiveClass () {
-      $(tocSelector + ' ' + activeCurrentSelector)
-        .removeClass(activeCurrentSelector.substring(1));
-    }
-
-    function processTOC () {
-      getTOCMaxHeight();
-      toggleTOCOverflowIndicators();
-    }
-
-    function getTOCMaxHeight () {
-      var $sidebarInner = $('.sidebar-inner');
-      var height = $('.sidebar').height() -
-                   $tocSelector.position().top -
-                   $('.post-toc-indicator-bottom').height();
-
-      $tocSelector.css('height', height);
-
-      return height;
-    }
-
-    function toggleTOCOverflowIndicators () {
-      tocOverflowIndicator(
-        '.post-toc-indicator-top',
-        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
-      );
-
-      tocOverflowIndicator(
-        '.post-toc-indicator-bottom',
-        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
-      )
-    }
-
-    $(document).on('sidebar.didShow', function () {
-      processTOC();
-    });
-
-    $('body').scrollspy({ target: tocSelector });
-    $(window).on('resize', function () {
-      if ( $('.sidebar').hasClass('sidebar-active') ) {
-        processTOC();
-      }
-    });
-
-    onScroll($tocSelector);
-
-    function onScroll (element) {
-      element.on('mousewheel DOMMouseScroll', function (event) {
-          var oe = event.originalEvent;
-          var delta = oe.wheelDelta || -oe.detail;
-          var self = this;
-
-          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
-          event.preventDefault();
-
-          toggleTOCOverflowIndicators();
-      });
-    }
-
-    function tocOverflowIndicator (indicator, action) {
-      $(indicator).velocity('stop').velocity({
-        opacity: action === 'show' ? 0.4 : 0
-      }, { duration: 100 });
-    }
-
-  });
-</script>
-
-
-  <script type="text/javascript" id="sidebar.nav">
-    $(document).ready(function () {
-      var html = $('html');
-
-      $('.sidebar-nav li').on('click', function () {
-        var item = $(this);
-        var activeTabClassName = 'sidebar-nav-active';
-        var activePanelClassName = 'sidebar-panel-active';
-        if (item.hasClass(activeTabClassName)) {
-          return;
-        }
-
-        var currentTarget = $('.' + activePanelClassName);
-        var target = $('.' + item.data('target'));
-
-        currentTarget.velocity('transition.slideUpOut', 200, function () {
-          target
-            .velocity('stop')
-            .velocity('transition.slideDownIn', 200)
-            .addClass(activePanelClassName);
-        });
-
-        item.siblings().removeClass(activeTabClassName);
-        item.addClass(activeTabClassName);
-      });
-
-      $('.post-toc a').on('click', function (e) {
-        e.preventDefault();
-        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
-        html.velocity('stop').velocity('scroll', {
-          offset: offset  + 'px',
-          mobileHA: false
-        });
-      });
-
-      // Expand sidebar on post detail page by default, when post has a toc.
-      var $tocContent = $('.post-toc-content');
-      if (isDesktop() && CONFIG.sidebar === 'post') {
-        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
-          displaySidebar();
-        }
-      }
-    });
-  </script>
-
-
-
-
-  <script type="text/javascript">
-    $(document).ready(function () {
-      if (CONFIG.sidebar === 'always') {
-        displaySidebar();
-      }
-    });
-  </script>
-
-  
-
-  
-  
-
-  
     
-  
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2017 Nanue1
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/Nanue1">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
 
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"nanue1"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
+    <script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
 
-  
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
 
+<!-- Disqus Comments -->
 
-  
-  
 
 </body>
 </html>
