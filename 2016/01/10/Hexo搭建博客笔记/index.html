@@ -16,7 +16,7 @@
 <meta property="og:description" content="对于个人的博客,我自己的定位需求,其实主要还是方便以后查看,作为一个内容的展示平台,并不需要多少花哨的渲染,相比而言hexo使用markdown,完美支持我自己的需求,ok下面记录下我ubuntu下的配置方式,避免后续环境迁移再折腾.在这里平时可以将public目录上传到个人vps服务器上发布,利用git托管也是很不错的选择,master存放静态文件,分支存放hexo源文件.
 环境准备
 安装nod">
-<meta property="og:updated_time" content="2017-02-18T17:02:27.897Z">
+<meta property="og:updated_time" content="2017-02-18T18:52:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo搭建博客笔记">
 <meta name="twitter:description" content="对于个人的博客,我自己的定位需求,其实主要还是方便以后查看,作为一个内容的展示平台,并不需要多少花哨的渲染,相比而言hexo使用markdown,完美支持我自己的需求,ok下面记录下我ubuntu下的配置方式,避免后续环境迁移再折腾.在这里平时可以将public目录上传到个人vps服务器上发布,利用git托管也是很不错的选择,master存放静态文件,分支存放hexo源文件.
@@ -187,15 +187,13 @@
 </li>
 </ul>
 </li>
-<li><p><a href="http://rongjih.blog.163.com/blog/static/335744612010112562833316/" target="_blank" rel="external">使用备份的仓库</a><br>  <code>git clone url -b SRC150604 new_name</code> </p>
+<li><p><a href="http://rongjih.blog.163.com/blog/static/335744612010112562833316/" target="_blank" rel="external">使用备份的仓库</a><br><code>git clone url -b SRC150604 new_name</code> </p>
 </li>
 </ol>
 <h2 id="Hexo-主题使用"><a href="#Hexo-主题使用" class="headerlink" title="Hexo 主题使用"></a>Hexo 主题使用</h2><ol>
 <li>文章开头<br> <code>title: Git_Base</code><br> <code>date: 2015-06-04 19:15:23</code><br> <code>tags: Hexo</code><br> <code>categories: Configure</code><br> <code>---</code></li>
-<li>主题<br><a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="external">NexT主题</a></li>
-<li><p>categories和tags 找不到</p>
-<p><code>hexo new page categories</code><br><code>hexo new page tags</code><br><code>vim source/tags/index.md</code><br><code>add line: type: &quot;tags&quot;</code><br><code>vim source/categories/index.md</code><br><code>add line: type: &quot;categories&quot;</code><br><code>git pull</code></p>
-</li>
+<li>主题<br><a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="external">NexT主题</a><br><a href="https://github.com/probberechts/cactus-dark#configuration" target="_blank" rel="external">Cactus Dark</a></li>
+<li>categories和tags 找不到<br><code>hexo new page categories</code><br><code>hexo new page tags</code><br><code>vim source/tags/index.md</code><br><code>add line: type: &quot;tags&quot;</code><br><code>vim source/categories/index.md</code><br><code>add line: type: &quot;categories&quot;</code><br><code>git pull</code></li>
 </ol>
 
   </div>
