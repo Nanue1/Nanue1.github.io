@@ -233,6 +233,17 @@
         </span>
 
         
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/Configure/">Configure</a>
+
+              
+              
+
+            
+          </span>
+        
 
         
           
@@ -254,11 +265,9 @@
 
       
         
-          <p>用Markdown写点文档笔记,Node.js写的hexo完美的将md格式的<br>文章转化为html,本地ubuntu搭建hexo环境发布文章后,将public的目<br>录上传到个人vps上发布,利用git托管本地文章,以作备份</p>
-<h3 id="0x01-环境搭建"><a href="#0x01-环境搭建" class="headerlink" title="0x01 环境搭建"></a>0x01 环境搭建</h3><ol>
-<li>安装node.js,npm,git<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install nodejs</div><div class="line"> 推荐使用nvm安装nodejs  </div><div class="line"> https://github.com/creationix/nvm#install-script</div><div class="line"> https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server#how-to-install-using-nvm</div><div class="line">sudo apt-get install npm</div><div class="line">sudo apt-get install git git-gui</div></pre></td></tr></table></figure>
-</code></pre></li>
-</ol>
+          <p>对于个人的博客,我自己的定位需求,其实主要还是方便以后查看,作为一个内容的展示平台,并不需要多少花哨的渲染,相比而言hexo使用markdown,完美支持我自己的需求,ok下面记录下我ubuntu下的配置方式,避免后续环境迁移再折腾.<br>在这里平时可以将public目录上传到个人vps服务器上发布,利用git托管也是很不错的选择,master存放静态文件,分支存放hexo源文件.</p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ol>
+<li><p>安装node.js,npm,git<br><code>sudo apt-get install nodejs</code><br><code>sudo apt-get install git</code><br> 这里推荐使用 <a href="https://github.com/creationix/nvm#install-script">nvm</a> 安装 nodejs  <a href="https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server#how-to-install-using-nvm">参考</a></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/01/10/Hexo搭建博客笔记/#more">
               阅读全文 &raquo;
@@ -323,7 +332,7 @@
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-count">1</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
