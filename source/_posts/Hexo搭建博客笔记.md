@@ -1,7 +1,6 @@
 title: Hexo搭建博客笔记
 date: 2016-01-10 16:01:25
 tags: hexo
-categories: Configure
 
 ---
 
@@ -73,7 +72,7 @@ categories: Configure
       `git add -A`
 
 2.  [使用备份的仓库](http://rongjih.blog.163.com/blog/static/335744612010112562833316/)
-      `git clone url -b SRC150604 new_name` 
+    `git clone url -b SRC150604 new_name` 
 
 ## Hexo 主题使用
 
@@ -85,8 +84,8 @@ categories: Configure
     `---`
 2. 主题
    [NexT主题]( https://github.com/iissnan/hexo-theme-next)
+   [Cactus Dark](https://github.com/probberechts/cactus-dark#configuration)
 3. categories和tags 找不到
-
    `hexo new page categories`
    `hexo new page tags`
    `vim source/tags/index.md `
