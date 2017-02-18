@@ -16,7 +16,7 @@
 <meta property="og:description" content="对于个人的博客,我自己的定位需求,其实主要还是方便以后查看,作为一个内容的展示平台,并不需要多少花哨的渲染,相比而言hexo使用markdown,完美支持我自己的需求,ok下面记录下我ubuntu下的配置方式,避免后续环境迁移再折腾.在这里平时可以将public目录上传到个人vps服务器上发布,利用git托管也是很不错的选择,master存放静态文件,分支存放hexo源文件.
 环境准备
 安装nod">
-<meta property="og:updated_time" content="2017-02-18T12:20:56.000Z">
+<meta property="og:updated_time" content="2017-02-18T17:02:27.897Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo搭建博客笔记">
 <meta name="twitter:description" content="对于个人的博客,我自己的定位需求,其实主要还是方便以后查看,作为一个内容的展示平台,并不需要多少花哨的渲染,相比而言hexo使用markdown,完美支持我自己的需求,ok下面记录下我ubuntu下的配置方式,避免后续环境迁移再折腾.在这里平时可以将public目录上传到个人vps服务器上发布,利用git托管也是很不错的选择,master存放静态文件,分支存放hexo源文件.
@@ -67,10 +67,6 @@
           <li><a href="/">Home</a></li>
          
           <li><a href="/about/">About</a></li>
-         
-          <li><a href="/tags/">Tags</a></li>
-         
-          <li><a href="/categories/">Categories</a></li>
          
           <li><a href="/archives/">Writing</a></li>
          
@@ -205,6 +201,12 @@
   </div>
 </article>
 
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
+
 
 
     </div>
@@ -218,10 +220,6 @@
           <li><a href="/">Home</a></li>
          
           <li><a href="/about/">About</a></li>
-         
-          <li><a href="/tags/">Tags</a></li>
-         
-          <li><a href="/categories/">Categories</a></li>
          
           <li><a href="/archives/">Writing</a></li>
          
@@ -277,10 +275,6 @@
          
           <li><a href="/about/">About</a></li>
          
-          <li><a href="/tags/">Tags</a></li>
-         
-          <li><a href="/categories/">Categories</a></li>
-         
           <li><a href="/archives/">Writing</a></li>
          
           <li><a href="https://github.com/Nanue1">Projects</a></li>
@@ -299,11 +293,23 @@
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-86660611-1', 'auto');
+        ga('create', 'UA-92179266-1', 'auto');
         ga('send', 'pageview');
     </script>
 
 <!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'manue1_git';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
 
 
 </body>
