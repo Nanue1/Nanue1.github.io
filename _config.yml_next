@@ -4,11 +4,15 @@
 
 # Site
 title: Manue1's blog
-#subtitle: 你跟，或者不跟我，我的手就在你手里，不舍 不弃
-description: 你跟，或者不跟我，我的手就在你手里  <br>不舍 不弃
+subtitle: 你跟，或者不跟我，我的手就在你手里，不舍 不弃
+description: 	 你跟，或者不跟我，我的手就在你手里  	不舍 不弃
 author: Nanue1
 language: zh-Hans
 timezone:
+
+
+
+swiftype_key: apqscvSKs5t2azRkar11
 
 # URL 土豪专用域名
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -65,8 +69,52 @@ pagination_dir: page
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: cactus-dar
+theme: next
 
+# =============================================================================
+# NexT Theme configuration
+# =============================================================================
+
+avatar: https://avatars2.githubusercontent.com/u/12669211?v=3&s=460
+
+# Duoshuo
+duoshuo_shortname: nanue1
+
+# Disqus
+#disqus_shortname: 
+
+# Social links
+social:
+  GitHub: https://github.com/Nanue1
+  Weibo: http://weibo.com/Nanue1
+  DouBan: http://www.douban.com/people/manue1
+  ZhiHu: http://www.zhihu.com/people/Nanue1
+ # manue1: http://manue1.com/
+
+# Creative Commons 4.0 International License.
+# http://creativecommons.org/
+# Available: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero
+creative_commons: by-nc-sa
+
+# Google Webmaster tools verification setting
+# See: https://www.google.com/webmasters/
+google_site_verification: VvyjvVXcJQa0QklHipu6pwm2PJGnnchIqX7s5JbbT_0
+
+
+# Google Analytics
+# Google分析ID
+google_analytics:
+
+
+# 百度分析ID
+baidu_analytics: bb0ad85433961b909a06c7e67cc31157
+
+# Specify the date when the site was setup
+since: 2015
+
+# =============================================================================
+# End NexT Theme configuration
+# =============================================================================
 
 search:
   path: search.xml
