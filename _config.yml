@@ -77,10 +77,13 @@ search:
 #deploy:
 #  type: git
 #  repository: https://github.com/Nanue1/Nanue1.github.io.git
+#deploy:
+#    type: git  # 注意git前面的空格
+#    repository: git@github.com:Nanue1/Nanue1.github.io.git 
+#    branch: master
 deploy:
-       type: git  # 注意git前面的空格
-    			#   repository: https://github.com/Nanue1/Nanue1.github.io.git 
-       repository: git@github.com:Nanue1/Nanue1.github.io.git 
-#  repo: git@github.com:Nanue1/Nanue1.github.io.git
-     			#  repo: https://github.com/Nanue1/Nanue1.github.io.git
-       branch: master
+    type: rsync
+    host: 160.16.126.136 # 这里填写你VPS的IP地址，比如：138.23.23.23
+    user: manue1         # 这里填写你登陆VPS所用的用户名，比如：root
+    root: /home/manue1/hexo
+    port: 22             # SSH默认端口号，不需要修改

@@ -1,5 +1,5 @@
 title: Hexo搭建博客笔记
-date: 2016-01-10 16:01:25
+date: 2015-08-21 16:01:25
 tags: hexo
 
 ---
@@ -93,4 +93,55 @@ tags: hexo
    `vim source/categories/index.md`
    `add line: type: "categories" `
    `git pull`
+
+##  [Hexo部署到VPS](http://atomlx.com/2016/08/12/test/#more)
+
+将Hexo在本地通过 `hexo generate` 生成静态文件，在通过 `hexo deploy` 部署到VPS上面，使用Nginx直接做Web服务器.网上有两种做法:git部署和rsync部署,由于我前面部署到github上使用了git,这里部署到VPS就选择rsync,各取所需.
+
+1. Nginx 部署
+- nginx install
+  ` apt-get install nginx`
+
+- nginx config
+  `cp /etc/nginx/sites-available/default /etc/nginx/sites-available/hexo`
+  `vi /etc/nginx/sites-available/hexo`
+
+  配置文件内容
+  ```json
+  server {
+         	listen 80 default_server; 		 # 服务器配置端口，不修改
+         	listen [::]:80 default_server;
+         	root /home/manue1/hexo;  # 文件路径，改成你需要设置的路径
+         	# Add index.php to the list if you are using PHP
+         	index index.html index.htm index.nginx-debian.html;
+         	server_name manue1.site www.manue1.site *.manue1.site; 
+    		# 域名配置，可以按照我设置的方式进行设置，记得还需要配置域名解析
+         	location / {
+         		# First attempt to serve request as file, then
+         		# as directory, then fall back to displaying a 404.
+         		try_files $uri $uri/ =404;
+  }
+  ```
+  `rm /etc/nginx/sites-enabled/default`
+  `ln -s /etc/nginx/sites-available/hexo /etc/nginx/sites-enabled/`
+
+- 重启nginx
+
+  `sudo  service nginx restart`
+
+2. rsync部署Hexo
+- 安装rsync
+  `apt-get install rsync #本地-服务端 默认系统自带`
+  `npm install hexo-deployer-rsync --save  #本地Hexo配置`
+- 本地Hexo _config.xml配置
+```json
+deploy:
+  type: rsync
+  host: vps-ip  		 # 这里填写你VPS的IP地址，比如：202.201.112.98
+  user: vps-user 		# 这里填写你登陆VPS所用的用户名，比如：manue1
+  root: /home/manue1/hexo  # 这里填写你在nginx中配置的文件路径
+  port: 22 				# SSH默认端口号，不需要修改
+```
+- 更新文章
+  `hexo generate && hexo deploy`
 
