@@ -24,4 +24,4 @@ date: 2017-02-18 06:13:05
 - 数据爬虫(scrapy)
 
 菜鸡成长记:
-- 持续更新ing
+- [持续更新ing](http://www.manue1.site/about/note-gtd.html)
