@@ -11,3 +11,4 @@ hexo 博客使用日志
 - github 子分支 备份 hexo 原始md文件
 - github 主分支 部署 hexo 博客静态文件(no vps,no domain)
 - 本地hexo项目采用rsync直接部署到nginx服务器,备份还是采用github 
+- use  emacs org-mode  edit personal gtd
