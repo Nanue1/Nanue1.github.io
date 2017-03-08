@@ -10,7 +10,8 @@ if os.path.exists(arg_path):
     os.system(hexo)
 else:
     print "not-gtd.html not exist!"
-
+    hexo = 'hexo g && hexo d' 
+    os.system(hexo)
 
 int_t = int(time.time())
 cmd = "git add . && git commit -m '%d' && git push " % int_t
