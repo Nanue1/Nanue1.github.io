@@ -1,12 +1,17 @@
  [
     {
+       "name":"xichidaili",
+       "url":"https://github.com/Nanue1/xicidaili",
+       "desc":"爬取xici代理作为代理IP使用"
+    },
+    {
+       "name":"loginzhihu",
+       "url":"https://github.com/Nanue1/loginzhihu",
+       "desc":"登录知乎,爬取图片补充表情包"
+    },
+    {
        "name":"hexo blog",
        "url":"https://github.com/Nanue1/Nanue1.github.io/tree/master",
        "desc":"This is a static blog for personal gtd"
     },
-    {
-       "name":"data_crawl",
-       "url":"https://github.com/Nanue1/data_crawl",
-       "desc":"There are some scrapy crawler"
-    }
   ]
