@@ -2,7 +2,7 @@ import os
 import time
 arg_path = '/home/manue1/github/note/note-gtd.html'
 target_path = '/home/manue1/github/blog/source/about/'
-post_path = '/home/manue1/github/blog/source/_post/'
+post_path = '/home/manue1/github/blog/source/_posts/'
 if os.path.exists(arg_path):
     cmd = 'mv %s %s -f' % (arg_path,target_path)
     s = os.system(cmd)
