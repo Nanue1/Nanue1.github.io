@@ -10,7 +10,7 @@ if os.path.exists(arg_path):
 else:
     print "not-gtd.html not exist!"
 
-html = 'mv *.html %s -f' % post_path
+html = 'mv /home/manue1/github/note/*.html %s -f' % post_path
 h = os.system(html)
 print "copy html status: %s" % str(h)
 
