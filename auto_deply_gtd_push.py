@@ -1,18 +1,26 @@
 import os
 import time
-arg_path = '/home/manue1/github/note/note-gtd.html'
+arg_path = '/home/manue1/github/note/'
 target_path = '/home/manue1/github/blog/source/about/'
 post_path = '/home/manue1/github/blog/source/_posts/'
-if os.path.exists(arg_path):
-    cmd = 'mv %s %s -f' % (arg_path,target_path)
-    s = os.system(cmd)
-    print "copy not-gtd.html  status: %s" % str(s)
-else:
-    print "not-gtd.html not exist!"
-
-html = 'mv /home/manue1/github/note/*.html %s -f' % post_path
-h = os.system(html)
-print "copy html status: %s" % str(h)
+for s in os.listdir(arg_path):
+    mv_path = arg_path + s
+    if s == 'note-gtd.html' :
+        cmd = 'mv %s %s -f' % (mv_path,target_path)
+        s = os.system(cmd)
+        print "copy not-gtd.html  status: %s" % str(s)
+    if 'html' in s :
+        cat_path = post_path + s 
+        c1 = "echo 'title: %s' >> %s" % (s.split(".")[0],cat_path)
+        c2 = "echo '---' >> %s " % cat_path
+        print c1,c2
+        os.system(c1)
+        os.system(c2)
+        cmd = 'cat %s >> %s -f' % (mv_path,cat_path)
+        s = os.system(cmd)
+        print "cat html status: %s" % str(s)
+    else:
+        pass
 
 
 hexo = 'hexo g && hexo d' 
