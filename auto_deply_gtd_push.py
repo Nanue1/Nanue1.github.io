@@ -14,8 +14,8 @@ for s in os.listdir(arg_path):
         if os.path.exists(cat_path):
             c = "rm %s -f" % cat_path
             os.system(c)
-        c1 = "echo 'title: %s \n' >> %s" % (s.split(".")[0],cat_path)
-        c2 = "echo '--- \n' >> %s " % cat_path
+        c1 = "echo 'title: %s' >> %s" % (s.split(".")[0],cat_path)
+        c2 = "echo '---\n' >> %s " % cat_path
         print c1,c2
         os.system(c1)
         os.system(c2)
