@@ -1,2 +1,444 @@
 title: emacs-key
 ---
+title: emacs-key
+---
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>emacs-key</title>
+<!-- 2017-06-04 Sun 09:09 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="manue1" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">emacs-key</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. keybinding</a>
+<ul>
+<li><a href="#sec-1-1">1.1. ,bindings</a></li>
+<li><a href="#sec-1-2">1.2. SPC BinD</a></li>
+<li><a href="#sec-1-3">1.3. ; Bind</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> keybinding</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> ,bindings</h3>
+<div class="outline-text-3" id="text-1-1">
+<pre class="example">
+"=" 'increase-default-font-height ; GUI emacs only
+"-" 'decrease-default-font-height ; GUI emacs only
+"bf" 'beginning-of-defun
+"bu" 'backward-up-list
+"bb" 'back-to-previous-buffer
+"ef" 'end-of-defun
+"mf" 'mark-defun
+"em" 'erase-message-buffer
+"eb" 'eval-buffer
+"sd" 'sudo-edit
+"sc" 'shell-command
+"ee" 'eval-expression
+"aa" 'copy-to-x-clipboard ; used frequently
+"aw" 'ace-swap-window
+"af" 'ace-maximize-window
+"zz" 'paste-from-x-clipboard ; used frequently
+"cy" 'strip-convert-lines-into-one-big-string
+"bs" '(lambda () (interactive) (goto-edge-by-comparing-font-face -1))
+"es" 'goto-edge-by-comparing-font-face
+"ntt" 'neotree-toggle
+"ntf" 'neotree-find ; open file in current buffer in neotree
+"ntd" 'neotree-project-dir
+"nth" 'neotree-hide
+"nts" 'neotree-show
+"fl" 'cp-filename-line-number-of-current-buffer
+"fn" 'cp-filename-of-current-buffer
+"fp" 'cp-fullpath-of-current-buffer
+"dj" 'dired-jump ;; open the dired from current file
+"ff" 'toggle-full-window ;; I use WIN+F in i3
+"ip" 'find-file-in-project
+"kk" 'find-file-in-project-by-selected
+"fd" 'find-directory-in-project-by-selected
+"trm" 'get-term
+"tff" 'toggle-frame-fullscreen
+"tfm" 'toggle-frame-maximized
+"ti" 'fastdef-insert
+"th" 'fastdef-insert-from-history
+;; "ci" 'evilnc-comment-or-uncomment-lines
+;; "cl" 'evilnc-comment-or-uncomment-to-the-line
+;; "cc" 'evilnc-copy-and-comment-lines
+;; "cp" 'evilnc-comment-or-uncomment-paragraphs
+"epy" 'emmet-expand-yas
+"epl" 'emmet-expand-line
+"rd" 'evilmr-replace-in-defun
+"rb" 'evilmr-replace-in-buffer
+"tt" 'evilmr-tag-selected-region ;; recommended
+"rt" 'evilmr-replace-in-tagged-region ;; recommended
+"tua" 'artbollocks-mode
+"cby" 'cb-switch-between-controller-and-view
+"cbu" 'cb-get-url-from-controller
+"ht" 'etags-select-find-tag-at-point ; better than find-tag C-]
+"hp" 'etags-select-find-tag
+"mm" 'counsel-bookmark-goto
+"mk" 'bookmark-set
+"yy" 'browse-kill-ring
+"gf" 'counsel-git-find-file
+"gc" 'counsel-git-find-file-committed-with-line-at-point
+"gl" 'counsel-git-grep-yank-line
+"gg" 'counsel-git-grep ; quickest grep should be easy to press
+"ga" 'counsel-git-grep-by-author
+"gm" 'counsel-git-find-my-file
+"gs" 'counsel-git-show-commit
+"sf" 'counsel-git-show-file
+"df" 'counsel-git-diff-file
+"rjs" 'run-js
+"jsr" 'js-send-region
+"rmz" 'run-mozilla
+"rpy" 'run-python
+"rlu" 'run-lua
+"tci" 'toggle-company-ispell
+"kb" 'kill-buffer-and-window ;; "k" is preserved to replace "C-g"
+"it" 'issue-tracker-increment-issue-id-under-cursor
+"ls" 'highlight-symbol
+"lq" 'highlight-symbol-query-replace
+"ln" 'highlight-symbol-nav-mode ; use M-n/M-p to navigation between symbols
+"bm" 'pomodoro-start ;; beat myself
+"ii" 'counsel-imenu-goto
+"im" 'ido-imenu
+"ij" 'rimenu-jump
+"." 'evil-ex
+;; @see https://github.com/pidu/git-timemachine
+;; p: previous; n: next; w:hash; W:complete hash; g:nth version; q:quit
+"tmt" 'git-timemachine-toggle
+"tdb" 'tidy-buffer
+"tdl" 'tidy-current-line
+;; toggle overview,  @see http://emacs.wordpress.com/2007/01/16/quick-and-dirty-code-folding/
+"ov" 'my-overview-of-current-buffer
+"or" 'open-readme-in-git-root-directory
+"oo" 'compile
+"c$" 'org-archive-subtree ; `C-c $'
+;; org-do-demote/org-do-premote support selected region
+"c&lt;" 'org-do-promote ; `C-c C-&lt;'
+"c&gt;" 'org-do-demote ; `C-c C-&gt;'
+"cam" 'org-tags-view ; `C-c a m': search items in org-file-apps by tag
+"cxi" 'org-clock-in ; `C-c C-x C-i'
+"cxo" 'org-clock-out ; `C-c C-x C-o'
+"cxr" 'org-clock-report ; `C-c C-x C-r'
+"qq" 'my-grep
+"xc" 'save-buffers-kill-terminal
+"rr" 'counsel-recentf-goto
+"rh" 'counsel-yank-bash-history ; bash history command =&gt; yank-ring
+"rf" 'counsel-goto-recent-directory
+"da" 'diff-region-tag-selected-as-a
+"db" 'diff-region-compare-with-b
+"di" 'evilmi-delete-items
+"si" 'evilmi-select-items
+"jb" 'js-beautify
+"jp" 'js2-print-json-path
+"sep" 'string-edit-at-point
+"sec" 'string-edit-conclude
+"sea" 'string-edit-abort
+"xe" 'eval-last-sexp
+"x0" 'delete-window
+"x1" 'delete-other-windows
+"x2" 'split-window-vertically
+"x3" 'split-window-horizontally
+"rw" 'rotate-windows
+"ru" 'undo-tree-save-state-to-register ; C-x r u
+"rU" 'undo-tree-restore-state-from-register ; C-x r U
+"xt" 'toggle-window-split
+"uu" 'winner-undo
+"UU" 'winner-redo
+"to" 'toggle-web-js-offset
+"sl" 'sort-lines
+"ulr" 'uniquify-all-lines-region
+"ulb" 'uniquify-all-lines-buffer
+"lj" 'moz-load-js-file-and-send-it
+"mr" 'moz-console-clear
+"rnr" 'rinari-web-server-restart
+"rnc" 'rinari-find-controller
+"rnv" 'rinari-find-view
+"rna" 'rinari-find-application
+"rnk" 'rinari-rake
+"rnm" 'rinari-find-model
+"rnl" 'rinari-find-log
+"rno" 'rinari-console
+"rnt" 'rinari-find-test
+"ss" 'swiper-the-thing ; http://oremacs.com/2015/03/25/swiper-0.2.0/ for guide
+"hst" 'hs-toggle-fold
+"hsa" 'hs-toggle-fold-all
+"hsh" 'hs-hide-block
+"hss" 'hs-show-block
+"hd" 'describe-function
+"hf" 'find-function
+"hk" 'describe-key
+"hv" 'describe-variable
+"gt" 'ggtags-find-tag-dwim
+"gr" 'ggtags-find-reference
+"fb" 'flyspell-buffer
+"fe" 'flyspell-goto-next-error
+"fa" 'flyspell-auto-correct-word
+"pe" 'flymake-goto-prev-error
+"ne" 'flymake-goto-next-error
+"fw" 'ispell-word
+"bc" '(lambda () (interactive) (wxhelp-browse-class-or-api (thing-at-point 'symbol)))
+"ma" 'mc/mark-all-like-this-in-defun
+"mw" 'mc/mark-all-words-like-this-in-defun
+"ms" 'mc/mark-all-symbols-like-this-in-defun
+;; "opt" is occupied by my-open-project-todo
+;; recommended in html
+"md" 'mc/mark-all-like-this-dwim
+"me" 'mc/edit-lines
+"oag" 'org-agenda
+"otl" 'org-toggle-link-display
+"om" 'toggle-org-or-message-mode
+"ut" 'undo-tree-visualize
+"ar" 'align-regexp
+"wrn" 'httpd-restart-now
+"wrd" 'httpd-restart-at-default-directory
+"bk" 'buf-move-up
+"bj" 'buf-move-down
+"bh" 'buf-move-left
+"bl" 'buf-move-right
+"so" 'sos
+"0" 'select-window-0
+"1" 'select-window-1
+"2" 'select-window-2
+"3" 'select-window-3
+"4" 'select-window-4
+"5" 'select-window-5
+"6" 'select-window-6
+"7" 'select-window-7
+"8" 'select-window-8
+"9" 'select-window-9
+"xm" 'smex
+"xx" 'er/expand-region
+"xf" 'ido-find-file
+"xb" 'ido-switch-buffer
+"xh" 'mark-whole-buffer
+"xk" 'ido-kill-buffer
+"xs" 'save-buffer
+"xz" 'suspend-frame
+"vm" 'vc-rename-file-and-buffer
+"vc" 'vc-copy-file-and-rename-buffer
+"xvv" 'vc-next-action
+"va" 'git-add-current-file
+"xvp" 'git-push-remote-origin
+"xvu" 'git-add-option-update
+"xvg" 'vc-annotate
+"vs" 'git-gutter:stage-hunk
+"vr" 'git-gutter:revert-hunk
+"vl" 'vc-print-log
+"vv" 'git-messenger:popup-message
+"v=" 'git-gutter:popup-hunk
+"hh" 'cliphist-paste-item
+"yu" 'cliphist-select-item
+"nn" 'my-goto-next-hunk
+"pp" 'my-goto-previous-hunk
+"ww" 'narrow-or-widen-dwim
+"xnw" 'widen
+"xnd" 'narrow-to-defun
+"xnr" 'narrow-to-region
+"ycr" 'my-yas-reload-all
+"wf" 'popup-which-function)
+</pre>
+</div>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> SPC BinD</h3>
+<div class="outline-text-3" id="text-1-2">
+<pre class="example">
+"ss" 'wg-create-workgroup ; save windows layout
+"ll" 'my-wg-switch-workgroup ; load windows layout
+"kk" 'scroll-other-window
+"jj" 'scroll-other-window-up
+"yy" 'hydra-launcher/body
+"gs" 'git-gutter:set-start-revision
+"gh" 'git-gutter-reset-to-head-parent
+"gr" 'git-gutter-reset-to-default
+"ud" 'my-gud-gdb
+"uk" 'gud-kill-yes
+"ur" 'gud-remove
+"ub" 'gud-break
+"uu" 'gud-run
+"up" 'gud-print
+"ue" 'gud-cls
+"un" 'gud-next
+"us" 'gud-step
+"ui" 'gud-stepi
+"uc" 'gud-cont
+"uf" 'gud-finish)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> ; Bind</h3>
+<div class="outline-text-3" id="text-1-3">
+<pre class="example">
+";" 'avy-goto-subword-1
+"db" 'sdcv-search-pointer ; in buffer
+"dt" 'sdcv-search-input+ ;; in tip
+"dd" 'my-lookup-dict-org
+"dw" 'define-word
+"dp" 'define-word-at-point
+"mm" 'lookup-doc-in-man
+"gg" 'w3m-google-search
+"gf" 'w3m-google-by-filetype
+"gd" 'w3m-search-financial-dictionary
+"gj" 'w3m-search-js-api-mdn
+"ga" 'w3m-java-search
+"gh" 'w3mext-hacker-search ; code search in all engines with firefox
+"gq" 'w3m-stackoverflow-search
+"mm" 'mpc-which-song
+"mn" 'mpc-next-prev-song
+"mp" '(lambda () (interactive) (mpc-next-prev-song t)))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: manue1</p>
+<p class="date">Created: 2017-06-04 Sun 09:09</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -16,9 +16,12 @@ for s in os.listdir(arg_path):
         print c1,c2
         os.system(c1)
         os.system(c2)
-        cmd = 'cat %s >> %s -f' % (mv_path,cat_path)
+        cmd = 'cat %s >> %s ' % (mv_path,cat_path)
         s = os.system(cmd)
         print "cat html status: %s" % str(s)
+        if s == '0' :
+            c = "rm %s -f" % mv_path
+            os.system(c)
     else:
         pass
 
