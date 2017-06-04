@@ -11,15 +11,15 @@ for s in os.listdir(arg_path):
         print "copy not-gtd.html  status: %s" % str(s)
     if 'html' in s :
         cat_path = post_path + s 
-        c1 = "echo 'title: %s' >> %s" % (s.split(".")[0],cat_path)
-        c2 = "echo '---' >> %s " % cat_path
+        c1 = "echo 'title: %s \n' >> %s" % (s.split(".")[0],cat_path)
+        c2 = "echo '--- \n' >> %s " % cat_path
         print c1,c2
         os.system(c1)
         os.system(c2)
         cmd = 'cat %s >> %s ' % (mv_path,cat_path)
         s = os.system(cmd)
         print "cat html status: %s" % str(s)
-        if s == '0' :
+        if s == 0 :
             c = "rm %s -f" % mv_path
             os.system(c)
     else:
