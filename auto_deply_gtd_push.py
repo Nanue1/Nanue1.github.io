@@ -11,6 +11,9 @@ for s in os.listdir(arg_path):
         print "copy not-gtd.html  status: %s" % str(s)
     if 'html' in s :
         cat_path = post_path + s 
+        if os.path.exists(cat_path):
+            c = "rm %s -f" % cat_path
+            os.system(c)
         c1 = "echo 'title: %s \n' >> %s" % (s.split(".")[0],cat_path)
         c2 = "echo '--- \n' >> %s " % cat_path
         print c1,c2
