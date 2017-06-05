@@ -9,6 +9,7 @@ for s in os.listdir(arg_path):
         cmd = 'mv %s %s -f' % (mv_path,target_path)
         s = os.system(cmd)
         print "copy not-gtd.html  status: %s" % str(s)
+        continue
     if 'html' in s :
         cat_path = post_path + s 
         if os.path.exists(cat_path):
