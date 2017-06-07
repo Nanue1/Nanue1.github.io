@@ -1,4 +1,4 @@
-title: note-threat_intelligence
+title: note-Docker
 ---
 
 <?xml version="1.0" encoding="utf-8"?>
@@ -6,7 +6,7 @@ title: note-threat_intelligence
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>note-threat_intelligence</title>
+<title>note-Docker</title>
 <!-- 2017-06-07 Wed 20:02 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
@@ -140,120 +140,74 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">note-threat_intelligence</h1>
+<h1 class="title">note-Docker</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">1. Threat Intelligence</a>
+<li><a href="#sec-1">1. Docker use note</a>
 <ul>
-<li><a href="#sec-1-1">1.1. CIF</a>
-<ul>
-<li><a href="#sec-1-1-1">1.1.1. Bearded-Avenger install</a></li>
-</ul>
-</li>
+<li><a href="#sec-1-1">1.1. Docker install</a></li>
+<li><a href="#sec-1-2">1.2. Docker command</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1"><span class="section-number-2">1</span> Threat Intelligence</h2>
+<h2 id="sec-1"><span class="section-number-2">1</span> Docker use note</h2>
 <div class="outline-text-2" id="text-1">
 </div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1"><span class="section-number-3">1.1</span> CIF</h3>
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Docker install</h3>
 <div class="outline-text-3" id="text-1-1">
-</div><div id="outline-container-sec-1-1-1" class="outline-4">
-<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> Bearded-Avenger install</h4>
-<div class="outline-text-4" id="text-1-1-1">
-<p>
-<a href="http://csirtgadgets.org/collective-intelligence-framework/">Collective Intelligence Framework</a>:
-</p>
+<ol class="org-ol">
+<li>图解Docker
+<img src="http://7xpyfe.com1.z0.glb.clouddn.com/blog/20170607/115341763.png" alt="115341763.png" />
+</li>
+<li><a href="https://docs.docker.com/engine/installation/">官网文档</a> 有详细说明
+国内网速很慢，采用了阿里云的<a href="https://yq.aliyun.com/articles/7695">镜像源</a>
+<pre class="example">
+curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/intranet | sh -
+</pre>
 
 
 <div class="figure">
-<p><img src="http://7xpyfe.com1.z0.glb.clouddn.com/blog/20170606/160335989.png" alt="160335989.png" />
+<p><img src="http://7xpyfe.com1.z0.glb.clouddn.com/blog/20170607/131800763.png" alt="131800763.png" />
 </p>
 </div>
+</li>
+</ol>
+</div>
+</div>
 
-<p>
-情报收集框架包括：
-</p>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Docker command</h3>
+<div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
-<li>CIF Client
+<li>sudo service docker start/stop
+-sudo docker rmi ventz/cif
+<ul class="org-ul">
+<li>sudo docker images 命令查看本地的镜像列表
 </li>
-<li>CIF-Router
+<li>sudo docker inspect cif 查看指定镜像的详细信息
 </li>
-<li>CIF-Smrt
-</li>
-<li>CIF-Tokens
-</li>
-<li>CIF-Worker
+<li>sudo docker ps -l 查看我们正在运行的容器 -l 最后状态  
+<ul class="org-ul">
+<li>sudo docker exec -it 9121af6cabed /bin/bash
 </li>
 </ul>
-<p>
-<a href="https://github.com/csirtgadgets/massive-octo-spice/wiki/CIF-Architecture-Overview">CIF Architecture Overview:</a>
-</p>
-<p class="verse">
-CIF 设计框架介绍<br  />
-How CIF fetches, parses and normalizes data<br  />
-How CIF post-processes data<br  />
-How CIF stores data<br  />
-How the CIF API allows data to be queried and submitted<br  />
-How CIF permissions data<br  />
-How CIF produces feeds of data<br  />
-</p>
-<p>
-<a href="https://github.com/csirtgadgets/bearded-avenger-deploymentkit/wiki">Bearded-Avenger</a>:
-作为CIF的替代品，bearde-Avenger 安装很容易
-</p>
-<p class="verse">
-$ tar -zxvf bearded-avenger-deploymentkit-3.0.x.tar.gz<br  />
-$ cd bearded-avenger-deploymentkit-3.0.x<br  />
-$ sudo bash easybutton.sh<br  />
-</p>
-<p>
-ubuntu14.04正常安装报错，折腾了半天没时间搞了，官方提供Docker install
-</p>
-<p class="verse">
-&#xa0;&#xa0;&#xa0;&#xa0;$ sudo docker pull csirtgadgets/cif:latest<br  />
-&#xa0;&#xa0;&#xa0;&#xa0;$ sudo docker run &#x2013;name cif -d -p 5000:5000 csirtgadgets/cif<br  />
-docker run &#x2013;name cif2 -d -p 5000:5000 -p 82:80 -p 445:443 -p 4961:4961 -p 4963:4963 warquel/cifv2<sub>docker</sub><br  />
-&#xa0;&#xa0;&#xa0;&#xa0;$ sudo docker ps<br  />
-&#xa0;&#xa0;&#xa0;&#xa0;$ sudo docker exec -it 9121af6cabed /bin/bash<br  />
-</p>
-<p>
-执行cif命令报下面的错误
-</p>
-<pre class="example">
-root@9121af6cabed:/bearded-avenger-3.0.0a13# cif --tags malware --limit 5
-Unable to read /root/.cif.yml config file
-</pre>
-<p>
-先读取cif.yml
-</p>
-<pre class="example">
-CONFIG_PATH = os.environ.get('CIF_CONFIG_PATH', os.path.join(os.getcwd(), 'cif.yml'))
-if not os.path.isfile(CONFIG_PATH):
-    CONFIG_PATH = os.path.join(os.path.expanduser('~'), '.cif.yml')
-</pre>
-<p>
-查看README.md 执行下面语句 CIFv3并不需要参考<a href="https://github.com/csirtgadgets/bearded-avenger-deploymentkit/wiki/Docker">文档</a> 中所说的创建/root/.cif.yml文件 
-</p>
-<p class="verse">
-$ mkdir -p log &amp;&amp; cp hacking/develop.conf hacking/local.conf<br  />
-$ cif-store -d &#x2013;token-create-admin cif.yml<br  />
-$ cif-store -d &#x2013;token-create-hunter cif-router.yml<br  />
-$ cif-store -d &#x2013;token-create-smrt csirtg-smrt.yml<br  />
-</p>
-<p>
-执行后还是不能使用官方很坑
-</p>
-
-<p>
-docker search cif 找到了 ventz/cif 
-</p>
-</div>
+</li>
+<li>sudo docker stop cif 停止容器
+</li>
+<li>sudo docker rm -f cif  运行冲突 remove it using
+<ul class="org-ul">
+<li>sudo docker run &#x2013;name cif -d -p 5000:5000 csirtgadgets/cif
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 </div>
