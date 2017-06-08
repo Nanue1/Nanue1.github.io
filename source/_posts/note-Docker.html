@@ -7,7 +7,7 @@ title: note-Docker
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>note-Docker</title>
-<!-- 2017-06-07 Wed 20:02 -->
+<!-- 2017-06-08 Thu 13:25 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="manue1" />
@@ -184,28 +184,23 @@ curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/in
 <h3 id="sec-1-2"><span class="section-number-3">1.2</span> Docker command</h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
-<li>sudo service docker start/stop
--sudo docker rmi ventz/cif
-<ul class="org-ul">
-<li>sudo docker images 命令查看本地的镜像列表
+<li>service docker start/stop
 </li>
-<li>sudo docker inspect cif 查看指定镜像的详细信息
+<li>docker rmi ventz/cif
 </li>
-<li>sudo docker ps -l 查看我们正在运行的容器 -l 最后状态  
-<ul class="org-ul">
-<li>sudo docker exec -it 9121af6cabed /bin/bash
+<li>docker images 命令查看本地的镜像列表
 </li>
-</ul>
+<li>docker inspect cif 查看指定镜像的详细信息
 </li>
-<li>sudo docker stop cif 停止容器
+<li>docker ps -l 查看我们正在运行的容器 -l 最后状态  
 </li>
-<li>sudo docker rm -f cif  运行冲突 remove it using
-<ul class="org-ul">
-<li>sudo docker run &#x2013;name cif -d -p 5000:5000 csirtgadgets/cif
+<li>docker exec -it 9121af6cabed /bin/bash
 </li>
-</ul>
+<li>docker stop cif 停止容器
 </li>
-</ul>
+<li>docker rm -f cif  运行冲突 remove it using
+</li>
+<li>docker run &#x2013;name cif -d -p 5000:5000 csirtgadgets/cif
 </li>
 </ul>
 </div>
@@ -214,7 +209,7 @@ curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/in
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: manue1</p>
-<p class="date">Created: 2017-06-07 Wed 20:02</p>
+<p class="date">Created: 2017-06-08 Thu 13:25</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
