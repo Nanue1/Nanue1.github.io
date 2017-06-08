@@ -7,7 +7,7 @@ title: note-threat_intelligence
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>note-threat_intelligence</title>
-<!-- 2017-06-08 Thu 13:25 -->
+<!-- 2017-06-08 Thu 15:00 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="manue1" />
@@ -150,6 +150,7 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1-1">1.1. CIF</a>
 <ul>
 <li><a href="#sec-1-1-1">1.1.1. Bearded-Avenger install</a></li>
+<li><a href="#sec-1-1-2">1.1.2. csirtg-smrt-py</a></li>
 </ul>
 </li>
 </ul>
@@ -246,11 +247,49 @@ $ cif-store -d &#x2013;token-create-hunter cif-router.yml<br  />
 $ cif-store -d &#x2013;token-create-smrt csirtg-smrt.yml<br  />
 </p>
 <p>
-执行后还是不能使用官方很坑
+执行后还是不能使用 官方docker源很坑
 </p>
 
 <p>
-docker search cif 找到了 ventz/cif 
+docker search cif 找到了 ventz/cif 可以使用，但是安装后发现系统过于庞大
+</p>
+
+<p>
+对于我只想使用smrt抓取数据的来说，我更需要cif-smrt功能，好在官方把这部分
+</p>
+
+<p>
+功能提取出来了<a href="https://github.com/csirtgadgets/csirtg-smrt-py">csirtg-smrt-py</a> 项目
+</p>
+</div>
+</div>
+
+
+
+
+
+<div id="outline-container-sec-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2"><span class="section-number-4">1.1.2</span> csirtg-smrt-py</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+使用YAML来规范数据，爬取feed数据源
+</p>
+
+<p>
+sudo pip install csirtg-smrt
+<img src="http://7xpyfe.com1.z0.glb.clouddn.com/blog/20170608/144738024.png" alt="144738024.png" />
+</p>
+
+<p>
+测试了几个数据源如果feed为zip的压缩包，网络不是很顺畅的情况下无法正常下载爬取数据
+</p>
+
+<p>
+总的来说CIF不是很稳定，也不太适合我们公司情报收集，但是<a href="https://github.com/csirtgadgets/bearded-avenger/tree/master/rules">数据源</a> 可以作为扩充
+</p>
+
+<p>
+下载github project中的单个目录 可以通过<a href="https://github.com/MinhasKamal/DownGit">DownGit</a> 创建下载链接
 </p>
 </div>
 </div>
@@ -259,7 +298,7 @@ docker search cif 找到了 ventz/cif
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: manue1</p>
-<p class="date">Created: 2017-06-08 Thu 13:25</p>
+<p class="date">Created: 2017-06-08 Thu 15:00</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
