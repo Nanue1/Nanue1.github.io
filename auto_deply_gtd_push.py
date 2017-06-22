@@ -33,6 +33,6 @@ hexo = 'hexo g && hexo d'
 os.system(hexo)
 
 int_t = int(time.time())
-cmd = "git add . && git commit -m '%d' && git push " % int_t
+cmd = "git add -A && git commit -m '%d' && git push " % int_t
 s = os.system(cmd)
 print "push status : %s" % str(s)
