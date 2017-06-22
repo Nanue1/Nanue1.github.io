@@ -1,5 +1,10 @@
  [
     {
+       "name":"wechat_bot",
+       "url":"https://github.com/Nanue1/wxpy-exampe",
+       "desc":"Personal wechat bot "
+    },
+    {
        "name":"csirtg-smrt",
        "url":"https://github.com/Nanue1/csirtg-smrt",
        "desc":"get Threeat Intelligence data use csirtg-smrt-py"

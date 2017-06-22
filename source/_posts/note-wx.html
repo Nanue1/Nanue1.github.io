@@ -7,7 +7,7 @@ title: note-wx
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>note-wx</title>
-<!-- 2017-06-22 Thu 11:02 -->
+<!-- 2017-06-22 Thu 11:25 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="manue1" />
@@ -204,6 +204,663 @@ sudo ln -s /usr/local/bin/pip /usr/local/bin/pip3<br  />
 rm /usr/bin/python3 -f<br  />
 sudo ln -s /usr/bin/python3.6 /usr/bin/python3<br  />
 </p>
+
+<ol class="org-ol">
+<li>个人运行中的机器人<a href="https://github.com/Nanue1/wxpy-exampe">源码</a>
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #ff0000;">#</span><span style="color: #ff0000;">!/usr/bin/env python3</span>
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">coding: utf-8</span>
+<span style="color: #00ff00;">"""</span>
+<span style="color: #00ff00;">pip3 install -U git+https://github.com/youfou/wxpy.git@develop</span>
+<span style="color: #00ff00;">pip3 install -U psutil</span>
+<span style="color: #00ff00;">"""</span>
+<span style="color: #00ffff; font-weight: bold;">import</span> datetime
+<span style="color: #00ffff; font-weight: bold;">import</span> logging
+<span style="color: #00ffff; font-weight: bold;">import</span> os
+<span style="color: #00ffff; font-weight: bold;">import</span> re
+<span style="color: #00ffff; font-weight: bold;">import</span> subprocess
+<span style="color: #00ffff; font-weight: bold;">import</span> threading
+<span style="color: #00ffff; font-weight: bold;">import</span> time
+<span style="color: #00ffff; font-weight: bold;">from</span> collections <span style="color: #00ffff; font-weight: bold;">import</span> Counter
+<span style="color: #00ffff; font-weight: bold;">from</span> functools <span style="color: #00ffff; font-weight: bold;">import</span> wraps
+<span style="color: #00ffff; font-weight: bold;">from</span> pprint <span style="color: #00ffff; font-weight: bold;">import</span> pformat
+<span style="color: #00ffff; font-weight: bold;">import</span> psutil
+<span style="color: #00ffff; font-weight: bold;">from</span> wxpy <span style="color: #00ffff; font-weight: bold;">import</span> *
+<span style="color: #00ffff; font-weight: bold;">from</span> wxpy.utils <span style="color: #00ffff; font-weight: bold;">import</span> get_text_without_at_bot, start_new_thread
+<span style="color: #00ffff; font-weight: bold;">from</span> kick_votes <span style="color: #00ffff; font-weight: bold;">import</span> KickVotes
+<span style="color: #00ffff; font-weight: bold;">from</span> timed_list <span style="color: #00ffff; font-weight: bold;">import</span> TimedList
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">---------------- &#37197;&#32622;&#24320;&#22987; ----------------</span>
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">Bot &#23545;&#35937;&#21021;&#22987;&#21270;&#26102;&#30340; console_qr &#21442;&#25968;&#20540;</span>
+<span style="color: #ffff00;">console_qr</span> = 1
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#26426;&#22120;&#20154;&#26165;&#31216; (&#38450;&#27490;&#30331;&#38169;&#36134;&#21495;)</span>
+<span style="color: #ffff00;">bot_nick_name</span> = <span style="color: #00ff00;">'manue1'</span>
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#20837;&#32676;&#21475;&#20196;</span>
+<span style="color: #ffff00;">group_code</span> = <span style="color: #00ff00;">'&#22079;&#21704;'</span>
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#31649;&#29702;&#21592;&#65292;&#21487;&#20026;&#22810;&#20010;&#65292;&#29992;&#20110;&#25191;&#34892;&#31649;&#29702;</span>
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#39318;&#20010;&#31649;&#29702;&#21592;&#20026;"&#31995;&#32479;&#31649;&#29702;&#21592;"&#65292;&#21487;&#25509;&#25910;&#24322;&#24120;&#26085;&#24535;&#21644;&#25191;&#34892;&#26381;&#21153;&#31471;&#25805;&#20316;</span>
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#20854;&#20182;&#31649;&#29702;&#21592;&#20165;&#25191;&#34892;&#24494;&#20449;&#32676;&#31649;&#29702;</span>
+<span style="color: #ffff00;">admin_mangers_name</span> = [<span style="color: #00ff00;">'manue1'</span>,<span style="color: #00ff00;">'&#34636;&#34474;'</span>]
+
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#31649;&#29702;&#32676;</span>
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#20165;&#20026;&#19968;&#20010;&#65292;&#29992;&#20110;&#25509;&#25910;&#24515;&#36339;&#19978;&#25253;&#31561;&#27425;&#35201;&#20449;&#24687;</span>
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#24320;&#21457;&#27979;&#35797; admins</span>
+<span style="color: #ffff00;">admin_group_name</span> = <span style="color: #00ff00;">'&#24320;&#21457;&#27979;&#35797;'</span>
+
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#38656;&#31649;&#29702;&#30340;&#24494;&#20449;&#32676;</span>
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#21487;&#20026;&#22810;&#20010;&#65292;&#26426;&#22120;&#20154;&#24517;&#39035;&#20026;&#32676;&#20027;&#65292;&#21542;&#21017;&#26080;&#27861;&#25191;&#34892;&#30456;&#24212;&#25805;&#20316;</span>
+
+<span style="color: #ffff00;">groups_name</span> = [<span style="color: #00ff00;">'&#27979;&#35797;2'</span>]
+
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#33258;&#21160;&#22238;&#31572;&#20851;&#38190;&#35789;</span>
+<span style="color: #ffff00;">kw_replies</span> = {
+    <span style="color: #00ff00;">'reply1'</span>: (
+        <span style="color: #00ff00;">'&#31119;&#21033;'</span>, <span style="color: #00ff00;">'&#20070;&#31821;'</span>, <span style="color: #00ff00;">'&#30005;&#24433;'</span>, <span style="color: #00ff00;">'&#32593;&#31449;'</span>
+    ),
+    <span style="color: #00ff00;">'reply2'</span>: (
+        <span style="color: #00ff00;">'&#31119;&#21033;'</span>, <span style="color: #00ff00;">'&#20070;&#31821;'</span>, <span style="color: #00ff00;">'&#30005;&#24433;'</span>, <span style="color: #00ff00;">'&#32593;&#31449;'</span>
+    ),
+<span style="color: #ff0000;">#    </span><span style="color: #ff0000;">'&#24517;&#30475;: &#24120;&#35265;&#38382;&#39064; FAQ:\nwxpy.readthedocs.io/faq.html': (</span>
+<span style="color: #ff0000;">#        </span><span style="color: #ff0000;">'faq', '&#24120;&#35265;', '&#38382;&#39064;', '&#38382;&#31572;', '&#20160;&#20040;'</span>
+<span style="color: #ff0000;">#    </span><span style="color: #ff0000;">),</span>
+<span style="color: #ff0000;">#    </span><span style="color: #ff0000;">'@fil@{}'.format(__file__): (</span>
+<span style="color: #ff0000;">#        </span><span style="color: #ff0000;">'&#28304;&#30721;', '&#20195;&#30721;'</span>
+<span style="color: #ff0000;">#    </span><span style="color: #ff0000;">)</span>
+}
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#26032;&#20154;&#20837;&#32676;&#30340;&#27426;&#36814;&#35821;</span>
+<span style="color: #ffff00;">welcome_text</span> = <span style="color: #00ff00;">'''&#127881; &#27426;&#36814; @{} &#30340;&#21152;&#20837;&#65281;'''</span>
+
+<span style="color: #ffff00;">help_info</span> = <span style="color: #00ff00;">'''&#128515; &#35752;&#35770;&#20027;&#39064;</span>
+<span style="color: #00ff00;">&#183; &#19981;&#38480;&#21046;&#20854;&#20182;&#35805;&#39064;&#65292;&#35831;&#21306;&#20998;&#20248;&#20808;&#32423;</span>
+<span style="color: #00ff00;">&#183; &#25903;&#25345;&#20998;&#20139;&#23545;&#32676;&#21592;&#26377;&#20215;&#20540;&#30340;&#20449;&#24687;</span>
+
+<span style="color: #00ff00;">&#9888;&#65039; &#27880;&#24847;&#20107;&#39033;</span>
+<span style="color: #00ff00;">&#183; &#38500;&#32676;&#20027;&#22806;&#65292;&#21247;&#22312;&#32676;&#20869;&#20351;&#29992;&#26426;&#22120;&#20154;</span>
+<span style="color: #00ff00;">&#183; &#20005;&#31105;&#28784;&#20135;/&#40657;&#20135;&#30456;&#20851;&#20869;&#23481;&#35805;&#39064;</span>
+<span style="color: #00ff00;">&#183; &#35831;&#21247;&#21457;&#24067;&#23545;&#32676;&#21592;&#26080;&#20215;&#20540;&#30340;&#24191;&#21578;</span>
+
+<span style="color: #00ff00;">&#128110; &#25237;&#31080;&#31227;&#20986;</span>
+<span style="color: #00ff00;">&#183; &#31227;&#20986;&#21518;&#23558;&#34987;&#25289;&#40657; 24 &#23567;&#26102;</span>
+<span style="color: #00ff00;">&#183; &#35831;&#22312;&#20102;&#35299;&#20107;&#22240;&#21518;&#35880;&#24910;&#25237;&#31080;</span>
+<span style="color: #00ff00;">&#183; &#21629;&#20196;&#26684;&#24335;: "&#31227;&#20986; @&#20154;&#21592;"</span>
+<span style="color: #00ff00;">'''</span>
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">---------------- &#37197;&#32622;&#32467;&#26463; ----------------</span>
+
+
+logging.basicConfig(level=logging.DEBUG)
+
+<span style="color: #ffff00;">qr_path</span> = <span style="color: #00ff00;">'qrcode.png'</span>
+
+<span style="color: #ffff00;">process</span> = psutil.Process()
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">qr_callback</span>(**kwargs):
+    <span style="color: #00ffff; font-weight: bold;">with</span> <span style="color: #0000ff; font-weight: bold;">open</span>(qr_path, <span style="color: #00ff00;">'wb'</span>) <span style="color: #00ffff; font-weight: bold;">as</span> fp:
+        fp.write(kwargs[<span style="color: #00ff00;">'qrcode'</span>])
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">_restart</span>():
+    os.execv(sys.executable, [sys.executable] + sys.argv)
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">_status_text</span>():
+    <span style="color: #ffff00;">uptime</span> = datetime.datetime.now() - datetime.datetime.fromtimestamp(process.create_time())
+    <span style="color: #ffff00;">memory_usage</span> = process.memory_info().rss
+
+    <span style="color: #00ffff; font-weight: bold;">if</span> <span style="color: #0000ff; font-weight: bold;">globals</span>().get(<span style="color: #00ff00;">'bot'</span>):
+        <span style="color: #ffff00;">messages</span> = bot.messages
+    <span style="color: #00ffff; font-weight: bold;">else</span>:
+        <span style="color: #ffff00;">messages</span> = <span style="color: #0000ff; font-weight: bold;">list</span>()
+
+    <span style="color: #00ffff; font-weight: bold;">return</span> <span style="color: #00ff00;">'[now] {now:%H:%M:%S}\n[uptime] {uptime}\n[memory] {memory}\n[messages] {messages}'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(
+        now=datetime.datetime.now(),
+        uptime=<span style="color: #0000ff; font-weight: bold;">str</span>(uptime).split(<span style="color: #00ff00;">'.'</span>)[0],
+        memory=<span style="color: #00ff00;">'{:.2f} MB'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(memory_usage / 1024 ** 2),
+        messages=<span style="color: #0000ff; font-weight: bold;">len</span>(messages)
+    )
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">remove_qr</span>():
+    <span style="color: #00ffff; font-weight: bold;">if</span> os.path.isfile(qr_path):
+        <span style="color: #ff0000;"># </span><span style="color: #ff0000;">noinspection PyBroadException</span>
+        <span style="color: #00ffff; font-weight: bold;">try</span>:
+            os.remove(qr_path)
+        <span style="color: #00ffff; font-weight: bold;">except</span>:
+            <span style="color: #00ffff; font-weight: bold;">pass</span>
+
+<span style="color: #ffff00;">bot</span> = Bot(<span style="color: #00ff00;">'bot.pkl'</span>,console_qr=1,login_callback=remove_qr,logout_callback=_restart)
+<span style="color: #ffff00;">bot.auto_mark_as_read</span> = <span style="color: #ff00ff;">True</span>
+
+<span style="color: #00ffff; font-weight: bold;">if</span> bot.<span style="color: #00ffff; font-weight: bold;">self</span>.name != bot_nick_name:
+    logging.error(<span style="color: #00ff00;">'Wrong User!'</span>)
+    bot.logout()
+    _restart()
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">bot.chats(update=True)</span>
+bot.enable_puid(<span style="color: #00ff00;">'bot.puid'</span>)
+
+<span style="color: #ff0000;">#</span><span style="color: #ff0000;">&#33719;&#21462;&#26368;&#26032;&#30340;&#31649;&#29702;&#21592;&#20449;&#24687;</span>
+<span style="color: #ffff00;">admin_puids_list</span>=[]
+<span style="color: #00ffff; font-weight: bold;">for</span> admin_manger <span style="color: #00ffff; font-weight: bold;">in</span> admin_mangers_name:
+    admin_puids_list.append(bot.friends(update=<span style="color: #ff00ff;">True</span>).search(admin_manger)[0].puid)
+<span style="color: #ffff00;">admin_puids</span> = <span style="color: #0000ff; font-weight: bold;">tuple</span>(admin_puids_list)
+
+<span style="color: #ff0000;">#</span><span style="color: #ff0000;">&#33719;&#21462;&#31649;&#29702;&#32676;&#30340;&#26368;&#26032;puid</span>
+<span style="color: #ffff00;">admin_group_puid</span> = bot.groups(update=<span style="color: #ff00ff;">True</span>).search(admin_group_name)[0].puid
+
+<span style="color: #ff0000;">#</span><span style="color: #ff0000;">&#33719;&#21462;&#26368;&#26032;&#31649;&#29702;&#30340;&#32676;&#32452;puid</span>
+<span style="color: #ffff00;">group_puids_list</span>=[]
+<span style="color: #00ffff; font-weight: bold;">for</span> group <span style="color: #00ffff; font-weight: bold;">in</span> groups_name:
+    group_puids_list.append(bot.groups(update=<span style="color: #ff00ff;">True</span>).search(group)[0].puid)
+<span style="color: #ffff00;">group_puids</span> = <span style="color: #0000ff; font-weight: bold;">tuple</span>(group_puids_list)
+
+
+<span style="color: #ffff00;">admin_group</span> = bot.groups().search(puid=admin_group_puid)[0]
+<span style="color: #ffff00;">groups</span> = <span style="color: #0000ff; font-weight: bold;">list</span>(<span style="color: #0000ff; font-weight: bold;">map</span>(<span style="color: #00ffff; font-weight: bold;">lambda</span> x: bot.groups().search(puid=x)[0], group_puids))
+
+<span style="color: #ffff00;">admins</span> = *<span style="color: #0000ff; font-weight: bold;">map</span>(<span style="color: #00ffff; font-weight: bold;">lambda</span> x: bot.friends().search(puid=x)[0], admin_puids), bot.<span style="color: #00ffff; font-weight: bold;">self</span>
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#21021;&#22987;&#21270;&#32842;&#22825;&#26426;&#22120;&#20154;</span>
+<span style="color: #ffff00;">tuling</span> = Tuling(api_key=<span style="color: #00ff00;">'61eea024ed154d8f9d8a33e98547057a'</span>)
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#26032;&#20154;&#20837;&#32676;&#36890;&#30693;&#30340;&#21305;&#37197;&#27491;&#21017;</span>
+<span style="color: #ffff00;">rp_new_member_name</span> = (
+    re.<span style="color: #0000ff; font-weight: bold;">compile</span>(r<span style="color: #00ff00;">'^"(.+)"&#36890;&#36807;'</span>),
+    re.<span style="color: #0000ff; font-weight: bold;">compile</span>(r<span style="color: #00ff00;">'&#36992;&#35831;"(.+)"&#21152;&#20837;'</span>),
+)
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#36828;&#31243;&#36386;&#20154;&#21629;&#20196;: &#31227;&#20986; @&lt;&#38656;&#35201;&#34987;&#31227;&#20986;&#30340;&#20154;&gt;</span>
+<span style="color: #ffff00;">rp_kick</span> = re.<span style="color: #0000ff; font-weight: bold;">compile</span>(r<span style="color: #00ff00;">'^&#31227;&#20986;\s*@(.+?)(?:\u2005?\s*$)'</span>)
+<span style="color: #ffff00;">kick_votes</span> = KickVotes(300)
+<span style="color: #ffff00;">votes_to_kick</span> = 5
+<span style="color: #ffff00;">black_list</span> = TimedList()
+
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">from_admin</span>(msg):
+    <span style="color: #00ff00;">"""</span>
+<span style="color: #00ff00;">    &#21028;&#26029; msg &#30340;&#21457;&#36865;&#32773;&#26159;&#21542;&#20026;&#31649;&#29702;&#21592;</span>
+<span style="color: #00ff00;">    """</span>
+    <span style="color: #00ffff; font-weight: bold;">if</span> <span style="color: #00ffff; font-weight: bold;">not</span> <span style="color: #0000ff; font-weight: bold;">isinstance</span>(msg, Message):
+        <span style="color: #00ffff; font-weight: bold;">raise</span> <span style="color: #00ff00;">TypeError</span>(<span style="color: #00ff00;">'expected Message, got {}'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(<span style="color: #0000ff; font-weight: bold;">type</span>(msg)))
+    <span style="color: #ffff00;">from_user</span> = msg.member <span style="color: #00ffff; font-weight: bold;">if</span> <span style="color: #0000ff; font-weight: bold;">isinstance</span>(msg.chat, Group) <span style="color: #00ffff; font-weight: bold;">else</span> msg.sender
+    <span style="color: #00ffff; font-weight: bold;">return</span> from_user <span style="color: #00ffff; font-weight: bold;">in</span> admins
+
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">admin_auth</span>(func):
+    <span style="color: #00ff00;">"""</span>
+<span style="color: #00ff00;">    &#35013;&#39280;&#22120;: &#39564;&#35777;&#20989;&#25968;&#30340;&#31532; 1 &#20010;&#21442;&#25968; msg &#26159;&#21542;&#26469;&#33258; admins</span>
+<span style="color: #00ff00;">    """</span>
+
+    <span style="color: #00ff00;">@wraps</span>(func)
+    <span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">wrapped</span>(*args, **kwargs):
+        <span style="color: #ffff00;">msg</span> = args[0]
+
+        <span style="color: #00ffff; font-weight: bold;">if</span> from_admin(msg):
+            <span style="color: #00ffff; font-weight: bold;">return</span> func(*args, **kwargs)
+        <span style="color: #00ffff; font-weight: bold;">else</span>:
+            <span style="color: #00ffff; font-weight: bold;">raise</span> <span style="color: #00ff00;">ValueError</span>(<span style="color: #00ff00;">'Wrong admin:\n{}'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(msg))
+
+    <span style="color: #00ffff; font-weight: bold;">return</span> wrapped
+
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">send_iter</span>(receiver, iterable):
+    <span style="color: #00ff00;">"""</span>
+<span style="color: #00ff00;">    &#29992;&#36845;&#20195;&#30340;&#26041;&#24335;&#21457;&#36865;&#22810;&#26465;&#28040;&#24687;</span>
+
+<span style="color: #00ff00;">    :param receiver: &#25509;&#25910;&#32773;</span>
+<span style="color: #00ff00;">    :param iterable: &#21487;&#36845;&#20195;&#23545;&#35937;</span>
+<span style="color: #00ff00;">    """</span>
+
+    <span style="color: #00ffff; font-weight: bold;">if</span> <span style="color: #0000ff; font-weight: bold;">isinstance</span>(iterable, <span style="color: #0000ff; font-weight: bold;">str</span>):
+        <span style="color: #00ffff; font-weight: bold;">raise</span> <span style="color: #00ff00;">TypeError</span>
+
+    <span style="color: #00ffff; font-weight: bold;">for</span> msg <span style="color: #00ffff; font-weight: bold;">in</span> iterable:
+        receiver.send(msg)
+
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">update_groups</span>():
+    <span style="color: #00ffff; font-weight: bold;">yield</span> <span style="color: #00ff00;">'updating groups...'</span>
+    <span style="color: #00ffff; font-weight: bold;">for</span> _group <span style="color: #00ffff; font-weight: bold;">in</span> groups:
+        _group.update_group()
+        <span style="color: #00ffff; font-weight: bold;">yield</span> <span style="color: #00ff00;">'{}: {}'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(_group.name, <span style="color: #0000ff; font-weight: bold;">len</span>(_group))
+
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">status_text</span>():
+    <span style="color: #00ffff; font-weight: bold;">yield</span> _status_text()
+
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#23450;&#26102;&#25253;&#21578;&#36827;&#31243;&#29366;&#24577;</span>
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">heartbeat</span>():
+    <span style="color: #00ffff; font-weight: bold;">while</span> bot.alive:
+        time.sleep(600)
+        <span style="color: #ff0000;"># </span><span style="color: #ff0000;">noinspection PyBroadException</span>
+        <span style="color: #00ffff; font-weight: bold;">try</span>:
+            send_iter(admin_group, status_text())
+        <span style="color: #00ffff; font-weight: bold;">except</span> ResponseError <span style="color: #00ffff; font-weight: bold;">as</span> e:
+            <span style="color: #00ffff; font-weight: bold;">if</span> 1100 &lt;= e.err_code &lt;= 1102:
+                logger.critical(<span style="color: #00ff00;">'went offline: {}'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(e))
+                _restart()
+        <span style="color: #00ffff; font-weight: bold;">except</span>:
+            logger.exception(<span style="color: #00ff00;">'failed to report heartbeat:\n'</span>)
+
+
+start_new_thread(heartbeat)
+
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">remote_eval</span>(source):
+    <span style="color: #00ffff; font-weight: bold;">try</span>:
+        <span style="color: #ffff00;">ret</span> = <span style="color: #0000ff; font-weight: bold;">eval</span>(source, <span style="color: #0000ff; font-weight: bold;">globals</span>())
+    <span style="color: #00ffff; font-weight: bold;">except</span> (<span style="color: #00ff00;">SyntaxError</span>, <span style="color: #00ff00;">NameError</span>):
+        <span style="color: #00ffff; font-weight: bold;">raise</span> <span style="color: #00ff00;">ValueError</span>(<span style="color: #00ff00;">'got SyntaxError or NameError in source'</span>)
+
+    logger.info(<span style="color: #00ff00;">'remote eval executed:\n{}'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(source))
+    <span style="color: #00ffff; font-weight: bold;">yield</span> pformat(ret)
+
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">remote_shell</span>(command):
+    logger.info(<span style="color: #00ff00;">'executing remote shell cmd:\n{}'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(command))
+    <span style="color: #ffff00;">r</span> = subprocess.run(
+        command, shell=<span style="color: #ff00ff;">True</span>,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        universal_newlines=<span style="color: #ff00ff;">True</span>
+    )
+    <span style="color: #00ffff; font-weight: bold;">if</span> r.stdout:
+        <span style="color: #00ffff; font-weight: bold;">yield</span> r.stdout
+    <span style="color: #00ffff; font-weight: bold;">else</span>:
+        <span style="color: #00ffff; font-weight: bold;">yield</span> <span style="color: #00ff00;">'[OK]'</span>
+
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">restart</span>():
+    <span style="color: #00ffff; font-weight: bold;">yield</span> <span style="color: #00ff00;">'restarting bot...'</span>
+    bot.dump_login_status()
+    _restart()
+
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">latency</span>():
+    <span style="color: #00ffff; font-weight: bold;">yield</span> <span style="color: #00ff00;">'{:.2f}'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(bot.messages[-1].latency)
+
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#36828;&#31243;&#21629;&#20196; (&#21333;&#29420;&#21457;&#32473;&#26426;&#22120;&#20154;&#30340;&#28040;&#24687;)</span>
+<span style="color: #ffff00;">remote_orders</span> = {
+    <span style="color: #00ff00;">'g'</span>: update_groups,
+    <span style="color: #00ff00;">'s'</span>: status_text,
+    <span style="color: #00ff00;">'r'</span>: restart,
+    <span style="color: #00ff00;">'l'</span>: latency,
+}
+
+
+<span style="color: #00ff00;">@admin_auth</span>
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">server_mgmt</span>(msg):
+    <span style="color: #00ff00;">"""</span>
+<span style="color: #00ff00;">    &#26381;&#21153;&#22120;&#31649;&#29702;:</span>
+
+<span style="color: #00ff00;">        &#33509;&#28040;&#24687;&#25991;&#26412;&#20026;&#20026;&#36828;&#31243;&#21629;&#20196;&#65292;&#21017;&#25191;&#34892;&#23545;&#24212;&#20989;&#25968;</span>
+<span style="color: #00ff00;">        &#33509;&#28040;&#24687;&#25991;&#26412;&#20197; ! &#24320;&#22836;&#65292;&#21017;&#20316;&#20026; shell &#21629;&#20196;&#25191;&#34892;</span>
+<span style="color: #00ff00;">        &#33509;&#19981;&#28385;&#36275;&#20197;&#19978;&#65292;&#21017;&#23581;&#35797;&#30452;&#25509;&#23558; msg.text &#20316;&#20026; Python &#20195;&#30721;&#25191;&#34892;</span>
+<span style="color: #00ff00;">    """</span>
+    <span style="color: #ffff00;">order</span> = remote_orders.get(msg.text.strip())
+    <span style="color: #00ffff; font-weight: bold;">if</span> order:
+        logger.info(<span style="color: #00ff00;">'executing remote order: {}'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(order.<span style="color: #0000ff; font-weight: bold;">__name__</span>))
+        send_iter(msg.chat, order())
+    <span style="color: #00ffff; font-weight: bold;">elif</span> msg.text.startswith(<span style="color: #00ff00;">'!'</span>):
+        <span style="color: #ffff00;">command</span> = msg.text[1:]
+        send_iter(msg.chat, remote_shell(command))
+    <span style="color: #00ffff; font-weight: bold;">else</span>:
+        send_iter(msg.chat, remote_eval(msg.text))
+
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">reply_by_keyword</span>(msg):
+    <span style="color: #00ffff; font-weight: bold;">for</span> reply, keywords <span style="color: #00ffff; font-weight: bold;">in</span> kw_replies.items():
+        <span style="color: #00ffff; font-weight: bold;">for</span> kw <span style="color: #00ffff; font-weight: bold;">in</span> keywords:
+            <span style="color: #00ffff; font-weight: bold;">if</span> kw <span style="color: #00ffff; font-weight: bold;">in</span> msg.text.lower():
+                logger.info(<span style="color: #00ff00;">'reply by keyword: \n{}: "{}"\nreplied: "{}"'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(
+                    (msg.member <span style="color: #00ffff; font-weight: bold;">or</span> msg.chat).name, msg.text, reply))
+                msg.reply(reply)
+                <span style="color: #00ffff; font-weight: bold;">return</span> reply
+
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#39564;&#35777;&#20837;&#32676;&#21475;&#20196;</span>
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">valid</span>(msg):
+    <span style="color: #00ffff; font-weight: bold;">return</span> group_code <span style="color: #00ffff; font-weight: bold;">in</span> msg.text.lower()
+
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#33258;&#21160;&#36873;&#25321;&#26410;&#28385;&#30340;&#32676;</span>
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">get_group</span>():
+    groups.sort(key=<span style="color: #0000ff; font-weight: bold;">len</span>, reverse=<span style="color: #ff00ff;">True</span>)
+
+    <span style="color: #00ffff; font-weight: bold;">for</span> _group <span style="color: #00ffff; font-weight: bold;">in</span> groups:
+        <span style="color: #00ffff; font-weight: bold;">if</span> <span style="color: #0000ff; font-weight: bold;">len</span>(_group) &lt; 490:
+            <span style="color: #00ffff; font-weight: bold;">return</span> _group
+    <span style="color: #00ffff; font-weight: bold;">else</span>:
+        logger.warning(<span style="color: #00ff00;">'&#32676;&#37117;&#28385;&#21862;&#65281;'</span>)
+        <span style="color: #00ffff; font-weight: bold;">return</span> groups[-1]
+
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#35745;&#31639;&#27599;&#20010;&#29992;&#25143;&#34987;&#36992;&#35831;&#30340;&#27425;&#25968;</span>
+<span style="color: #ffff00;">invite_counter</span> = Counter()
+<span style="color: #ffff00;">invite_lock</span> = threading.Lock()
+
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#36992;&#35831;&#20837;&#32676;</span>
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">invite</span>(user):
+    <span style="color: #ffff00;">joined</span> = <span style="color: #0000ff; font-weight: bold;">list</span>()
+    <span style="color: #00ffff; font-weight: bold;">for</span> group <span style="color: #00ffff; font-weight: bold;">in</span> groups:
+        <span style="color: #00ffff; font-weight: bold;">if</span> user <span style="color: #00ffff; font-weight: bold;">in</span> group:
+            joined.append(group)
+    <span style="color: #00ffff; font-weight: bold;">if</span> joined:
+        <span style="color: #ffff00;">joined_nick_names</span> = <span style="color: #00ff00;">'\n'</span>.join(<span style="color: #0000ff; font-weight: bold;">map</span>(<span style="color: #00ffff; font-weight: bold;">lambda</span> x: x.nick_name, joined))
+        logger.info(<span style="color: #00ff00;">'{} is already in\n{}'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(user, joined_nick_names))
+        user.send(<span style="color: #00ff00;">'&#20320;&#24050;&#21152;&#20837;&#20102;\n{}'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(joined_nick_names))
+    <span style="color: #00ffff; font-weight: bold;">else</span>:
+        <span style="color: #00ffff; font-weight: bold;">with</span> invite_lock:
+            <span style="color: #00ffff; font-weight: bold;">if</span> invite_counter.get(user, 0) &lt; 2:
+                <span style="color: #ffff00;">group</span> = get_group()
+                user.send(<span style="color: #00ff00;">'&#39564;&#35777;&#36890;&#36807; [&#22079;&#21704;]'</span>)
+                group.add_members(user, use_invitation=<span style="color: #ff00ff;">True</span>)
+                invite_counter.update([user])
+            <span style="color: #00ffff; font-weight: bold;">else</span>:
+                user.send(<span style="color: #00ff00;">'&#20320;&#30340;&#21463;&#36992;&#27425;&#25968;&#24050;&#36798;&#26368;&#22823;&#38480;&#21046; &#128567;'</span>)
+
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#38480;&#21046;&#39057;&#29575;: &#25351;&#23450;&#21608;&#26399;&#20869;&#36229;&#36807;&#28040;&#24687;&#26465;&#25968;&#65292;&#30452;&#25509;&#22238;&#22797; "&#128586;"</span>
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">freq_limit</span>(period_secs=10, limit_msgs=4):
+    <span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">decorator</span>(func):
+        <span style="color: #00ff00;">@wraps</span>(func)
+        <span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">wrapped</span>(msg):
+            <span style="color: #ffff00;">now</span> = datetime.datetime.now()
+            <span style="color: #ffff00;">period</span> = datetime.timedelta(seconds=period_secs)
+            <span style="color: #ffff00;">recent_received</span> = 0
+            <span style="color: #00ffff; font-weight: bold;">for</span> m <span style="color: #00ffff; font-weight: bold;">in</span> msg.bot.messages[::-1]:
+                <span style="color: #00ffff; font-weight: bold;">if</span> m.sender == msg.sender:
+                    <span style="color: #00ffff; font-weight: bold;">if</span> now - m.create_time &gt; period:
+                        <span style="color: #00ffff; font-weight: bold;">break</span>
+                    <span style="color: #ffff00;">recent_received</span> += 1
+
+            <span style="color: #00ffff; font-weight: bold;">if</span> recent_received &gt; limit_msgs:
+                <span style="color: #00ffff; font-weight: bold;">if</span> <span style="color: #00ffff; font-weight: bold;">not</span> <span style="color: #0000ff; font-weight: bold;">isinstance</span>(msg.chat, Group) <span style="color: #00ffff; font-weight: bold;">or</span> msg.is_at:
+                    <span style="color: #00ffff; font-weight: bold;">return</span> <span style="color: #00ff00;">'&#128586;'</span>
+            <span style="color: #00ffff; font-weight: bold;">return</span> func(msg)
+
+        <span style="color: #00ffff; font-weight: bold;">return</span> wrapped
+
+    <span style="color: #00ffff; font-weight: bold;">return</span> decorator
+
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">get_new_member_name</span>(msg):
+    <span style="color: #ff0000;"># </span><span style="color: #ff0000;">itchat 1.2.32 &#29256;&#26412;&#26410;&#26684;&#24335;&#21270;&#32676;&#20013;&#30340; Note &#28040;&#24687;</span>
+    <span style="color: #00ffff; font-weight: bold;">from</span> itchat.utils <span style="color: #00ffff; font-weight: bold;">import</span> msg_formatter
+    msg_formatter(msg.raw, <span style="color: #00ff00;">'Text'</span>)
+
+    <span style="color: #00ffff; font-weight: bold;">for</span> rp <span style="color: #00ffff; font-weight: bold;">in</span> rp_new_member_name:
+        <span style="color: #ffff00;">match</span> = rp.search(msg.text)
+        <span style="color: #00ffff; font-weight: bold;">if</span> match:
+            <span style="color: #00ffff; font-weight: bold;">return</span> match.group(1)
+
+
+
+<span style="color: #ff0000;">#</span><span style="color: #ff0000;">def remote_kick(msg):</span>
+<span style="color: #ff0000;">#    </span><span style="color: #ff0000;">if msg.type is TEXT:</span>
+<span style="color: #ff0000;">#        </span><span style="color: #ff0000;">match = rp_kick.search(msg.text)</span>
+<span style="color: #ff0000;">#        </span><span style="color: #ff0000;">if match:</span>
+<span style="color: #ff0000;">#            </span><span style="color: #ff0000;">name_to_kick = match.group(1)</span>
+<span style="color: #ff0000;">#</span>
+<span style="color: #ff0000;">#            </span><span style="color: #ff0000;">if not from_admin(msg):</span>
+<span style="color: #ff0000;">#                </span><span style="color: #ff0000;">logger.warning('{} tried to kick {}'.format(</span>
+<span style="color: #ff0000;">#                    </span><span style="color: #ff0000;">msg.member.name, name_to_kick))</span>
+<span style="color: #ff0000;">#                </span><span style="color: #ff0000;">return '&#24863;&#35273;&#26377;&#28857;&#19981;&#23545;&#21170;&#8230; @{}'.format(msg.member.name)</span>
+<span style="color: #ff0000;">#</span>
+<span style="color: #ff0000;">#            </span><span style="color: #ff0000;">member_to_kick = ensure_one(list(filter(</span>
+<span style="color: #ff0000;">#                </span><span style="color: #ff0000;">lambda x: x.name == name_to_kick, msg.chat)))</span>
+<span style="color: #ff0000;">#</span>
+<span style="color: #ff0000;">#            </span><span style="color: #ff0000;">if member_to_kick in admins:</span>
+<span style="color: #ff0000;">#                </span><span style="color: #ff0000;">logger.error('{} tried to kick {} whom was an admin'.format(</span>
+<span style="color: #ff0000;">#                    </span><span style="color: #ff0000;">msg.member.name, member_to_kick.name))</span>
+<span style="color: #ff0000;">#                </span><span style="color: #ff0000;">return '&#26080;&#27861;&#31227;&#20986; @{}'.format(member_to_kick.name)</span>
+<span style="color: #ff0000;">#</span>
+<span style="color: #ff0000;">#            </span><span style="color: #ff0000;">member_to_kick.remove()</span>
+<span style="color: #ff0000;">#            </span><span style="color: #ff0000;">return '&#25104;&#21151;&#31227;&#20986; @{}'.format(member_to_kick.name)</span>
+<span style="color: #ff0000;">#</span>
+
+<span style="color: #00ff00;">@dont_raise_response_error</span>
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">try_send</span>(chat, msg):
+    <span style="color: #00ff00;">"""&#23581;&#35797;&#21457;&#36865;&#28040;&#24687;&#32473;&#25351;&#23450;&#32842;&#22825;&#23545;&#35937;"""</span>
+
+    <span style="color: #00ffff; font-weight: bold;">if</span> chat.is_friend:
+        chat.send(msg)
+
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">_kick</span>(to_kick, limit_secs=0, msg=<span style="color: #ff00ff;">None</span>):
+    <span style="color: #00ffff; font-weight: bold;">if</span> limit_secs:
+        <span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#21152;&#20837;&#35745;&#26102;&#40657;&#21517;&#21333;</span>
+        black_list.<span style="color: #0000ff; font-weight: bold;">set</span>(to_kick, limit_secs)
+
+    to_kick.remove()
+    <span style="color: #ffff00;">ret</span> = <span style="color: #00ff00;">'@{} &#24050;&#34987;&#25104;&#21151;&#31227;&#20986;! &#128520;'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(to_kick.name)
+
+    start_new_thread(try_send, kwargs=<span style="color: #0000ff; font-weight: bold;">dict</span>(chat=to_kick, msg=msg))
+
+    <span style="color: #00ffff; font-weight: bold;">if</span> to_kick <span style="color: #00ffff; font-weight: bold;">in</span> kick_votes:
+        <span style="color: #ffff00;">voters</span> = kick_votes[to_kick][0]
+        <span style="color: #ffff00;">voters</span> = <span style="color: #00ff00;">'\n'</span>.join(<span style="color: #0000ff; font-weight: bold;">map</span>(<span style="color: #00ffff; font-weight: bold;">lambda</span> x: <span style="color: #00ff00;">'@{}'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(x.name), voters))
+        <span style="color: #ffff00;">ret</span> += <span style="color: #00ff00;">'\n\n&#25237;&#31080;&#20154;:\n{}'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(voters)
+
+    <span style="color: #00ffff; font-weight: bold;">return</span> ret
+
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">remote_kick</span>(msg):
+    <span style="color: #ffff00;">info_msg</span> = <span style="color: #00ff00;">'&#25265;&#27465;&#65292;&#20320;&#24050;&#34987;{}&#31227;&#20986;&#65292;&#25509;&#19979;&#26469;&#30340; 24 &#23567;&#26102;&#20869;&#65292;&#26426;&#22120;&#20154;&#23558;&#23545;&#20320;&#20445;&#25345;&#27785;&#40664; &#128567;'</span>
+    <span style="color: #ffff00;">limit_secs</span> = 3600 * 24
+
+    <span style="color: #00ffff; font-weight: bold;">if</span> msg.<span style="color: #0000ff; font-weight: bold;">type</span> <span style="color: #00ffff; font-weight: bold;">is</span> TEXT:
+        <span style="color: #ffff00;">match</span> = rp_kick.search(msg.text)
+        <span style="color: #00ffff; font-weight: bold;">if</span> match:
+            <span style="color: #ffff00;">name_to_kick</span> = match.group(1)
+            <span style="color: #ff0000;"># </span><span style="color: #ff0000;">Todo: &#26377;&#37325;&#21517;&#26102;&#30340;&#22810;&#20010;&#36873;&#25321;</span>
+            <span style="color: #00ffff; font-weight: bold;">try</span>:
+                <span style="color: #ffff00;">member_to_kick</span> = ensure_one(msg.chat.search(name=name_to_kick))
+            <span style="color: #00ffff; font-weight: bold;">except</span> <span style="color: #00ff00;">ValueError</span>:
+                <span style="color: #ffff00;">member_to_kick</span> = ensure_one(msg.chat.search(nick_name=name_to_kick))
+
+            <span style="color: #00ffff; font-weight: bold;">if</span> member_to_kick <span style="color: #00ffff; font-weight: bold;">in</span> admins:
+                logger.error(<span style="color: #00ff00;">'{} tried to kick {} whom was an admin'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(
+                    msg.member.name, member_to_kick.name))
+                <span style="color: #00ffff; font-weight: bold;">return</span> <span style="color: #00ff00;">'&#26080;&#27861;&#31227;&#20986;&#31649;&#29702;&#21592; @{} &#128567;&#65039;'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(member_to_kick.name)
+            <span style="color: #00ffff; font-weight: bold;">if</span> from_admin(msg):
+                <span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#31649;&#29702;&#21592;: &#30452;&#25509;&#36386;&#20986;</span>
+                <span style="color: #00ffff; font-weight: bold;">return</span> _kick(member_to_kick, limit_secs, info_msg.<span style="color: #0000ff; font-weight: bold;">format</span>(<span style="color: #00ff00;">'&#31649;&#29702;&#21592;'</span>))
+            <span style="color: #00ffff; font-weight: bold;">else</span>:
+                <span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#20854;&#20182;&#32676;&#25104;&#21592;: &#25237;&#31080;&#36386;&#20986;</span>
+                <span style="color: #ffff00;">votes</span>, <span style="color: #ffff00;">secs_left</span> = kick_votes.vote(voter=msg.member, to_kick=member_to_kick)
+                <span style="color: #ffff00;">now</span> = time.time()
+                <span style="color: #ffff00;">voted</span> = 0
+                <span style="color: #00ffff; font-weight: bold;">for</span> voters, start <span style="color: #00ffff; font-weight: bold;">in</span> kick_votes.votes.values():
+                    <span style="color: #00ffff; font-weight: bold;">if</span> msg.member <span style="color: #00ffff; font-weight: bold;">in</span> voters <span style="color: #00ffff; font-weight: bold;">and</span> now - start &lt; 600:
+                        <span style="color: #ff0000;"># </span><span style="color: #ff0000;">10 &#20998;&#38047;&#20869;&#23581;&#35797;&#25237;&#31080;&#31227;&#20986; 3 &#20010;&#32676;&#21592;&#65292;&#21017;&#35748;&#20026;&#26159;&#24694;&#24847;&#29992;&#25143;</span>
+                        <span style="color: #ffff00;">voted</span> += 1
+                        <span style="color: #00ffff; font-weight: bold;">if</span> voted &gt;= 3:
+                            _kick(
+                                msg.member, limit_secs,
+                                <span style="color: #00ff00;">'&#25265;&#27465;&#65292;&#20320;&#22240;&#24694;&#24847;&#25237;&#31080;&#32780;&#34987;&#31227;&#20986;&#12290;&#25509;&#19979;&#26469;&#30340; 24 &#23567;&#26102;&#20869;&#65292;&#26426;&#22120;&#20154;&#23558;&#23545;&#20320;&#20445;&#25345;&#27785;&#40664; [&#24736;&#38386;]'</span>
+                            )
+                            <span style="color: #00ffff; font-weight: bold;">return</span> <span style="color: #00ff00;">'&#31227;&#20986;&#20102;&#24694;&#24847;&#25237;&#31080;&#32773; @{} [&#38378;&#30005;]'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(msg.member.name)
+
+                <span style="color: #00ffff; font-weight: bold;">if</span> votes &lt; votes_to_kick:
+                    <span style="color: #00ffff; font-weight: bold;">return</span> <span style="color: #00ff00;">'&#27491;&#22312;&#25237;&#31080;&#31227;&#20986; @{}'</span> \
+                           <span style="color: #00ff00;">'\n&#24403;&#21069; {} / {} &#31080; ({:.0f} &#31186;&#26377;&#25928;)'</span> \
+                           <span style="color: #00ff00;">'\n&#31227;&#20986;&#23558;&#25289;&#40657; 24 &#23567;&#26102; &#128565;'</span> \
+                           <span style="color: #00ff00;">'\n&#35831;&#35880;&#24910;&#25237;&#31080; &#129300;'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(name_to_kick, votes, votes_to_kick, secs_left)
+                <span style="color: #00ffff; font-weight: bold;">else</span>:
+                    <span style="color: #00ffff; font-weight: bold;">return</span> _kick(member_to_kick, limit_secs, info_msg.<span style="color: #0000ff; font-weight: bold;">format</span>(<span style="color: #00ff00;">'&#25237;&#31080;'</span>))
+
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">semi_sync</span>(msg, _groups):
+    <span style="color: #00ffff; font-weight: bold;">if</span> msg.is_at:
+        <span style="color: #ffff00;">msg.raw</span>[<span style="color: #00ff00;">'Text'</span>] = get_text_without_at_bot(msg)
+        <span style="color: #00ffff; font-weight: bold;">if</span> msg.text:
+            sync_message_in_groups(
+                msg, _groups, suffix=<span style="color: #00ff00;">'&#8593;&#38548;&#22721;&#28040;&#24687;&#8593;&#22238;&#22797;&#35831;@&#26426;&#22120;&#20154;'</span>)
+
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#21028;&#26029;&#28040;&#24687;&#26159;&#21542;&#20026;&#25903;&#25345;&#22238;&#22797;&#30340;&#28040;&#24687;&#31867;&#22411;</span>
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">supported_msg_type</span>(msg, reply_unsupported=<span style="color: #ff00ff;">False</span>):
+    <span style="color: #ffff00;">supported</span> = (TEXT,)
+    <span style="color: #ffff00;">ignored</span> = (SYSTEM, NOTE, FRIENDS)
+
+    <span style="color: #ffff00;">fallback_replies</span> = {
+        RECORDING: <span style="color: #00ff00;">'&#128585;'</span>,
+        PICTURE: <span style="color: #00ff00;">'&#128584;'</span>,
+        VIDEO: <span style="color: #00ff00;">'&#128584;'</span>,
+    }
+
+    <span style="color: #00ffff; font-weight: bold;">if</span> msg.<span style="color: #0000ff; font-weight: bold;">type</span> <span style="color: #00ffff; font-weight: bold;">in</span> supported:
+        <span style="color: #00ffff; font-weight: bold;">return</span> <span style="color: #ff00ff;">True</span>
+    <span style="color: #00ffff; font-weight: bold;">elif</span> (msg.<span style="color: #0000ff; font-weight: bold;">type</span> <span style="color: #00ffff; font-weight: bold;">not</span> <span style="color: #00ffff; font-weight: bold;">in</span> ignored) <span style="color: #00ffff; font-weight: bold;">and</span> reply_unsupported:
+        msg.reply(fallback_replies.get(msg.<span style="color: #0000ff; font-weight: bold;">type</span>, <span style="color: #00ff00;">'&#128018;'</span>))
+
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#21709;&#24212;&#22909;&#21451;&#35831;&#27714;</span>
+<span style="color: #00ff00;">@bot.register</span>(msg_types=FRIENDS)
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">new_friends</span>(msg):
+    <span style="color: #00ffff; font-weight: bold;">if</span> msg.card <span style="color: #00ffff; font-weight: bold;">in</span> black_list:
+        <span style="color: #00ffff; font-weight: bold;">return</span>
+    <span style="color: #ffff00;">user</span> = msg.card.accept()
+    <span style="color: #00ffff; font-weight: bold;">if</span> valid(msg):
+        invite(user)
+
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#21709;&#24212;&#22909;&#21451;&#28040;&#24687;&#65292;&#38480;&#21046;&#39057;&#29575;</span>
+<span style="color: #00ff00;">@bot.register</span>(Friend)
+<span style="color: #00ff00;">@freq_limit</span>()
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">exist_friends</span>(msg):
+    <span style="color: #00ffff; font-weight: bold;">if</span> msg.chat <span style="color: #00ffff; font-weight: bold;">in</span> black_list:
+        <span style="color: #00ffff; font-weight: bold;">return</span>
+    <span style="color: #00ffff; font-weight: bold;">if</span> supported_msg_type(msg, reply_unsupported=<span style="color: #ff00ff;">True</span>):
+        <span style="color: #00ffff; font-weight: bold;">if</span> <span style="color: #0000ff; font-weight: bold;">isinstance</span>(msg.chat, User) <span style="color: #00ffff; font-weight: bold;">and</span> valid(msg):
+            invite(msg.sender)
+            <span style="color: #00ffff; font-weight: bold;">return</span>
+        <span style="color: #00ffff; font-weight: bold;">elif</span> reply_by_keyword(msg):
+            <span style="color: #00ffff; font-weight: bold;">return</span>
+
+        tuling.do_reply(msg)
+
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#25163;&#21160;&#21152;&#20026;&#22909;&#21451;&#21518;&#33258;&#21160;&#21457;&#36865;&#28040;&#24687;</span>
+<span style="color: #00ff00;">@bot.register</span>(Friend, NOTE)
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">manually_added</span>(msg):
+    <span style="color: #00ffff; font-weight: bold;">if</span> <span style="color: #00ff00;">'&#29616;&#22312;&#21487;&#20197;&#24320;&#22987;&#32842;&#22825;&#20102;'</span> <span style="color: #00ffff; font-weight: bold;">in</span> msg.text:
+        <span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#23545;&#20110;&#22909;&#21451;&#39564;&#35777;&#20449;&#24687;&#20026; wxpy &#30340;&#65292;&#20250;&#31561;&#24453;&#36992;&#35831;&#23436;&#25104; (&#24182;&#35745;&#20837; invite_counter)</span>
+        <span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#23545;&#20110;&#22909;&#21451;&#39564;&#35777;&#20449;&#24687;&#19981;&#20026; wxpy &#30340;&#65292;&#24310;&#36831;&#21457;&#36865;&#26356;&#23481;&#26131;&#24341;&#36215;&#27880;&#24847;</span>
+        time.sleep(3)
+        <span style="color: #00ffff; font-weight: bold;">with</span> invite_lock:
+            <span style="color: #00ffff; font-weight: bold;">if</span> msg.chat <span style="color: #00ffff; font-weight: bold;">not</span> <span style="color: #00ffff; font-weight: bold;">in</span> invite_counter:
+                <span style="color: #00ffff; font-weight: bold;">return</span> <span style="color: #00ff00;">'&#20320;&#22909;&#21568;&#65292;{}&#65292;&#36824;&#35760;&#24471;&#21681;&#20204;&#30340;&#20837;&#32676;&#21475;&#20196;&#21527;&#65311;&#22238;&#22797;&#21475;&#20196;&#21363;&#21487;&#33719;&#21462;&#20837;&#32676;&#36992;&#35831;&#12290;'</span>.<span style="color: #0000ff; font-weight: bold;">format</span>(msg.chat.name)
+
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#22312;&#20854;&#20182;&#32676;&#20013;&#22238;&#22797;&#34987; @ &#30340;&#28040;&#24687;</span>
+<span style="color: #00ff00;">@bot.register</span>(Group, TEXT)
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">reply_other_group</span>(msg):
+    <span style="color: #00ffff; font-weight: bold;">if</span> msg.chat <span style="color: #00ffff; font-weight: bold;">not</span> <span style="color: #00ffff; font-weight: bold;">in</span> groups <span style="color: #00ffff; font-weight: bold;">and</span> msg.is_at:
+        <span style="color: #00ffff; font-weight: bold;">if</span> supported_msg_type(msg, reply_unsupported=<span style="color: #ff00ff;">True</span>):
+            tuling.do_reply(msg)
+
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">wxpy &#32676;&#30340;&#28040;&#24687;&#22788;&#29702;</span>
+<span style="color: #00ff00;">@bot.register</span>(groups, TEXT, except_self=<span style="color: #ff00ff;">False</span>)
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">wxpy_group</span>(msg):
+    <span style="color: #ffff00;">kick_msg</span> = remote_kick(msg)
+    <span style="color: #00ffff; font-weight: bold;">if</span> kick_msg:
+        <span style="color: #00ffff; font-weight: bold;">return</span> kick_msg
+    <span style="color: #00ffff; font-weight: bold;">elif</span> msg.text.lower().strip() <span style="color: #00ffff; font-weight: bold;">in</span> (<span style="color: #00ff00;">'&#24110;&#21161;'</span>, <span style="color: #00ff00;">'&#35828;&#26126;'</span>, <span style="color: #00ff00;">'&#35268;&#21017;'</span>, <span style="color: #00ff00;">'help'</span>, <span style="color: #00ff00;">'rule'</span>, <span style="color: #00ff00;">'rules'</span>):
+        <span style="color: #00ffff; font-weight: bold;">return</span> help_info
+    <span style="color: #00ffff; font-weight: bold;">elif</span> msg.is_at:
+        <span style="color: #00ffff; font-weight: bold;">return</span> <span style="color: #00ff00;">'oops&#8230;\n&#26412;&#32676;&#31105;&#27490;&#20351;&#29992;&#26426;&#22120;&#20154;[&#25735;&#22068;]\n&#24819;&#25105;&#23601;&#31169;&#32842;&#21591;[&#23475;&#32670;]'</span>
+
+<span style="color: #00ff00;">@bot.register</span>((*admins, admin_group), msg_types=TEXT, except_self=<span style="color: #ff00ff;">False</span>)
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">reply_admins</span>(msg):
+    <span style="color: #00ff00;">"""</span>
+<span style="color: #00ff00;">    &#21709;&#24212;&#36828;&#31243;&#31649;&#29702;&#21592;</span>
+
+<span style="color: #00ff00;">    &#20869;&#23481;&#35299;&#26512;&#26041;&#24335;&#20248;&#20808;&#32423;&#65306;</span>
+<span style="color: #00ff00;">    1. &#33509;&#20026;&#36828;&#31243;&#21629;&#20196;&#65292;&#21017;&#25191;&#34892;&#36828;&#31243;&#21629;&#20196; (&#39069;&#22806;&#23450;&#20041;&#65292;&#19968;&#26465;&#21629;&#20196;&#23545;&#24212;&#19968;&#20010;&#20989;&#25968;)</span>
+<span style="color: #00ff00;">    2. &#33509;&#28040;&#24687;&#25991;&#26412;&#20197; ! &#24320;&#22836;&#65292;&#21017;&#20316;&#20026; shell &#21629;&#20196;&#25191;&#34892;</span>
+<span style="color: #00ff00;">    3. &#23581;&#35797;&#20316;&#20026; Python &#20195;&#30721;&#25191;&#34892; (&#21487;&#25191;&#34892;&#22823;&#37096;&#20998; Python &#20195;&#30721;)</span>
+<span style="color: #00ff00;">    4. &#33509;&#20197;&#19978;&#19981;&#28385;&#36275;&#25110;&#23581;&#35797;&#22833;&#36133;&#65292;&#21017;&#20316;&#20026;&#26222;&#36890;&#32842;&#22825;&#20869;&#23481;&#22238;&#22797;</span>
+<span style="color: #00ff00;">    """</span>
+
+    <span style="color: #00ffff; font-weight: bold;">try</span>:
+        <span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#19978;&#36848;&#30340; 1. 2. 3.</span>
+        server_mgmt(msg)
+    <span style="color: #00ffff; font-weight: bold;">except</span> <span style="color: #00ff00;">ValueError</span>:
+        <span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#19978;&#36848;&#30340; 4.</span>
+        <span style="color: #00ffff; font-weight: bold;">if</span> <span style="color: #0000ff; font-weight: bold;">isinstance</span>(msg.chat, User):
+            <span style="color: #00ffff; font-weight: bold;">return</span> exist_friends(msg)
+
+
+<span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#26032;&#20154;&#27426;&#36814;&#28040;&#24687;</span>
+<span style="color: #00ff00;">@bot.register</span>(groups, NOTE)
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">welcome</span>(msg):
+    <span style="color: #ffff00;">name</span> = get_new_member_name(msg)
+    <span style="color: #00ffff; font-weight: bold;">if</span> name:
+        <span style="color: #00ffff; font-weight: bold;">return</span> welcome_text.<span style="color: #0000ff; font-weight: bold;">format</span>(name)
+
+
+<span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">get_logger</span>(level=logging.DEBUG, <span style="color: #0000ff; font-weight: bold;">file</span>=<span style="color: #00ff00;">'bot.log'</span>, mode=<span style="color: #00ff00;">'a'</span>):
+    <span style="color: #ffff00;">log_formatter</span> = logging.Formatter(<span style="color: #00ff00;">'%(asctime)s %(name)-12s %(levelname)-8s %(message)s'</span>)
+    <span style="color: #ffff00;">log_formatter_lite</span> = logging.Formatter(<span style="color: #00ff00;">'%(name)s:%(levelname)s:%(message)s'</span>)
+
+    <span style="color: #ffff00;">_logger</span> = logging.getLogger()
+
+    <span style="color: #00ffff; font-weight: bold;">for</span> hdlr <span style="color: #00ffff; font-weight: bold;">in</span> _logger.handlers:
+        _logger.removeHandler(hdlr)
+
+    <span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#36755;&#20986;&#21040;&#25991;&#20214;</span>
+    <span style="color: #00ffff; font-weight: bold;">if</span> <span style="color: #0000ff; font-weight: bold;">file</span>:
+        <span style="color: #ffff00;">file_hdlr</span> = logging.FileHandler(<span style="color: #0000ff; font-weight: bold;">file</span>, mode)
+        file_hdlr.setFormatter(log_formatter)
+        _logger.addHandler(file_hdlr)
+
+    <span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#36755;&#20986;&#21040;&#23631;&#24149;</span>
+    <span style="color: #ffff00;">console_hdlr</span> = logging.StreamHandler()
+    console_hdlr.setLevel(logging.WARNING)
+    console_hdlr.setFormatter(log_formatter)
+    _logger.addHandler(console_hdlr)
+
+    <span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#36755;&#20986;&#21040;&#36828;&#31243;&#31649;&#29702;&#21592;&#24494;&#20449;</span>
+    <span style="color: #ffff00;">wechat_hdlr</span> = WeChatLoggingHandler(admins[0])
+    wechat_hdlr.setLevel(logging.WARNING)
+    wechat_hdlr.setFormatter(log_formatter_lite)
+    _logger.addHandler(wechat_hdlr)
+
+    <span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#23558;&#26410;&#25429;&#25417;&#24322;&#24120;&#20063;&#21457;&#36865;&#21040;&#26085;&#24535;&#20013;</span>
+
+    <span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">except_hook</span>(*args):
+        logger.critical(<span style="color: #00ff00;">'UNCAUGHT EXCEPTION:'</span>, exc_info=args)
+        _restart()
+
+    <span style="color: #ffff00;">sys.excepthook</span> = except_hook
+
+    <span style="color: #00ffff; font-weight: bold;">for</span> m <span style="color: #00ffff; font-weight: bold;">in</span> <span style="color: #00ff00;">'requests'</span>, <span style="color: #00ff00;">'urllib3'</span>:
+        logging.getLogger(m).setLevel(logging.ERROR)
+
+    _logger.setLevel(level)
+    <span style="color: #00ffff; font-weight: bold;">return</span> _logger
+
+
+<span style="color: #ffff00;">logger</span> = get_logger()
+
+send_iter(admin_group, status_text())
+bot.dump_login_status()
+
+bot.join()
+</pre>
+</div>
+</li>
+</ol>
 </li>
 </ol>
 </div>
@@ -212,7 +869,7 @@ sudo ln -s /usr/bin/python3.6 /usr/bin/python3<br  />
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: manue1</p>
-<p class="date">Created: 2017-06-22 Thu 11:02</p>
+<p class="date">Created: 2017-06-22 Thu 11:25</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
