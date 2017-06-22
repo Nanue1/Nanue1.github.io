@@ -1,4 +1,4 @@
-title: note-Mongo
+title: note-elasticsearch
 ---
 
 <?xml version="1.0" encoding="utf-8"?>
@@ -6,7 +6,7 @@ title: note-Mongo
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>note-Mongo</title>
+<title>note-elasticsearch</title>
 <!-- 2017-06-22 Thu 10:29 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
@@ -140,34 +140,49 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">note-Mongo</h1>
+<h1 class="title">note-elasticsearch</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">1. Mongo 使用笔记</a>
+<li><a href="#sec-1">1. note-elasticsearch-install&amp;config</a>
 <ul>
-<li><a href="#sec-1-1">1.1. Mongo集群安装</a></li>
-<li><a href="#sec-1-2">1.2. 常用命令</a></li>
+<li><a href="#sec-1-1">1.1. install</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1"><span class="section-number-2">1</span> Mongo 使用笔记</h2>
+<h2 id="sec-1"><span class="section-number-2">1</span> note-elasticsearch-install&amp;config</h2>
 <div class="outline-text-2" id="text-1">
 </div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Mongo集群安装</h3>
-</div>
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 常用命令</h3>
-<div class="outline-text-3" id="text-1-2">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> install</h3>
+<div class="outline-text-3" id="text-1-1">
 <p>
-1.创建索引
-  db.smrt.ensureIndex({"ip":1})
-2.聚合出字段种类
-  db.smrt.distinct("tags")</p>
+安装环境: VMware12: 三台 ubuntu 14.04 内存 1g
+</p>
+<ol class="org-ol">
+<li>download es
+</li>
+<li>install java 8
+</li>
+<li>vim elasticsearch.yml
+访问地址修改:
+network.host : 192.168.67.128
+http.port:9200
+</li>
+<li>sudo vi /etc/sysctl.conf
+ kernel.pid<sub>max</sub>=999999
+ kernel.thread-max=999999
+ vm.max<sub>map</sub><sub>count</sub>=999999
+ fs.file-max=999999
+sysctl -a|grep vm.max<sub>map</sub><sub>count</sub>
+</li>
+<li>ulimit -Hn 
+/etc/security/limits.conf 配置修改为 65536  重启服务器 
+</li>
+</ol>
 </div>
 </div>
 </div>
