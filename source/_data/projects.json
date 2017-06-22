@@ -2,7 +2,7 @@
     {
        "name":"wechat_bot",
        "url":"https://github.com/Nanue1/wxpy-exampe",
-       "desc":"Personal wechat bot "
+       "desc":"personal wechat bot "
     },
     {
        "name":"csirtg-smrt",
@@ -10,14 +10,24 @@
        "desc":"get Threeat Intelligence data use csirtg-smrt-py"
     },
     {
+       "name":"send_email_python",
+       "url":"https://github.com/Nanue1/send_email_python",
+       "desc":"send group email to my friends"
+    },
+    {
+       "name":"scrapy_tumblr",
+       "url":"https://github.com/Nanue1/scrapy_tumblr",
+       "desc":"crawl pic & video on tumblr ..."
+    },
+    {
        "name":"xicidaili",
        "url":"https://github.com/Nanue1/xicidaili",
-       "desc":"爬取xici代理作为代理IP使用"
+       "desc":"how to use free proxys in scrapy projects"
     },
     {
        "name":"loginzhihu",
        "url":"https://github.com/Nanue1/loginzhihu",
-       "desc":"登录知乎,爬取图片补充表情包"
+       "desc":"crawl chat pictures ^^"
     },
     {
        "name":"hexo blog",
