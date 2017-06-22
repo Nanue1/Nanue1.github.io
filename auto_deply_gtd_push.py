@@ -9,6 +9,7 @@ for s in os.listdir(arg_path):
         cmd = 'mv %s %s -f' % (mv_path,target_path)
         s = os.system(cmd)
         print "copy not-gtd.html  status: %s" % str(s)
+        continue
     if 'html' in s :
         cat_path = post_path + s 
         if os.path.exists(cat_path):
@@ -28,11 +29,10 @@ for s in os.listdir(arg_path):
     else:
         pass
 
-
 hexo = 'hexo g && hexo d' 
 os.system(hexo)
 
 int_t = int(time.time())
-cmd = "git add -A && git commit -m '%d' && git push " % int_t
+cmd = "git add -A && git commit -m '%d' && git push -f origin SRC161123" % int_t
 s = os.system(cmd)
 print "push status : %s" % str(s)
