@@ -7,7 +7,7 @@ title: note-Ubuntu-config
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>note-Ubuntu-config</title>
-<!-- 2017-06-22 Thu 20:21 -->
+<!-- 2017-06-23 Fri 20:40 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="manue1" />
@@ -137,48 +137,6 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
-<script type="text/javascript">
-<!--/*--><![CDATA[/*><!--*/
-    MathJax.Hub.Config({
-        // Only one of the two following lines, depending on user settings
-        // First allows browser-native MathML display, second forces HTML/CSS
-        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
-            jax: ["input/TeX", "output/HTML-CSS"],
-        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
-                     "TeX/noUndefined.js"],
-        tex2jax: {
-            inlineMath: [ ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
-            skipTags: ["script","noscript","style","textarea","pre","code"],
-            ignoreClass: "tex2jax_ignore",
-            processEscapes: false,
-            processEnvironments: true,
-            preview: "TeX"
-        },
-        showProcessingMessages: true,
-        displayAlign: "center",
-        displayIndent: "2em",
-
-        "HTML-CSS": {
-             scale: 100,
-             availableFonts: ["STIX","TeX"],
-             preferredFont: "TeX",
-             webFont: "TeX",
-             imageFont: "TeX",
-             showMathMenu: true,
-        },
-        MMLorHTML: {
-             prefer: {
-                 MSIE:    "MML",
-                 Firefox: "MML",
-                 Opera:   "HTML",
-                 other:   "HTML"
-             }
-        }
-    });
-/*]]>*///-->
-</script>
 </head>
 <body>
 <div id="content">
@@ -190,66 +148,34 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1">1. Mint&amp;Ubuntu install&amp;config</a>
 <ul>
 <li><a href="#sec-1-1">1.1. 挂载磁盘</a></li>
-<li><a href="#sec-1-2">1.2. pinyin input</a>
-<ul>
-<li><a href="#sec-1-2-1">1.2.1. install</a></li>
-<li><a href="#sec-1-2-2">1.2.2. config</a></li>
-</ul>
-</li>
-<li><a href="#sec-1-3">1.3. chrome</a>
-<ul>
-<li><a href="#sec-1-3-1">1.3.1. install</a></li>
-</ul>
-</li>
-<li><a href="#sec-1-4">1.4. emacs</a>
-<ul>
-<li><a href="#sec-1-4-1">1.4.1. install</a></li>
-</ul>
-</li>
-<li><a href="#sec-1-5">1.5. vim</a>
-<ul>
-<li><a href="#sec-1-5-1">1.5.1. install</a></li>
-<li><a href="#sec-1-5-2">1.5.2. config</a></li>
-</ul>
-</li>
-<li><a href="#sec-1-6">1.6. intreast</a></li>
-<li><a href="#sec-1-7">1.7. ubuntu install gdebi</a></li>
-<li><a href="#sec-1-8">1.8. ubuntu install theme</a></li>
-<li><a href="#sec-1-9">1.9. mint config java develop env</a>
-<ul>
-<li><a href="#sec-1-9-1">1.9.1. install jdk</a></li>
-<li><a href="#sec-1-9-2">1.9.2. install apache-tomcat</a></li>
-</ul>
-</li>
-<li><a href="#sec-1-10">1.10. install oracle 11g</a>
-<ul>
-<li><a href="#sec-1-10-1">1.10.1. error</a></li>
-</ul>
-</li>
-<li><a href="#sec-1-11">1.11. install eclipse</a></li>
-<li><a href="#sec-1-12">1.12. install mybase for linux</a></li>
-<li><a href="#sec-1-13">1.13. install mysql</a></li>
-<li><a href="#sec-1-14">1.14. install vmware workstation</a></li>
-<li><a href="#sec-1-15">1.15. shadowsock vpn</a></li>
-<li><a href="#sec-1-16">1.16. chm 阅读</a></li>
-<li><a href="#sec-1-17">1.17. smplayer 视频软件</a></li>
-<li><a href="#sec-1-18">1.18. xbmc 安装</a></li>
-<li><a href="#sec-1-19">1.19. ubuntu15.04 wifi 热点共享</a></li>
-<li><a href="#sec-1-20">1.20. ubuntu 系统备份还原</a></li>
-<li><a href="#sec-1-21">1.21. ubuntu 安装 vsftp</a></li>
-<li><a href="#sec-1-22">1.22. ubuntu 安装 samba</a></li>
-<li><a href="#sec-1-23">1.23. ubuntu 安装 shutter 截图工具</a></li>
-<li><a href="#sec-1-24">1.24. ubuntu 安装百度云</a></li>
-<li><a href="#sec-1-25">1.25. ubuntu 安装 BT</a></li>
-<li><a href="#sec-1-26">1.26. ssh 翻墙图形化利器</a></li>
-<li><a href="#sec-1-27">1.27. ubuntu shutter 截图工具</a></li>
-<li><a href="#sec-1-28">1.28. ubuntu 删除不必要的插件</a></li>
-<li><a href="#sec-1-29">1.29. ubuntu 安装经典菜单指示器</a></li>
-<li><a href="#sec-1-30">1.30. ubuntu 安装 xmind 思维导图软件</a></li>
-<li><a href="#sec-1-31">1.31. ubuntu 安装局域网流量监控软件</a></li>
-<li><a href="#sec-1-32">1.32. ruby install</a></li>
-<li><a href="#sec-1-33">1.33. cisco iou install</a></li>
-<li><a href="#sec-1-34">1.34. xsel</a></li>
+<li><a href="#sec-1-2">1.2. pinyin input</a></li>
+<li><a href="#sec-1-3">1.3. chrome</a></li>
+<li><a href="#sec-1-4">1.4. emacs</a></li>
+<li><a href="#sec-1-5">1.5. vim</a></li>
+<li><a href="#sec-1-6">1.6. ubuntu install gdebi</a></li>
+<li><a href="#sec-1-7">1.7. java</a></li>
+<li><a href="#sec-1-8">1.8. install apache-tomcat</a></li>
+<li><a href="#sec-1-9">1.9. install eclipse</a></li>
+<li><a href="#sec-1-10">1.10. install mybase for linux</a></li>
+<li><a href="#sec-1-11">1.11. install vmware workstation</a></li>
+<li><a href="#sec-1-12">1.12. chm 阅读</a></li>
+<li><a href="#sec-1-13">1.13. smplayer 视频软件</a></li>
+<li><a href="#sec-1-14">1.14. xbmc 安装</a></li>
+<li><a href="#sec-1-15">1.15. ubuntu15.04 wifi 热点共享</a></li>
+<li><a href="#sec-1-16">1.16. ubuntu 安装 vsftp</a></li>
+<li><a href="#sec-1-17">1.17. ubuntu 安装 samba</a></li>
+<li><a href="#sec-1-18">1.18. ubuntu 安装 shutter 截图工具</a></li>
+<li><a href="#sec-1-19">1.19. ubuntu 安装百度云</a></li>
+<li><a href="#sec-1-20">1.20. ubuntu 安装 BT</a></li>
+<li><a href="#sec-1-21">1.21. ssh 翻墙图形化利器</a></li>
+<li><a href="#sec-1-22">1.22. ubuntu shutter 截图工具</a></li>
+<li><a href="#sec-1-23">1.23. ubuntu 删除不必要的插件</a></li>
+<li><a href="#sec-1-24">1.24. ubuntu 安装经典菜单指示器</a></li>
+<li><a href="#sec-1-25">1.25. ubuntu 安装 xmind 思维导图软件</a></li>
+<li><a href="#sec-1-26">1.26. ubuntu 安装局域网流量监控软件</a></li>
+<li><a href="#sec-1-27">1.27. ruby install</a></li>
+<li><a href="#sec-1-28">1.28. cisco iou install</a></li>
+<li><a href="#sec-1-29">1.29. xsel</a></li>
 </ul>
 </li>
 </ul>
@@ -274,228 +200,213 @@ the new os should do this for update
 <h3 id="sec-1-1"><span class="section-number-3">1.1</span> 挂载磁盘</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
-在文件中添加要挂载的分区和文件目录
-<i>etc/fstab
-/dev/sda5</i>    media/win    ntfs    defaults   02
+在文件中添加要挂载的分区和文件目录可以修改文件
+</p>
+
+<p>
+/etc/fstab
+</p>
+
+<p>
+<i>dev/sda5</i>    media/win    ntfs    defaults   02
+</p>
+
+<p>
 然后 mount -a
 </p>
+
 <ol class="org-ol">
 <li>查看几块硬盘
+
+<p>
 sudo fdisk -l |grep sd
+</p>
 </li>
+
 <li>创建分区
- 20g 的硬盘
-fdisk /dev/sdb
- m  帮助信息  
- e 扩展分区    +5G  pppp/pppe
- p 打印分区
- t 分区类型 L  (lvm)
- w 写入保存分区
+
+<p>
+虚拟机现有20g的硬盘,使用fdisk划分磁盘
+</p>
+
+<p>
+sudo fdisk /dev/sda
+</p>
+
+<p class="verse">
+m  帮助信息<br  />
+e 扩展分区    +5G  pppp/pppe<br  />
+p 打印分区<br  />
+t 分区类型 L  (lvm)<br  />
+w 写入保存分区<br  />
+</p>
 </li>
 <li>格式化 分区
-</li>
-</ol>
 
 <p>
 如果是逻辑卷管理分区
 </p>
-<ol class="org-ol">
+</li>
+
 <li>pv 物理卷
- pvcreate /dev/sdb2
- pvdisplay
-vg 卷组
- vgcreate  卷组名 /dev/sdb2
- pv 添加到 vg
- vgdisplay
- vgextend  卷组名 /dev/sdb1
-lv 逻辑卷
- lvcreate -L 2G -n 逻辑卷名 卷组名
+
+<p>
+pvcreate /dev/sdb2
+</p>
+
+<p>
+pvdisplay
+</p>
+<ul class="org-ul">
+<li>vg 卷组
+
+<p>
+vgcreate  卷组名 /dev/sdb2
+</p>
+
+<p>
+pv 添加到 vg
+</p>
+
+<p>
+vgdisplay
+</p>
+
+<p>
+vgextend  卷组名 /dev/sdb1
+</p>
+</li>
+
+<li>lv 逻辑卷
+
+<p>
+lvcreate -L 2G -n 逻辑卷名 卷组名
+</p>
 
 <p>
 lvextend  -L +10G LVPath
 </p>
 </li>
+</ul>
+</li>
 </ol>
+
 <p>
-　　　 resize2fs　LVPath
+　　resize2fs　LVPath
 </p>
 
 <p>
- lvdisplay
-格式化挂载:
-  mkfs.ext4 /dev/vg-1/vg1-lv1
-  vi /etc/fstab
+lvdisplay
 </p>
+<ul class="org-ul">
+<li>格式化挂载:
+mkfs.ext4 /dev/vg-1/vg1-lv1
+
+<p>
+vi /etc/fstab
+</p>
+</li>
+</ul>
 </div>
 </div>
+
 <div id="outline-container-sec-1-2" class="outline-3">
 <h3 id="sec-1-2"><span class="section-number-3">1.2</span> pinyin input</h3>
 <div class="outline-text-3" id="text-1-2">
-</div><div id="outline-container-sec-1-2-1" class="outline-4">
-<h4 id="sec-1-2-1"><span class="section-number-4">1.2.1</span> install</h4>
-<div class="outline-text-4" id="text-1-2-1">
 <ol class="org-ol">
 <li>install chinese language pack
+
+<p>
 sudo apt-get install language-pack-zh-hans language-pack-gnome-zh-hans libreoffice-l10n-zh-cn thunderbird-locale-zh-hans firefox-locale-zh-hans
+</p>
 </li>
+
 <li>install Fcitx
+
+<p>
 sudo apt-get install fcitx fcitx-table-wubi-large fcitx-frontend-all fcitx-frontend-gtk2 fcitx-frontend-gtk3 fcitx-frontend-qt4 fcitx-config-gtk fcitx-ui-classic fcitx-module-kimpanel fcitx-module-dbus libopencc1 fcitx-libs-qt
+</p>
 </li>
+
 <li>install sugou input
+
+<p>
 to the official website to download
+</p>
+</li>
+<li>im-config&#x2013;&gt;fcitx
 </li>
 </ol>
-</div>
-</div>
-<div id="outline-container-sec-1-2-2" class="outline-4">
-<h4 id="sec-1-2-2"><span class="section-number-4">1.2.2</span> config</h4>
-<div class="outline-text-4" id="text-1-2-2">
-<p>
-im-config&#x2013;&gt;fcitx
-</p>
-</div>
 </div>
 </div>
 <div id="outline-container-sec-1-3" class="outline-3">
 <h3 id="sec-1-3"><span class="section-number-3">1.3</span> chrome</h3>
 <div class="outline-text-3" id="text-1-3">
-</div><div id="outline-container-sec-1-3-1" class="outline-4">
-<h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> install</h4>
-<div class="outline-text-4" id="text-1-3-1">
 <p>
 wget <a href="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb">https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</a>
+</p>
+
+<p>
 sudo gdebi google-chrome-stable<sub>current</sub><sub>amd64</sub>.deb
 </p>
+
 <p>
 wget <a href="https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb">https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb</a>
+</p>
+
+<p>
 sudo gdebi google-chrome-stable<sub>current</sub><sub>i386</sub>.deb
 </p>
-</div>
 </div>
 </div>
 
 <div id="outline-container-sec-1-4" class="outline-3">
 <h3 id="sec-1-4"><span class="section-number-3">1.4</span> emacs</h3>
-<div class="outline-text-3" id="text-1-4">
-</div><div id="outline-container-sec-1-4-1" class="outline-4">
-<h4 id="sec-1-4-1"><span class="section-number-4">1.4.1</span> install</h4>
-<div class="outline-text-4" id="text-1-4-1">
-<ul class="org-ul">
-<li>sudo apt-get install emacs
-</li>
-<li>自定义
-<ul class="org-ul">
-<li>依赖包
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
 </div>
 <div id="outline-container-sec-1-5" class="outline-3">
 <h3 id="sec-1-5"><span class="section-number-3">1.5</span> vim</h3>
-<div class="outline-text-3" id="text-1-5">
-</div><div id="outline-container-sec-1-5-1" class="outline-4">
-<h4 id="sec-1-5-1"><span class="section-number-4">1.5.1</span> install</h4>
-<div class="outline-text-4" id="text-1-5-1">
-<p>
-sudo apt-get install vim-gtk
-</p>
-</div>
-</div>
-<div id="outline-container-sec-1-5-2" class="outline-4">
-<h4 id="sec-1-5-2"><span class="section-number-4">1.5.2</span> config</h4>
-<div class="outline-text-4" id="text-1-5-2">
-<ol class="org-ol">
-<li>download this config
-<a href="http://www.oschina.net/code/snippet_574132_13357">http://www.oschina.net/code/snippet_574132_13357</a>
-</li>
-<li>how to use
-<ul class="org-ul">
-<li>step1: install Ctags &amp; Cscope 
-sudo apt-get install exuberant-ctags
-sudo apt-get install cscope
-</li>
-<li>step2: .vim &amp; .vimrc
-replace or new .im &amp; .vimrc into ~ 
-</li>
-</ul>
-</li>
-<li>personal configuration    
-</li>
-</ol>
-</div>
-</div>
 </div>
 <div id="outline-container-sec-1-6" class="outline-3">
-<h3 id="sec-1-6"><span class="section-number-3">1.6</span> intreast</h3>
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> ubuntu install gdebi</h3>
 <div class="outline-text-3" id="text-1-6">
-<ol class="org-ol">
-<li>sudo apt-get install sl
-</li>
-<li>sudo apt-get install fortune
-sudo apt-get install fortune-zh
-
-<p>
-aphorisms
-</p>
-</li>
-<li>sudo apt-get install cowsay
-animal say
-</li>
-<li>sudo apt-get install figlet
-wordart
-</li>
-<li>sudo apt-get install toilet
-colored  wordart 
-</li>
-<li>sudo apt-get install oneko
-hello-kity run with your mouse
-</li>
-</ol>
-</div>
-</div>
-<div id="outline-container-sec-1-7" class="outline-3">
-<h3 id="sec-1-7"><span class="section-number-3">1.7</span> ubuntu install gdebi</h3>
-<div class="outline-text-3" id="text-1-7">
 <p>
 sudo apt-get install gdebi
 </p>
 </div>
 </div>
-<div id="outline-container-sec-1-8" class="outline-3">
-<h3 id="sec-1-8"><span class="section-number-3">1.8</span> ubuntu install theme</h3>
-<div class="outline-text-3" id="text-1-8">
-<p>
-theme:<a href="http://kde-look.org/index.php?xcontentmode=167&PHPSESSID=6">http://kde-look.org/index.php?xcontentmode=167&PHPSESSID=6</a>
- cp to <i>usr/share/theme
- ubuntu tweak:<a href="http://ubuntu-tweak.com">http://ubuntu-tweak.com</a></i>
-</p>
-</div>
-</div>
-
-<div id="outline-container-sec-1-9" class="outline-3">
-<h3 id="sec-1-9"><span class="section-number-3">1.9</span> mint config java develop env</h3>
-<div class="outline-text-3" id="text-1-9">
-</div><div id="outline-container-sec-1-9-1" class="outline-4">
-<h4 id="sec-1-9-1"><span class="section-number-4">1.9.1</span> install jdk</h4>
-<div class="outline-text-4" id="text-1-9-1">
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="section-number-3">1.7</span> java</h3>
+<div class="outline-text-3" id="text-1-7">
 <ul class="org-ul">
 <li>step1 uninstall openjdk
+
+<p>
 sudo apt-get purge openjdk-\*
+</p>
 </li>
+
 <li>step2 install jdk
+
 <ol class="org-ol">
 <li>download jdk1.8
-<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a>
+
+<p>
+<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">下载地址</a>
+</p>
 </li>
+
 <li>install
-mkdir -p ~/opt/java/jdk1.8
-tar -zxvf jdk-8u45-linux-i586.tar.gz
-cd jdk1.8.0<sub>45</sub>/
-cp  * ~/opt/java/jdk1.8/ -rf
 </li>
+</ol>
+</li>
+</ul>
+<p class="verse">
+mkdir -p ~/opt/java/jdk1.8<br  />
+tar -zxvf jdk-8u45-linux-i586.tar.gz<br  />
+cd jdk1.8.0<sub>45</sub>/<br  />
+cp  * ~/opt/java/jdk1.8/ -rf<br  />
+</p>
+<ol class="org-ol">
 <li>set up environment
 <ul class="org-ul">
 <li>vim ~/.bashrc
@@ -507,36 +418,52 @@ export PATH=${JAVA_HOME}/bin:$PATH
 </pre>
 </li>
 <li>source .bashrc
+
+<p>
 java -version
+</p>
 </li>
 </ul>
 </li>
 <li>change jdk version
+
+<p>
 javac -version 要与 java -version 一致
+</p>
 </li>
 </ol>
-</li>
-</ul>
 </div>
 </div>
 
-<div id="outline-container-sec-1-9-2" class="outline-4">
-<h4 id="sec-1-9-2"><span class="section-number-4">1.9.2</span> install apache-tomcat</h4>
-<div class="outline-text-4" id="text-1-9-2">
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8"><span class="section-number-3">1.8</span> install apache-tomcat</h3>
+<div class="outline-text-3" id="text-1-8">
 <ul class="org-ul">
 <li>step1 download tomcat tar to ~/opt
+
+<p>
 cd ~/opt
+</p>
+
+<p>
 tar -zxvf ~/Downloads/apache-tomcat-8.0.23.tar.gz  -C .
+</p>
 </li>
 <li>step2 config environment
 <ul class="org-ul">
 <li>view env
-java -version
-echo $JAVA<sub>HOME</sub>
-echo $JDK<sub>HOME</sub>
+<p class="verse">
+java -version<br  />
+echo $JAVA<sub>HOME</sub><br  />
+echo $JDK<sub>HOME</sub><br  />
+</p>
 </li>
 <li>change configuration .bachrc
+
+<p>
 vim ~/.bashrc 
+</p>
+
 <pre class="example">
 #jdk config
 export JAVA_HOME=/usr/java/jdk1.8
@@ -557,329 +484,67 @@ chmod -R +x ~/opt/tomcat/*
 chmod +r ~/opt/tomcat/conf/*
 </li>
 <li>step4 关闭防火墙
- sudo service iptables stop
+
+<p>
+sudo service iptables stop
+</p>
+
+<p>
 sudo chkconfig iptables off
+</p>
 </li>
 <li>step5 how to use
+
+<p>
 sh tomcat/bin/startup.sh 
+</p>
+
+<p>
 sh tomcat/bin/shutdown.sh 
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div id="outline-container-sec-1-10" class="outline-3">
-<h3 id="sec-1-10"><span class="section-number-3">1.10</span> install oracle 11g</h3>
-<div class="outline-text-3" id="text-1-10">
-<ul class="org-ul">
-<li>step1 Download
-<a href="http://www.oracle.com/technetwork/database/enterprise-edition/downloads/112010-linx8664soft-100572.html">http://www.oracle.com/technetwork/database/enterprise-edition/downloads/112010-linx8664soft-100572.html</a> 
-refer:<a href="http://tutorialforlinux.com/2014/10/03/how-to-install-oracle-11g-r2-database-on-linux-mint-17-qiana-lts-64bit-easy-guide/">http://tutorialforlinux.com/2014/10/03/how-to-install-oracle-11g-r2-database-on-linux-mint-17-qiana-lts-64bit-easy-guide/</a>
-</li>
-<li>step2 Login as root 
-su
-</li>
-<li>step3 Make network configuration
-&gt;hostname
-&gt;ifconifg
-&gt;cat /etc/hosts
-&gt;xhost +127.0.0.1
-</li>
-<li>step4 install prerequisite packages 
-apt-get update
-apt-get dist-upgrade 
-<pre class="example">
-      apt-get install alien autoconf automake autotools-dev binutils doxygen \
-elfutils expat gawk gcc gcc-multilib g++-multilib libstdc++6:i386 ksh less libtiff4 \
-libtiff4-dev lib32z1 libaio1 libaio-dev libc6-dev libc6-dev-i386 libc6-i386 \
-libelf-dev libltdl-dev libmotif4 libodbcinstq4-1 libodbcinstq4-1:i386 \
-libpthread-stubs0 libpth-dev libstdc++5 lsb-cxx make \
-pdksh openssh-server rlwrap rpm sysstat unixodbc unixodbc-dev x11-utils \
-zlibc libglapi-mesa:i386 libglu1-mesa:i386 libqt4-opengl:i386 \
-libpthread-workqueue0 libpthread-workqueue-dev libzthread-2.3-2 libzthread-dev \
-libpthread-stubs0-dev
-    
-
-sudo apt-get install libaio1
-</pre>
-<ul class="org-ul">
-<li>How-to Install libtiff4, libtiff4-dev a libpthread-stubs0
-vim /etc/apt/sources.list.d/extra.list
-<pre class="example">
-deb http://cz.archive.ubuntu.com/ubuntu trusty main
-deb http://cz.archive.ubuntu.com/ubuntu precise main
-</pre>
-<p>
-then apt-get install package-name
-if invalid , single download install
-<a href="http://packages.ubuntu.com/precise/amd64/libtiff4/download">http://packages.ubuntu.com/precise/amd64/libtiff4/download</a>
-dpkg -i /home/manue1/Downloads/libtiff4<sub>3</sub>.9.5-2ubuntu1.8<sub>amd64</sub>.deb
-<a href="http://packages.ubuntu.com/trusty/amd64/libpthread-stubs0-dev/download">http://packages.ubuntu.com/trusty/amd64/libpthread-stubs0-dev/download</a>
-dpkg -i /home/manue1/Downloads/libpthread-stubs0-dev<sub>0</sub>.3-4<sub>amd64</sub>.deb
-<a href="http://packages.ubuntu.com/precise/amd64/libpthread-stubs0/download">http://packages.ubuntu.com/precise/amd64/libpthread-stubs0/download</a>
-dpkg -i /home/manue1/Downloads/libpthread-stubs0<sub>0</sub>.3-3<sub>amd64</sub>.deb
 </p>
 </li>
 </ul>
-</li>
-<li>step5 Make Symlinks to Binaries and Libraries 
-<ul class="org-ul">
-<li>Linking Binaries
-ln -s /usr/bin/awk /bin/awk
-ln -s /usr/bin/rpm /bin/rpm
-ln -s /usr/bin/basename /bin/basename
-</li>
-<li>Linking Libraries
-ln -s /usr/lib/x86<sub>64</sub>-linux-gnu /usr/lib64
-cd /lib64
-ln -s /lib/x86<sub>64</sub>-linux-gnu/libgcc<sub>s</sub>.so.1 . 
-</li>
-</ul>
-</li>
-<li>step6 Add groups and user
-groupadd -g 502 oinstall
-groupadd -g 503 dba
-groupadd -g 504 oper
-groupadd -g 505 asmadmin
-useradd -u 502 -g oinstall -G dba,asmadmin,oper -s /bin/bash -m oracle
-passwd oracle
-</li>
-<li>step7 Make Target Directories
-  mkdir -p <i>u01/app/oracle/product/11.2.0</i>
-chown -R oracle:oinstall /u01
-chmod -R 775 /u01
-</li>
-<li>step8 Parameters Configuration setup
-<ul class="org-ul">
-<li>vim /etc/sysctl.conf
-<pre class="example">
-#### Oracle 11g Kernel Parameters ####
-fs.suid_dumpable = 1
-fs.aio-max-nr = 1048576
-fs.file-max = 6815744
-kernel.shmall = 2097152
-kernel.shmmax = 536870912
-kernel.shmmni = 4096
-# semaphores: semmsl, semmns, semopm, semmni
-kernel.sem = 250 32000 100 128
-net.ipv4.ip_local_port_range = 9000 65500 
-net.core.rmem_default=4194304
-net.core.rmem_max=4194304
-net.core.wmem_default=262144
-net.core.wmem_max=1048586
-</pre>
-</li>
-<li>vim /etc/security/limits.conf
-<pre class="example">
-#### oracle User Settings 4 Oracle 11g ####
-oracle       soft  nproc  2047
-oracle       hard  nproc  16384
-oracle       soft  nofile 1024
-oracle       hard  nofile 65536
-oracle       soft  stack  10240
-</pre>
-<p>
-/sbin/sysctl -p
-</p>
-</li>
-</ul>
-</li>
-<li>step9 Unzip, set oracle as Owner and Relocate database
-cd /home/[myUser]/Downloads
-unzip linux<sub>11gR2</sub><sub>database</sub><sub>1of2</sub>.zip
-unzip linux<sub>11gR2</sub><sub>database</sub><sub>2of2</sub>.zip
-chown -R oracle:oinstall database
-mv database /tmp
-</li>
-<li>step10 Add Paths to oracle's .bashrc
-su oracle
-<ul class="org-ul">
-<li>vim ~/.bashrc
-<pre class="example">
-# Oracle Settings
-TMP=/tmp; export TMP
-TMPDIR=$TMP; export TMPDIR
-ORACLE_HOSTNAME=[HOSTNAME]; export ORACLE_HOSTNAME
-ORACLE_UNQNAME=DB11G; export ORACLE_UNQNAME
-ORACLE_BASE=/u01/app/oracle; export ORACLE_BASE
-ORACLE_HOME=$ORACLE_BASE/product/11.2.0/dbhome_1; export ORACLE_HOME
-ORACLE_SID=[DBSID]; export ORACLE_SID
-PATH=/usr/sbin:$PATH; export PATH
-PATH=$ORACLE_HOME/bin:$PATH; export PATH
-LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib:/usr/lib64; export LD_LIBRARY_PATH
-CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib; export CLASSPATH
-</pre>
-<p>
-Replace [HOSTNAME] with ip and [DBSID] with SID name
-</p>
-</li>
-</ul>
-<p>
-source ~/.bashrc
-</p>
-</li>
-<li>step11 Install the Oracle 11g Software
-xhost +
-su oracle
-export DISPLAY=:0
-cd /tmp/database
-./runInstaller
-<ul class="org-ul">
-<li>安装到 68%时的错 
-ins<sub>ctx</sub>.mk 的错误提示，直接 contiue 跳过去 
-后面还回报错： 
-make file '/&#x2026;&#x2026;emagent.mk'出错 
-解决方法： 
-另开一个终端，键入命令行： 
-sed -i 's/<sup>\</sup>\\(\s*\$(MK_EMAGENT_NMECTL)\)\s*$/\1 -lnnz11/g' $ORACLE<sub>HOME</sub>/sysman/lib/ins<sub>emagent</sub>.mk 
-点击安装界面的 retry,就可以继续了 
-类似的后面还会提示四次，以下面的命令行如法炮制 
-sed -i 's/<sup>\</sup>\\(\$LD \$LD_RUNTIME\) \(\$LD_OPT\)/\1 -Wl,&#x2013;no-as-needed \2/g' $ORACLE<sub>HOME</sub>/bin/genorasdksh 
-sed -i 's/<sup>\</sup>\\(\s*\)\(\$(OCRLIBS_DEFAULT)\)/\1 -Wl,&#x2013;no-as-needed \2/g' $ORACLE<sub>HOME</sub>/srvm/lib/ins<sub>srvm</sub>.mk 
-sed -i 's/<sup>\</sup>\\(TNSLSNR_LINKLINE.*\$(TNSLSNR_OFILES)\) \(\$(LINKTTLIBS)\)/\1 -Wl,&#x2013;no-as-needed \2/g'
-  $ORACLE<sub>HOME</sub>/network/lib/env<sub>network</sub>.mk 
-sed -i 's/<sup>\</sup>\\(ORACLE_LINKLINE.*\$(ORACLE_LINKER)\) \(\$(PL_FLAGS)\)/\1 -Wl,&#x2013;no-as-needed \2/g' $ORACLE<sub>HOME</sub>/rdbms/lib/env<sub>rdbms</sub>.mk 
-</li>
-</ul>
-<p>
-安装完成会提示有两个 sh 文件需要运行： 
-打开另开一个终端： 
-sudo /home/xxx/app/xxx/oracle/oraInventory/orainstRoot.sh 
-sudo /home/xxx/app/xxx/oracle/Oracle11gee/product/11.2.0/dbhome<sub>1</sub>/root.sh 
-安装完成！
-</p>
-</li>
-
-<li>启动 oracle
-<ol class="org-ol">
-<li>启动 oralce 的监听进程：
-$lsnrctl start
-</li>
-<li>进入独占的系统用户下，启动 oralce 数据库：
-$sqlplus /nolog
-SQL&gt;connect / as sysdba
-SQL&gt;startup;
-</li>
-</ol>
-</li>
-</ul>
-</div>
-
-
-<div id="outline-container-sec-1-10-1" class="outline-4">
-<h4 id="sec-1-10-1"><span class="section-number-4">1.10.1</span> error</h4>
-<div class="outline-text-4" id="text-1-10-1">
-<ul class="org-ul">
-<li>重新安装时 You do not have sufficient permissions to access the inventory
-<a href="http://www.linuxdiyf.com/viewarticle.php?id=57730">http://www.linuxdiyf.com/viewarticle.php?id=57730</a>
-删除/etc/oraInst.loc 和 oratab 这两个文件
-</li>
-<li>ORA-01034: ORACLE not available ORA-27101: shared memory realm does not exist Linux-x86<sub>64</sub> Error: 2:
-1、先看 oracle 的监听和 oracle 的服务是否都启动了。启动 oracle 监听：
-    输入 lsnrctl start，回车即启动监听。
-2、查看 oracle 的 sid 叫什么
-3、再输入 sqlplus  /nolog
-    再输入 conn / as sysdba;
-4、再输入 startup，回车.这步是启动 oracle 服务。
-   如果 startup 启动被告知已经启动了，可以先输入 shutdown immediate；等 shutdown 结束之后，再输入 startup。
-5、过几秒钟等命令运行完成，就能连接了。这个时候，可以输入"select * from user<sub>tables</sub>;"测试一下，看是否有查询结果。
-6、出现 ORA-01034 和 ORA-27101 的原因是多方面的：主要是 oracle 当前的服务不可用，shared memory realm does not exist，
-   是因为 oracle 没有启动或没有正常启动，共享内存并没有分配给当前实例.所以，通过设置实例名，再用操作系统身份验证的方式，
-  启动数据库。这样数据库就正常启动了，就不会报 ORA-01034 和 ORA-27101 两个启动异常了。
-</li>
-<li>oracle 插入中文乱码问题
-因为你的环境默认下 NLS<sub>LANG</sub> 环境变量是 english 的，只要在/etc/profile 文件中加入 export NLS<sub>LANG</sub>="SIMPLIFIED CHINESE<sub>CHINA</sub>.UTF8"
-然而没效果
- refer：<a href="http://zhidao.baidu.com/link?url=45zj7JNCFNveMsKFZztQcQxHPPP52j4W5AWA8r6dNPpGP64V7TCu9L4-MC64X9tSBwGFi3ljwKKXUk0BwoVbla">http://zhidao.baidu.com/link?url=45zj7JNCFNveMsKFZztQcQxHPPP52j4W5AWA8r6dNPpGP64V7TCu9L4-MC64X9tSBwGFi3ljwKKXUk0BwoVbla</a>
-<ul class="org-ul">
-<li>1.数据库全备
-</li>
-<li>2.查询当前字符集
-SQL&gt; select * from nls<sub>database</sub><sub>parameters</sub> where parameter='NLS<sub>CHARACTERSET'</sub>;
-</li>
-<li>3.关闭数据库
-SQL&gt; shutdown immediate
-</li>
-<li>4.启动数据库到 mount 状态
-SQL&gt; startup mount
-</li>
-<li>5.限制 session
-SQL&gt; alter system enable restricted session;
-</li>
-<li>6.查询相关参数并修改
-SQL&gt; show parameter job<sub>queue</sub><sub>processes</sub>; 
-SQL&gt; show parameter aq<sub>tm</sub><sub>processes</sub>; 
-SQL&gt; alter system set job<sub>queue</sub><sub>processes</sub>=0;
-</li>
-<li>7.打开数据库
-SQL&gt; alter database open;
-</li>
-<li>8.修改字符集
-SQL&gt; alter database character set ZHS16GBK;
-ORA-12712: new character set must be a superset of old character set 出现错误提示，
-新字符集必须是老字符集的超集，也就原来字符集是新字符集的子集，可以再 Oracle 官方文档上查询字符集包含关系。
-下面使用 Oracle 内部命令 internal<sub>use，跳过超集检查，生产环境不建议使用此方法。</sub>
-SQL&gt; alter database character set internal<sub>use</sub> ZHS16GBK; 
-Database altered.
-</li>
-<li>9.查询当前字符集
-SQL&gt; select * from nls<sub>database</sub><sub>parameters</sub> where parameter='NLS<sub>CHARACTERSET'</sub>;
-PARAMETER VALUE
--&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014; -&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;
-NLS<sub>CHARACTERSET</sub> ZHS16GBK
-</li>
-<li>10.关闭数据库
-SQL&gt; shutdown immediate
-</li>
-<li>11.启动数据库到 mount 状态
-SQL&gt; startup mount
-</li>
-<li>12.将相关参数改回原来值
-SQL&gt; alter system set job<sub>queue</sub><sub>processes</sub>=10;
-System altered.
-</li>
-<li>13.打开数据库
-SQL&gt; alter database open;
-Database altered.
-</li>
-</ul>
-</li>
-<li>ORA-12526, TNS:listener: all appropriate instances are in restricted mode
- 数据库处于受限模式，禁止了先。
- SQL&gt; alter system disable restricted session;
- System altered.
- 重新启动应用，正常连接。
- 原因：
-数据库维护时执行了下面的语句限制用户登陆：
-ALTER SYSTEM ENABLE RESTRICTED SESSION;   
-解决办法：
-ALTER SYSTEM DISABLE RESTRICTED SESSION; 
-</li>
-<li>ORA-29275: partial multibyte character
-之前插入的乱码字符 删掉之后就不报错了
-</li>
-</ul>
 </div>
 </div>
-</div>
-<div id="outline-container-sec-1-11" class="outline-3">
-<h3 id="sec-1-11"><span class="section-number-3">1.11</span> install eclipse</h3>
-<div class="outline-text-3" id="text-1-11">
+<div id="outline-container-sec-1-9" class="outline-3">
+<h3 id="sec-1-9"><span class="section-number-3">1.9</span> install eclipse</h3>
+<div class="outline-text-3" id="text-1-9">
 <ul class="org-ul">
 <li>step1 download &amp; install
+
+<p>
 <a href="https://eclipse.org/downloads/">https://eclipse.org/downloads/</a>
+</p>
+
+<p>
 tar -zxvf  ~/Downloads/eclipse-jee-mars-R-linux-gtk-x86<sub>64</sub>.tar.gz 
+</p>
+
+<p>
 copy to opt/eclipse
+</p>
 </li>
+
 <li>step2 create shortcut
+
+<p>
 sudo ln -s ~/opt/eclipse/eclipse /usr/local/bin/eclipse
+</p>
 </li>
+
 <li>step2 安装常用插件
 <ul class="org-ul">
 <li>theme
+
+<p>
 Eclipse Moonrise UI Theme
+</p>
+
+<p>
 Eclipse color theme
+</p>
 </li>
+
 <li>vim
 vrapper
 </li>
@@ -888,218 +553,157 @@ vrapper
 </ul>
 </div>
 </div>
-<div id="outline-container-sec-1-12" class="outline-3">
-<h3 id="sec-1-12"><span class="section-number-3">1.12</span> install mybase for linux</h3>
-<div class="outline-text-3" id="text-1-12">
+<div id="outline-container-sec-1-10" class="outline-3">
+<h3 id="sec-1-10"><span class="section-number-3">1.10</span> install mybase for linux</h3>
+<div class="outline-text-3" id="text-1-10">
 <ul class="org-ul">
 <li>download
+
+<p>
 <a href="http://www.wjjsoft.com/mybase_cn.html#download">http://www.wjjsoft.com/mybase_cn.html#download</a>
+</p>
 </li>
+
 <li>install
+
+<p>
 sudo ln -s ~/opt/myBase7/myBase /usr/local/bin/mybase
-</li>
-</ul>
-</div>
-</div>
-<div id="outline-container-sec-1-13" class="outline-3">
-<h3 id="sec-1-13"><span class="section-number-3">1.13</span> install mysql</h3>
-<div class="outline-text-3" id="text-1-13">
-<ul class="org-ul">
-<li>1.检查系统中是否已经安装了 mysql
-sudo netstat -tap | grep mysql
-没有反应 说明没有安装
-</li>
-<li>2.安装 mysql
-sudo apt-get install mysql-server mysql-client
-</li>
-<li>3.测试安装
-sudo netstat -tap | grep mysql
-mysql -u root -p 
-</li>
-<li>4.mysql 简单管理
-启动 MySQL 服务：                       sudo service mysql start
-停止 MySQL 服务：                       sudo stop mysql
-修改 MySQL 的管理员密码：     sudo mysqladmin -u root password newpassword
-设置远程访问(正常情况下，mysql 占用的 3306 端口只是在 IP127.0.0.1 上监听，
-拒绝了其他 IP 的访问（通过 netstat 可以查看到）。取消本地监  听需要修改 
-my.cnf 文件：    
-  sudo vi /etc/mysql/my.cnf
-  bind-address = 127.0.0.1 //找到此内容并且注释
-</li>
-<li>5.mysql 目录结构
-数据库存放目录：               <i>var/lib/mysql</i>
-相关配置文件存放目录：          /usr/share/mysql
-相关命令存放目录：             <i>usr/bin(mysqladmin mysqldump 等命令)
-启动脚步存放目录：            /etc/rc.d/init.d</i>
-</li>
-<li>6.mysql 大小写敏感问题
-sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf 
-在[mysqld]节下 添加 lower<sub>case</sub><sub>table</sub><sub>names</sub>=1 参数，并设置相应的值 (备注：为 0 时大小写敏感，为 1 时大小写不敏感，默认为 0
-</li>
-<li>7 常见问题
-<ul class="org-ul">
-<li>删除不掉数据库
-mysql&gt; drop database elvdou;
-ERROR 1010 (HY000): Error dropping database (can't rmdir './elvdou', errno: 39)
-</li>
-</ul>
+</p>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-sec-1-14" class="outline-3">
-<h3 id="sec-1-14"><span class="section-number-3">1.14</span> install vmware workstation</h3>
-<div class="outline-text-3" id="text-1-14">
+<div id="outline-container-sec-1-11" class="outline-3">
+<h3 id="sec-1-11"><span class="section-number-3">1.11</span> install vmware workstation</h3>
+<div class="outline-text-3" id="text-1-11">
 <p>
 key:1F04Z-6D111-7Z029-AV0Q4-3AEH8
+</p>
+
+<p>
 卸载 vmware 
+</p>
+
+<p>
 vmware-installer -l
+</p>
+
+<p>
 sudo vmware-installer &#x2013;uninstall-product vmware-workstation
-安装 vmware
- chmod a+x 
- ./
- 安装 VBox
+</p>
+
+<p>
+安装 vmware需要添加执行权限
+</p>
+
+<p>
+chmod a+x 
 </p>
 </div>
 </div>
-<div id="outline-container-sec-1-15" class="outline-3">
-<h3 id="sec-1-15"><span class="section-number-3">1.15</span> shadowsock vpn</h3>
-<div class="outline-text-3" id="text-1-15">
-<ul class="org-ul">
-<li>step1 install
-sudo apt-get install python-pip 
-pip install shadowsocks
-然而并没有用
-sudo apt-get install shadowsocks  直接安装
-</li>
-<li>step2 连接
-alias
-sslocal -s 地址 -p 服务端口 -b 127.0.0.1 -l 1080 -k 密码 -t 600 -m aes-256-cfb
-</li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-sec-1-16" class="outline-3">
-<h3 id="sec-1-16"><span class="section-number-3">1.16</span> chm 阅读</h3>
-<div class="outline-text-3" id="text-1-16">
+<div id="outline-container-sec-1-12" class="outline-3">
+<h3 id="sec-1-12"><span class="section-number-3">1.12</span> chm 阅读</h3>
+<div class="outline-text-3" id="text-1-12">
 <p>
 sudo apt-get  update
+</p>
+
+<p>
 sudo apt-get install kchmviewer
 </p>
 </div>
 </div>
 
-<div id="outline-container-sec-1-17" class="outline-3">
-<h3 id="sec-1-17"><span class="section-number-3">1.17</span> smplayer 视频软件</h3>
-<div class="outline-text-3" id="text-1-17">
+<div id="outline-container-sec-1-13" class="outline-3">
+<h3 id="sec-1-13"><span class="section-number-3">1.13</span> smplayer 视频软件</h3>
+<div class="outline-text-3" id="text-1-13">
 <p>
 sudo apt-get install  smplayer
+</p>
+
+<p>
 ubuntu 内置的 video 软件很好用
 </p>
 </div>
 </div>
-<div id="outline-container-sec-1-18" class="outline-3">
-<h3 id="sec-1-18"><span class="section-number-3">1.18</span> xbmc 安装</h3>
-<div class="outline-text-3" id="text-1-18">
+<div id="outline-container-sec-1-14" class="outline-3">
+<h3 id="sec-1-14"><span class="section-number-3">1.14</span> xbmc 安装</h3>
+<div class="outline-text-3" id="text-1-14">
 <p>
-太强大大媒体中心
+强大的媒体中心
+</p>
+
+<p>
 sudo add-apt-repository ppa:team-xbmc 
+</p>
+
+<p>
 sudo apt-get update
+</p>
+
+<p>
 sudo apt-get install xbmc
 </p>
 </div>
 </div>
-<div id="outline-container-sec-1-19" class="outline-3">
-<h3 id="sec-1-19"><span class="section-number-3">1.19</span> ubuntu15.04 wifi 热点共享</h3>
-<div class="outline-text-3" id="text-1-19">
+<div id="outline-container-sec-1-15" class="outline-3">
+<h3 id="sec-1-15"><span class="section-number-3">1.15</span> ubuntu15.04 wifi 热点共享</h3>
+<div class="outline-text-3" id="text-1-15">
 <ul class="org-ul">
 <li>1.下载
+
+<p>
 在 ubuntu 软件中心搜索 kde nm connection
+</p>
 </li>
+
 <li>2.配置
-kde5-nm-connection-editor
-跳出连接编辑器的图形界面 在图形界面点击
-添加&#x2013;&gt;Wireless(shared)
-弹出 New Connection (New 802-11-wireless connection)图形界面
-Connection name:更改为 mywifi(默认为 New 802-11-wireless connection)
-SSID:更改为 mywifi(默认为 my<sub>shared</sub><sub>connection</sub>)
-模式:选择 Access Point
-Restrict to device:选择你的无线网卡
-点击无线安全选项卡
-安全:选择 WPA &amp; WPA2 Personal
-密码:填入你要设置的密码(至少 8 位)
 </li>
+</ul>
+<p class="verse">
+kde5-nm-connection-editor<br  />
+跳出连接编辑器的图形界面 在图形界面点击<br  />
+添加&#x2013;&gt;Wireless(shared)<br  />
+弹出 New Connection (New 802-11-wireless connection)图形界面<br  />
+Connection name:更改为 mywifi(默认为 New 802-11-wireless connection)<br  />
+SSID:更改为 mywifi(默认为 my<sub>shared</sub><sub>connection</sub>)<br  />
+模式:选择 Access Point<br  />
+Restrict to device:选择你的无线网卡<br  />
+点击无线安全选项卡<br  />
+安全:选择 WPA &amp; WPA2 Personal<br  />
+密码:填入你要设置的密码(至少 8 位)<br  />
+</p>
+<ul class="org-ul">
 <li>3.连接
-我们点击最上方网络管理的图标，选择 连接到隐藏的 Wi-Fi 网络
-Wifi 适配器:选择我们设置了的无线网络
-连接:选择我们刚刚建立的连接名称(mywifi)
-之后网络名称(SSID)，Wi-Fi 安全性,密码会自动填写并变成灰色
-点击确定
 </li>
 </ul>
+<p class="verse">
+我们点击最上方网络管理的图标，选择 连接到隐藏的 Wi-Fi 网络<br  />
+Wifi 适配器:选择我们设置了的无线网络<br  />
+连接:选择我们刚刚建立的连接名称(mywifi)<br  />
+之后网络名称(SSID)，Wi-Fi 安全性,密码会自动填写并变成灰色<br  />
+点击确定<br  />
+</p>
 </div>
 </div>
-<div id="outline-container-sec-1-20" class="outline-3">
-<h3 id="sec-1-20"><span class="section-number-3">1.20</span> ubuntu 系统备份还原</h3>
-<div class="outline-text-3" id="text-1-20">
-<ul class="org-ul">
-<li>step1: su root 
-</li>
-<li>step2: cd /
-</li>
-<li>step3: 备份
-
-<p>
-命令：tar -cvpzf /media/win/ubuntu.tgz &#x2013;exclude=/proc &#x2013;exclude=/lost+found &#x2013;exclude=/media &#x2013;exclude=/mnt &#x2013;exclude=/sys /
-</p>
-
-<p>
-（注意最后一个/前有一个空格）
-</p>
-
-<ul class="org-ul">
-<li>解释下这个命令：
-'tar' 是用来备份的程序
-c - 新建一个备份文档
-v - 详细模式，tar 程序将在屏幕上实时输出所有信息。
-p - 保存许可，并应用到所有文件。
-z - 采用‘gzip’压缩备份文件，以减小备份文件体积。
-f &lt;filename&gt; - 说明备份文件存放的路径， /ubuntu.tgz 是本例子中备份文件名。
-</li>
-</ul>
-</li>
-<li>step4: 还原系统
-
-<p>
-tar -xvpzf  /media/win/ubuntu.tgz -C /
-</p>
-<ul class="org-ul">
-<li>参数
-x 是告诉 tar 程序解压缩备份文件。
--C &lt;directory&gt; 参数是指定 tar 程序解压缩到的目录。 ( 在本例中是/ )
-</li>
-</ul>
-<p>
-重新创建你剔除的目录：
-( /proc, /lost+found, /mnt, /sys  /media)
-</p>
-</li>
-</ul>
-</div>
-</div>
-<div id="outline-container-sec-1-21" class="outline-3">
-<h3 id="sec-1-21"><span class="section-number-3">1.21</span> ubuntu 安装 vsftp</h3>
-<div class="outline-text-3" id="text-1-21">
+<div id="outline-container-sec-1-16" class="outline-3">
+<h3 id="sec-1-16"><span class="section-number-3">1.16</span> ubuntu 安装 vsftp</h3>
+<div class="outline-text-3" id="text-1-16">
 <p>
 也可以使用 filezilla 客户端
+</p>
+
+<p>
 sudo apt-get install filezilla
 </p>
 
 
 <p>
 sudo apt-get install vsftpd
+</p>
+
+<p>
 然后修改/etc/vsftpd.conf 文件
 </p>
 
@@ -1107,46 +711,27 @@ sudo apt-get install vsftpd
 修改如下几行：
 </p>
 
-<p>
-#为注释的意思，最前面不加#就是取消掉它的注释，使之生效
-anonymous<sub>enable</sub>=YES    #设置匿名可登录
-</p>
+<pre class="example">
+anonymous_enable=YES    #设置匿名可登录
 
-<p>
-anonymous<sub>enable</sub>=YES    #设置匿名可登录
-</p>
+anonymous_enable=YES    #设置匿名可登录
 
-<p>
-local<sub>enable</sub>=YES        #本地用户允许登录
-</p>
+local_enable=YES        #本地用户允许登录
 
-<p>
-local<sub>enable</sub>=YES        #本地用户允许登录
-</p>
+local_enable=YES        #本地用户允许登录
 
-<p>
-write<sub>enable</sub>=YES        #用户是否有写的权限
-</p>
+write_enable=YES        #用户是否有写的权限
 
-<p>
-write<sub>enable</sub>=YES        #用户是否有写的权限
-</p>
+write_enable=YES        #用户是否有写的权限
 
-<p>
-anon<sub>upload</sub><sub>enable</sub>=YES   #允许匿名用户上传
-</p>
+anon_upload_enable=YES   #允许匿名用户上传
 
-<p>
-anon<sub>upload</sub><sub>enable</sub>=YES   #允许匿名用户上传
-</p>
+anon_upload_enable=YES   #允许匿名用户上传
 
-<p>
-anon<sub>mkdir</sub><sub>write</sub><sub>enable</sub>=YES   #允许匿名用户创建目录文件
-</p>
+anon_mkdir_write_enable=YES   #允许匿名用户创建目录文件
 
-<p>
-anon<sub>mkdir</sub><sub>write</sub><sub>enable</sub>=YES   #允许匿名用户创建目录文件
-</p>
+anon_mkdir_write_enable=YES   #允许匿名用户创建目录文件
+</pre>
 
 <p>
 其他的就不用管了，保存文件。
@@ -1154,6 +739,9 @@ anon<sub>mkdir</sub><sub>write</sub><sub>enable</sub>=YES   #允许匿名用户�
 
 <p>
 重启 vsftpd 服务器
+</p>
+
+<p>
 sudo service vsftpd restart
 </p>
 
@@ -1163,6 +751,9 @@ sudo service vsftpd restart
 
 <p>
 执行下面的两条指令
+</p>
+
+<p>
 sudo chmod -R 777 /srv/ftp/upload
 </p>
 
@@ -1179,136 +770,198 @@ sudo chmod -R 755 /srv/ftp/download
 </p>
 </div>
 </div>
-<div id="outline-container-sec-1-22" class="outline-3">
-<h3 id="sec-1-22"><span class="section-number-3">1.22</span> ubuntu 安装 samba</h3>
-<div class="outline-text-3" id="text-1-22">
+<div id="outline-container-sec-1-17" class="outline-3">
+<h3 id="sec-1-17"><span class="section-number-3">1.17</span> ubuntu 安装 samba</h3>
+<div class="outline-text-3" id="text-1-17">
 <ul class="org-ul">
 <li>step 1: samba 安装 
+
+<p>
 sudo apt-get install samba
+</p>
 </li>
+
 <li>step 2: 创建共享目录
+
+<p>
 mkdir ~/samba-share
+</p>
+
+<p>
 sudo chmod 777 ~/samba-share/
+</p>
 </li>
 <li>step 3: 创建 samba 配置文件
+
 <ol class="org-ol">
 <li>保存现有的配置文件
+
+<p>
 sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
+</p>
 </li>
+
 <li>修改现配置文件
- sudo gedit /etc/samba/smb.conf   
- 在 smb.conf 最后添加
+
+<p>
+sudo gedit /etc/samba/smb.conf   
+</p>
+
+<p>
+在 smb.conf 最后添加
+</p>
+</li>
+</ol>
+</li>
+</ul>
+<pre class="example">
 [share]
   path = /home/manue1/share
   available = yes
   browsealbe = yes
   public = yes
   writable = yes
-</li>
-</ol>
-</li>
+</pre>
+<ul class="org-ul">
 <li>step 4: 创建 samba 用户
+
+<p>
 sudo touch /etc/samba/smbpasswd
+</p>
+
+<p>
 sudo smbpasswd -a manue1
+</p>
 </li>
 <li>step 5: 重启 samba 服务器
+
+<p>
 sudo /etc/init.d/samba restart
+</p>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-sec-1-23" class="outline-3">
-<h3 id="sec-1-23"><span class="section-number-3">1.23</span> ubuntu 安装 shutter 截图工具</h3>
-<div class="outline-text-3" id="text-1-23">
+<div id="outline-container-sec-1-18" class="outline-3">
+<h3 id="sec-1-18"><span class="section-number-3">1.18</span> ubuntu 安装 shutter 截图工具</h3>
+<div class="outline-text-3" id="text-1-18">
 <p>
 sudo apt-get install shutter
 </p>
 </div>
 </div>
-<div id="outline-container-sec-1-24" class="outline-3">
-<h3 id="sec-1-24"><span class="section-number-3">1.24</span> ubuntu 安装百度云</h3>
-<div class="outline-text-3" id="text-1-24">
+<div id="outline-container-sec-1-19" class="outline-3">
+<h3 id="sec-1-19"><span class="section-number-3">1.19</span> ubuntu 安装百度云</h3>
+<div class="outline-text-3" id="text-1-19">
 <p>
-<a href="https://github.com/LiuLang/bcloud-packages">https://github.com/LiuLang/bcloud-packages</a>
-下载
+<a href="https://github.com/LiuLang/bcloud-packages">下载</a>
 </p>
 </div>
 </div>
-
-<div id="outline-container-sec-1-25" class="outline-3">
-<h3 id="sec-1-25"><span class="section-number-3">1.25</span> ubuntu 安装 BT</h3>
-<div class="outline-text-3" id="text-1-25">
+<div id="outline-container-sec-1-20" class="outline-3">
+<h3 id="sec-1-20"><span class="section-number-3">1.20</span> ubuntu 安装 BT</h3>
+<div class="outline-text-3" id="text-1-20">
 <ul class="org-ul">
 <li>Deluge
+
+<p>
 sudo add-apt-repository ppa:deluge-team/ppa 
+</p>
+
+<p>
 sudo apt-get update
+</p>
+
+<p>
 sudo apt-get install deluge
+</p>
 </li>
 <li>Vuze
+
+<p>
 sudo apt-get install vuze
+</p>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-sec-1-26" class="outline-3">
-<h3 id="sec-1-26"><span class="section-number-3">1.26</span> ssh 翻墙图形化利器</h3>
-<div class="outline-text-3" id="text-1-26">
+<div id="outline-container-sec-1-21" class="outline-3">
+<h3 id="sec-1-21"><span class="section-number-3">1.21</span> ssh 翻墙图形化利器</h3>
+<div class="outline-text-3" id="text-1-21">
 <p>
 sudo apt-get install gstm
 </p>
 </div>
 </div>
-<div id="outline-container-sec-1-27" class="outline-3">
-<h3 id="sec-1-27"><span class="section-number-3">1.27</span> ubuntu shutter 截图工具</h3>
-<div class="outline-text-3" id="text-1-27">
+<div id="outline-container-sec-1-22" class="outline-3">
+<h3 id="sec-1-22"><span class="section-number-3">1.22</span> ubuntu shutter 截图工具</h3>
+<div class="outline-text-3" id="text-1-22">
 <p>
 sudo apt-get install shutter
 </p>
 </div>
 </div>
-<div id="outline-container-sec-1-28" class="outline-3">
-<h3 id="sec-1-28"><span class="section-number-3">1.28</span> ubuntu 删除不必要的插件</h3>
-<div class="outline-text-3" id="text-1-28">
+<div id="outline-container-sec-1-23" class="outline-3">
+<h3 id="sec-1-23"><span class="section-number-3">1.23</span> ubuntu 删除不必要的插件</h3>
+<div class="outline-text-3" id="text-1-23">
 <ul class="org-ul">
 <li>删除 libreoffice
+
+<p>
 sudo apt-get remove libreoffice-common
+</p>
 </li>
 <li>删除 Amazon 的链接
+
+<p>
 sudo apt-get remove unity-webapps-common
+</p>
 </li>
 <li>删除不用的自带软件
+
+<p>
 sudo apt-get remove thunderbird totem rhythmbox empathy brasero simple-scan gnome-mahjongg aisleriot gnome-mines cheese transmission-common gnome-orca webbrowser-app gnome-sudoku  landscape-client-ui-install
 删除备份软件
+</p>
+
+<p>
 sudo apt-get remove onboard deja-dup
+</p>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-sec-1-29" class="outline-3">
-<h3 id="sec-1-29"><span class="section-number-3">1.29</span> ubuntu 安装经典菜单指示器</h3>
-<div class="outline-text-3" id="text-1-29">
-<p>
-sudo add-apt-repository ppa:diesch/testing  
-sudo apt-get update  
-sudo apt-get install classicmenu-indicator
+<div id="outline-container-sec-1-24" class="outline-3">
+<h3 id="sec-1-24"><span class="section-number-3">1.24</span> ubuntu 安装经典菜单指示器</h3>
+<div class="outline-text-3" id="text-1-24">
+<p class="verse">
+sudo add-apt-repository ppa:diesch/testing<br  />
+sudo apt-get update<br  />
+sudo apt-get install classicmenu-indicator<br  />
 </p>
 </div>
 </div>
-<div id="outline-container-sec-1-30" class="outline-3">
-<h3 id="sec-1-30"><span class="section-number-3">1.30</span> ubuntu 安装 xmind 思维导图软件</h3>
+<div id="outline-container-sec-1-25" class="outline-3">
+<h3 id="sec-1-25"><span class="section-number-3">1.25</span> ubuntu 安装 xmind 思维导图软件</h3>
 </div>
-
-<div id="outline-container-sec-1-31" class="outline-3">
-<h3 id="sec-1-31"><span class="section-number-3">1.31</span> ubuntu 安装局域网流量监控软件</h3>
-<div class="outline-text-3" id="text-1-31">
+<div id="outline-container-sec-1-26" class="outline-3">
+<h3 id="sec-1-26"><span class="section-number-3">1.26</span> ubuntu 安装局域网流量监控软件</h3>
+<div class="outline-text-3" id="text-1-26">
 <ul class="org-ul">
 <li>自带 tcpdump
 </li>
+
 <li>wireshark 
+
+<p>
 前身叫 ethereal
+</p>
 </li>
 <li>iptraf 
+
+<p>
 sudo apt-get install iptraf
+</p>
 </li>
 <li>nbtscan
 </li>
@@ -1316,9 +969,9 @@ sudo apt-get install iptraf
 </div>
 </div>
 
-<div id="outline-container-sec-1-32" class="outline-3">
-<h3 id="sec-1-32"><span class="section-number-3">1.32</span> ruby install</h3>
-<div class="outline-text-3" id="text-1-32">
+<div id="outline-container-sec-1-27" class="outline-3">
+<h3 id="sec-1-27"><span class="section-number-3">1.27</span> ruby install</h3>
+<div class="outline-text-3" id="text-1-27">
 <p>
 sudo apt-add-repository ppa:brightbox/ruby-ng
 sudo apt-get update
@@ -1371,28 +1024,38 @@ cannot load such file -- typhoeus
 </ol>
 </div>
 </div>
-<div id="outline-container-sec-1-33" class="outline-3">
-<h3 id="sec-1-33"><span class="section-number-3">1.33</span> cisco iou install</h3>
-<div class="outline-text-3" id="text-1-33">
+<div id="outline-container-sec-1-28" class="outline-3">
+<h3 id="sec-1-28"><span class="section-number-3">1.28</span> cisco iou install</h3>
+<div class="outline-text-3" id="text-1-28">
 <p>
-  iou-web 配置
- <a href="http://bandari.fans.blog.163.com/blog/static/1694189062015012115425957/">http://bandari.fans.blog.163.com/blog/static/1694189062015012115425957/</a>
-<a href="https://github.com/dainok/iou-web">https://github.com/dainok/iou-web</a>  deb 文件下载
+<a href="http://bandari.fans.blog.163.com/blog/static/1694189062015012115425957/">iou-web 配置</a>
+</p>
+
+<p>
+<a href="https://github.com/dainok/iou-web"> deb 文件下载</a> 
+</p>
+
+<p>
 apache2.conf  中添加/opt/iou/html 根目录
 </p>
 
-
 <ol class="org-ol">
 <li>环境配置
+
+<p>
 sudo apt-get install -y lib32z1 lib32ncurses5 lib32bz2-1.0 libssl1.0.0:i386 libtinfo5:i386
+</p>
+
+<p>
 sudo ln -s /lib/i386-linux-gnu/libcrypto.so.1.0.0 /usr/lib/libcrypto.so.4
+</p>
 </li>
 </ol>
 </div>
 </div>
-<div id="outline-container-sec-1-34" class="outline-3">
-<h3 id="sec-1-34"><span class="section-number-3">1.34</span> xsel</h3>
-<div class="outline-text-3" id="text-1-34">
+<div id="outline-container-sec-1-29" class="outline-3">
+<h3 id="sec-1-29"><span class="section-number-3">1.29</span> xsel</h3>
+<div class="outline-text-3" id="text-1-29">
 <p>
 sudo apt-get install xsel 
 </p>
@@ -1402,7 +1065,7 @@ sudo apt-get install xsel
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: manue1</p>
-<p class="date">Created: 2017-06-22 Thu 20:21</p>
+<p class="date">Created: 2017-06-23 Fri 20:40</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
