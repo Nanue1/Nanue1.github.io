@@ -7,7 +7,7 @@ title: note-Ubuntu-config
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>note-Ubuntu-config</title>
-<!-- 2017-06-23 Fri 20:40 -->
+<!-- 2017-06-23 Fri 20:42 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="manue1" />
@@ -242,74 +242,10 @@ w 写入保存分区<br  />
 </p>
 </li>
 <li>格式化 分区
-
-<p>
-如果是逻辑卷管理分区
-</p>
-</li>
-
-<li>pv 物理卷
-
-<p>
-pvcreate /dev/sdb2
-</p>
-
-<p>
-pvdisplay
-</p>
-<ul class="org-ul">
-<li>vg 卷组
-
-<p>
-vgcreate  卷组名 /dev/sdb2
-</p>
-
-<p>
-pv 添加到 vg
-</p>
-
-<p>
-vgdisplay
-</p>
-
-<p>
-vgextend  卷组名 /dev/sdb1
-</p>
-</li>
-
-<li>lv 逻辑卷
-
-<p>
-lvcreate -L 2G -n 逻辑卷名 卷组名
-</p>
-
-<p>
-lvextend  -L +10G LVPath
-</p>
-</li>
-</ul>
 </li>
 </ol>
-
-<p>
-　　resize2fs　LVPath
-</p>
-
-<p>
-lvdisplay
-</p>
-<ul class="org-ul">
-<li>格式化挂载:
-mkfs.ext4 /dev/vg-1/vg1-lv1
-
-<p>
-vi /etc/fstab
-</p>
-</li>
-</ul>
 </div>
 </div>
-
 <div id="outline-container-sec-1-2" class="outline-3">
 <h3 id="sec-1-2"><span class="section-number-3">1.2</span> pinyin input</h3>
 <div class="outline-text-3" id="text-1-2">
@@ -1065,7 +1001,7 @@ sudo apt-get install xsel
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: manue1</p>
-<p class="date">Created: 2017-06-23 Fri 20:40</p>
+<p class="date">Created: 2017-06-23 Fri 20:42</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

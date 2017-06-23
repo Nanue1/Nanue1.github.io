@@ -7,7 +7,7 @@ title: note-Mysql
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>note-Mysql</title>
-<!-- 2017-06-23 Fri 20:28 -->
+<!-- 2017-06-23 Fri 20:45 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="manue1" />
@@ -234,8 +234,11 @@ sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
 </p>
 
 <p>
-在[mysqld]节下 添加 lower<sub>case</sub><sub>table</sub><sub>names</sub>=1 参数，并设置相应的值
+在[mysqld]节下 添加
 </p>
+<pre class="example">
+lower_case_table_names=1
+</pre>
 
 <p>
 (备注：为 0 时大小写敏感，为 1 时大小写不敏感，默认为 0)
@@ -251,9 +254,9 @@ sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
 mysql&gt; drop database elvdou;
 </p>
 
-<p>
+<pre class="example">
 ERROR 1010 (HY000): Error dropping database (can't rmdir './elvdou', errno: 39)
-</p>
+</pre>
 </li>
 </ul>
 </li>
@@ -284,7 +287,7 @@ mysql -u manue1 -p qweO1\!k -h 8.8.8.8
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: manue1</p>
-<p class="date">Created: 2017-06-23 Fri 20:28</p>
+<p class="date">Created: 2017-06-23 Fri 20:45</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
