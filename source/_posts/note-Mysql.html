@@ -7,7 +7,7 @@ title: note-Mysql
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>note-Mysql</title>
-<!-- 2017-06-23 Fri 20:45 -->
+<!-- 2017-06-24 Sat 12:56 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="manue1" />
@@ -191,28 +191,40 @@ mysql -u root -p
 </li>
 
 <li>mysql 简单管理
-启动 MySQL 服务： sudo service mysql start
 
 <p>
-停止 MySQL 服务： sudo stop mysql
+启动 MySQL 服务：
 </p>
 
 <p>
-修改 MySQL 的管理员密码：     sudo mysqladmin -u root password newpassword
+sudo service mysql start
 </p>
 
-<p class="verse">
-<br  />
-&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;设置远程访问(正常情况下，mysql 占用的 3306 端口只是在 IP127.0.0.1 上监听，<br  />
-&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;拒绝了其他 IP 的访问（通过 netstat 可以查看到）。取消本地监听需要修改<br  />
-&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;my.cnf 文件：<br  />
-&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;sudo vi /etc/mysql/my.cnf<br  />
-&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;bind-address = 127.0.0.1 //找到此内容并且注释<br  />
+<p>
+停止 MySQL 服务：
+</p>
+
+<p>
+sudo stop mysql
+</p>
+
+<p>
+修改 MySQL 的管理员密码：
+</p>
+
+<p>
+sudo mysqladmin -u root password newpassword
 </p>
 </li>
+</ol>
 
+
+<ol class="org-ol">
 <li>mysql 目录结构
+
+<p>
 数据库存放目录：               <i>var/lib/mysql</i>
+</p>
 
 <p>
 相关配置文件存放目录：          /usr/share/mysql
@@ -226,7 +238,31 @@ mysql -u root -p
 启动脚步存放目录：            <i>etc/rc.d/init.d</i>
 </p>
 </li>
+</ol>
 
+
+<ol class="org-ol">
+<li>常见问题
+
+<ul class="org-ul">
+<li>删除不掉数据库
+
+<p>
+mysql&gt; drop database elvdou;
+</p>
+<pre class="example">
+ERROR 1010 (HY000): Error dropping database (can't rmdir './elvdou', errno: 39)
+</pre>
+</li>
+<li>设置远程访问
+<p class="verse">
+正常情况下,mysql占用的3306端口只是在127.0.0.1上监听，<br  />
+拒绝了其他IP的访问(通过netstat可以查看到)。<br  />
+取消本地监听需要修改 my.cnf 文件：<br  />
+sudo vi /etc/mysql/my.cnf<br  />
+bind-address = 127.0.0.1 //找到此内容并且注释<br  />
+</p>
+</li>
 <li>mysql 大小写敏感问题
 
 <p>
@@ -241,22 +277,8 @@ lower_case_table_names=1
 </pre>
 
 <p>
-(备注：为 0 时大小写敏感，为 1 时大小写不敏感，默认为 0)
+备注：为 0 时大小写敏感，为 1 时大小写不敏感，默认为 0
 </p>
-</li>
-
-<li>常见问题
-
-<ul class="org-ul">
-<li>删除不掉数据库
-
-<p>
-mysql&gt; drop database elvdou;
-</p>
-
-<pre class="example">
-ERROR 1010 (HY000): Error dropping database (can't rmdir './elvdou', errno: 39)
-</pre>
 </li>
 </ul>
 </li>
@@ -287,7 +309,7 @@ mysql -u manue1 -p qweO1\!k -h 8.8.8.8
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: manue1</p>
-<p class="date">Created: 2017-06-23 Fri 20:45</p>
+<p class="date">Created: 2017-06-24 Sat 12:56</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
