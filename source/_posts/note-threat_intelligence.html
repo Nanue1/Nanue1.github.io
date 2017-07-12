@@ -7,7 +7,7 @@ title: note-threat_intelligence
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>note-threat_intelligence</title>
-<!-- 2017-06-22 Thu 20:17 -->
+<!-- 2017-07-04 Tue 11:43 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="manue1" />
@@ -151,16 +151,16 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#sec-1-1-1">1.1.1. alexa.com</a></li>
 <li><a href="#sec-1-1-2">1.1.2. reputation.alienvault.com</a></li>
-<li><a href="#sec-1-1-3">1.1.3. osint.bambenekconsulting.com</a></li>
-<li><a href="#sec-1-1-4">1.1.4. blocklist.de</a></li>
+<li><a href="#sec-1-1-3">1.1.3. <span class="done DONE">DONE</span> osint.bambenekconsulting.com</a></li>
+<li><a href="#sec-1-1-4">1.1.4. <span class="done DONE">DONE</span> blocklist.de</a></li>
 <li><a href="#sec-1-1-5">1.1.5. umbrella.cisco.com</a></li>
 <li><a href="#sec-1-1-6">1.1.6. csirtg.io</a></li>
 <li><a href="#sec-1-1-7">1.1.7. danger.rulez.sk</a></li>
 <li><a href="#sec-1-1-8">1.1.8. dataplane.org</a></li>
-<li><a href="#sec-1-1-9">1.1.9. emergingthreats.net</a></li>
+<li><a href="#sec-1-1-9">1.1.9. <span class="done DONE">DONE</span> emergingthreats.net</a></li>
 <li><a href="#sec-1-1-10">1.1.10. malc0de.com</a></li>
 <li><a href="#sec-1-1-11">1.1.11. mirc.com</a></li>
-<li><a href="#sec-1-1-12">1.1.12. netlab.360.com</a></li>
+<li><a href="#sec-1-1-12">1.1.12. <span class="done DONE">DONE</span> netlab.360.com</a></li>
 <li><a href="#sec-1-1-13">1.1.13. nothink.org</a></li>
 <li><a href="#sec-1-1-14">1.1.14. openphish.com</a></li>
 <li><a href="#sec-1-1-15">1.1.15. packetmail.net</a></li>
@@ -170,7 +170,7 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1-1-19">1.1.19. vxvault.net</a></li>
 <li><a href="#sec-1-1-20">1.1.20. abuse.ch</a></li>
 <li><a href="#sec-1-1-21">1.1.21. otx.alienvault.com</a></li>
-<li><a href="#sec-1-1-22">1.1.22. antispam.imp.ch</a></li>
+<li><a href="#sec-1-1-22">1.1.22. <span class="done DONE">DONE</span> antispam.imp.ch</a></li>
 <li><a href="#sec-1-1-23">1.1.23. dragonresearchgroup.org</a></li>
 <li><a href="#sec-1-1-24">1.1.24. watcherlab.com</a></li>
 <li><a href="#sec-1-1-25">1.1.25. 统计表</a></li>
@@ -196,32 +196,38 @@ for the JavaScript code in this tag.
 <h3 id="sec-1-1"><span class="section-number-3">1.1</span> data source introduction</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
+<li>data<sub>type</sub>
+ip          -1    
+domain      1
+url         2
+md5         3
+</li>
 <li>tags 标签说明
 <p class="verse">
-scanners     扫描源<br  />
-spam         垃圾邮件<br  />
-botnets      僵尸网络客户端<br  />
-c&amp;c          僵尸网络控制端<br  />
-malware      恶意软件<br  />
-phishing     钓鱼<br  />
-whitelist    白名单<br  />
-darknet      暗网<br  />
-ddos         拒绝服务攻击<br  />
-exploit      安全漏洞<br  />
-honeypot     蜜罐<br  />
-hijacked     劫持<br  />
-suspicious   可疑<br  />
-<del>Web Attacks  Web攻击</del><br  />
+0   Suspicious      可疑的<br  />
+1   DDos            DDos攻击<br  />
+2   Exploits        漏洞攻击<br  />
+3   Spam Sources    垃圾邮件<br  />
+4   Web Attacks     Web攻击<br  />
+5   Scanners        扫描源<br  />
+6   Botnets         僵尸网络被控端<br  />
+7   C&amp;C             僵尸网络控制端<br  />
+8   Phishing        钓鱼<br  />
+9   Proxy           代理<br  />
+10  Malware         恶意软件<br  />
+11  Whitelist       白名单<br  />
+12  Honeypot        蜜罐<br  />
+13  DGA             域名随机生成<br  />
 </p>
 </li>
 <li>confidence  数据源的可信度
 <p class="verse">
-(9-10）Certain<br  />
-(7-8) Very Confident<br  />
-(6-7) Somewhat Confident<br  />
-(5-6) Not Confident<br  />
-(5) "50/50 shot"<br  />
-(0-4) Informational Data<br  />
+(9-10)   Certain<br  />
+(7-8)    Very Confident<br  />
+(6-7)    Somewhat Confident<br  />
+(5-6)    Not Confident<br  />
+(5)      "50/50 shot"<br  />
+(0-4)    Informational Data<br  />
 </p>
 </li>
 <li>统计表
@@ -232,60 +238,37 @@ suspicious   可疑<br  />
 </p>
 </div>
 </li>
-<li>数据库内现在存储格式
-<ol class="org-ol">
-<li>scrapy 爬虫
-更新机制： 同一数据源来的数据，威胁类型不变时，
+<li>数据库内存储格式
+<ul class="org-ul">
+<li>录入机制:
+同一数据源来的数据，威胁类型不变时，
 
 <p>
-只更新该类型记录更新时间,同时刷新这条ip/url的状态时间
+只更新该类型记录更新时间,created<sub>time不会变化</sub>
 </p>
+
+<p>
+当indicator 和 tag都变化的时候，才会录入一条新的数据
+</p>
+</li>
+<li>更新机制
+每天通过created<sub>time获取新怎么的数据</sub>
+</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-json">{
-"_id" : ObjectId("58b518df326aa7ed38218fa9"),
-"history" : [
-    {
-    "from" : "antispam.imp.ch",
-    "threat" : "Spam Sources",
-    "updated_time" : "2017-02-6T19:35:13"
-    },
-    {
-    "from" : "reputation.alienvault.com",
-    "threat" : "Botnet",
-    "updated_time" : "2017-05-07T18:36:23"
-    },
-],
-"ip" : "1.160.211.142",
-"updated_time" : "2017-06-10T01:00:08"
+   "indicator":"1.180.74.58",
+   "data_type":0,
+   "confidence":7,
+   "alive":true,
+   "updated_time":"2017-06-30T14:22:44",
+   "source":"blocklist.de",
+   "tag":5,
+   "created_time":"2017-06-30T14:22:44"
 }
 </pre>
 </div>
-</li>
-<li>cif 格式
-
-<p>
-更新机制: 无历史记录，以indicator为唯一id，存在即替换,目前只作为中间表
-</p>
-<div class="org-src-container">
-
-<pre class="src src-json">{
-"_id" : ObjectId("593be9071d41c83f53a07bd4"),
-"confidence" : 7,
-"count" : 1,
-"description" : "",
-"group" : "everyone",
-"indicator" : "5.189.168.152",
-"lasttime" : "",
-"provider" : "blocklist.de",
-"rdata" : "",
-"tags" : "scanner",
-"tlp" : "green"
-}
-</pre>
-</div>
-</li>
-</ol>
 </li>
 </ul>
 </div>
@@ -402,8 +385,15 @@ sum: 31978<br  />
 </div>
 
 <div id="outline-container-sec-1-1-3" class="outline-4">
-<h4 id="sec-1-1-3"><span class="section-number-4">1.1.3</span> osint.bambenekconsulting.com</h4>
+<h4 id="sec-1-1-3"><span class="section-number-4">1.1.3</span> <span class="done DONE">DONE</span> osint.bambenekconsulting.com</h4>
 <div class="outline-text-4" id="text-1-1-3">
+<ul class="org-ul">
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-07-03 Mon 16:49]</span></span>
+</li>
+<li>State "TODO"       from ""           <span class="timestamp-wrapper"><span class="timestamp">[2017-06-30 Fri 16:26]</span></span>
+</li>
+</ul>
+
 <p>
 数据源爬取规则过老，需要修改规则或者重写爬虫
 </p>
@@ -413,36 +403,22 @@ sum: 31978<br  />
 </p>
 
 <p>
-C&amp;C 被规整到了botnet内
-<a href="http://osint.bambenekconsulting.com/feeds/c2-dommasterlist.txt">http://osint.bambenekconsulting.com/feeds/c2-dommasterlist.txt</a>
+<a href="http://osint.bambenekconsulting.com/feeds/">http://osint.bambenekconsulting.com/feeds/</a>
 </p>
 
 <p>
 sum: 865311
+C&amp;C
 </p>
-</div>
 
-<ol class="org-ol"><li><a id="sec-1-1-3-1" name="sec-1-1-3-1"></a>cryptolocker-fqdn<br  /><div class="outline-text-5" id="text-1-1-3-1">
-<ul class="org-ul">
-<li>tags: botnet
-</li>
-<li>confidence ：9  
-</li>
-<li>source url : <a href="http://osint.bambenekconsulting.com/feeds/dga-feed.txt">http://osint.bambenekconsulting.com/feeds/dga-feed.txt</a>
-</li>
-<li>total : 6000
-</li>
-<li>cycle : 1 day
-</li>
-<li>incremental : - /day
-</li>
-</ul>
-</div>
+<ol class="org-ol">
+<li><a href="http://osint.bambenekconsulting.com/feeds/c2-ipmasterlist.txt">http://osint.bambenekconsulting.com/feeds/c2-ipmasterlist.txt</a>
 </li>
 
-<li><a id="sec-1-1-3-2" name="sec-1-1-3-2"></a>zeus-fqdn<br  /><div class="outline-text-5" id="text-1-1-3-2">
+<li><a href="http://osint.bambenekconsulting.com/feeds/c2-dommasterlist.txt">http://osint.bambenekconsulting.com/feeds/c2-dommasterlist.txt</a>
+
 <ul class="org-ul">
-<li>tags: botnet
+<li>tags: dga
 </li>
 <li>confidence ：9  
 </li>
@@ -455,50 +431,23 @@ sum: 865311
 <li>incremental : - /day
 </li>
 </ul>
+</li>
+</ol>
 </div>
-</li>
-
-<li><a id="sec-1-1-3-3" name="sec-1-1-3-3"></a>tinba-fqdn<br  /><div class="outline-text-5" id="text-1-1-3-3">
-<ul class="org-ul">
-<li>tags: botnet
-</li>
-<li>confidence ：9  
-</li>
-<li>source url : <a href="http://osint.bambenekconsulting.com/feeds/dga-feed.txt">http://osint.bambenekconsulting.com/feeds/dga-feed.txt</a>
-</li>
-<li>total : 13w
-</li>
-<li>cycle : 1 day
-</li>
-<li>incremental : - /day
-</li>
-</ul>
-<div class="org-src-container">
-
-<pre class="src src-json">{
-"_id" : ObjectId("593be9091d41c83f6aa07ba9"),
-"count" : 1,
-"indicator" : "209.15.13.134",
-"tlp" : "white",
-"group" : "everyone",
-"description" : "suppobox c&amp;c",
-"tags" : "botnet",
-"rdata" : "",
-"confidence" : 6.5,
-"provider" : "osint.bambenekconsulting.com",
-"lasttime" : "2017-06-10T00:11:00.000000Z"
-}
-</pre>
-</div>
-</div>
-</li></ol>
 </div>
 
 <div id="outline-container-sec-1-1-4" class="outline-4">
-<h4 id="sec-1-1-4"><span class="section-number-4">1.1.4</span> blocklist.de</h4>
+<h4 id="sec-1-1-4"><span class="section-number-4">1.1.4</span> <span class="done DONE">DONE</span> blocklist.de</h4>
 <div class="outline-text-4" id="text-1-1-4">
+<ul class="org-ul">
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-30 Fri 14:33]</span></span>
+</li>
+<li>State "TODO"       from ""           <span class="timestamp-wrapper"><span class="timestamp">[2017-06-29 Thu 14:07]</span></span>
+</li>
+</ul>
+
 <p>
-数据源提供 botnet scanner 数据
+数据源提供 botnet scanner  spam 数据
 </p>
 
 <p>
@@ -506,6 +455,11 @@ sum: 865311
 </p>
 
 <p>
+数据源提供更新时间属性
+</p>
+
+<p>
+<a href="https://lists.blocklist.de/lists/">https://lists.blocklist.de/lists/</a> 目录下所有数据
 sum : 68711
 </p>
 </div>
@@ -766,19 +720,33 @@ sum : 46710
 </li></ol>
 </div>
 <div id="outline-container-sec-1-1-9" class="outline-4">
-<h4 id="sec-1-1-9"><span class="section-number-4">1.1.9</span> emergingthreats.net</h4>
+<h4 id="sec-1-1-9"><span class="section-number-4">1.1.9</span> <span class="done DONE">DONE</span> emergingthreats.net</h4>
 <div class="outline-text-4" id="text-1-1-9">
+<ul class="org-ul">
+<li>State "DONE"       from ""           <span class="timestamp-wrapper"><span class="timestamp">[2017-06-29 Thu 13:32]</span></span>
+</li>
+</ul>
+
 <p>
 sum: 1289
 </p>
 </div>
 <ol class="org-ol"><li><a id="sec-1-1-9-1" name="sec-1-1-9-1"></a>compromised-ips<br  /><div class="outline-text-5" id="text-1-1-9-1">
 <ul class="org-ul">
-<li>tags: scanner
+<li>tags: botnet,C&amp;C
 </li>
 <li>confidence ：8 
 </li>
-<li>source url :<a href="http://rules.emergingthreats.net/blockrules/compromised-ips.txt">http://rules.emergingthreats.net/blockrules/compromised-ips.txt</a>
+<li>source url :
+<a href="https://rules.emergingthreats.net/blockrules/compromised-ips.txt">https://rules.emergingthreats.net/blockrules/compromised-ips.txt</a>,
+<a href="https://rules.emergingthreats.net/blockrules/emerging-compromised.rules">https://rules.emergingthreats.net/blockrules/emerging-compromised.rules</a>,
+<a href="https://rules.emergingthreats.net/blockrules/emerging-botcc.excluded">https://rules.emergingthreats.net/blockrules/emerging-botcc.excluded</a>,
+<a href="https://rules.emergingthreats.net/blockrules/emerging-compromised.suricata.rules">https://rules.emergingthreats.net/blockrules/emerging-compromised.suricata.rules</a>,
+<a href="https://rules.emergingthreats.net/blockrules/emerging-compromised.suricata.rules">https://rules.emergingthreats.net/blockrules/emerging-compromised.suricata.rules</a>
+<a href="https://rules.emergingthreats.net/blockrules/emerging-botcc.suricata.rules">https://rules.emergingthreats.net/blockrules/emerging-botcc.suricata.rules</a>,
+<a href="https://rules.emergingthreats.net/blockrules/emerging-botcc.rules">https://rules.emergingthreats.net/blockrules/emerging-botcc.rules</a>
+<a href="https://rules.emergingthreats.net/blockrules/emerging-botcc.portgrouped.rules">https://rules.emergingthreats.net/blockrules/emerging-botcc.portgrouped.rules</a>,
+<a href="https://rules.emergingthreats.net/blockrules/emerging-botcc.portgrouped.suricata.rules">https://rules.emergingthreats.net/blockrules/emerging-botcc.portgrouped.suricata.rules</a>,
 </li>
 <li>total : 1254
 </li>
@@ -848,14 +816,20 @@ sum : 191
 </div>
 
 <div id="outline-container-sec-1-1-12" class="outline-4">
-<h4 id="sec-1-1-12"><span class="section-number-4">1.1.12</span> netlab.360.com</h4>
+<h4 id="sec-1-1-12"><span class="section-number-4">1.1.12</span> <span class="done DONE">DONE</span> netlab.360.com</h4>
 <div class="outline-text-4" id="text-1-1-12">
+<ul class="org-ul">
+<li>State "DONE"       from "UNDO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-07-04 Tue 11:17]</span></span>
+</li>
+<li>State "UNDO"       from ""           <span class="timestamp-wrapper"><span class="timestamp">[2017-06-30 Fri 16:02]</span></span>
+</li>
+</ul>
 <p>
 Domain generation algorithms (DGA)
 </p>
 
 <p>
-botnet 和 C&amp;C 放在一起了
+这个实验室提供的 dga ek 域名生产算法产生的域名已经是失效的
 </p>
 </div>
 <ol class="org-ol"><li><a id="sec-1-1-12-1" name="sec-1-1-12-1"></a>exploit malware<br  /><div class="outline-text-5" id="text-1-1-12-1">
@@ -875,9 +849,9 @@ botnet 和 C&amp;C 放在一起了
 </ul>
 </div>
 </li>
-<li><a id="sec-1-1-12-2" name="sec-1-1-12-2"></a>botnet<br  /><div class="outline-text-5" id="text-1-1-12-2">
+<li><a id="sec-1-1-12-2" name="sec-1-1-12-2"></a>dga<br  /><div class="outline-text-5" id="text-1-1-12-2">
 <ul class="org-ul">
-<li>tags:botnet
+<li>tags:dga
 </li>
 <li>confidence ：7
 </li>
@@ -885,6 +859,9 @@ botnet 和 C&amp;C 放在一起了
 </li>
 </ul>
 <p class="verse">
+ek<br  />
+<a href="http://data.netlab.360.com/feeds/ek/magnitude.txt">http://data.netlab.360.com/feeds/ek/magnitude.txt</a><br  />
+dga<br  />
 <a href="http://data.netlab.360.com/feeds/dga/bamital.txt">http://data.netlab.360.com/feeds/dga/bamital.txt</a><br  />
 <a href="http://data.netlab.360.com/feeds/dga/banjori.txt">http://data.netlab.360.com/feeds/dga/banjori.txt</a><br  />
 <a href="http://data.netlab.360.com/feeds/dga/banjori.txt">http://data.netlab.360.com/feeds/dga/banjori.txt</a><br  />
@@ -1247,25 +1224,34 @@ sum : 903
 </div>
 
 <div id="outline-container-sec-1-1-22" class="outline-4">
-<h4 id="sec-1-1-22"><span class="section-number-4">1.1.22</span> antispam.imp.ch</h4>
+<h4 id="sec-1-1-22"><span class="section-number-4">1.1.22</span> <span class="done DONE">DONE</span> antispam.imp.ch</h4>
 <div class="outline-text-4" id="text-1-1-22">
-</div><ol class="org-ol"><li><a id="sec-1-1-22-1" name="sec-1-1-22-1"></a>spam<br  /><div class="outline-text-5" id="text-1-1-22-1">
 <ul class="org-ul">
-<li>tags: spam
+<li>State "DONE"       from ""           <span class="timestamp-wrapper"><span class="timestamp">[2017-06-28 Wed 10:38]</span></span>
+</li>
+</ul>
+<p>
+imp.ch 的反垃圾邮件 共享feed项目,声称每15分钟更新一次
+</p>
+
+<p>
+但已经停止更新了。
+</p>
+<ul class="org-ul">
+<li>tags: Spam Sources
 </li>
 <li>confidence ：9
 </li>
 <li>source url :<a href="http://antispam.imp.ch/spamlist">http://antispam.imp.ch/spamlist</a>
 </li>
-<li>total :
+<li>total : 943
 </li>
-<li>cycle : 1 day
+<li>cycle : 15 minutes
 </li>
-<li>incremental :  /day
+<li>incremental : 0/day
 </li>
 </ul>
 </div>
-</li></ol>
 </div>
 <div id="outline-container-sec-1-1-23" class="outline-4">
 <h4 id="sec-1-1-23"><span class="section-number-4">1.1.23</span> dragonresearchgroup.org</h4>
@@ -2163,7 +2149,7 @@ sudo pip install pyyaml
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: manue1</p>
-<p class="date">Created: 2017-06-22 Thu 20:17</p>
+<p class="date">Created: 2017-07-04 Tue 11:43</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
