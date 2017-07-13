@@ -46,11 +46,10 @@ index_with_subtitle: false
 
 # When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -> archives)
 menu:
-  Home: /
-  About: /about/
-  Writing: /archives/
+  home: /
+  about: /about/
+  writing: /archives/
   GTD: /about/note-gtd.html
-  Projects: https://github.com/Nanue1
   #tags: /tags/
   #sitemap: /sitemap.xml
   #commonweal: /404.html
@@ -63,11 +62,10 @@ menu:
 menu_icons:
   enable: true
   #KeyMapsToMenuItemKey: NameOfTheIconFromFontAwesome
-  Home: home
-  About: user
-  Writing: archive
+  home: home
+  about: user
+  writing: archive
   GTD: calendar
-  Projects: heartbeat
 
 
 # ---------------------------------------------------------------
@@ -75,8 +73,8 @@ menu_icons:
 # ---------------------------------------------------------------
 
 # Schemes
-scheme: Muse
-#scheme: Mist
+#scheme: Muse
+scheme: Mist
 #scheme: Pisces
 
 
