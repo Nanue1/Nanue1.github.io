@@ -3,6 +3,8 @@ import time
 arg_path = '/home/manue1/github/note/'
 target_path = '/home/manue1/github/blog/source/about/'
 post_path = '/home/manue1/github/blog/source/_posts/'
+
+now = time.strftime('%Y-%m-%d', time.localtime(time.time()))
 for s in os.listdir(arg_path):
     mv_path = arg_path + s
     if s == 'note-gtd.html' :
@@ -15,11 +17,14 @@ for s in os.listdir(arg_path):
         if os.path.exists(cat_path):
             c = "rm %s -f" % cat_path
             os.system(c)
-        c1 = "echo 'title: %s' >> %s" % (s.split(".")[0],cat_path)
-        c2 = "echo '---\n' >> %s " % cat_path
-        print c1,c2
+       # c0 = "" 
+       # c1 = "echo 'title: %s' >> %s" % (s.split(".")[0],cat_path)
+       # c2 = "echo '---\n' >> %s " % cat_path
+        title = s.split(".")[0]
+        tag = s.split(".")[0].split('-')[1]
+        c1 = "echo '---\ntitle: %s\nlayout: post\ndate: %s\ntags: %s\n---\n' >> %s" % (title,now,tag,cat_path)
+        print c1
         os.system(c1)
-        os.system(c2)
         cmd = 'cat %s >> %s ' % (mv_path,cat_path)
         s = os.system(cmd)
         print "cat html status: %s" % str(s)
@@ -42,5 +47,4 @@ print "push status : %s" % str(s)
 #date:
 #updated: 
 #tags:
-#categories:
 #---
