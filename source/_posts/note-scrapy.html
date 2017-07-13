@@ -1,7 +1,7 @@
 ---
 title: note-scrapy
 layout: post
-updated: 2017-07-13 18:37:12
+updated: 2017-07-13 18:40:55
 tags: scrapy
 ---
 
@@ -11,7 +11,7 @@ tags: scrapy
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>note-scrapy</title>
-<!-- 2017-07-13 Thu 18:36 -->
+<!-- 2017-07-13 Thu 18:40 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="manue1" />
@@ -189,42 +189,40 @@ FileFtpRequest方法传过来的请求下载单个文件的行为,则直接使�
 器返回的response也是父类<sub>build</sub><sub>response返回的单个文件的数据，而不是从</sub><br  />
 重写后<sub>build</sub><sub>response返回的文件夹内的文件名</sub><br  />
 </p>
-<div class="org-src-container">
+<pre class="example">
+import json
+from scrapy.core.downloader.handlers.ftp import FTPDownloadHandler
+from scrapy.http import Response
+from twisted.protocols.ftp import FTPFileListProtocol
+from spiders.cyren_intel import FileFtpRequest, ListFtpRequest
 
-<pre class="src src-python"><span style="color: #00ffff; font-weight: bold;">import</span> json
-<span style="color: #00ffff; font-weight: bold;">from</span> scrapy.core.downloader.handlers.ftp <span style="color: #00ffff; font-weight: bold;">import</span> FTPDownloadHandler
-<span style="color: #00ffff; font-weight: bold;">from</span> scrapy.http <span style="color: #00ffff; font-weight: bold;">import</span> Response
-<span style="color: #00ffff; font-weight: bold;">from</span> twisted.protocols.ftp <span style="color: #00ffff; font-weight: bold;">import</span> FTPFileListProtocol
-<span style="color: #00ffff; font-weight: bold;">from</span> spiders.cyren_intel <span style="color: #00ffff; font-weight: bold;">import</span> FileFtpRequest, ListFtpRequest
-
+class FtpListingHandler(FTPDownloadHandler):
 <!--more--> 
-<span style="color: #00ffff; font-weight: bold;">class</span> <span style="color: #00ff00;">FtpListingHandler</span>(FTPDownloadHandler):
-    <span style="color: #ff0000;"># </span><span style="color: #ff0000;">get files list or one file</span>
-    <span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">gotClient</span>(<span style="color: #00ffff; font-weight: bold;">self</span>, client, request, filepath):
-        <span style="color: #ff0000;"># </span><span style="color: #ff0000;">check what class sent a request</span>
-        <span style="color: #00ffff; font-weight: bold;">if</span> <span style="color: #0000ff; font-weight: bold;">isinstance</span>(request, FileFtpRequest):
-            <span style="color: #00ffff; font-weight: bold;">return</span> <span style="color: #0000ff; font-weight: bold;">super</span>(FtpListingHandler, <span style="color: #00ffff; font-weight: bold;">self</span>).gotClient(
+    # get files list or one file
+    def gotClient(self, client, request, filepath):
+        # check what class sent a request
+        if isinstance(request, FileFtpRequest):
+            return super(FtpListingHandler, self).gotClient(
                 client, request, filepath)
 
-        <span style="color: #ffff00;">protocol</span> = FTPFileListProtocol()
-        <span style="color: #00ffff; font-weight: bold;">return</span> client.<span style="color: #0000ff; font-weight: bold;">list</span>(filepath, protocol).addCallbacks(
-            callback=<span style="color: #00ffff; font-weight: bold;">self</span>._build_response,
+        protocol = FTPFileListProtocol()
+        return client.list(filepath, protocol).addCallbacks(
+            callback=self._build_response,
             callbackArgs=(request, protocol),
-            errback=<span style="color: #00ffff; font-weight: bold;">self</span>._failed,
+            errback=self._failed,
             errbackArgs=(request,))
 
-    <span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">_build_response</span>(<span style="color: #00ffff; font-weight: bold;">self</span>, result, request, protocol):
-        <span style="color: #ff0000;"># </span><span style="color: #ff0000;">get files list or one file</span>
-        <span style="color: #00ffff; font-weight: bold;">self</span>.result = result
-        <span style="color: #00ffff; font-weight: bold;">if</span> <span style="color: #0000ff; font-weight: bold;">isinstance</span>(request, ListFtpRequest):
-            <span style="color: #ffff00;">body</span> = json.dumps(protocol.files)
-            <span style="color: #00ffff; font-weight: bold;">return</span> Response(url=request.url, status=200, body=body)
-        <span style="color: #ff0000;"># </span><span style="color: #ff0000;">signal file return super class _build_response result</span>
-        <span style="color: #00ffff; font-weight: bold;">else</span>:
-            <span style="color: #00ffff; font-weight: bold;">return</span> <span style="color: #0000ff; font-weight: bold;">super</span>(FtpListingHandler, <span style="color: #00ffff; font-weight: bold;">self</span>)._build_response(
+    def _build_response(self, result, request, protocol):
+        # get files list or one file
+        self.result = result
+        if isinstance(request, ListFtpRequest):
+            body = json.dumps(protocol.files)
+            return Response(url=request.url, status=200, body=body)
+        # signal file return super class _build_response result
+        else:
+            return super(FtpListingHandler, self)._build_response(
                 result, request, protocol)
 </pre>
-</div>
 </li>
 <li>编写spider爬虫文件 
 
@@ -236,115 +234,113 @@ FileFtpRequest方法传过来的请求下载单个文件的行为,则直接使�
 只需要继承该方法即可
 </p>
 
-<div class="org-src-container">
+<pre class="example">
+# -*- coding: utf-8 -*-
+import gzip
+import json
+import os
+import time
+from scrapy import Request
+from scrapy.conf import settings
+from scrapy.spiders import CrawlSpider
 
-<pre class="src src-python"><span style="color: #ff0000;"># </span><span style="color: #ff0000;">-*- coding: utf-8 -*-</span>
-<span style="color: #00ffff; font-weight: bold;">import</span> gzip
-<span style="color: #00ffff; font-weight: bold;">import</span> json
-<span style="color: #00ffff; font-weight: bold;">import</span> os
-<span style="color: #00ffff; font-weight: bold;">import</span> time
-<span style="color: #00ffff; font-weight: bold;">from</span> scrapy <span style="color: #00ffff; font-weight: bold;">import</span> Request
-<span style="color: #00ffff; font-weight: bold;">from</span> scrapy.conf <span style="color: #00ffff; font-weight: bold;">import</span> settings
-<span style="color: #00ffff; font-weight: bold;">from</span> scrapy.spiders <span style="color: #00ffff; font-weight: bold;">import</span> CrawlSpider
-
-<span style="color: #00ffff; font-weight: bold;">from</span> ..items <span style="color: #00ffff; font-weight: bold;">import</span> OpensourceThreatIntelItem
-
-
-<span style="color: #00ffff; font-weight: bold;">class</span> <span style="color: #00ff00;">FtpMetaRequest</span>(Request):
-    <span style="color: #ff0000;"># </span><span style="color: #ff0000;">add user with password to ftp meta request</span>
-    <span style="color: #ffff00;">user_meta</span> = {<span style="color: #00ff00;">'ftp_user'</span>: settings[<span style="color: #00ff00;">'CYREN_FTP_USER'</span>], <span style="color: #00ff00;">'ftp_password'</span>: settings[<span style="color: #00ff00;">'CYREN_FTP_PASS'</span>]}
-
-    <span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">__init__</span>(<span style="color: #00ffff; font-weight: bold;">self</span>, args, **kwargs):
-        <span style="color: #0000ff; font-weight: bold;">super</span>(FtpMetaRequest, <span style="color: #00ffff; font-weight: bold;">self</span>).__init__(args, **kwargs)
-        <span style="color: #00ffff; font-weight: bold;">self</span>.meta.update(<span style="color: #00ffff; font-weight: bold;">self</span>.user_meta)
+from ..items import OpensourceThreatIntelItem
 
 
-<span style="color: #00ffff; font-weight: bold;">class</span> <span style="color: #00ff00;">FileFtpRequest</span>(FtpMetaRequest):
-    <span style="color: #00ffff; font-weight: bold;">pass</span>
+class FtpMetaRequest(Request):
+    # add user with password to ftp meta request
+    user_meta = {'ftp_user': settings['CYREN_FTP_USER'], 'ftp_password': settings['CYREN_FTP_PASS']}
+
+    def __init__(self, args, **kwargs):
+        super(FtpMetaRequest, self).__init__(args, **kwargs)
+        self.meta.update(self.user_meta)
 
 
-<span style="color: #00ffff; font-weight: bold;">class</span> <span style="color: #00ff00;">ListFtpRequest</span>(FtpMetaRequest):
-    <span style="color: #00ffff; font-weight: bold;">pass</span>
+class FileFtpRequest(FtpMetaRequest):
+    pass
 
 
-<span style="color: #00ffff; font-weight: bold;">class</span> <span style="color: #00ff00;">MedisumSpider</span>(CrawlSpider):
-    <span style="color: #ffff00;">name</span> = <span style="color: #00ff00;">'cyren.com'</span>
+class ListFtpRequest(FtpMetaRequest):
+    pass
 
-    <span style="color: #ffff00;">allowed_domains</span> = [
-        <span style="color: #00ff00;">"ftp.ctmail.com"</span>
+
+class MedisumSpider(CrawlSpider):
+    name = 'cyren.com'
+
+    allowed_domains = [
+        "ftp.ctmail.com"
     ]
 
-    <span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">__init__</span>(<span style="color: #00ffff; font-weight: bold;">self</span>):
-        <span style="color: #00ffff; font-weight: bold;">self</span>.bak_path = <span style="color: #00ff00;">'../data_bak/cyren/'</span>+ <span style="color: #00ffff; font-weight: bold;">self</span>.today_time()+<span style="color: #00ff00;">'/'</span>
-        <span style="color: #00ffff; font-weight: bold;">if</span> <span style="color: #00ffff; font-weight: bold;">not</span> os.path.exists(<span style="color: #00ffff; font-weight: bold;">self</span>.bak_path):
-            os.system(<span style="color: #00ff00;">'mkdir -p %s '</span> % <span style="color: #00ffff; font-weight: bold;">self</span>.bak_path)
+    def __init__(self):
+        self.bak_path = '../data_bak/cyren/'+ self.today_time()+'/'
+        if not os.path.exists(self.bak_path):
+            os.system('mkdir -p %s ' % self.bak_path)
 
-    <span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">start_requests</span>(<span style="color: #00ffff; font-weight: bold;">self</span>):
-        <span style="color: #ff0000;"># </span><span style="color: #ff0000;">start request to get all files</span>
-        <span style="color: #00ffff; font-weight: bold;">yield</span> ListFtpRequest(<span style="color: #00ff00;">"ftp://ftp.ctmail.com/ZombieIntelligence/delta/"</span>)
-        <span style="color: #ff0000;"># </span><span style="color: #ff0000;">yield ListFtpRequest("ftp://ftp.ctmail.com/ZombieIntelligence/snapshot/")</span>
+    def start_requests(self):
+        # start request to get all files
+        yield ListFtpRequest("ftp://ftp.ctmail.com/ZombieIntelligence/delta/")
+        # yield ListFtpRequest("ftp://ftp.ctmail.com/ZombieIntelligence/snapshot/")
 
-    <span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">parse</span>(<span style="color: #00ffff; font-weight: bold;">self</span>, response):
-        <span style="color: #ff0000;"># </span><span style="color: #ff0000;">get response with all files</span>
-        <span style="color: #ffff00;">files</span> = json.loads(response.body)
-        <span style="color: #ff0000;"># </span><span style="color: #ff0000;">file filter not check md5</span>
-        <span style="color: #ffff00;">files</span> = <span style="color: #0000ff; font-weight: bold;">filter</span>(<span style="color: #00ffff; font-weight: bold;">lambda</span> dic: dic[<span style="color: #00ff00;">'filename'</span>].endswith(<span style="color: #00ff00;">'gz'</span>)
-                       <span style="color: #00ffff; font-weight: bold;">and</span> dic[<span style="color: #00ff00;">'filename'</span>].find(<span style="color: #00ffff; font-weight: bold;">self</span>.today_time()) &gt;= 0,files)
-        <span style="color: #00ffff; font-weight: bold;">for</span> f <span style="color: #00ffff; font-weight: bold;">in</span> files:
-            <span style="color: #ffff00;">path</span> = os.path.join(response.url, f[<span style="color: #00ff00;">'filename'</span>])
-            <span style="color: #ffff00;">filename</span> = <span style="color: #00ffff; font-weight: bold;">self</span>.bak_path + f[<span style="color: #00ff00;">'filename'</span>]
-            <span style="color: #00ffff; font-weight: bold;">if</span> os.path.exists(filename):
-                <span style="color: #00ffff; font-weight: bold;">self</span>.logger.info(<span style="color: #00ff00;">'file %s exist ..'</span>,f[<span style="color: #00ff00;">'filename'</span>])
-                <span style="color: #00ffff; font-weight: bold;">continue</span>
-            <span style="color: #00ffff; font-weight: bold;">self</span>.logger.info(<span style="color: #00ff00;">'start download %s ..'</span>, f[<span style="color: #00ff00;">'filename'</span>])
-            <span style="color: #ffff00;">request</span> = FileFtpRequest(path,callback=<span style="color: #00ffff; font-weight: bold;">self</span>.parse_item)
-            <span style="color: #00ffff; font-weight: bold;">yield</span> request
+    def parse(self, response):
+        # get response with all files
+        files = json.loads(response.body)
+        # file filter not check md5
+        files = filter(lambda dic: dic['filename'].endswith('gz')
+                       and dic['filename'].find(self.today_time()) &gt;= 0,files)
+        for f in files:
+            path = os.path.join(response.url, f['filename'])
+            filename = self.bak_path + f['filename']
+            if os.path.exists(filename):
+                self.logger.info('file %s exist ..',f['filename'])
+                continue
+            self.logger.info('start download %s ..', f['filename'])
+            request = FileFtpRequest(path,callback=self.parse_item)
+            yield request
 
-    <span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">today_time</span>(<span style="color: #00ffff; font-weight: bold;">self</span>):
-        <span style="color: #00ffff; font-weight: bold;">return</span> time.strftime(<span style="color: #00ff00;">'%y%m%d'</span>, time.localtime(time.time()))
+    def today_time(self):
+        return time.strftime('%y%m%d', time.localtime(time.time()))
 
-    <span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#35299;&#21387;gz&#25991;&#20214;</span>
-    <span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">un_gz</span>(<span style="color: #00ffff; font-weight: bold;">self</span>,file_name):
-        <span style="color: #00ff00;">"""ungz zip file"""</span>
-        <span style="color: #ffff00;">f_name</span> = file_name.replace(<span style="color: #00ff00;">".gz"</span>, <span style="color: #00ff00;">""</span>)
-        <span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#33719;&#21462;&#25991;&#20214;&#30340;&#21517;&#31216;&#65292;&#21435;&#25481;</span>
-        <span style="color: #ffff00;">g_file</span> = gzip.GzipFile(file_name)
-        <span style="color: #ff0000;"># </span><span style="color: #ff0000;">&#21019;&#24314;gzip&#23545;&#35937;</span>
-        <span style="color: #0000ff; font-weight: bold;">open</span>(f_name, <span style="color: #00ff00;">"w+"</span>).write(g_file.read())
-        <span style="color: #ff0000;"># </span><span style="color: #ff0000;">gzip&#23545;&#35937;&#29992;read()&#25171;&#24320;&#21518;&#65292;&#20889;&#20837;open()&#24314;&#31435;&#30340;&#25991;&#20214;&#20013;&#12290;</span>
+    # 解压gz文件
+    def un_gz(self,file_name):
+        """ungz zip file"""
+        f_name = file_name.replace(".gz", "")
+        # 获取文件的名称，去掉
+        g_file = gzip.GzipFile(file_name)
+        # 创建gzip对象
+        open(f_name, "w+").write(g_file.read())
+        # gzip对象用read()打开后，写入open()建立的文件中。
         g_file.close()
-        <span style="color: #00ffff; font-weight: bold;">return</span> f_name
+        return f_name
 
-    <span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">ip_format</span>(<span style="color: #00ffff; font-weight: bold;">self</span>,ipstr):
-        <span style="color: #ffff00;">ip_int</span> = <span style="color: #0000ff; font-weight: bold;">reduce</span>(<span style="color: #00ffff; font-weight: bold;">lambda</span> x,y:(x&lt;&lt;8)+y,<span style="color: #0000ff; font-weight: bold;">map</span>(<span style="color: #0000ff; font-weight: bold;">int</span>,ipstr.split(<span style="color: #00ff00;">'.'</span>)))
-        <span style="color: #ffff00;">tostr</span> = <span style="color: #00ffff; font-weight: bold;">lambda</span> x: <span style="color: #00ff00;">'.'</span>.join([<span style="color: #0000ff; font-weight: bold;">str</span>(x/(256**i)%256) <span style="color: #00ffff; font-weight: bold;">for</span> i <span style="color: #00ffff; font-weight: bold;">in</span> <span style="color: #0000ff; font-weight: bold;">range</span>(3,-1,-1)])
-        <span style="color: #00ffff; font-weight: bold;">return</span> tostr(ip_int)
+    def ip_format(self,ipstr):
+        ip_int = reduce(lambda x,y:(x&lt;&lt;8)+y,map(int,ipstr.split('.')))
+        tostr = lambda x: '.'.join([str(x/(256**i)%256) for i in range(3,-1,-1)])
+        return tostr(ip_int)
 
-    <span style="color: #00ffff; font-weight: bold;">def</span> <span style="color: #0000ff; font-weight: bold;">parse_item</span>(<span style="color: #00ffff; font-weight: bold;">self</span>, response):
-        <span style="color: #ffff00;">filename</span> = <span style="color: #00ffff; font-weight: bold;">self</span>.bak_path + response.url.split(<span style="color: #00ff00;">'/'</span>)[-1]
-        <span style="color: #00ffff; font-weight: bold;">print</span> filename
-        <span style="color: #0000ff; font-weight: bold;">open</span>(filename,<span style="color: #00ff00;">'wb'</span>).write(response.body)
-        <span style="color: #00ffff; font-weight: bold;">self</span>.logger.info(<span style="color: #00ff00;">'download file  %s '</span>, filename)
-        <span style="color: #ffff00;">ungz_file</span> = <span style="color: #00ffff; font-weight: bold;">self</span>.un_gz(filename)
-        <span style="color: #00ffff; font-weight: bold;">with</span> <span style="color: #0000ff; font-weight: bold;">open</span>(ungz_file, <span style="color: #00ff00;">'r'</span>) <span style="color: #00ffff; font-weight: bold;">as</span> ungz:
+    def parse_item(self, response):
+        filename = self.bak_path + response.url.split('/')[-1]
+        print filename
+        open(filename,'wb').write(response.body)
+        self.logger.info('download file  %s ', filename)
+        ungz_file = self.un_gz(filename)
+        with open(ungz_file, 'r') as ungz:
             os.remove(ungz_file)
-            <span style="color: #00ffff; font-weight: bold;">for</span> line <span style="color: #00ffff; font-weight: bold;">in</span> ungz:
-                <span style="color: #ffff00;">item</span> = OpensourceThreatIntelItem()
-                <span style="color: #ffff00;">indicator</span> = <span style="color: #00ffff; font-weight: bold;">self</span>.ip_format(line.split(<span style="color: #00ff00;">','</span>)[1])
-                <span style="color: #00ffff; font-weight: bold;">print</span> indicator
-                <span style="color: #ffff00;">now_time</span> = time.strftime(<span style="color: #00ff00;">'%Y-%m-%dT%H:%M:%S'</span>, time.localtime(time.time()))
-                <span style="color: #ffff00;">item</span>[<span style="color: #00ff00;">'indicator'</span>] = indicator
-                <span style="color: #ffff00;">item</span>[<span style="color: #00ff00;">'data_type'</span>] = 0
-                <span style="color: #ffff00;">item</span>[<span style="color: #00ff00;">'tag'</span>] = 6
-                <span style="color: #ffff00;">item</span>[<span style="color: #00ff00;">'alive'</span>] = <span style="color: #ff00ff;">True</span>
-                <span style="color: #ffff00;">item</span>[<span style="color: #00ff00;">'description'</span>] = line.split(<span style="color: #00ff00;">','</span>)[6]
-                <span style="color: #ffff00;">item</span>[<span style="color: #00ff00;">'confidence'</span>] = 9
-                <span style="color: #ffff00;">item</span>[<span style="color: #00ff00;">'source'</span>] = <span style="color: #00ff00;">'cyren.com'</span>
-                <span style="color: #ffff00;">item</span>[<span style="color: #00ff00;">'updated_time'</span>] = line.split(<span style="color: #00ff00;">','</span>)[3].replace(<span style="color: #00ff00;">'-'</span>,<span style="color: #00ff00;">'T'</span>).replace(<span style="color: #00ff00;">'T'</span>,<span style="color: #00ff00;">'-'</span>,2)
-                <span style="color: #ffff00;">item</span>[<span style="color: #00ff00;">'created_time'</span>] = now_time
-                <span style="color: #00ffff; font-weight: bold;">yield</span> item
+            for line in ungz:
+                item = OpensourceThreatIntelItem()
+                indicator = self.ip_format(line.split(',')[1])
+                print indicator
+                now_time = time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime(time.time()))
+                item['indicator'] = indicator
+                item['data_type'] = 0
+                item['tag'] = 6
+                item['alive'] = True
+                item['description'] = line.split(',')[6]
+                item['confidence'] = 9
+                item['source'] = 'cyren.com'
+                item['updated_time'] = line.split(',')[3].replace('-','T').replace('T','-',2)
+                item['created_time'] = now_time
+                yield item
 </pre>
-</div>
 
 <p>
 代码托管位置:<a href="https://github.com/Nanue1/opensource_threat_intel/tree/master/opensource_threat_intel">github</a>
@@ -368,7 +364,7 @@ parse()函数得存在
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: manue1</p>
-<p class="date">Created: 2017-07-13 Thu 18:36</p>
+<p class="date">Created: 2017-07-13 Thu 18:40</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
