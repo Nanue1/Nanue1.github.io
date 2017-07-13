@@ -1,7 +1,7 @@
 ---
 title: note-scrapy
 layout: post
-updated: 2017-07-13 19:47:33
+updated: 2017-07-13 20:38:13
 tags: scrapy
 ---
 
@@ -11,7 +11,7 @@ tags: scrapy
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>note-scrapy</title>
-<!-- 2017-07-13 Thu 19:24 -->
+<!-- 2017-07-13 Thu 20:38 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="manue1" />
@@ -165,13 +165,9 @@ for the JavaScript code in this tag.
 <h3 id="sec-1-1"><span class="section-number-3">1.1</span> scrapy crawl ftp server</h3>
 <div class="outline-text-3" id="text-1-1">
 <p class="verse">
-最近遇到一个ftp数据源，每天需要定期到ftp服务器登录下载文件压缩列表<br  />
-官方提供的<a href="https://github.com/scrapy/scrapy/blob/master/scrapy/core/downloader/handlers/ftp.py">FTPDownloadHandler</a> 只能下载单个文件，但这里我需要下载文件<br  />
-<!--more--> 
-目录下所有文件,这里找到一篇好<a href="https://gearheart.io/blog/crawling-ftp-server-with-scrapy/">文章</a> ,详细的讲述了如何重写scrapy所支持<br  />
-的HTTP,HTTPS,FTP等下载Handler.由于作者从单个FTP文件下载，到文件夹内<br  />
-全部文件下载都做了详细的阐述，这里就贴出我的实现代码吧，做了些许修改<br  />
+最近遇到一个ftp数据源，每天需要定期到ftp服务器登录下载文件压缩列表,官方提供的<a href="https://github.com/scrapy/scrapy/blob/master/scrapy/core/downloader/handlers/ftp.py">FTPDownloadHandler</a> 只能下载单个文件,但这里我需要下载文件目录下所有文件,这里找到一篇好<a href="https://gearheart.io/blog/crawling-ftp-server-with-scrapy/">文章</a> ,详细的讲述了如何重写scrapy所支持的HTTP,HTTPS,FTP等下载Handler.由于作者从单个FTP文件下载，到文件夹内全部文件下载都做了详细的阐述，这里就贴出我的实现代码吧，做了些许修改<br  />
 </p>
+<!--more--> 
 <ol class="org-ol">
 <li>修改settings 文件
 <pre class="example">
@@ -364,7 +360,7 @@ parse()函数得存在
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: manue1</p>
-<p class="date">Created: 2017-07-13 Thu 19:24</p>
+<p class="date">Created: 2017-07-13 Thu 20:38</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
