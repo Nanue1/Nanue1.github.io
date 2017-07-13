@@ -46,11 +46,12 @@ index_with_subtitle: false
 
 # When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -> archives)
 menu:
-  home: /
-  #categories: /categories/
-  about: /about/
-  archives: /archives/
-  tags: /tags/
+  Home: /
+  About: /about/
+  Writing: /archives/
+  GTD: /about/note-gtd.html
+  Projects: https://github.com/Nanue1
+  #tags: /tags/
   #sitemap: /sitemap.xml
   #commonweal: /404.html
 
@@ -62,14 +63,11 @@ menu:
 menu_icons:
   enable: true
   #KeyMapsToMenuItemKey: NameOfTheIconFromFontAwesome
-  home: home
-  about: user
-  categories: th
-  schedule: calendar
-  tags: tags
-  archives: archive
-  sitemap: sitemap
-  commonweal: heartbeat
+  Home: home
+  About: user
+  Writing: archive
+  GTD: calendar
+  Projects: heartbeat
 
 
 # ---------------------------------------------------------------
@@ -77,9 +75,9 @@ menu_icons:
 # ---------------------------------------------------------------
 
 # Schemes
-#scheme: Muse
+scheme: Muse
 #scheme: Mist
-scheme: Pisces
+#scheme: Pisces
 
 
 # ---------------------------------------------------------------
@@ -98,7 +96,7 @@ scheme: Pisces
 #   Key is the name of the item and value is the name of FontAwesome icon. Key is case-senstive.
 #   When an globe mask icon presenting up means that the item has no mapping icon.
 social_icons:
-  enable: true
+  enable: false
   # Icon Mappings.
   # KeyMapsToSocialItemKey: NameOfTheIconFromFontAwesome
   GitHub: https://github.com/Nanue1
@@ -135,8 +133,8 @@ toc:
 
 sidebar:
   # Sidebar Position, available value: left | right
-  position: left
-  #position: right
+  #position: left
+  position: right
 
   # Sidebar Display, available value:
   #  - post    expand on posts automatically. Default.
@@ -359,7 +357,7 @@ changyan:
 # user_id must NOT be null when admin_enable is true!
 # you can visit http://dev.duoshuo.com get duoshuo user id.
 duoshuo_info:
-  ua_enable: true
+  ua_enable: false
   admin_enable: false
   user_id: 0
   #admin_nickname: Author
