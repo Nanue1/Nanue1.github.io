@@ -1,7 +1,7 @@
 ---
 title: note-scrapy
 layout: post
-updated: 2017-07-13 19:21:06
+updated: 2017-07-13 19:47:33
 tags: scrapy
 ---
 
@@ -11,7 +11,7 @@ tags: scrapy
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>note-scrapy</title>
-<!-- 2017-07-13 Thu 19:20 -->
+<!-- 2017-07-13 Thu 19:24 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="manue1" />
@@ -181,9 +181,9 @@ DOWNLOAD_HANDLERS = {'ftp': 'opensource_threat_intel.ftp.FtpListingHandler'}
 <li>创建ftp.py文件
 
 <p class="verse">
-简单说下处理流程,scrapy调度器捕捉到为ftp协议的request的时候，会根据<br  />
+简单说下处理流程,scrapy调度器捕捉到为ftp协议的request的时候,会根据<br  />
 settings内设置的FtpListingHandler处理ftp请求,该方法的父类是官方提供<br  />
-的FTPDownloadHandler,<br  />
+的FTPDownloadHandler.<br  />
 重写了gotClient客户端来创建一个ftp请求客户端,如果request为spider内<br  />
 FileFtpRequest方法传过来的请求下载单个文件的行为,则直接使用super调用<br  />
 父类官方提供的下载单文件方法,此时记得在重写的<sub>build</sub><sub>response内给下载</sub><br  />
@@ -364,7 +364,7 @@ parse()函数得存在
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: manue1</p>
-<p class="date">Created: 2017-07-13 Thu 19:20</p>
+<p class="date">Created: 2017-07-13 Thu 19:24</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

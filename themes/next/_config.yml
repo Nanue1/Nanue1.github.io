@@ -64,7 +64,7 @@ menu_icons:
   #KeyMapsToMenuItemKey: NameOfTheIconFromFontAwesome
   home: home
   about: user
-  archive: archive
+  archives: archives
   GTD: calendar
 
 
@@ -297,8 +297,8 @@ han: false
 
 # Disqus
 disqus:
-  enable: false
-  shortname:
+  enable: true
+  shortname: manue1-site
   count: true
 
 # Hypercomments
@@ -338,7 +338,7 @@ changyan:
 #google_site_verification:
 
 # Google Analytics
-#google_analytics:
+google_analytics: UA-92179266-1
 
 # Yandex Webmaster tools verification setting
 # See: https://webmaster.yandex.ru/
