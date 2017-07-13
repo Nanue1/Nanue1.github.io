@@ -20,7 +20,7 @@ rss:
 authoricon: heart
 
 # Footer `powered-by` and `theme-info` copyright
-copyright: true
+copyright: false
 
 
 # ---------------------------------------------------------------
@@ -49,8 +49,8 @@ menu:
   home: /
   about: /about/
   archives: /archives/
+  tags: /tags/
   GTD: /about/note-gtd.html
-  #tags: /tags/
   #sitemap: /sitemap.xml
   #commonweal: /404.html
 
@@ -64,8 +64,9 @@ menu_icons:
   #KeyMapsToMenuItemKey: NameOfTheIconFromFontAwesome
   home: home
   about: user
-  archives: archives
-  GTD: calendar
+  archives: archive
+  tags: tags
+  GTD: heartbeat
 
 
 # ---------------------------------------------------------------
@@ -94,7 +95,7 @@ scheme: Mist
 #   Key is the name of the item and value is the name of FontAwesome icon. Key is case-senstive.
 #   When an globe mask icon presenting up means that the item has no mapping icon.
 social_icons:
-  enable: false
+  enable: true
   # Icon Mappings.
   # KeyMapsToSocialItemKey: NameOfTheIconFromFontAwesome
   GitHub: https://github.com/Nanue1
@@ -139,8 +140,8 @@ sidebar:
   #  - always  expand for all pages automatically
   #  - hide    expand only when click on the sidebar toggle icon.
   #  - remove  Totally remove sidebar including sidebar toggle.
-  display: post
-  #display: always
+  #display: post
+  display: always
   #display: hide
   #display: remove
 
