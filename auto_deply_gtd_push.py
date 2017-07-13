@@ -36,3 +36,11 @@ int_t = int(time.time())
 cmd = "git add -A && git commit -m '%d' && git push -f origin SRC161123" % int_t
 s = os.system(cmd)
 print "push status : %s" % str(s)
+#---
+#layout: post
+#title:
+#date:
+#updated: 
+#tags:
+#categories:
+#---
