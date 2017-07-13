@@ -86,9 +86,9 @@ scheme: Mist
 # Social Links
 # Key is the link label showing to end users.
 # Value is the target link (E.g. GitHub: https://github.com/iissnan)
-#social:
-  #LinkLabel: Link
-
+social:
+    GitHub: https://github.com/Nanue1
+    Twitter: https://twitter.com/zimuchunzi0508
 # Social Links Icons
 # Icon Mapping:
 #   Map a menu item to a specific FontAwesome icon name.
@@ -98,8 +98,8 @@ social_icons:
   enable: true
   # Icon Mappings.
   # KeyMapsToSocialItemKey: NameOfTheIconFromFontAwesome
-  GitHub: https://github.com/Nanue1
-  #WeChat: http://7xpyfe.com1.z0.glb.clouddn.com/weixin.jpg
+  GitHub: github
+  Twitter: twitter
 
 
 # Blog rolls
