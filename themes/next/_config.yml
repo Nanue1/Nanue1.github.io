@@ -48,7 +48,7 @@ index_with_subtitle: false
 menu:
   home: /
   about: /about/
-  writing: /archives/
+  archives: /archives/
   GTD: /about/note-gtd.html
   #tags: /tags/
   #sitemap: /sitemap.xml
@@ -64,7 +64,7 @@ menu_icons:
   #KeyMapsToMenuItemKey: NameOfTheIconFromFontAwesome
   home: home
   about: user
-  writing: archive
+  archive: archive
   GTD: calendar
 
 
