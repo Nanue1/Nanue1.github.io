@@ -1,4 +1,8 @@
+---
 title: note-elasticsearch
+layout: post
+updated: 2017-07-13 18:37:12
+tags: elasticsearch
 ---
 
 <?xml version="1.0" encoding="utf-8"?>
@@ -7,7 +11,7 @@ title: note-elasticsearch
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>note-elasticsearch</title>
-<!-- 2017-06-22 Thu 10:29 -->
+<!-- 2017-07-13 Thu 18:36 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="manue1" />
@@ -148,6 +152,11 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1">1. note-elasticsearch-install&amp;config</a>
 <ul>
 <li><a href="#sec-1-1">1.1. install</a></li>
+<li><a href="#sec-1-2">1.2. cat command</a></li>
+<li><a href="#sec-1-3">1.3. Mapping</a></li>
+<li><a href="#sec-1-4">1.4. CURD</a></li>
+<li><a href="#sec-1-5">1.5. Query</a></li>
+<li><a href="#sec-1-6">1.6. Alias</a></li>
 </ul>
 </li>
 </ul>
@@ -185,11 +194,262 @@ sysctl -a|grep vm.max<sub>map</sub><sub>count</sub>
 </ol>
 </div>
 </div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> cat command</h3>
+<!--more--> 
+<div class="outline-text-3" id="text-1-2">
+<p>
+ vim  /etc/security/limits.conf
+ vim   /etc/security/limits.d/def.conf
+sudo netstat -anp |grep 9200
+htop
+show python
+curl localhost:9200/<sub>cat</sub>/shards/?v |grep -v STARTED |less
+curl -XGET 'localhost:9200/<sub>cat</sub>/recovery/webasset<sub>scan</sub>?v'
+</p>
+
+<p>
+ES 常用操作命令总结：
+1.索引状态
+curl localhost:9200/<sub>cat</sub>/indices?v
+2.文件描述符
+curl localhost:9200/<sub>nodes</sub>/stats/process?pretty | less
+3.集群健康
+curl localhost:9200/<sub>cluster</sub>/health?pretty | less
+curl 'localhost:9200/<sub>cluster</sub>/health?level=indices&amp;pretty' | less
+curl localhost:9200/<sub>cat</sub>/health?v| less
+</p>
+
+<p>
+curl 'localhost:9200/<sub>cat</sub>/allocation?v'
+4.分片状态
+curl localhost:9200/<sub>cat</sub>/shards/formal<sub>webasset</sub><sub>scan</sub>?v
+5.当前任务
+curl localhost:9200/<sub>tasks</sub>?pretty | less
+6.查看别名
+curl localhost:9200/webasset*/<sub>alias</sub>?pretty |less
+7.查看 relocate 进度
+curl -XGET 'localhost:9200/<sub>cat</sub>/recovery/ipasset<sub>seer4</sub>?v'
+8.优化（慎用，会消耗全部可用资源，尤其是磁盘 io）
+curl -XPOST 'localhost:9200/threat<sub>ip2</sub>/<sub>optimize</sub>?max<sub>num</sub><sub>segments</sub>=3&amp;pretty'
+9.查看 segment
+curl localhost:9200/<sub>cat</sub>/segments/ipasset<sub>seer4</sub>?v
+</p>
+
+<p>
+新建索引
+curl -XPUT 'localhost:9200/index<sub>name</sub>/?pretty' -d '{"settings":{"number<sub>of</sub><sub>replicas</sub>":0}}'
+curl -XPOST localhost:9200/index<sub>name</sub>/<sub>mapping</sub>/type<sub>name</sub>?pretty -d @mapping<sub>file</sub>
+动态改副本数量
+curl -XPUT 'localhost:9200/index<sub>name</sub>/<sub>settings</sub>?pretty' -d '{"number<sub>of</sub><sub>replicas</sub>":1}'
+设置别名
+curl -XPUT 'localhost:9200/index<sub>name</sub>/<sub>alias</sub>/alias<sub>name</sub>?pretty'
+修改别名
+curl -XPOST 'localhost:9200/<sub>aliases</sub>?pretty' -d '{"actions":[{"remove":{"index":"webasset<sub>subdomain</sub><sub>v2</sub>","alias":"formal<sub>webasset</sub><sub>subdomain</sub>"}},{"add":{"index":"webasset<sub>subdomain</sub><sub>v1</sub>","alias":"formal<sub>webasset</sub><sub>subdomain</sub>"}}]}'
+</p>
+
+<ol class="org-ol">
+<li>允许自动分配分片(alloctattion disable  关掉) 重启 es 前需要关掉
+curl -XPUT '10.24.45.94:9200/<sub>settings'</sub> -d '{
+  "index.routing.allocation.disable<sub>allocation</sub>": false
+}'
+</li>
+<li>    curl -XPUT 10.24.45.94:9200/<sub>cluster</sub>/settings -d '
+{
+    "transient" : {
+        "cluster.routing.allocation.enable": true
+    }
+}'
+</li>
+<li>最大恢复
+</li>
+</ol>
+<p>
+curl -XPUT localhost:9200/<sub>cluster</sub>/settings -d '{
+     "transient" : {
+         "indices.recovery.max<sub>bytes</sub><sub>per</sub><sub>sec</sub>" : 80000000
+     }
+ }'
+</p>
+<ol class="org-ol">
+<li>拉取数据后挂掉 先删除任务 (shard 重路由之前可以先尝试)
+curl -XDELETE 10.24.45.94:9200/<sub>search</sub>/scroll/<sub>all</sub>
+</li>
+<li>reroute
+curl -XPOST '10.24.45.94:9200/<sub>cluster</sub>/reroute' -d @reroute.mapping
+</li>
+<li></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Mapping</h3>
+<div class="outline-text-3" id="text-1-3">
+<ol class="org-ol">
+<li>建立索引
+curl -XPUT 'localhost:9200/threat<sub>ip</sub><sub>history</sub>/?pretty' -d{"settings":{"number<sub>of</sub><sub>shards</sub>":20}}
+curl -XPUT '10.200.1.72:9200/ipasset<sub>seer</sub><sub>lower</sub>/<sub>settings'</sub>  -d {"number<sub>of</sub><sub>replicas</sub>":1}
+</li>
+<li>设置 mapping 
+curl -XPOST 'localhost:9200/threat<sub>ip</sub><sub>history</sub>/<sub>mapping</sub>/ipv4?pretty' -d @mapping<sub>file</sub> 
+
+<p>
+mapping 存放到文件内
+</p>
+<div class="org-src-container">
+
+<pre class="src src-python">{
+  <span style="color: #00ff00;">"ipv4"</span>: {
+      <span style="color: #00ff00;">"dynamic_templates"</span>: [
+          {
+              <span style="color: #00ff00;">"notanalyzed"</span>: {
+                  <span style="color: #00ff00;">"mapping"</span>: {
+                      <span style="color: #00ff00;">"index"</span>: <span style="color: #00ff00;">"not_analyzed"</span>,
+                      <span style="color: #00ff00;">"type"</span>: <span style="color: #00ff00;">"string"</span>
+                  },
+                  <span style="color: #00ff00;">"match"</span>: <span style="color: #00ff00;">"*"</span>,
+                  <span style="color: #00ff00;">"match_mapping_type"</span>: <span style="color: #00ff00;">"string"</span>
+              }
+          }
+      ],
+      <span style="color: #00ff00;">"properties"</span>: {
+          <span style="color: #00ff00;">"activity"</span>: {
+              <span style="color: #00ff00;">"include_in_parent"</span>: true,
+              <span style="color: #00ff00;">"properties"</span>: {
+                  <span style="color: #00ff00;">"threat_type"</span>: {
+                      <span style="color: #00ff00;">"index"</span>: <span style="color: #00ff00;">"not_analyzed"</span>,
+                      <span style="color: #00ff00;">"type"</span>: <span style="color: #00ff00;">"string"</span>
+                  },
+                  <span style="color: #00ff00;">"update_time"</span>: {
+                      <span style="color: #00ff00;">"format"</span>: <span style="color: #00ff00;">"YYYY-MM-dd'T'HH:mm:ss"</span>,
+                      <span style="color: #00ff00;">"type"</span>: <span style="color: #00ff00;">"date"</span>
+                  }
+              },
+              <span style="color: #00ff00;">"type"</span>: <span style="color: #00ff00;">"nested"</span>
+          },
+          <span style="color: #00ff00;">"ip"</span>: {
+              <span style="color: #00ff00;">"fields"</span>: {
+                  <span style="color: #00ff00;">"raw"</span>: {
+                      <span style="color: #00ff00;">"type"</span>: <span style="color: #00ff00;">"ip"</span>
+                  }
+              },
+              <span style="color: #00ff00;">"type"</span>: <span style="color: #00ff00;">"string"</span>
+          }
+      }
+  }
+}
+</pre>
+</div>
+</li>
+<li>删除索引
+curl -XDELETE localhost:9200/index<sub>name</sub>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> CURD</h3>
+<div class="outline-text-3" id="text-1-4">
+<ol class="org-ol">
+<li>添加一条记录
+curl -XPUT 'http://localhost:9200/twitter/tweet/1' -d  '{<sub>source</sub> 内容}'
+</li>
+<li>删除一条记录
+curl -XDELETE 'http://localhost:9200/twitter/tweet/1'
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> Query</h3>
+<div class="outline-text-3" id="text-1-5">
+<ol class="org-ol">
+<li>基本查询
+
+<p>
+curl -XGET 'http://localhost:9200/ipasset<sub>seer4</sub>/asset<sub>from</sub><sub>seer</sub>/<sub>search</sub>?pretty&amp;q=ip:210.186.226.178'
+</p>
+
+<p>
+curl -XGET  'localhost:9200/webasset<sub>whois3</sub>/whois<sub>info</sub>/<sub>search</sub>?pretty&amp;q=<sub>id</sub>:PERSONALLICENCECOURSES.COM'
+</p>
+</li>
+<li>DSL 查询
+1.query bool must/filter match/term
+<pre class="example">
+{
+  "query": { 
+    "bool": { 
+      "must": [
+        { "match": { "title":   "Search"        }}, 
+        { "match": { "content": "Elasticsearch" }}  
+      ],
+      "filter": [ 
+        { "term":  { "status": "published" }}, 
+        { "range": { "publish_date": { "gte": "2015-01-01" }}} 
+      ]
+    }
+  }
+}
+</pre>
+<p>
+2.query/sort
+</p>
+<pre class="example">
+{
+       "query": {
+           "bool": {
+               "must": [
+                   {
+                       "term": {
+                           "ip.raw": "210.186.226.178"
+                       }
+                   }
+               ],
+               "must_not": [ ],
+               "should": [ ]
+           }
+       },
+       "sort": {
+         "started": "desc"
+       },
+   }
+</pre>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> Alias</h3>
+<div class="outline-text-3" id="text-1-6">
+<ol class="org-ol">
+<li>创建 alias
+curl -XPOST 'localhost:9200/<sub>aliases'</sub> -d '{"actions":[{"add":{"index" : "vulnerability<sub>data</sub><sub>v4</sub>","alias" : "formal<sub>vulnerability</sub><sub>data</sub>"}}]}'
+</li>
+<li>删除 alias
+curl -XPOST 'localhost:9200/<sub>aliases'</sub> -d '{"actions":[{"remove":{"index" : "vulnerability<sub>data</sub><sub>v4</sub>","alias" : "formal<sub>vulnerability</sub><sub>data</sub>"}}]}'
+</li>
+<li>创建映射多个索引:
+<pre class="example">
+curl -XPOST 'http://localhost:9200/_aliases'-d '  
+{  
+    "actions" : [  
+        { "add" : { "index" : "test1","alias" : "alias1" } },  
+        { "add" : { "index" : "test2","alias" : "alias1" } }  
+    ]  
+}'
+</pre>
+</li>
+</ol>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: manue1</p>
-<p class="date">Created: 2017-06-22 Thu 10:29</p>
+<p class="date">Created: 2017-07-13 Thu 18:36</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
