@@ -7,7 +7,7 @@ title: note-scrapy
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>note-scrapy</title>
-<!-- 2017-07-12 Wed 20:03 -->
+<!-- 2017-07-13 Thu 12:54 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="manue1" />
@@ -160,26 +160,13 @@ for the JavaScript code in this tag.
 </div><div id="outline-container-sec-1-1" class="outline-3">
 <h3 id="sec-1-1"><span class="section-number-3">1.1</span> scrapy crawl ftp server</h3>
 <div class="outline-text-3" id="text-1-1">
-<p>
-最近遇到一个ftp数据源，每天需要定期到ftp服务器登录下载文件压缩列表
+<p class="verse">
+最近遇到一个ftp数据源，每天需要定期到ftp服务器登录下载文件压缩列表<br  />
+官方提供的<a href="https://github.com/scrapy/scrapy/blob/master/scrapy/core/downloader/handlers/ftp.py">FTPDownloadHandler</a> 只能下载单个文件，但这里我需要下载文件<br  />
+目录下所有文件,这里找到一篇好<a href="https://gearheart.io/blog/crawling-ftp-server-with-scrapy/">文章</a> ,详细的讲述了如何重写scrapy所支持<br  />
+的HTTP,HTTPS,FTP等下载Handler.由于作者从单个FTP文件下载，到文件夹内<br  />
+全部文件下载都做了详细的阐述，这里就贴出我的实现代码吧，做了些许修改<br  />
 </p>
-
-<p>
-官方提供的<a href="https://github.com/scrapy/scrapy/blob/master/scrapy/core/downloader/handlers/ftp.py">FTPDownloadHandler</a> 只能下载单个文件，但这里我需要下载文件
-</p>
-
-<p>
-目录下所有文件,这里找到一篇好<a href="https://gearheart.io/blog/crawling-ftp-server-with-scrapy/">文章</a> ,详细的讲述了如何重写scrapy所支持
-</p>
-
-<p>
-的HTTP,HTTPS,FTP等下载Handler.由于作者从单个FTP文件下载，到文件夹内
-</p>
-
-<p>
-全部文件下载都做了详细的阐述，这里就贴出我的实现代码吧，做了些许修改
-</p>
-
 <ol class="org-ol">
 <li>修改settings 文件
 <pre class="example">
@@ -188,28 +175,15 @@ DOWNLOAD_HANDLERS = {'ftp': 'opensource_threat_intel.ftp.FtpListingHandler'}
 </li>
 <li>创建ftp.py文件
 
-<p>
-简单说下处理流程,scrapy调度器捕捉到为ftp协议的request的时候，会根据settings内设置
-</p>
-
-<p>
-FtpListingHandler处理ftp请求,该方法的父类是官方提供的FTPDownloadHandler，
-</p>
-
-<p>
-重写了gotClient客户端来创建一个ftp请求客户端，如果request为spider内FileFtpRequest
-</p>
-
-<p>
-方法传过来的请求下载单个文件的行为，则直接使用super调用父类官方提供的下载单文件方
-</p>
-
-<p>
-法，此时记得在重写的<sub>build</sub><sub>response内给下载器返回的response也是父类</sub><sub>build</sub><sub>response</sub>
-</p>
-
-<p>
-返回的单个文件的数据，而不是从重写后<sub>build</sub><sub>response返回的文件夹list</sub>
+<p class="verse">
+简单说下处理流程,scrapy调度器捕捉到为ftp协议的request的时候，会根据<br  />
+settings内设置的FtpListingHandler处理ftp请求,该方法的父类是官方提供<br  />
+的FTPDownloadHandler,<br  />
+重写了gotClient客户端来创建一个ftp请求客户端,如果request为spider内<br  />
+FileFtpRequest方法传过来的请求下载单个文件的行为,则直接使用super调用<br  />
+父类官方提供的下载单文件方法,此时记得在重写的<sub>build</sub><sub>response内给下载</sub><br  />
+器返回的response也是父类<sub>build</sub><sub>response返回的单个文件的数据，而不是从</sub><br  />
+重写后<sub>build</sub><sub>response返回的文件夹内的文件名</sub><br  />
 </p>
 <div class="org-src-container">
 
@@ -366,12 +340,12 @@ FtpListingHandler处理ftp请求,该方法的父类是官方提供的FTPDownload
                 <span style="color: #00ffff; font-weight: bold;">yield</span> item
 </pre>
 </div>
-</li>
-</ol>
 
 <p>
-代码托管位置:[[<a href="https://github.com/Nanue1/opensource_threat_intel/tree/master/opensource_threat_intel][github">https://github.com/Nanue1/opensource_threat_intel/tree/master/opensource_threat_intel][github</a>]   
+代码托管位置:<a href="https://github.com/Nanue1/opensource_threat_intel/tree/master/opensource_threat_intel">github</a>
 </p>
+</li>
+</ol>
 </div>
 </div>
 
@@ -389,7 +363,7 @@ parse()函数得存在
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: manue1</p>
-<p class="date">Created: 2017-07-12 Wed 20:03</p>
+<p class="date">Created: 2017-07-13 Thu 12:54</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

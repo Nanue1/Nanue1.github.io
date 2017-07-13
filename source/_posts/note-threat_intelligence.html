@@ -7,7 +7,7 @@ title: note-threat_intelligence
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>note-threat_intelligence</title>
-<!-- 2017-07-04 Tue 11:43 -->
+<!-- 2017-07-13 Thu 12:03 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="manue1" />
@@ -168,7 +168,7 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1-1-17">1.1.17. isc.sans.edu</a></li>
 <li><a href="#sec-1-1-18">1.1.18. spamhaus.org</a></li>
 <li><a href="#sec-1-1-19">1.1.19. vxvault.net</a></li>
-<li><a href="#sec-1-1-20">1.1.20. abuse.ch</a></li>
+<li><a href="#sec-1-1-20">1.1.20. <span class="done DONE">DONE</span> abuse.ch</a></li>
 <li><a href="#sec-1-1-21">1.1.21. otx.alienvault.com</a></li>
 <li><a href="#sec-1-1-22">1.1.22. <span class="done DONE">DONE</span> antispam.imp.ch</a></li>
 <li><a href="#sec-1-1-23">1.1.23. dragonresearchgroup.org</a></li>
@@ -196,11 +196,15 @@ for the JavaScript code in this tag.
 <h3 id="sec-1-1"><span class="section-number-3">1.1</span> data source introduction</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
-<li>data<sub>type</sub>
-ip          -1    
-domain      1
-url         2
-md5         3
+<li>datai-type
+<p class="verse">
+ip          0<br  />
+domain      1<br  />
+url         2<br  />
+md5         3<br  />
+sha256      4<br  />
+sha1        5<br  />
+</p>
 </li>
 <li>tags 标签说明
 <p class="verse">
@@ -211,10 +215,10 @@ md5         3
 4   Web Attacks     Web攻击<br  />
 5   Scanners        扫描源<br  />
 6   Botnets         僵尸网络被控端<br  />
-7   C&amp;C             僵尸网络控制端<br  />
+7  Malware         恶意软件<br  />
 8   Phishing        钓鱼<br  />
 9   Proxy           代理<br  />
-10  Malware         恶意软件<br  />
+10   C&amp;C             僵尸网络控制端<br  />
 11  Whitelist       白名单<br  />
 12  Honeypot        蜜罐<br  />
 13  DGA             域名随机生成<br  />
@@ -738,15 +742,17 @@ sum: 1289
 <li>confidence ：8 
 </li>
 <li>source url :
-<a href="https://rules.emergingthreats.net/blockrules/compromised-ips.txt">https://rules.emergingthreats.net/blockrules/compromised-ips.txt</a>,
-<a href="https://rules.emergingthreats.net/blockrules/emerging-compromised.rules">https://rules.emergingthreats.net/blockrules/emerging-compromised.rules</a>,
-<a href="https://rules.emergingthreats.net/blockrules/emerging-botcc.excluded">https://rules.emergingthreats.net/blockrules/emerging-botcc.excluded</a>,
-<a href="https://rules.emergingthreats.net/blockrules/emerging-compromised.suricata.rules">https://rules.emergingthreats.net/blockrules/emerging-compromised.suricata.rules</a>,
-<a href="https://rules.emergingthreats.net/blockrules/emerging-compromised.suricata.rules">https://rules.emergingthreats.net/blockrules/emerging-compromised.suricata.rules</a>
-<a href="https://rules.emergingthreats.net/blockrules/emerging-botcc.suricata.rules">https://rules.emergingthreats.net/blockrules/emerging-botcc.suricata.rules</a>,
-<a href="https://rules.emergingthreats.net/blockrules/emerging-botcc.rules">https://rules.emergingthreats.net/blockrules/emerging-botcc.rules</a>
-<a href="https://rules.emergingthreats.net/blockrules/emerging-botcc.portgrouped.rules">https://rules.emergingthreats.net/blockrules/emerging-botcc.portgrouped.rules</a>,
-<a href="https://rules.emergingthreats.net/blockrules/emerging-botcc.portgrouped.suricata.rules">https://rules.emergingthreats.net/blockrules/emerging-botcc.portgrouped.suricata.rules</a>,
+<p class="verse">
+<a href="https://rules.emergingthreats.net/blockrules/compromised-ips.txt">https://rules.emergingthreats.net/blockrules/compromised-ips.txt</a>,<br  />
+<a href="https://rules.emergingthreats.net/blockrules/emerging-compromised.rules">https://rules.emergingthreats.net/blockrules/emerging-compromised.rules</a>,<br  />
+<a href="https://rules.emergingthreats.net/blockrules/emerging-botcc.excluded">https://rules.emergingthreats.net/blockrules/emerging-botcc.excluded</a>,<br  />
+<a href="https://rules.emergingthreats.net/blockrules/emerging-compromised.suricata.rules">https://rules.emergingthreats.net/blockrules/emerging-compromised.suricata.rules</a>,<br  />
+<a href="https://rules.emergingthreats.net/blockrules/emerging-compromised.suricata.rules">https://rules.emergingthreats.net/blockrules/emerging-compromised.suricata.rules</a><br  />
+<a href="https://rules.emergingthreats.net/blockrules/emerging-botcc.suricata.rules">https://rules.emergingthreats.net/blockrules/emerging-botcc.suricata.rules</a>,<br  />
+<a href="https://rules.emergingthreats.net/blockrules/emerging-botcc.rules">https://rules.emergingthreats.net/blockrules/emerging-botcc.rules</a><br  />
+<a href="https://rules.emergingthreats.net/blockrules/emerging-botcc.portgrouped.rules">https://rules.emergingthreats.net/blockrules/emerging-botcc.portgrouped.rules</a>,<br  />
+<a href="https://rules.emergingthreats.net/blockrules/emerging-botcc.portgrouped.suricata.rules">https://rules.emergingthreats.net/blockrules/emerging-botcc.portgrouped.suricata.rules</a>,<br  />
+</p>
 </li>
 <li>total : 1254
 </li>
@@ -1091,25 +1097,38 @@ dga<br  />
 </div>
 
 <div id="outline-container-sec-1-1-20" class="outline-4">
-<h4 id="sec-1-1-20"><span class="section-number-4">1.1.20</span> abuse.ch</h4>
+<h4 id="sec-1-1-20"><span class="section-number-4">1.1.20</span> <span class="done DONE">DONE</span> abuse.ch</h4>
 <div class="outline-text-4" id="text-1-1-20">
+<ul class="org-ul">
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-07-12 Wed 17:19]</span></span>
+</li>
+<li>State "TODO"       from ""           <span class="timestamp-wrapper"><span class="timestamp">[2017-07-05 Wed 12:04]</span></span>
+</li>
+</ul>
 <p>
 sum :16810
 </p>
 </div>
-<ol class="org-ol"><li><a id="sec-1-1-20-1" name="sec-1-1-20-1"></a>sslbl.abuse.ch<br  /><div class="outline-text-5" id="text-1-1-20-1">
+<ol class="org-ol"><li><a id="sec-1-1-20-1" name="sec-1-1-20-1"></a><span class="done DONE">DONE</span> sslbl.abuse.ch<br  /><div class="outline-text-5" id="text-1-1-20-1">
 <ul class="org-ul">
+<li>State "DONE"       from ""           <span class="timestamp-wrapper"><span class="timestamp">[2017-07-06 Thu 16:13]</span></span>
+      15 分钟更新一次 botnet malware C&amp;C 
+</li>
 <li>tags: botnet
 </li>
 <li>confidence ：10
 </li>
 <li>source url :
 <ol class="org-ol">
-<li><a href="https://sslbl.abuse.ch/blacklist/sslipblacklist.csv">https://sslbl.abuse.ch/blacklist/sslipblacklist.csv</a>
+<li><a href="https://sslbl.abuse.ch/blacklist/sslblacklist.csv">https://sslbl.abuse.ch/blacklist/sslblacklist.csv</a>   C&amp;C  sha1
 </li>
-<li><a href="https://sslbl.abuse.ch/blacklist/dyre_sslipblacklist.csv">https://sslbl.abuse.ch/blacklist/dyre_sslipblacklist.csv</a>
+<li><a href="https://sslbl.abuse.ch/blacklist/sslipblacklist.csv">https://sslbl.abuse.ch/blacklist/sslipblacklist.csv</a> C&amp;C  ip
 </li>
-<li><a href="https://sslbl.abuse.ch/blacklist/sslblacklist.csv">https://sslbl.abuse.ch/blacklist/sslblacklist.csv</a>
+<li><a href="https://sslbl.abuse.ch/blacklist/sslipblacklist_aggressive.csv">https://sslbl.abuse.ch/blacklist/sslipblacklist_aggressive.csv</a> C&amp;C ip
+</li>
+<li><a href="https://sslbl.abuse.ch/blacklist/dyre_sslipblacklist.csv">https://sslbl.abuse.ch/blacklist/dyre_sslipblacklist.csv</a>  C&amp;C ip
+</li>
+<li><a href="https://sslbl.abuse.ch/blacklist/dyre_sslblacklist.csv">https://sslbl.abuse.ch/blacklist/dyre_sslblacklist.csv</a>  C&amp;C sha1
 </li>
 </ol>
 </li>
@@ -1122,8 +1141,10 @@ sum :16810
 </ul>
 </div>
 </li>
-<li><a id="sec-1-1-20-2" name="sec-1-1-20-2"></a>zeustracker.abuse.ch<br  /><div class="outline-text-5" id="text-1-1-20-2">
+<li><a id="sec-1-1-20-2" name="sec-1-1-20-2"></a><span class="done DONE">DONE</span> zeustracker.abuse.ch<br  /><div class="outline-text-5" id="text-1-1-20-2">
 <ul class="org-ul">
+<li>State "DONE"       from ""           <span class="timestamp-wrapper"><span class="timestamp">[2017-07-12 Wed 16:34]</span></span>
+</li>
 <li>tags: botnet
 </li>
 <li>confidence ：9
@@ -1132,11 +1153,15 @@ sum :16810
 </li>
 </ul>
 <p class="verse">
-<a href="http://zeustracker.abuse.ch/monitor.php?urlfeed=configs">http://zeustracker.abuse.ch/monitor.php?urlfeed=configs</a><br  />
-<a href="http://zeustracker.abuse.ch/monitor.php?urlfeed=configs">http://zeustracker.abuse.ch/monitor.php?urlfeed=configs</a><br  />
-<a href="http://zeustracker.abuse.ch/monitor.php?urlfeed=dropzones">http://zeustracker.abuse.ch/monitor.php?urlfeed=dropzones</a><br  />
-<a href="http://zeustracker.abuse.ch/blocklist.php?download=domainblocklist">http://zeustracker.abuse.ch/blocklist.php?download=domainblocklist</a><br  />
-<a href="http://zeustracker.abuse.ch/blocklist.php?download=ipblocklist">http://zeustracker.abuse.ch/blocklist.php?download=ipblocklist</a><br  />
+<a href="https://zeustracker.abuse.ch/blocklist.php?download=baddomains">https://zeustracker.abuse.ch/blocklist.php?download=baddomains</a>   domain  C&amp;C<br  />
+<a href="https://zeustracker.abuse.ch/blocklist.php?download=domainblocklist">https://zeustracker.abuse.ch/blocklist.php?download=domainblocklist</a> domain C&amp;C<br  />
+<br  />
+<a href="https://zeustracker.abuse.ch/blocklist.php?download=badips">https://zeustracker.abuse.ch/blocklist.php?download=badips</a>   ip C&amp;C<br  />
+<a href="http://zeustracker.abuse.ch/blocklist.php?download=ipblocklist">http://zeustracker.abuse.ch/blocklist.php?download=ipblocklist</a> ip C&amp;C<br  />
+<br  />
+<a href="https://zeustracker.abuse.ch/blocklist.php?download=compromised">https://zeustracker.abuse.ch/blocklist.php?download=compromised</a> url Botnets<br  />
+<br  />
+<a href="https://zeustracker.abuse.ch/removals.php">https://zeustracker.abuse.ch/removals.php</a> domain C&amp;C<br  />
 </p>
 <ul class="org-ul">
 <li>total : 673
@@ -1149,7 +1174,11 @@ sum :16810
 </div>
 </li>
 
-<li><a id="sec-1-1-20-3" name="sec-1-1-20-3"></a>feodotracker.abuse.ch<br  /><div class="outline-text-5" id="text-1-1-20-3">
+<li><a id="sec-1-1-20-3" name="sec-1-1-20-3"></a><span class="done DONE">DONE</span> feodotracker.abuse.ch<br  /><div class="outline-text-5" id="text-1-1-20-3">
+<ul class="org-ul">
+<li>State "DONE"       from ""           <span class="timestamp-wrapper"><span class="timestamp">[2017-07-12 Wed 16:58]</span></span>
+</li>
+</ul>
 <p>
 sum : 903
 </p>
@@ -1175,14 +1204,33 @@ sum : 903
 </ul>
 </div>
 </li>
-<li><a id="sec-1-1-20-4" name="sec-1-1-20-4"></a>ransomware.abuse.ch<br  /><div class="outline-text-5" id="text-1-1-20-4">
+<li><a id="sec-1-1-20-4" name="sec-1-1-20-4"></a><span class="done DONE">DONE</span> ransomware.abuse.ch<br  /><div class="outline-text-5" id="text-1-1-20-4">
 <ul class="org-ul">
+<li>State "DONE"       from ""           <span class="timestamp-wrapper"><span class="timestamp">[2017-07-12 Wed 17:19]</span></span>
+</li>
 <li>tags:botnet
 </li>
 <li>confidence ：9
 </li>
-<li>source url :<a href="http://ransomwaretracker.abuse.ch/feeds/csv">http://ransomwaretracker.abuse.ch/feeds/csv</a>
+<li>source url :
+
+<p>
+<a href="http://ransomwaretracker.abuse.ch/downloads/RW_DOMBL.txt">http://ransomwaretracker.abuse.ch/downloads/RW_DOMBL.txt</a>
+</p>
+
+<p>
+<a href="http://ransomwaretracker.abuse.ch/downloads/RW_DOMBL.txt">http://ransomwaretracker.abuse.ch/downloads/RW_DOMBL.txt</a>,
+</p>
+
+<p>
+<a href="http://ransomwaretracker.abuse.ch/downloads/RW_URLBL.txt">http://ransomwaretracker.abuse.ch/downloads/RW_URLBL.txt</a>,
+</p>
+
+<p>
+<a href="http://ransomwaretracker.abuse.ch/downloads/RW_IPBL.txt">http://ransomwaretracker.abuse.ch/downloads/RW_IPBL.txt</a>,
+</p>
 </li>
+
 <li>total :12850
 </li>
 <li>cycle : 1 day
@@ -2149,7 +2197,7 @@ sudo pip install pyyaml
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: manue1</p>
-<p class="date">Created: 2017-07-04 Tue 11:43</p>
+<p class="date">Created: 2017-07-13 Thu 12:03</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
