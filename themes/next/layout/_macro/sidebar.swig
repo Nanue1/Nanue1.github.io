@@ -29,7 +29,7 @@
       <section class="site-overview sidebar-panel{% if not display_toc or toc(page.content).length <= 1 %} sidebar-panel-active{% endif %}">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="{{ url_for( theme.avatar | default(theme.images + '/avatar.gif') ) }}"
+               src="{{ url_for( theme.avatar | default(theme.images + '/avatar.jpg') ) }}"
                alt="{{ theme.author }}" />
           <p class="site-author-name" itemprop="name">{{ theme.author }}</p>
            {% if theme.seo %}
