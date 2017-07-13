@@ -4,7 +4,7 @@ arg_path = '/home/manue1/github/note/'
 target_path = '/home/manue1/github/blog/source/about/'
 post_path = '/home/manue1/github/blog/source/_posts/'
 
-now = time.strftime('%Y-%m-%d', time.localtime(time.time()))
+now = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 for s in os.listdir(arg_path):
     mv_path = arg_path + s
     if s == 'note-gtd.html' :
@@ -22,11 +22,12 @@ for s in os.listdir(arg_path):
        # c2 = "echo '---\n' >> %s " % cat_path
         title = s.split(".")[0]
         tag = s.split(".")[0].split('-')[1]
-        c1 = "echo '---\ntitle: %s\nlayout: post\ndate: %s\ntags: %s\n---\n' >> %s" % (title,now,tag,cat_path)
+        c1 = "echo '---\ntitle: %s\nlayout: post\nupdated: %s\ntags: %s\n---\n' >> %s" % (title,now,tag,cat_path)
         print c1
         os.system(c1)
         cmd = 'cat %s >> %s ' % (mv_path,cat_path)
         s = os.system(cmd)
+        cmd_more = 'cat %s | sed -e " 50 i\<\!--more--> " -i %s' % (cat_path,cat_path )
         print "cat html status: %s" % str(s)
         if s == 0 :
             c = "rm %s -f" % mv_path
