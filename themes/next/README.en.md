@@ -37,7 +37,7 @@
 ## Update
 
 ```shell
-cd theme/next
+cd themes/next
 git pull
 ```
 
@@ -53,7 +53,6 @@ language: en
 # language: fr-FR
 # language: zh-hk
 # language: zh-tw
-# language: ru
 # language: ru
 # language: de
 ```
@@ -79,9 +78,7 @@ duoshuo:
 OR
 
 ```yml
-disqus:
-   enable: true
-   shortname: your-disqus-shortname
+disqus_shortname: your-disqus-shortname
 ```
 
 ### Tags page.
@@ -105,6 +102,27 @@ disqus:
           archives: /archives
           tags: /tags
 
+### Categories page.
+
+> Add a categories page contains all categories in your site.
+
+- Create a page named `categories`
+
+        hexo new page "categories"
+
+- Edit categories page, set page type to `categories`.
+
+        title: All categories
+        date: 2014-12-22 12:39:04
+        type: "categories"
+
+- Add `categories` to theme `_config.yml`:
+
+        menu:
+          home: /
+          archives: /archives
+          categories: /categories
+
 ### Social Media
 
 NexT can automatically add links to your Social Media accounts:
@@ -116,7 +134,7 @@ social:
   Weibo: your-weibo-url
   DouBan: your-douban-url
   ZhiHu: your-zhihu-url
-``` 
+```
 
 ### Feed link.
 

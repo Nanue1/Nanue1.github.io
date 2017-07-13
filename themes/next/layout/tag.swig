@@ -2,16 +2,16 @@
 {% import '_macro/post-collapse.swig' as post_template %}
 {% import '_macro/sidebar.swig' as sidebar_template %}
 
-{% block title %} {{ __('title.tag') }}: {{ page.tag }} // {{ config.title }} {% endblock %}
+{% block title %}{{ __('title.tag') }}: {{ page.tag }} | {{ config.title }}{% endblock %}
 
 {% block content %}
 
   <div id="posts" class="posts-collapse">
     <div class="collection-title">
-      <h2 >
-        {{ page.tag }}
-        <small>{{  __('title.tag')  }}</small>
-      </h2>
+      <{% if theme.seo %}h2{% else %}h1{% endif %}>{#
+      #}{{ page.tag }}{#
+      #}<small>{{  __('title.tag')  }}</small>
+      </{% if theme.seo %}h2{% else %}h1{% endif %}>
     </div>
 
     {% for post in page.posts %}
@@ -24,12 +24,4 @@
 
 {% block sidebar %}
   {{ sidebar_template.render(false) }}
-{% endblock %}
-
-{% block script_extra_before %}
-  {% if theme.use_motion %}
-    <script type="text/javascript">
-      postMotionOptions = {stagger: 100, drag: true};
-    </script>
-  {% endif %}
 {% endblock %}

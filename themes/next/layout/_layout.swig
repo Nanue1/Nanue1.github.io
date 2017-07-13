@@ -1,70 +1,84 @@
 <!doctype html>
-<html class="theme-next {% if theme.use_motion %}use-motion{% endif %} {% if theme.scheme %}theme-next-{{ theme.scheme | lower }}{% endif %}">
+
+{% set html_class = 'theme-next ' + theme.scheme %}
+{% if theme.use_motion %}
+  {% set html_class = html_class + ' use-motion' %}
+{% endif %}
+
+<html class="{{ html_class | lower }}" lang="{{ config.language }}">
 <head>
   {% include '_partials/head.swig' %}
   <title>{% block title %}{% endblock %}</title>
+  {% include '_third-party/analytics/index.swig' %}
 </head>
 
-<body>
-<!--[if lte IE 8]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari." style='margin-left:auto;margin-right:auto;display: block;'/></a></div> <![endif]-->
-  <div class="container one-column {% block page_class %}{% endblock %}">
+<body itemscope itemtype="http://schema.org/WebPage" lang="{{ page.lang || page.language || config.language }}">
+
+  {% set container_class = "container " %}
+  {% if theme.sidebar.position %}
+    {% set container_class = container_class + 'sidebar-position-' + theme.sidebar.position %}
+  {% endif %}
+
+  <div class="{{ container_class }} {% block page_class %}{% endblock %} ">
     <div class="headband"></div>
 
-    <div id="header" class="header">
-      <div class="header-inner">
-        {% include '_partials/header.swig' %}
-      </div>
-    </div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> {%- include '_partials/header.swig' %} </div>
+    </header>
 
-    <div id="main" class="main">
+    <main id="main" class="main">
       <div class="main-inner">
-        <div id="content" class="content">
-          {% block content %}{% endblock %}
+        <div class="content-wrap">
+          <div id="content" class="content">
+            {% block content %}{% endblock %}
+          </div>
+          {% include '_third-party/duoshuo-hot-articles.swig' %}
+          {% include '_partials/comments.swig' %}
         </div>
-
-        {% if (theme.duoshuo_hotartical and page.title)  %}
-        <!-- 多说热评文章-->
-        <p>热评文章</p>
-        <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+        {% if theme.sidebar.display !== 'remove' %}
+          {% block sidebar %}{% endblock %}
         {% endif %}
       </div>
+    </main>
 
-
-      {% block sidebar %}{% endblock %}
-    </div>
-
-    <div id="footer" class="footer">
+    <footer id="footer" class="footer">
       <div class="footer-inner">
         {% include '_partials/footer.swig' %}
+        {% include '_third-party/analytics/busuanzi-counter.swig' %}
+        {% block footer %}{% endblock %}
       </div>
-    </div>
+    </footer>
 
-    <div class="back-to-top"></div>
+    {% if not theme.sidebar.b2t %}
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        {% if theme.sidebar.scrollpercent %}
+          <span id="scrollpercent"><span>0</span>%</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
   </div>
 
-  <script type="text/javascript" src="{{ url_for(theme.vendors) }}/jquery/index.js?v=2.1.3"></script>
+  {% include '_scripts/vendors.swig' %}
+  {% include '_scripts/commons.swig' %}
 
-  {# This block is used to set options before any other scripts run #}
-  {% block script_extra_before %}{% endblock %}
+  {% set scheme_script = '_scripts/schemes/' + theme.scheme | lower + '.swig' %}
+  {% include scheme_script %}
 
-  {% include '_scripts/fancy-box.swig' %}
-  {% include '_scripts/helpers.swig' %}
-  {% include '_scripts/motion.swig' %}
+  {% block script_extra %}
+    {% include '_scripts/pages/post-details.swig' %}
+  {% endblock %}
 
-  {% block script_extra %}{% endblock %}
+  {% include '_scripts/boostrap.swig' %}
 
-  <script type="text/javascript">
-    $(document).ready(function () {
-      if (CONFIG.sidebar === 'always') {
-        displaySidebar();
-      }
-    });
-  </script>
-
-  {% include '_scripts/mathjax.swig' %}
-  {% block comment_system %}{% endblock %}
-
-  {% include '_scripts/baidushare.swig' %}
-  {% include '_scripts/analytics/google-analytics.swig' %}
+  {% include '_third-party/comments/index.swig' %}
+  {% include '_third-party/search/index.swig' %}
+  {% include '_third-party/analytics/lean-analytics.swig' %}
+  {% include '_third-party/seo/baidu-push.swig' %}
+  {% include '_third-party/rating.swig' %}
+  {% include '_third-party/mathjax.swig' %}
+  {% include '_third-party/scroll-cookie.swig' %}
+  {% include '_third-party/exturl.swig' %}
 </body>
 </html>
