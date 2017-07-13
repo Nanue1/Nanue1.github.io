@@ -27,7 +27,7 @@ for s in os.listdir(arg_path):
         os.system(c1)
         cmd = 'cat %s >> %s ' % (mv_path,cat_path)
         s = os.system(cmd)
-        cmd_more = 'cat %s | sed -e " 200 i\<\!--more--> " -i %s' % (cat_path,cat_path )
+        cmd_more = 'cat %s | sed -e " 170 i\<\!--more--> " -i %s' % (cat_path,cat_path )
         os.system(cmd_more)
         print "cat html status: %s" % str(s)
         if s == 0 :
