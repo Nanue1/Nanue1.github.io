@@ -1,0 +1,412 @@
+---
+title: CIF开源框架使用
+layout: post
+updated: 2017-07-14 19:40:09
+tags: threat_intelligence
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>note-threat_intelligence-CIF开源框架使用</title>
+<!-- 2017-07-14 Fri 19:31 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="manue1" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">note-threat_intelligence-CIF开源框架使用</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. CIF</a>
+<ul>
+<li><a href="#sec-1-1">1.1. Bearded-Avenger install</a></li>
+<li><a href="#sec-1-2">1.2. csirtg-smrt-py</a></li>
+<li><a href="#sec-1-3">1.3. source list use</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> CIF</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Bearded-Avenger install</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+<a href="http://csirtgadgets.org/collective-intelligence-framework/">Collective Intelligence Framework</a>(CIF)是网络威胁情报管理系统，一个开源的框架，能帮助我们解析:规范化:存储:查询:共享和生成威胁情报的数据集。最主要的情报形式是：IP:Domain:URL
+<!--more--> 
+</p>
+
+<p>
+下图为CIF的设计框架
+</p>
+
+
+<div class="figure">
+<p><img src="http://7xpyfe.com1.z0.glb.clouddn.com/blog/20170606/160335989.png" alt="160335989.png" />
+</p>
+</div>
+
+<p>
+情报收集框架包括：
+</p>
+<ul class="org-ul">
+<li>CIF Client
+</li>
+<li>CIF-Router
+</li>
+<li>CIF-Smrt
+</li>
+<li>CIF-Tokens
+</li>
+<li>CIF-Worker
+</li>
+</ul>
+<p>
+整个框架包括了数据采集,数据路由,数据格式化存储后,提供REST API供用户使用,详细介绍看官方详细说明<a href="https://github.com/csirtgadgets/massive-octo-spice/wiki/CIF-Architecture-Overview">CIF Architecture Overview:</a>
+</p>
+
+<p>
+<a href="https://github.com/csirtgadgets/bearded-avenger-deploymentkit/wiki">Bearded-Avenger</a>: 作为CIF的替代品,即CIF v2 , bearde-Avenger官网提供了多种安装方式,
+</p>
+<p class="verse">
+$ tar -zxvf bearded-avenger-deploymentkit-3.0.x.tar.gz<br  />
+$ cd bearded-avenger-deploymentkit-3.0.x<br  />
+$ sudo bash easybutton.sh<br  />
+</p>
+<p>
+ubuntu14.04正常安装报错，折腾了半天没时间搞了，官方提供Docker install
+</p>
+<p class="verse">
+$ docker pull csirtgadgets/cif:latest<br  />
+$ docker run &#x2013;name cif -d -p 5000:5000 csirtgadgets/cif<br  />
+$ docker ps<br  />
+$ docker exec -it 9121af6cabed /bin/bash<br  />
+</p>
+<p>
+执行cif命令报下面的错误
+</p>
+<pre class="example">
+root@9121af6cabed:/bearded-avenger-3.0.0a13# cif --tags malware --limit 5
+
+Unable to read /root/.cif.yml config file
+</pre>
+<p>
+查源码发现,cif先读取cif.yml
+</p>
+<pre class="example">
+CONFIG_PATH = os.environ.get('CIF_CONFIG_PATH', os.path.join(os.getcwd(), 'cif.yml'))
+if not os.path.isfile(CONFIG_PATH):
+CONFIG_PATH = os.path.join(os.path.expanduser('~'), '.cif.yml')
+</pre>
+<p>
+查看README.md后执行下面语句 CIFv3并不需要参考<a href="https://github.com/csirtgadgets/bearded-avenger-deploymentkit/wiki/Docker">文档</a> 中所说的创建/root/.cif.yml文件 
+</p>
+<p class="verse">
+$ mkdir -p log &amp;&amp; cp hacking/develop.conf hacking/local.conf<br  />
+$ cif-store -d &#x2013;token-create-admin cif.yml<br  />
+$ cif-store -d &#x2013;token-create-hunter cif-router.yml<br  />
+$ cif-store -d &#x2013;token-create-smrt csirtg-smrt.yml<br  />
+</p>
+<p>
+执行后还是不能使用 官方docker源很坑
+</p>
+
+<p>
+docker search cif 找到了 ventz/cif 可以使用，但是安装后发现系统过于庞大
+</p>
+
+<p>
+对于我只想使用smrt抓取数据的来说，我更需要cif-smrt功能，好在官方把这部分
+</p>
+
+<p>
+功能提取出来了<a href="https://github.com/csirtgadgets/csirtg-smrt-py">csirtg-smrt-py</a> 项目
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> csirtg-smrt-py</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+使用YAML来规范数据，爬取feed数据源
+</p>
+
+<p>
+sudo pip install csirtg-smrt
+<img src="http://7xpyfe.com1.z0.glb.clouddn.com/blog/20170608/144738024.png" alt="144738024.png" />
+</p>
+
+<p>
+测试了几个数据源如果feed为zip的压缩包，网络不是很顺畅的情况下无法正常下载爬取数据
+</p>
+
+<p>
+总的来说CIF不是很稳定，也不太适合我们公司情报收集，但是<a href="https://github.com/csirtgadgets/bearded-avenger/tree/master/rules">数据源</a> 可以作为扩充
+</p>
+
+<p>
+下载github project中的单个目录 可以通过<a href="https://github.com/MinhasKamal/DownGit">DownGit</a> 创建下载链接
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> source list use</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+利用pyyaml解析yml
+</p>
+
+<p>
+sudo pip install pyyaml
+</p>
+
+<p>
+使用官方提供的yml配置文件定时抓取feed数据
+</p>
+
+<p>
+脚本每小时跑一遍
+</p>
+
+<p>
+代码如下：<a href="https://github.com/Nanue1/csirtg-smrt/blob/master/smrt.py">github</a>
+</p>
+<pre class="example">
+import yaml
+import time
+import json
+import os
+import sys
+import logging
+import requests
+import traceback
+import subprocess
+import pymongo
+from multiprocessing import Process,Queue,Value
+
+
+CONF_PATH = os.path.abspath('.')+"/rule"
+log_xpath="/tmp/%s.log" % os.path.basename(__file__)
+PROCESS_NUM = 200
+
+
+def init_log(log_xpath):
+    logging.basicConfig(level=logging.DEBUG,
+                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+                datefmt='%Y %b %d %H:%M:%S',
+                filename=log_xpath,
+                filemode='w')
+
+def bulk_upsert_mongo(arg_list,coll):
+    for dict_data in arg_list:
+        #coll.update({"indicator":dict_data["indicator"]},{"$set":{"count":dict_data["count"],"tlp":dict_data["tlp"],"group":dict_data["group"],"description":dict_data["description"],"tags":dict_data["tags"],"rdata":dict_data["rdata"],"confidence":dict_data["confidence"],"provider":dict_data["provider"],"lasttime":dict_data["lasttime"]}},upsert=True)
+        coll.insert(dict_data)
+        #logging.info('insert %s' % dict_data["indicator"] )
+
+
+def cmd_exc(flag):
+    conn=pymongo.MongoClient('Mongo_IP',27017)
+    db=conn["threat_cif"]
+    coll=db["smrt"]
+    while True:
+        if cmds_queue.empty() and flag.value==1: 
+            break
+        else:
+            try:
+                cmd_smrt= cmds_queue.get(timeout=8)
+                p = subprocess.Popen(cmd_smrt, shell=True,stdout=subprocess.PIPE)
+                p.wait()
+                time.sleep(10)
+                logging.info('%s status: %s' % (cmd_smrt,p.poll()))
+                if p.poll() == 0:
+                    content= json.loads(p.stdout.read())
+                    bulk_upsert_mongo(content,coll)
+                elif p.poll() is  None:
+                    p.kill()
+                    logging.error('%s  returncode: %s timeout over 10s' % (cmd_smrt,p.returncode))
+                else:
+                    logging.error('%s status:%s, returncode: %s' % (cmd_smrt,p.poll(),p.returncode))
+            except:
+                logging.info(traceback.format_exc().splitlines())
+                pass
+    sys.exit()
+
+def parse_yml():
+    for yml_name in os.listdir(CONF_PATH): 
+        if yml_name.endswith(".yml"):
+            dic_yml = yaml.load(open(yml_name))['feeds']
+            for key in dic_yml :
+                cmd_smrt = "/usr/local/bin/csirtg-smrt -r " + yml_name + " -f " + key + " --format json"
+                cmds_queue.put(cmd_smrt)
+
+def run():
+    end_flag = Value('i', 0)
+    ps = [Process(target=cmd_exc,args=(end_flag,)) for x in xrange(PROCESS_NUM)]
+    for p in ps:
+        p.start()
+    parse_yml()
+    end_flag.value = 1
+    for p in ps:
+        p.join()
+
+if '__main__' == __name__:
+    if not os.path.exists(CONF_PATH):
+        print "conf file not exists"
+        sys.exit()
+    else:
+        os.system("rm -rf /tmp/smrt/")
+        os.chdir(CONF_PATH)
+    init_log(log_xpath)
+    cmds_queue = Queue(100)
+    session = requests.Session()
+    run()
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: manue1</p>
+<p class="date">Created: 2017-07-14 Fri 19:31</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

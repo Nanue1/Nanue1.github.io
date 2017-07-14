@@ -20,7 +20,7 @@ for s in os.listdir(arg_path):
        # c0 = "" 
        # c1 = "echo 'title: %s' >> %s" % (s.split(".")[0],cat_path)
        # c2 = "echo '---\n' >> %s " % cat_path
-        title = s.split(".")[0]
+        title = s.split(".")[0].split('-')[-1]
         tag = s.split(".")[0].split('-')[1]
         c1 = "echo '---\ntitle: %s\nlayout: post\nupdated: %s\ntags: %s\n---\n' >> %s" % (title,now,tag,cat_path)
         print c1
