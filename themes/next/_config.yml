@@ -197,7 +197,7 @@ post_wordcount:
 wechat_subscriber:
   enabled: true
   qcode: /images/wechat-qcode.jpg
-  description: subscribe to my blog by scanning my public wechat account
+  description: Contact me with WeChat
 
 # Declare license on posts
 post_copyright:
