@@ -1,0 +1,468 @@
+---
+title: 上古神器awk
+layout: post
+updated: 2017-07-21 17:08:57
+tags: linux
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>note-linux-上古神器awk</title>
+<!-- 2017-07-21 Fri 17:04 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="manue1" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+<!--more--> 
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">note-linux-上古神器awk</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 上古神器-awk</a>
+<ul>
+<li><a href="#sec-1-1">1.1. awk syntax</a>
+<ul>
+<li><a href="#sec-1-1-1">1.1.1. pattern</a></li>
+<li><a href="#sec-1-1-2">1.1.2. action</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-2">1.2. awk 常用命令</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 上古神器-awk</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> awk syntax</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+最简单的awk 程序是一个或多个模式–动作语句构成的序列:
+</p>
+<pre class="example">
+pattern { action }
+pattern { action }
+</pre>
+<p>
+简单的单行awk语句可以直接执行
+</p>
+<pre class="example">
+awk pattern {action} filename
+</pre>
+<p>
+如果复杂点的awk语句,可以写入文件内,
+</p>
+<pre class="example">
+awk -f awk.sh awk_txt
+</pre>
+<p>
+测试数据:
+</p>
+<pre class="example">
+USSR 8649 275 Asia
+Canada 3852 25 North America
+China 3705 1032 Asia                                                                                                                                                                     
+USA 3615 237 North America
+Brazil 3286 134 South America
+India 1267 746 Asia
+Mexico 762 78 North America
+France 211 55 Europe
+Japan 144 120 Asia
+Germany 96 61 Europe
+England 94 56 Europe
+</pre>
+</div>
+<div id="outline-container-sec-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> pattern</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+模式汇总
+</p>
+<ol class="org-ol">
+<li>BEGIN{ statements}
+
+<p>
+在输入被读取之前, statements 执行一次.
+</p>
+</li>
+<li>END{ statements}
+
+<p>
+当所有输入被读取完毕之后, statements 执行一次.
+</p>
+</li>
+<li>expression{ statements}
+
+<p>
+每碰到一个使expression 为真的输入行, statements 就执行. expression 为真指的是其值非零或非空.
+</p>
+</li>
+<li>regular expression { statements}
+
+<p>
+当碰到这样一个输入行时, statements 就执行: 输入行含有一段字符串, 而该字符串可以被regular expression 匹配.
+</p>
+</li>
+<li>compound pattern { statements}
+
+<p>
+一个复合模式将表达式用&amp;&amp;(AND), ||(OR), !(NOT), 以及括号组合起来; 当compound pattern为真时, statements 执行.
+</p>
+</li>
+<li>pattern1, pattern2 { statements}
+
+<p>
+一个范围模式匹配多个输入行, 这些输入行从匹配pattern1 的行开始, 到匹配pattern2 的行结束(包括这两行), 对这其中的每一行执行statements
+</p>
+</li>
+</ol>
+
+<p>
+BEGIN 与END 不与其他模式组合. 一个范围模式不能是其他模式的一部分. BEGIN 与END 是唯一两个不能省略动作的模式.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2"><span class="section-number-4">1.1.2</span> action</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+动作中的语句可以包括:
+</p>
+<pre class="example">
+expression, 包括常量, 变量, 赋值, 函数调用等等.
+print expression-list
+printf(format, expression-list)
+if (expression) statements
+if (expression) statements else statements
+while (expression) statements
+for (expression; expression; expression) statements
+for (expression in array) statements
+do statements while (expression)
+break
+continue
+</pre>
+<p>
+awk作为一种编程语言,刚开始接触awk语句看得眼晕主要是不了解它的内置变量
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">变量</th>
+<th scope="col" class="left">意义</th>
+<th scope="col" class="left">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">ARGC</td>
+<td class="left">命令行参数的个数</td>
+<td class="left">-</td>
+</tr>
+
+<tr>
+<td class="left">ARGV</td>
+<td class="left">命令行参数数组</td>
+<td class="left">-</td>
+</tr>
+
+<tr>
+<td class="left">FILENAME</td>
+<td class="left">当前输入文件名</td>
+<td class="left">-</td>
+</tr>
+
+<tr>
+<td class="left">FNR</td>
+<td class="left">当前输入文件的记录个数</td>
+<td class="left">-</td>
+</tr>
+
+<tr>
+<td class="left">FS</td>
+<td class="left">控制着输入行的字段分割符</td>
+<td class="left">-</td>
+</tr>
+
+<tr>
+<td class="left">NF</td>
+<td class="left">当前记录的字段个数</td>
+<td class="left">-</td>
+</tr>
+
+<tr>
+<td class="left">NR</td>
+<td class="left">到目前为止读的记录数量</td>
+<td class="left">-</td>
+</tr>
+
+<tr>
+<td class="left">OFMT</td>
+<td class="left">数值的输出格式</td>
+<td class="left">%.6g</td>
+</tr>
+
+<tr>
+<td class="left">OFS</td>
+<td class="left">输出字段分割符</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">ORS</td>
+<td class="left">输出的记录的分割符</td>
+<td class="left">\n</td>
+</tr>
+
+<tr>
+<td class="left">RLENGTH</td>
+<td class="left">被函数match匹配的字符串的长度</td>
+<td class="left">-</td>
+</tr>
+
+<tr>
+<td class="left">RS</td>
+<td class="left">控制着输入行的记录分割符"\n"</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">RSTART</td>
+<td class="left">被函数match匹配的字符串的开始</td>
+<td class="left">-</td>
+</tr>
+
+<tr>
+<td class="left">SUBSEP</td>
+<td class="left">下标分割符</td>
+<td class="left">\034</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> awk 常用命令</h3>
+<div class="outline-text-3" id="text-1-2">
+<ol class="org-ol">
+<li>kill 进程
+
+<p>
+ps aux|grep test.py|awk '{print $2}'|xargs kill -9
+</p>
+</li>
+<li>两文件比较 取相同部分
+
+<p>
+awk -F ':' 'NR==FNR{a[$1]++}NR!=FNR{if($1 in a){print $i}}' 1 2 &gt;3
+</p>
+
+<p>
+输出2在1中第一列相同的所有值
+</p>
+</li>
+<li>输出3文件内 大于10列
+
+<p>
+awk 'NF&gt;10 {print $i}' 3 &gt; 4
+</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: manue1</p>
+<p class="date">Created: 2017-07-21 Fri 17:04</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
