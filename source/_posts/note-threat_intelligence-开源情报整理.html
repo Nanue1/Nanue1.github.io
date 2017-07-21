@@ -1,7 +1,7 @@
 ---
 title: 开源情报整理
 layout: post
-updated: 2017-07-21 17:20:15
+updated: 2017-07-21 17:28:19
 tags: threat_intelligence
 ---
 
@@ -11,7 +11,7 @@ tags: threat_intelligence
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>note-threat_intelligence-开源情报整理</title>
-<!-- 2017-07-21 Fri 17:19 -->
+<!-- 2017-07-21 Fri 17:27 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="manue1" />
@@ -168,42 +168,187 @@ for the JavaScript code in this tag.
 <div class="outline-text-4" id="text-1-1-1">
 <ul class="org-ul">
 <li>datai-type
-<p class="verse">
-ip          0<br  />
-domain      1<br  />
-url         2<br  />
-md5         3<br  />
-sha256      4<br  />
-sha1        5<br  />
-</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="left">ip</td>
+<td class="right">0</td>
+</tr>
+
+<tr>
+<td class="left">domain</td>
+<td class="right">1</td>
+</tr>
+
+<tr>
+<td class="left">url</td>
+<td class="right">2</td>
+</tr>
+
+<tr>
+<td class="left">md5</td>
+<td class="right">3</td>
+</tr>
+
+<tr>
+<td class="left">sha256</td>
+<td class="right">4</td>
+</tr>
+
+<tr>
+<td class="left">sha1</td>
+<td class="right">5</td>
+</tr>
+</tbody>
+</table>
 </li>
 <li>tags 标签说明
-<p class="verse">
-0   Suspicious      可疑的<br  />
-1   DDos            DDos攻击<br  />
-2   Exploits        漏洞攻击<br  />
-3   Spam Sources    垃圾邮件<br  />
-4   Web Attacks     Web攻击<br  />
-5   Scanners        扫描源<br  />
-6   Botnets         僵尸网络被控端<br  />
-7  Malware         恶意软件<br  />
-8   Phishing        钓鱼<br  />
-9   Proxy           代理<br  />
-10   C&amp;C             僵尸网络控制端<br  />
-11  Whitelist       白名单<br  />
-12  Honeypot        蜜罐<br  />
-13  DGA             域名随机生成<br  />
-</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="right" />
+
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="right">0</td>
+<td class="left">Suspicious</td>
+<td class="left">可疑的</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="left">DDos</td>
+<td class="left">DDos攻击</td>
+</tr>
+
+<tr>
+<td class="right">2</td>
+<td class="left">Exploits</td>
+<td class="left">漏洞攻击</td>
+</tr>
+
+<tr>
+<td class="right">3</td>
+<td class="left">Spam Sources</td>
+<td class="left">垃圾邮件</td>
+</tr>
+
+<tr>
+<td class="right">4</td>
+<td class="left">Web  Attacks</td>
+<td class="left">Web攻击</td>
+</tr>
+
+<tr>
+<td class="right">5</td>
+<td class="left">Scanners</td>
+<td class="left">扫描源</td>
+</tr>
+
+<tr>
+<td class="right">6</td>
+<td class="left">Botnets</td>
+<td class="left">僵尸网络被控端</td>
+</tr>
+
+<tr>
+<td class="right">7</td>
+<td class="left">Malware</td>
+<td class="left">恶意软件</td>
+</tr>
+
+<tr>
+<td class="right">8</td>
+<td class="left">Phishing</td>
+<td class="left">钓鱼</td>
+</tr>
+
+<tr>
+<td class="right">9</td>
+<td class="left">Proxy</td>
+<td class="left">代理</td>
+</tr>
+
+<tr>
+<td class="right">10</td>
+<td class="left">C&amp;C</td>
+<td class="left">僵尸网络控制端</td>
+</tr>
+
+<tr>
+<td class="right">11</td>
+<td class="left">Whitelist</td>
+<td class="left">白名单</td>
+</tr>
+
+<tr>
+<td class="right">12</td>
+<td class="left">Honeypot</td>
+<td class="left">蜜罐</td>
+<!--more--> 
+</tr>
+
+<tr>
+<td class="right">13</td>
+<td class="left">DGA</td>
+<td class="left">域名随机生成</td>
+</tr>
+</tbody>
+</table>
 </li>
 <li>confidence  数据源的可信度
-<p class="verse">
-(9-10)   Certain<br  />
-(7-8)    Very Confident<br  />
-(6-7)    Somewhat Confident<br  />
-(5-6)    Not Confident<br  />
-(5)      "50/50 shot"<br  />
-(0-4)    Informational Data<br  />
-</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="left">(9-10)</td>
+<td class="left">Certain</td>
+</tr>
+
+<tr>
+<td class="left">(7-8)</td>
+<td class="left">Very Confident</td>
+</tr>
+
+<tr>
+<td class="left">(6-7)</td>
+<td class="left">Somewhat Confident</td>
+</tr>
+
+<tr>
+<td class="left">(5-6)</td>
+<td class="left">Not Confident</td>
+</tr>
+
+<tr>
+<td class="left">(5)</td>
+<td class="left">"50/50 shot"</td>
+</tr>
+
+<tr>
+<td class="left">(0-4)</td>
+<td class="left">Informational Data</td>
+</tr>
+</tbody>
+</table>
 </li>
 <li>统计表
 
@@ -297,7 +442,6 @@ incremental : 0 /day<br  />
 
 <p>
 sum: 865311
-<!--more--> 
 C&amp;C
 </p>
 
@@ -1911,7 +2055,7 @@ sum : 191
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: manue1</p>
-<p class="date">Created: 2017-07-21 Fri 17:19</p>
+<p class="date">Created: 2017-07-21 Fri 17:27</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
