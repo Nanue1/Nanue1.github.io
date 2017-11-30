@@ -85,5 +85,5 @@ deploy:
     type: rsync
     host: 103.1.153.220 # 这里填写你VPS的IP地址，比如：138.23.23.23
     user: root # 这里填写你登陆VPS所用的用户名，比如：root
-    root: /root/hexo
+    root: /opt/hexo
     port: 22             # SSH默认端口号，不需要修改
