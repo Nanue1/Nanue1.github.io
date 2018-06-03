@@ -1,0 +1,37 @@
+* note-securiy
+** What is “Kill Chain”?
+   网络攻击链 cyber kill chain
+
+   [[https://github.com/ruped24/killchain][kill chain]]
+
+   “Kill Chain” is a unified console with an anonymizer that will perform these stages of attacks:
+
+   - Reconnaissance
+
+   - Weaponization
+
+   - Delivery
+
+   - Exploit
+
+   - Installation
+
+   - Command & Control
+
+   - Actions
+
+   Dependant tool sets are:
+   
+   Tor -- For the console build-in anonymizer.
+   
+   Set -- Social-Engineer Toolkit (SET), attacks against humans.
+   
+   OpenVas -- Vulnerability scanning and vulnerability management.
+   
+   Veil-Evasion -- Generate metasploit payloads bypass anti-virus.
+   
+   Websploit -- WebSploit Advanced MITM Framework.
+   
+   Metasploit -- Executing exploit code against target.
+   
+   WiFite -- Automated wireless auditor, designed for Linux.

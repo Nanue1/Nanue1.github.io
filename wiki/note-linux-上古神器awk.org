@@ -1,0 +1,102 @@
+#+OPTIONS: toc:2
+#+OPTIONS: ^:nil
+* 上古神器-awk
+** awk syntax
+   最简单的awk 程序是一个或多个模式–动作语句构成的序列:
+   #+BEGIN_SRC 
+      pattern { action }
+      pattern { action }
+   #+END_SRC
+   简单的单行awk语句可以直接执行
+   #+BEGIN_SRC
+    awk pattern {action} filename  
+   #+END_SRC 
+   如果复杂点的awk语句,可以写入文件内,
+   #+BEGIN_SRC 
+   awk -f awk.sh awk_txt
+   #+END_SRC
+   测试数据:
+   #+BEGIN_SRC 
+  USSR 8649 275 Asia
+  Canada 3852 25 North America
+  China 3705 1032 Asia                                                                                                                                                                     
+  USA 3615 237 North America
+  Brazil 3286 134 South America
+  India 1267 746 Asia
+  Mexico 762 78 North America
+  France 211 55 Europe
+  Japan 144 120 Asia
+  Germany 96 61 Europe
+  England 94 56 Europe
+   #+END_SRC
+*** pattern
+   模式汇总
+   1. BEGIN{ statements}
+
+      在输入被读取之前, statements 执行一次.
+   2. END{ statements}
+
+      当所有输入被读取完毕之后, statements 执行一次.
+   3. expression{ statements}
+
+      每碰到一个使expression 为真的输入行, statements 就执行. expression 为真指的是其值非零或非空.
+   4. regular expression { statements}
+
+      当碰到这样一个输入行时, statements 就执行: 输入行含有一段字符串, 而该字符串可以被regular expression 匹配.
+   5. compound pattern { statements}
+
+      一个复合模式将表达式用&&(AND), ||(OR), !(NOT), 以及括号组合起来; 当compound pattern为真时, statements 执行.
+   6. pattern1, pattern2 { statements}
+
+      一个范围模式匹配多个输入行, 这些输入行从匹配pattern1 的行开始, 到匹配pattern2 的行结束(包括这两行), 对这其中的每一行执行statements
+
+   BEGIN 与END 不与其他模式组合. 一个范围模式不能是其他模式的一部分. BEGIN 与END 是唯一两个不能省略动作的模式.
+*** action
+    动作中的语句可以包括:
+    #+BEGIN_SRC 
+    expression, 包括常量, 变量, 赋值, 函数调用等等.
+    print expression-list
+    printf(format, expression-list)
+    if (expression) statements
+    if (expression) statements else statements
+    while (expression) statements
+    for (expression; expression; expression) statements
+    for (expression in array) statements
+    do statements while (expression)
+    break
+    continue
+    #+END_SRC
+    awk作为一种编程语言,刚开始接触awk语句看得眼晕主要是不了解它的内置变量
+    | 变量     | 意义                          | 默认值 |
+    |----------+-------------------------------+--------|
+    | ARGC     | 命令行参数的个数              | -      |
+    | ARGV     | 命令行参数数组                | -      |
+    | FILENAME | 当前输入文件名                | -      |
+    | FNR      | 当前输入文件的记录个数        | -      |
+    | FS       | 控制着输入行的字段分割符      | -      |
+    | NF       | 当前记录的字段个数            | -      |
+    | NR       | 到目前为止读的记录数量        | -      |
+    | OFMT     | 数值的输出格式                | %.6g   |
+    | OFS      | 输出字段分割符                |        |
+    | ORS      | 输出的记录的分割符            | \n     |
+    | RLENGTH  | 被函数match匹配的字符串的长度 | -      |
+    | RS       | 控制着输入行的记录分割符"\n"  |        |
+    | RSTART   | 被函数match匹配的字符串的开始 | -      |
+    | SUBSEP   | 下标分割符                    | \034   |
+
+** awk 常用命令
+   1. kill 进程
+
+      ps aux|grep test.py|awk '{print $2}'|xargs kill -9
+   2. 两文件比较 取相同部分
+
+      awk -F ':' 'NR==FNR{a[$1]++}NR!=FNR{if($1 in a){print $i}}' 1 2 >3
+
+      输出2在1中第一列相同的所有值
+   3. 输出3文件内 大于10列
+
+      awk 'NF>10 {print $i}' 3 > 4
+
+
+   4. 删除重复行
+      awk '!($0 in array) { array[$0]; print}' temp

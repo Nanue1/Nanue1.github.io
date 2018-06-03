@@ -1,0 +1,7 @@
+* maven
+** maven简介
+   主要服务于Java平台的项目构建、依赖管理和项目信息管理
+
+   maven是跨平台的
+
+   maven通过坐标系统准确的定位每一个构建(artifact)、jar类库

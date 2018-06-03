@@ -1,0 +1,49 @@
+* tmux use
+  - Server 服务器 tmux开启一个服务器,用来管理多个会话
+
+  - Session 会话,一组窗口的集合 session可以有自己的名字
+
+  - Window 单个可见窗口 window有自己的编号
+
+  - Pane 被划分成小块的窗格 
+** install
+   sudo apt-get install tmux
+
+** TODO embellish terminal
+   - State "TODO"       from ""           [2017-10-10 Tue 13:37]
+   [[http://hit9.github.io/oldblog/blog/other/posts/11.html][powerline use:]]
+   
+** use tmux
+   [[http://kuanghy.github.io/2016/09/29/tmux][how to use tmux]]
+
+
+   https://tmuxcheatsheet.com/
+
+   prefix = c-b
+   
+   Session相关操作
+   
+   查看/切换session prefix s
+   离开Session prefix d
+   重命名当前Sessionprefix $
+
+   Window相关操作
+
+   新建窗口prefix c
+   切换到上一个活动的窗口prefix space
+   关闭一个窗口prefix &
+   使用窗口号切换prefix 窗口号
+   
+   Pane 相关操作
+
+   切换到下一个窗格prefix o
+   查看所有窗格的编号prefix q
+   垂直拆分出一个新窗格prefix “
+   水平拆分出一个新窗格prefix %
+   暂时把一个窗体放到最大prefix z
+
+   
+   
+
+
+

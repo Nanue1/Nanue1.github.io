@@ -1,0 +1,184 @@
+* CIF 
+** Bearded-Avenger install
+    [[http://csirtgadgets.org/collective-intelligence-framework/][Collective Intelligence Framework]](CIF)是网络威胁情报管理系统，一个开源的框架，能帮助我们解析:规范化:存储:查询:共享和生成威胁情报的数据集。最主要的情报形式是：IP:Domain:URL
+
+    下图为CIF的设计框架
+
+    [[http://7xpyfe.com1.z0.glb.clouddn.com/blog/20170606/160335989.png]]
+
+    情报收集框架包括：
+    - CIF Client
+    - CIF-Router
+    - CIF-Smrt
+    - CIF-Tokens
+    - CIF-Worker
+    整个框架包括了数据采集,数据路由,数据格式化存储后,提供REST API供用户使用,详细介绍看官方详细说明[[https://github.com/csirtgadgets/massive-octo-spice/wiki/CIF-Architecture-Overview][CIF Architecture Overview:]]
+
+    [[https://github.com/csirtgadgets/bearded-avenger-deploymentkit/wiki][Bearded-Avenger]]: 作为CIF的替代品,即CIF v2 , bearde-Avenger官网提供了多种安装方式,
+   #+BEGIN_VERSE
+   $ tar -zxvf bearded-avenger-deploymentkit-3.0.x.tar.gz
+   $ cd bearded-avenger-deploymentkit-3.0.x
+   $ sudo bash easybutton.sh
+   #+END_VERSE 
+    ubuntu14.04正常安装报错，折腾了半天没时间搞了，官方提供Docker install
+    #+BEGIN_VERSE
+    $ docker pull csirtgadgets/cif:latest
+    $ docker run --name cif -d -p 5000:5000 csirtgadgets/cif
+    $ docker ps
+    $ docker exec -it 9121af6cabed /bin/bash
+    #+END_VERSE
+    执行cif命令报下面的错误
+    #+BEGIN_SRC 
+    root@9121af6cabed:/bearded-avenger-3.0.0a13# cif --tags malware --limit 5
+
+    Unable to read /root/.cif.yml config file
+    #+END_SRC
+    查源码发现,cif先读取cif.yml
+    #+BEGIN_SRC 
+CONFIG_PATH = os.environ.get('CIF_CONFIG_PATH', os.path.join(os.getcwd(), 'cif.yml'))
+if not os.path.isfile(CONFIG_PATH):
+CONFIG_PATH = os.path.join(os.path.expanduser('~'), '.cif.yml')
+    #+END_SRC 
+    查看README.md后执行下面语句 CIFv3并不需要参考[[https://github.com/csirtgadgets/bearded-avenger-deploymentkit/wiki/Docker][文档]] 中所说的创建/root/.cif.yml文件 
+    #+BEGIN_VERSE
+    $ mkdir -p log && cp hacking/develop.conf hacking/local.conf
+    $ cif-store -d --token-create-admin cif.yml
+    $ cif-store -d --token-create-hunter cif-router.yml
+    $ cif-store -d --token-create-smrt csirtg-smrt.yml
+    #+END_VERSE
+    执行后还是不能使用 官方docker源很坑
+
+    docker search cif 找到了 ventz/cif 可以使用，但是安装后发现系统过于庞大
+
+    对于我只想使用smrt抓取数据的来说，我更需要cif-smrt功能，好在官方把这部分
+
+    功能提取出来了[[https://github.com/csirtgadgets/csirtg-smrt-py][csirtg-smrt-py]] 项目
+
+** csirtg-smrt-py
+    CIF使用YAML规则来爬取数据,如果要添加新的数据源,可以采用YAML解析数据feed
+    #+BEGIN_SRC 
+    sudo pip install csirtg-smrt
+    #+END_SRC
+
+    [[http://7xpyfe.com1.z0.glb.clouddn.com/blog/20170608/144738024.png]]
+    
+    测试了几个数据源如果feed为zip的压缩包，网络不是很顺畅的情况下无法正常下载爬取数据
+
+    总的来说CIF不是很稳定，也不太适合我们公司情报收集，但是[[https://github.com/csirtgadgets/bearded-avenger/tree/master/rules][数据源]] 可以作为扩充
+ 
+    官方提供的数据源可以下载下来,利用cif-smrtp爬取这些数据
+
+    下载github project中的单个目录 可以通过[[https://github.com/MinhasKamal/DownGit][DownGit]] 创建下载链接
+
+** source list use
+    利用pyyaml解析yml
+
+    #+BEGIN_SRC 
+    sudo pip install pyyaml
+    #+END_SRC
+
+    使用官方提供的yml配置文件定时抓取feed数据
+
+    脚本每小时跑一遍
+
+    代码如下：[[https://github.com/Nanue1/csirtg-smrt/blob/master/smrt.py][github]]
+    #+BEGIN_SRC 
+import yaml
+import time
+import json
+import os
+import sys
+import logging
+import requests
+import traceback
+import subprocess
+import pymongo
+from multiprocessing import Process,Queue,Value
+
+
+CONF_PATH = os.path.abspath('.')+"/rule"
+log_xpath="/tmp/%s.log" % os.path.basename(__file__)
+PROCESS_NUM = 200
+
+
+def init_log(log_xpath):
+    logging.basicConfig(level=logging.DEBUG,
+                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+                datefmt='%Y %b %d %H:%M:%S',
+                filename=log_xpath,
+                filemode='w')
+
+def bulk_upsert_mongo(arg_list,coll):
+    for dict_data in arg_list:
+        #coll.update({"indicator":dict_data["indicator"]},{"$set":{"count":dict_data["count"],"tlp":dict_data["tlp"],"group":dict_data["group"],"description":dict_data["description"],"tags":dict_data["tags"],"rdata":dict_data["rdata"],"confidence":dict_data["confidence"],"provider":dict_data["provider"],"lasttime":dict_data["lasttime"]}},upsert=True)
+        coll.insert(dict_data)
+        #logging.info('insert %s' % dict_data["indicator"] )
+
+
+def cmd_exc(flag):
+    conn=pymongo.MongoClient('Mongo_IP',27017)
+    db=conn["threat_cif"]
+    coll=db["smrt"]
+    while True:
+        if cmds_queue.empty() and flag.value==1: 
+            break
+        else:
+            try:
+                cmd_smrt= cmds_queue.get(timeout=8)
+                p = subprocess.Popen(cmd_smrt, shell=True,stdout=subprocess.PIPE)
+                p.wait()
+                time.sleep(10)
+                logging.info('%s status: %s' % (cmd_smrt,p.poll()))
+                if p.poll() == 0:
+                    content= json.loads(p.stdout.read())
+                    bulk_upsert_mongo(content,coll)
+                elif p.poll() is  None:
+                    p.kill()
+                    logging.error('%s  returncode: %s timeout over 10s' % (cmd_smrt,p.returncode))
+                else:
+                    logging.error('%s status:%s, returncode: %s' % (cmd_smrt,p.poll(),p.returncode))
+            except:
+                logging.info(traceback.format_exc().splitlines())
+                pass
+    sys.exit()
+
+def parse_yml():
+    for yml_name in os.listdir(CONF_PATH): 
+        if yml_name.endswith(".yml"):
+            dic_yml = yaml.load(open(yml_name))['feeds']
+            for key in dic_yml :
+                cmd_smrt = "/usr/local/bin/csirtg-smrt -r " + yml_name + " -f " + key + " --format json"
+                cmds_queue.put(cmd_smrt)
+
+def run():
+    end_flag = Value('i', 0)
+    ps = [Process(target=cmd_exc,args=(end_flag,)) for x in xrange(PROCESS_NUM)]
+    for p in ps:
+        p.start()
+    parse_yml()
+    end_flag.value = 1
+    for p in ps:
+        p.join()
+
+if '__main__' == __name__:
+    if not os.path.exists(CONF_PATH):
+        print "conf file not exists"
+        sys.exit()
+    else:
+        os.system("rm -rf /tmp/smrt/")
+        os.chdir(CONF_PATH)
+    init_log(log_xpath)
+    cmds_queue = Queue(100)
+    session = requests.Session()
+    run()
+
+
+
+
+
+
+    
+    #+END_SRC 
+    
+
+
