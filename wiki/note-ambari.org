@@ -1,0 +1,10 @@
+* Ambari use
+
+  Ambari是Apache下的一个顶级项目，为了创建、管理、监视Hadoop集群(Hive,Hbase,Sqoop,Zookeeper,Spark)，Ambari就是为了让Hadoop以及相关的大数据软件更容易使用的一个工具
+
+  Ambari自身是一个分布式框架的软件，由Ambari Service 和 Ambari Agent组成. 简单来说，用户通过Ambar Service通知Ambar Agent 安装相应的软件.
+
+  Agent会定时发送各个机器每个软件模块的状态给Ambari Server,最终这些状态信息会呈现在Ambari的GUI
+  
+  参考:https://www.ibm.com/developerworks/cn/opensource/os-cn-bigdata-ambari/index.html
+  

@@ -1,0 +1,6 @@
+* sed
+   1. 删除包含Love的行
+      sed -i '/Love/d' 1.txt
+      sed -e '/general/d' 5 >6
+   2. 文件n行添加一行内容
+      cat file | sed -e "n i \<\!--more-->" -i file

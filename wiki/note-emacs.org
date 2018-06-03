@@ -1,0 +1,211 @@
+* note-emacs
+  the learning environment is mac 
+** emacs tutorial
+   use c-h t open tutorial 
+
+   c - control  M - option
+
+   c-x c-c  quit emacs
+
+   c-g      quit current command
+
+   #+BEGIN_SRC 
+
+
+                             上一行 C-p
+                                  :
+                                  :
+            向左移 C-b .... 目前光标位置 .... 向右移 C-f
+                                  :
+                                  :
+                             下一行 C-n
+   
+   #+END_SRC
+
+
+ 
+   c-/ | c-x u     undo 
+
+   c-_      undo step by step
+
+   c-k      delete
+
+   c-x c-f  search file
+
+   c-x c-s  save file
+
+   c-x s    save more buffer
+ 
+   c-x c-b | c-x b  search buffer
+   
+   c-s     search forwards
+    
+   c-r     search backwards
+ 
+   c-h k ()  query shortcut description
+
+   c-h f ()  describe function
+   
+   c-h a     search for command g
+
+   M-x linum-mode   show line number
+** common shortcuts
+#+BEGIN_VERSE
+   ,bb  next buffer
+
+   ,xf  search file
+
+   ,xb  search buffer
+   ,kb  kill buffer
+
+   ,ov  my overview current buffer 
+   ,c>  org do demote
+   ,c<  org do promote 
+
+   <s+Tab  add source
+   <v+Tab  ignore blank line
+   <q+Tab  add indentation
+
+   F1  org agenda 
+
+   F2  add TODO 
+   c-c c-s add start time
+   c-c c-d add end time
+   c-c .   add time period
+   ++1d    every day do
+   c-x a   org agenda list
+
+   c-c | / |-  auto generate form
+   c-c -       add  horizontal line
+
+   ,x0  close the current window
+   ,x1  close othe windows
+   ,x3   ||
+   ,x2   =
+   , (12345)  switch window
+
+   spc ss create workspace
+   spc ll search workspace
+   
+
+#+END_VERSE
+   
+** emacs lisp
+*** blog
+    http://www.woola.net/detail/2016-08-18-elisp.html
+*** casting spels emacs
+    a comic book : Emacs Lisp version 
+    http://www.lisperati.com/casting-spels-emacs/html/casting-spels-emacs-1.html
+
+    Emacs *scratch* buffer is Lisp interacion : c-x b *scratch*
+    
+
+    Emacs tutorial https://www.gnu.org/software/emacs/tour/
+    
+    
+    Emacs manual : https://www.gnu.org/software/emacs/manual/index.html
+
+    c-x c-e  : evaluable each expression (move the cursor to the end of each expression )
+
+    M-x top-level : clears out errors
+
+    M-x ielm  : ELISP>
+    
+    (setq eval-expression-print-length nil) : prevent emacs truncate messages
+
+    (require 'cl) : the library to make elisp run Common lisp command 
+
+    
+**** Syntax and Semantic
+
+
+any text you give elisp interprater has to be arranged into list ,can be nested into lists of
+lists,a list in elisp (bla bla bla (abc abc))
+
+elis: interprater uses two modes to read code:  Code mode / Data mode. 
+in data mode,you can put anything into your list ;
+in Code mode, your list need to be special type of list called a form :
+
+#+BEGIN_SRC 
+
+(foo bla bla bla)
+  ^          ^
+  |          |
+command     a form
+#+END_SRC
+
+**** Defining the data for our Game World
+in order to learn some more about forms,examples:
+#+BEGIN_SRC 
+(setq objects '(whiskey-bottle bucket frog chain))
+
+| code mode    | The single quote to 'flip' the compiler into Date mode |                                     |   |   |
+|--------------+--------------------------------------------------------+-------------------------------------+---+---|
+| setq objects | '                                                      | (whiskey-bottle bucket frog chain)) |   |   |
+|--------------+--------------------------------------------------------+-------------------------------------+---+---|
+
+#+END_SRC
+the command sets a variable to a value : the variable is objects and the value is a list 
+     
+**** Looking around in our game world
+The word defun means, as you might expect, that we're defining a function
+#+BEGIN_SRC 
+(defun describe-location (location map)
+    (second (assoc location map)))
+#+END_SRC
+The assoc command does this and then returns the data describing the living-room
+
+Then the command second trims out the second item in that list, which is the description of the living-room
+     
+*** code
+    #+BEGIN_SRC elisp 
+
+(setq objects '(whiskey-bottle bucket frog chain))
+
+(setq object-locations '((whiskey-bottle living-room)
+                           (bucket living-room)
+                           (chain garden)
+                           (frog garden)))
+
+(setq location 'living-room)
+
+(setq map '((living-room (you are in the living room
+                of a wizards house - there is a wizard
+                snoring loudly on the couch -)
+                (west door garden)
+                (upstairs stairway attic))
+              (garden (you are in a beautiful garden -
+                there is a well in front of you -)
+                (east door living-room))
+              (attic (you are in the attic of the
+                wizards house - there is a giant
+                welding torch in the corner -)
+                (downstairs stairway living-room))))
+
+(defun describe-location (location map)
+    (second (assoc location map)))
+
+
+(describe-location 'living-room map)
+
+(message "hello world")
+
+(defun hello-world (name)
+ "say hello to user whose name is XX"
+   (message "hello , %s" name))
+
+(hello-world "manue1")
+
+(setq foo "i'm manue1")
+(message foo)
+    
+    #+END_SRC
+** orgmode
+- alt键失灵问题,主要是因为xshell的配置问题
+  文件-->属性-->终端-->键盘-->元(meta)键仿真 
+- [[http://www.github.com/nanue1][nanue1's github]]
+    - c-c c-l 
+      创建url
+    - c-c c-o
+      打开url
+      

@@ -1,0 +1,160 @@
+#+OPTIONS: toc:2
+#+OPTIONS: ^:nil
+** kyoto Cabinet & Tycoon 
+   官方地址：
+
+   http://fallabs.com/kyotocabinet/
+
+   http://fallabs.com/kyototycoon/
+
+   - 以kch结尾的文件，代表使用hash表存储数据，每个操作的时间复杂度是 O(1) 
+   - 以kct结尾的文件，代表使用B+ tree表存储数据，每个操作的时间复杂度是 O(log N),但B+ tree数据库支持对 key 顺序的连续访问，这可以实现对字符串的前向匹配查找和整数的范围查找
+*** install cabinet & Tycoon
+    #+BEGIN_SRC 
+##centos 6
+#install kyotocabinet pkg
+# install kc
+wget http://fallabs.com/kyotocabinet/pkg/kyotocabinet-1.2.76.tar.gz
+tar xzvf kyotocabinet-1.2.76.tar.gz
+cd kyotocabinet-1.2.76
+./configure && make && make install && cd ..
+rm kyotocabinet-1.2.76* -rf
+
+# install python binding
+wget http://fallabs.com/kyotocabinet/pythonlegacypkg/kyotocabinet-python-legacy-1.18.tar.gz
+tar xzvf kyotocabinet-python-legacy-1.18.tar.gz
+cd kyotocabinet-python-legacy-1.18
+python setup.py install
+#fix 'libkyotocabinet.so.16: cannot open shared object file: No such file or directory' error
+echo "/usr/local/lib" >> /etc/ld.so.conf.d/usrlocal.conf
+ldconfig -v && cd ..
+rm kyotocabinet-python-legacy-1.18* -rf
+# install tycoon
+wget http://fallabs.com/kyototycoon/pkg/kyototycoon-0.9.56.tar.gz
+cd kyototycoon-0.9.56
+sed -i '24a\#include <unistd.h>' ktdbext.h
+./configure && make && make install
+#fix ktserver: error while loading shared libraries: libkyototycoon.so.2: cannot open shared object file: No such file or directory
+cp libkyototycoon.so.2 /usr/lib
+ldconfig -v && cd ..
+pwd
+rm kyototycoon* -rf
+    #+END_SRC
+*** ktserver
+    #+BEGIN_VERSE
+   -port num : 指定需要绑定的端口号。默认端口号为1978
+   -th num : 指定线程数
+   -le : 日志记录级别---error
+   -ls : 日志记录级别---system
+   -onl : opens the database with the no locking option. 
+   -pid file: 输出进程ID 到指定文件（这里指定文件名 
+   -plsv file :  #支持memcache需要指明共享库/usr/local/libexec/ktplugservmemc.so
+   -plex str : #指定了可插拔服务器配置的表达 port=8902 通过memcache访问kt的端口
+   -tout num : 指定每个会话的超时时间（单位为秒）。默认永不超时
+   -bnum 指定哈希表的桶数量。官方推荐是记录数的两倍或者更高。   10 million : bnum=20000000
+   -msize 指定内存映射区域大小 小于系统内存  10 million : 10G
+   -dfunit 设定一个值，当碎片数超过这个值系统就进行碎片整理。 
+   -dmn   以daemon方式启动。 
+    #+END_VERSE
+
+- Typical Server Setting
+   #+BEGIN_SRC 
+ktserver -port 8901 \
+         -th 32    \
+         -log /var/log/kt_compromise.log \
+         -le -onl   \
+         -pid /var/log/kt_compromise.pid \
+         -tout 10   \
+         -plsv /usr/local/libexec/ktplugservmemc.so  \
+         -plex port=8902 
+         /root/data/compromise.kch#opts=l#bnum=5120000#msiz=3g#dfunit=8
+#+END_SRC
+- On-memory Server Setting
+
+  space efficiency of Kyoto Tycoon is better than that of memcached.
+
+  10 million records are cached in the database using 10GB memory = 每个document 1k
+
+  65% of the total memory size of the machine >50%
+
+  Background Snapshot for On-memory Databases is similar to the one in Redis 
+  定期将内存中的数据存入到目录
+  
+  If there are snapshot files when the server starts, they are read and all records are restored
+  
+  #+BEGIN_SRC 
+ktserver -port 2000 \
+          -bgs /home/lixuchun
+          -bgsi 10 
+          -bgsc lzo
+          :#bnum=2000000#ktcapsiz=2g
+
+每10秒钟做快照以lzo压缩到/home/lixuchun目录下
+
+[root@ioc05 malicious.file]#  ktserver -port 2000 -bgs /home/lixuchun -bgsi 10 :#bnum=2000000#ktcapsiz=2g
+2018-04-26T16:09:22.883172+08:00: [SYSTEM]: ================ [START]: pid=9629
+2018-04-26T16:09:22.883322+08:00: [SYSTEM]: opening a database: path=:#bnum=2000000#ktcapsiz=2g
+2018-04-26T16:09:22.883593+08:00: [SYSTEM]: starting the server: expr=:2000
+2018-04-26T16:09:22.883651+08:00: [SYSTEM]: server socket opened: expr=:2000 timeout=30.0
+2018-04-26T16:09:22.883668+08:00: [SYSTEM]: listening server socket started: fd=3
+2018-04-26T16:09:32.901128+08:00: [INFO]: snapshotting databases
+2018-04-26T16:09:43.423182+08:00: [INFO]: snapshotting databases
+2018-04-26T16:09:53.946827+08:00: [INFO]: snapshotting databases
+2018-04-26T16:10:04.469418+08:00: [INFO]: snapshotting databases
+
+ktremotemgr set  -port 2000  france paris
+ktremotemgr list  -port 2000
+
+  #+END_SRC
+
+*** ktremotemgr
+   #+BEGIN_SRC 
+   插入数据
+   ktremotemgr set -host 127.0.0.1 -port 8901 manue1 360
+   查询
+   ktremotemgr get -host 127.0.0.1 -port 8901 manue1
+   删除
+   ktremotemgr remove -host 127.0.0.1 -port 8901 manue2
+   列出所有key
+   ktremotemgr list -host 127.0.0.1 -port 8901 
+   #+END_SRC
+*** hot backup
+     1. dbbackup.sh It must have executable permissions
+
+        #+BEGIN_SRC 
+   #! /bin/sh
+   srcfile="$1"
+   destfile="$1.$2"
+   cp -f "$srcfile" "$destfile"
+        #+END_SRC
+     2. ktserver -cmd  -ulog  set
+
+        #+BEGIN_SRC 
+   ktserver -port 1978 \
+            -th 32    \
+            -log /var/log/kt_malfile.log  \
+            -sid 1 \
+            -ulog /var/log/backup_update_log \
+            -cmd /home/s/apps/malicious.file/tools \
+            -li  \
+            -pid  /var/log/kt_malfile.pid \
+            -tout 10   \
+            -onl   \
+            -plsv /usr/local/libexec/ktplugservmemc.so  \
+            -plex port=1979 \
+            /root/data/malfile.kch#opts=l#bnum=5120000#msiz=3g#dfunit=8
+        #+END_SRC
+     3. ktremotemgr make a backup file  
+
+        #+BEGIN_SRC 
+        ktremotemgr  sync -cmd dbbackup.sh
+        #+END_SRC
+     4. recover kt data
+
+        $1 is interactive arg : 01524834405899000000
+        #+BEGIN_SRC 
+        rm  /root/data/malfile.kch -f
+        cp   /root/data/malfile.kch.$1  /root/data/malfile.kch
+        kttimedmgr recover -ts $1 /root/data/malfile.kch /var/log/backup_update_log
+        #rm /var/log/backup_update_log/* -f
+        #+END_SRC
