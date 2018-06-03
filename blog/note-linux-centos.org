@@ -1,7 +1,13 @@
-# -*- mode: org; -*-
-#+OPTIONS: toc:2
-#+OPTIONS: ^:nil
-#+AUTHOR manue1
+#+TITLE:       note-linux-centos-集群部署
+#+AUTHOR:      manue1
+#+EMAIL:       manue1@foxmail.com
+#+DATE:        2017-06-03 Sun
+#+URI:         /blog/%y/%m/%d/note-linux-centos-集群部署
+#+KEYWORDS:    Linux Centos
+#+TAGS:        Vbox Hadoop Elasticsearch Hive Hbase Zookeeper KafKa Spark
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: vbox搭建集群开发环境
 #+EXPORT_FILE_NAME centos
 
 * VboxManage
