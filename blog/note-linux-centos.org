@@ -1,15 +1,13 @@
 #+TITLE:       note-linux-centos-集群部署
 #+AUTHOR:      manue1
 #+EMAIL:       manue1@foxmail.com
-#+DATE:        2018-06-03 Sun
+#+DATE:        2017-06-03 Sun
 #+URI:         /blog/%y/%m/%d/note-linux-centos-集群部署
 #+KEYWORDS:    Linux,Centos
 #+TAGS:        Vbox,Hadoop,Elasticsearch,Hive,Hbase,Zookeeper,KafKa,Spark
 #+LANGUAGE:    en
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: vbox搭建集群开发环境
-#+EXPORT_FILE_NAME centos
-
 
 * centos7 basic environment
   centos7 download
@@ -89,7 +87,6 @@
     这边打算使用网卡1 nat模式连接外网，网卡3的桥接模式与局域网内其他主机通信,网卡二的主机模式搭建集群
 
     注意： 网卡二和网卡三的 gateway 字段要注释掉
-    
   * ip tool
 
     Ip  [选项]  操作对象{link|addr|route...}
@@ -127,7 +124,6 @@
     # ip route del default                                     # 删除默认路由
       
     sudo service network restart
-    
 ** sshd
   ssh 连接异常慢
   sudo vi /etc/ssh/sshd_config
