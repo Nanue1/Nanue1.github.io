@@ -4,9 +4,5211 @@
     <title>manue1&#39;s blog</title>
     <link>http://blog.manue1.site/</link>
     <description>xxxxxx</description>
-    <pubDate>Sun, 03 Jun 2018 21:29:43 CST</pubDate>
-    <lastBuildDate>Sun, 03 Jun 2018 21:29:43 CST</lastBuildDate>
+    <pubDate>Sun, 03 Jun 2018 21:34:30 CST</pubDate>
+    <lastBuildDate>Sun, 03 Jun 2018 21:34:30 CST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Untitled</title>
+      <link>http://blog.manue1.site/blog/2018/06/03/untitled/</link>
+      <description><![CDATA[<div>
+<div class="post">
+<h1>Untitled</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgdbdce85">1. VboxManage</a></li>
+<li><a href="#org5a53056">2. centos7 basic environment</a>
+<ul>
+<li><a href="#orgd7eebc7">2.1. lvm</a></li>
+<li><a href="#org79deed4">2.2. ip</a></li>
+<li><a href="#orgb428624">2.3. sshd</a></li>
+<li><a href="#orgf68e8f1">2.4. hostname</a></li>
+<li><a href="#orgdd117bd">2.5. yum source</a></li>
+<li><a href="#orgdfdb88f">2.6. ntp</a></li>
+<li><a href="#orgcc5cd0c">2.7. firewallds</a></li>
+<li><a href="#orge2501aa">2.8. disable selinux</a></li>
+<li><a href="#org935bb0f">2.9. java  &amp; scala</a></li>
+</ul>
+</li>
+<li><a href="#org639e313">3. hadoop 集群配置</a>
+<ul>
+<li><a href="#orgf573b53">3.1. hadoop hbase spark 版本选择</a></li>
+<li><a href="#orga04974f">3.2. 环境准备</a></li>
+<li><a href="#org11abe0d">3.3. 配置hadoop cluster</a></li>
+<li><a href="#org83d6aac">3.4. 启动hadoop</a></li>
+</ul>
+</li>
+<li><a href="#org40ae9cf">4. elasticstk 集群</a>
+<ul>
+<li><a href="#org8d314c7">4.1. elasticsearch-611</a></li>
+<li><a href="#org0d929cd">4.2. kibana</a></li>
+<li><a href="#org52997f5">4.3. logstash</a></li>
+<li><a href="#org63e5226">4.4. beats</a></li>
+</ul>
+</li>
+<li><a href="#orgcf1dc64">5. hive</a></li>
+<li><a href="#orgf981d39">6. zookeeper</a>
+<ul>
+<li><a href="#org13a0b4c">6.1. Replicated ZooKeeper configural</a></li>
+</ul>
+</li>
+<li><a href="#orgfe94708">7. hbase</a>
+<ul>
+<li><a href="#org1a0c6d4">7.1. hbase configural</a></li>
+<li><a href="#org83cdfa2">7.2. hbase start</a></li>
+</ul>
+</li>
+<li><a href="#orga10f7c2">8. kafka</a>
+<ul>
+<li><a href="#orgd31d307">8.1. kafka configural</a></li>
+<li><a href="#org7007340">8.2. kafka start service</a></li>
+<li><a href="#orgdb3cc9a">8.3. use kafka</a></li>
+</ul>
+</li>
+<li><a href="#org9cbd1b2">9. spark</a>
+<ul>
+<li><a href="#org7332781">9.1. spark configural</a></li>
+<li><a href="#orgbc7f7c7">9.2. spark start</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+#+AUTHOR manue1
+#+EXPORT_FILE_NAME centos
+</p>
+
+<div id="outline-container-orgdbdce85" class="outline-2">
+<h2 id="orgdbdce85"><span class="section-number-2">1</span> VboxManage</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li><p>
+vms 基本信息
+</p>
+
+<p>
+VBoxManage showvminfo Centos701
+</p></li>
+
+<li><p>
+无界面启动vms
+</p>
+
+<p>
+VBoxManage startvm Centos701 &#x2013;type headless
+</p>
+
+<p>
+VBoxManage controlvm ubuntu01 savestate # 保存当前状态关闭
+</p></li>
+
+<li><p>
+修改vms内存总量
+</p>
+
+<p>
+VBoxManage modifyvm Centos701 &#x2013;memory 1024
+</p></li>
+
+<li><p>
+修改vms磁盘容量
+</p>
+
+<p>
+VBoxManage modifyhd Centos702.vdi &#x2013;resize 7168
+</p>
+
+<pre class="example">
+
+如果创建过快照，快照的磁盘空间也需要修改
+VBoxManage modifyhd \{aea51811-5e79-46e9-b5ba-f66740e6f47b\}.vdi  --resize 10248
+
+</pre></li>
+
+<li><p>
+创建快照
+</p>
+
+<p>
+VBoxManage snapshot ubuntu01 take ubuntu_basic_ssh
+</p>
+
+<p>
+VBoxManage snapshot ubuntu01 list
+</p>
+
+<p>
+VBoxManage snapshot ubuntu01 delete ubuntu_basic
+</p>
+
+<p>
+VBoxManage snapshot ubuntu01 restore ubuntu_basic_ssh
+</p></li>
+
+<li><p>
+clone vm
+</p>
+
+<p>
+VBoxManage clonevm  Centos701 &#x2013;snapshot  centos7_basic  &#x2013;name Centos_basic
+</p></li>
+</ul>
+
+
+
+
+<pre class="example">
+
+查看当前虚拟机  VBoxManage list vms  
+
+查看当前正在运行的虚拟机  VBoxManage list runningvms  
+
+启动虚拟机  VBoxManage startvm 虚拟机名  
+
+无前端图形界面方式启动虚拟机  VBoxManage startvm 虚拟机名 --type headless  
+
+使用 VRDP 方式通过命令行启动虚拟机： (3389)  
+VBoxManage startvm 虚拟机名 --type vrdp  
+
+关闭虚拟机  VBoxManage controlvm 虚拟机名 poweroff  
+
+VBoxManage [-v|-version]         显示virtualbox的版本号  
+VBoxManage -nologo               隐藏logo  
+VBoxManage -convertSettings      允许自动转换设置文件  
+VBoxManage -convertSettingsBackup 允许自动转换设置文件，并在转换前作备份  
+VBoxManage -convertSettingsIgnore 允许自动转换设置文件，但是不保存结果  
+
+VBoxManage list vms|runningvms   显示列表虚拟机|正在运行的虚拟机  
+               |ostypes|hostdvds virtualbox支持的系统类型|宿主机的光盘驱动器  
+               |hostfloppies     宿主机的软盘驱动器  
+
+               |hostifs|hostinfo 宿主机的网络接口|宿主机的信息  
+               |hdds|dvds        已注册的虚拟硬盘|已注册的虚拟光盘  
+               |floppies|usbhost 已注册的虚拟软盘|宿主机的USB设备  
+               |usbfilters       USB筛选器  
+               |systemproperties 虚拟机的基本信息  
+VBoxManage showvminfo &lt;uuid&gt;|&lt;name&gt;     显示指定虚拟机的信息  
+                     [-details]         显示详细信息  
+                     [-statistics]      显示统计信息  
+                     [-machinereadable] 以清晰的格式显示虚拟机信息  
+VBoxManage registervm &lt;filename&gt;       将指定文件所在的虚拟机添加到列表  
+VBoxManage unregistervm &lt;uuid&gt;|&lt;name&gt;   从虚拟机列表清除指定的虚拟机  
+                        [-delete]       从虚拟机列表删除指定的虚拟机  
+VBoxManage createvm     -name &lt;name&gt;    创建指定名称的虚拟机  
+                        [-register]      将创建的虚拟机添加到列表  
+                        [-basefolder &lt;path&gt; 指定虚拟机的基础目录  
+                        [-settingsfile &lt;path&gt;] 指定虚拟机配置文件的基础目录  
+                        [-uuid &lt;uuid&gt;] 创建指定uuid的虚拟机  
+VBoxManage modifyvm     &lt;uuid|name&gt;       编辑指定的虚拟机的配置  
+                        [-name &lt;name&gt;]    修改虚拟机的名称  
+                        [-ostype &lt;ostype&gt;]修改虚拟机的操作系统类型  
+                        [-memory &lt;memorysize&gt;]   修改虚拟机的内存大小  
+                        [-vram &lt;vramsize&gt;]       修改虚拟机的显存大小  
+                        [-acpi on|off]           启动或禁止acpi电源管理接口  
+                        [-ioapic on|off]         启动或禁止I/O APIC电源管理接口  
+                        [-pae on|off]            启动或禁止CPU的PAE支持，PAE是  
+Physical Address Extension : 物理地址扩展  
+                        [-hwvirtex on|off|default]启动或禁止CPU的硬件虚拟化支持  
+                        [-nestedpaging on|off]    开启或关闭CPU的嵌套页面列表支持  
+                        [-monitorcount &lt;number&gt;] 设置显示器数目，VRDP多用户模式时  
+                        [-bioslogofadein on|off] 开启或关闭bioslogo渐显效果  
+                        [-bioslogofadeout on|off] 开启或关闭bioslogo渐隐效果  
+                        [-bioslogodisplaytime &lt;msec&gt;]设置bioslogo显示时间（以毫秒为单位)  
+                        [-bioslogoimagepath &lt;imagepath&gt;]设置bioslogo图像路径，用于自定义bioslogo  
+                        [-biosbootmenu disabled| 设置是否显示bios启动菜单 关闭  
+                                       menuonly| 只菜单  
+                                       messageandmenu] 信息和菜单  
+                        [-biossystemtimeoffset &lt;msec&gt;] 设置bios系统时间补偿（以毫秒为单位）  
+                        [-biospxedebug on|off] 打开或关闭biospxe调试  
+                        [-boot&lt;1-4&gt; none|floppy|dvd|disk|net&gt;] 设置启动顺序  
+                        [-hd&lt;a|b|d&gt; none|&lt;uuid&gt;|&lt;filename&gt;] 为虚拟机添加三个IDE设备之一（第2个主盘被vm保留作为光驱，不能占用）在三个IDE中，你可以指定（硬盘）的vdi文件名或者它的UUID  
+                        [-idecontroller PIIX3|PIIX4] 设置IDE控制器的类型  
+                        [-sata on|off] 开启或关闭SATA硬盘控制器  
+                        [-sataportcount &lt;1-30&gt;] 设置虚拟机最多支持的SATA控制器数目  
+                        [-sataport&lt;1-30&gt; none| 没有硬盘连接到SATA控制器  
+                                       &lt;uuid&gt;| 指定uuid的硬盘连接到SATA控制器  
+                                       &lt;filename&gt;] 指定文件名的硬盘连接到SATA控制器  
+                        [-sataideemulation&lt;1-4&gt; &lt;1-30&gt;] 指定一个SATA设备工作在IDE兼容模式，IDE设备编号是1-4，SATA设备编号是1-30  
+                        [-dvd none| 不连接DVD光驱  
+                            &lt;uuid&gt;| 指定UUID的DVD光驱连接  
+                        &lt;filename&gt;| 将指定的光盘映像文件挂接到DVD光驱  
+                      host:&lt;drive&gt;] 将宿主机的DVD光驱挂接到虚拟机的DVD光驱  
+                        [-dvdpassthrough on|off]打开|关闭虚拟机里光盘的刻录功能  
+                        [-floppy disabled| 不连接软驱  
+                                    empty| 连接软驱但不插入软盘  
+                                   &lt;uuid&gt;| 指定UUID的软驱连接  
+                               &lt;filename&gt;| 将指定的软盘映像文件挂接到软驱驱  
+                             host:&lt;drive&gt;] 将宿主机的软驱驱挂接到虚拟机的软驱  
+                        [-nic&lt;1-N&gt; none| 虚拟机不添加网卡  
+                                   null| 虚拟机有网卡但不连接  
+                                    nat| 网络连接使用NAT模式  
+                                 hostif| 网络连接使用桥接模式  
+                                 intnet] 网络连接使用内部网络模式  
+                        [-nictype&lt;1-N&gt; Am79C970A| 虚拟机连接AMD PCNet PCI II网卡  
+                                        Am79C973| 虚拟机连接AMD PCNet FAST III网卡（默认）  
+                                         82540EM| 虚拟机连接Intel PRO/1000 MT Desktop网卡  
+                                         82543GC] 虚拟机连接Intel PRO/1000 T Server网卡  
+                        [-cableconnected&lt;1-N&gt; on|off]插入或拔出网线  
+                        [-nictrace&lt;1-N&gt; on|off] 开启或关闭网络追踪  
+                        [-nictracefile&lt;1-N&gt; &lt;filename&gt;] 将网络流量追踪数据保存到文件  
+                        [-nicspeed&lt;1-N&gt; &lt;kbps&gt;] 设置网络连接的速度  
+                        [-hostifdev&lt;1-N&gt; none| 不连接到主机网络接口  
+                                 &lt;devicename&gt;] 桥接模式下连接到指定的主机接口  
+                        [-intnet&lt;1-N&gt; &lt;network name&gt;] 内网模式下为虚拟机指定内部网络名称  
+                        [-natnet&lt;1-N&gt; &lt;network&gt;| 配置NAT网络接口的地址  
+                                        default] 默认NAT网络接口的地址是10.0.x.0/24  
+                        [-macaddress&lt;1-N&gt; auto| 自动生成虚拟网卡的MAC地址  
+                                         &lt;mac&gt;] 指定虚拟网卡的MAC地址  
+                        [-uart&lt;1-N&gt; off| 不启用虚拟串口  
+                        &lt;I/O base&gt; &lt;IRQ&gt;]启用虚拟串口，并设置虚拟串口的I/O参数和IRQ参数  
+                        [-uartmode&lt;1-N&gt; disconnected| 启用虚拟串口，但不连接到宿主机的串口  
+                                       server &lt;pipe&gt;| 在宿主机创建PIPE通道，并将虚拟机串口连接到这个通道  
+                                       client &lt;pipe&gt;| 不创建PIPE通道，而是将虚拟机串口连接到已存在的通道  
+                                       &lt;devicename&gt;] 将虚拟机串口连接到宿主机的串口  
+                        [-gueststatisticsinterval &lt;seconds&gt;] 配置虚拟机静态时间间隔  
+                        [-audio none| 虚拟机不连接声卡  
+                                null| 将虚拟机的声卡连接到空的声音设备  
+                              dsound] 将虚拟机的声卡连接到宿主机的声卡  
+                        [-audiocontroller ac97| 将虚拟机声卡虚拟为ICH AC97声卡  
+                                          sb16] 将虚拟机声卡虚拟为soundblaster 16声卡  
+                        [-clipboard disabled| 不共享剪贴板  
+                                 hosttoguest| 将宿主机的剪贴板共享给虚拟机  
+                                 guesttohost| 将虚拟机的剪贴板共享给宿主机  
+                               bidirectional] 宿主机和虚拟机共使用一个剪贴板  
+                        [-vrdp on|off] 开启|关闭virtualbox内置的VRDP服务器  
+                        [-vrdpport default| 使用默认的vrdp端口3389  
+                                    &lt;port&gt;] 指定vrdp端口  
+                        [-vrdpaddress &lt;host&gt;] 指定VRDP主机地址  
+                        [-vrdpauthtype null| 不用授权，任何客户机都可以连接到VRDP服务器  
+                                   external| 只有宿主机的用户才可以连接到VRDP服务器  
+                                      guest] 只有虚拟机的用户才可以连接到VRDP服务器  
+                        [-vrdpmulticon on|off] 打开|关闭VRDP多用户连接模式  
+                        [-vrdpreusecon on|off] 打开|关闭VRDP断线重连  
+                        [-usb on|off] 打开|关闭虚拟USB控制器  
+                        [-usbehci on|off] 打开|关闭虚拟USB2.0控制器  
+                        [-snapshotfolder default| 将系统快照保存到默认文件夹  
+                                          &lt;path&gt;] 将系统快照保存到指定文件夹  
+VBoxManage startvm      &lt;uuid&gt;|&lt;name&gt; 开启指定UUID|名称的虚拟机  
+                        [-type gui|vrdp] 设置虚拟机标准显示设备GUI界面|VRDP  
+VBoxManage controlvm    &lt;uuid&gt;|&lt;name&gt; 改变正在运行的虚拟机的状态  
+                         pause| 暂停，这时虚拟机窗口显示灰色  
+                        resume| 恢复暂停的虚拟机  
+                         reset| 复位  
+                      poweroff| 强行关闭  
+               acpipowerbutton| 关机  
+               acpisleepbutton| 使虚拟机处于睡眠状态  
+                     savestate| 保存状态然后关闭，相当于休眠  
+           keyboardputscancode &lt;hex&gt; [&lt;hex&gt; ...] 键盘扫描码设置  
+               setlinkstate&lt;1-4&gt; on|off 连接|断开网络连接  
+               usbattach &lt;uuid&gt;|&lt;address&gt; 连接到指定UUDI|地址的USB设备   
+               usbdetach &lt;uuid&gt;|&lt;address&gt; 断开指定UUDI|地址的USB设备     
+               dvdattach none| 不连接虚拟DVD光驱  
+                       &lt;uuid&gt;| 连接到指定UUID的DVD光驱  
+                   &lt;filename&gt;| 连接到指定名称的DVD映像文件  
+                  host:&lt;drive&gt; 连接到宿主机的DVD光驱  
+               floppyattach none| 不连接虚拟软驱  
+                          &lt;uuid&gt;| 连接到指定UUID的虚拟软驱  
+                      &lt;filename&gt;| 连接到指定名称的软盘映像文件  
+                     host:&lt;drive&gt; 连接到宿主机的软驱  
+               setvideomodehint &lt;xres&gt; 设置虚拟机的屏幕分辨率 水平像素  
+                                &lt;yres&gt; 垂直像素  
+                                 &lt;bpp&gt; 颜色深度  
+                             [display] 刷新频率  
+               setcredentials &lt;username&gt; 指定VRDP自动连接参数 用户名  
+                              &lt;password&gt; 密码  
+                                &lt;domain&gt; 域  
+             [-allowlocallogon &lt;yes|no&gt;] 允许|禁止本地登陆  
+VBoxManage discardstate     &lt;uuid&gt;|&lt;name&gt; 丢弃指定UUID|名称的虚拟机的保存状态  
+VBoxManage adoptstate       &lt;uuid&gt;|&lt;name&gt; &lt;state_file&gt; 将虚拟机从指定的保存状态中恢复  
+VBoxManage snapshot         &lt;uuid&gt;|&lt;name&gt; 为指定的虚拟机拍快照  
+                            take &lt;name&gt; 为快照取名  
+                        [-desc &lt;desc&gt;]| 给快照添加描述  
+                        discard &lt;uuid&gt;|&lt;name&gt; | 丢弃指定的快照   
+                        discardcurrent -state| 恢复到最近的快照  
+                                        -all | 恢复到倒数第二个快照  
+                        edit &lt;uuid&gt;|&lt;name&gt;| 编辑指定的快照  
+                                   -current 编辑当前快照  
+                          [-newname &lt;name&gt;] 修改快照名称  
+                          [-newdesc &lt;desc&gt;] 修改快照描述  
+                        showvminfo &lt;uuid&gt;|&lt;name&gt; 显示快照的虚拟机信息  
+VBoxManage registerimage    disk|dvd|floppy &lt;filename&gt; 注册硬盘、光盘、软盘映像文件  
+                            [-type normal| 注册为普通类型（可创建快照，可读写）  
+                                immutable| 注册为只读类型（相当于加了硬盘卡）  
+                             writethrough] 注册为可写类型（这种类型不能创建快照）  
+                               (disk only) (注册类型选项只适用于硬盘）  
+VBoxManage unregisterimage disk| 从虚拟介质管理器删除指定的硬盘  
+                             dvd| 从虚拟介质管理器删除指定的DVD光盘   
+                           floppy 从虚拟介质管理器删除指定的软盘  
+                          &lt;uuid&gt;| 删除时指定UUID  
+                       &lt;filename&gt; 删除时指定映像文件  
+VBoxManage showvdiinfo      &lt;uuid&gt;|&lt;filename&gt; 显示指定UUID|名称虚拟硬盘的信息  
+
+VBoxManage createvdi        -filename &lt;filename&gt; 创建指定名称的虚拟硬盘  
+                            -size &lt;megabytes&gt; 指定虚拟硬盘的大小（以兆为单位）  
+                            [-static] 创建固定大小的虚拟硬盘  
+                            [-comment &lt;comment&gt;] 添加一段解释性文字  
+                            [-register] 注册新创建的虚拟硬盘  
+                            [-type normal| 注册类型 普通（可以创建快照）  
+                             writethrough] 注册类型 可写（不能创建快照）  
+                          (default: normal) 默认是普通类型  
+VBoxManage modifyvdi        &lt;uuid&gt;|&lt;filename&gt; compact 压缩指定的虚拟硬盘  
+VBoxManage clonevdi         &lt;uuid&gt;|&lt;filename&gt; &lt;outputfile&gt; 克隆指定的VDI虚拟硬盘  
+VBoxManage convertdd        [-static] &lt;filename&gt; &lt;outputfile&gt; 将raw硬盘转换成vdi虚拟硬盘  
+VBoxManage convertdd        [-static] stdin &lt;outputfile&gt; &lt;bytes&gt; 将标准输入参数指定的设备转换成vdi虚拟硬盘，比如：dd if=/dev/sda1 | VBoxManage convertdd stdin /media/disk/C.vdi 62277025792  
+
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org5a53056" class="outline-2">
+<h2 id="org5a53056"><span class="section-number-2">2</span> centos7 basic environment</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+centos7 download
+<a href="http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso">http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso</a>
+</p>
+</div>
+
+<div id="outline-container-orgd7eebc7" class="outline-3">
+<h3 id="orgd7eebc7"><span class="section-number-3">2.1</span> lvm</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+在文件中添加要挂载的分区和文件目录可以修改文件
+</p>
+
+<p>
+/etc/fstab
+</p>
+
+<p>
+<i>dev/sda5</i>    media/win    ntfs    defaults   02
+</p>
+
+<p>
+然后 mount -a
+</p>
+
+<ol class="org-ol">
+<li><p>
+查看几块硬盘
+</p>
+
+<p>
+sudo fdisk -l |grep sd
+</p></li>
+
+<li><p>
+创建分区
+</p>
+
+<p>
+虚拟机现有20g的硬盘,使用fdisk划分磁盘
+</p>
+
+<p>
+sudo fdisk /dev/sda
+</p>
+
+<p class="verse">
+m  帮助信息<br />
+n 创建分区<br />
+e 扩展分区    +5G  pppp/pppe<br />
+p 打印分区<br />
+t 分区类型 L  (lvm)<br />
+w 写入保存分区<br />
+</p></li>
+
+<li>格式化 分区</li>
+
+<li><p>
+LVM
+pv &#x2013;&gt; vg &#x2013;&gt; lv
+参考:
+<a href="http://blog.sina.com.cn/s/blog_b77735d20101e5cn.html">http://blog.sina.com.cn/s/blog_b77735d20101e5cn.html</a>
+<a href="http://aurthurxlc.github.io/Aurthur-2017/Centos-7-extend-lvm-volume.html">http://aurthurxlc.github.io/Aurthur-2017/Centos-7-extend-lvm-volume.html</a>
+</p>
+
+<pre class="example">
+fdisk -l | grep sd
+fdisk /dev/sda
+partprobe
+pvdisplay
+pvcreate /dev/sda3
+vgdisplay
+vgextend centos /dev/sda3
+lvdisplay
+#lvcreate -L 3.31G -n manue1 centos
+#mkfs.xfs /dev/centos/manue1
+#lvremove -f /dev/centos/manue1
+lvextend -l +100%FREE /dev/centos/root
+df -Th
+xfs_growfs /dev/centos/root
+</pre></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org79deed4" class="outline-3">
+<h3 id="org79deed4"><span class="section-number-3">2.2</span> ip</h3>
+<div class="outline-text-3" id="text-2-2">
+<ul class="org-ul">
+<li><p>
+联网方式: 配置三张网卡
+virtualBox 中 NAT 和 Host-only 两种模式不能同时并存，测试只能联网的时候关掉另一张网卡
+</p>
+<ol class="org-ol">
+<li>NAT 
+网卡1 用来连接外网</li>
+<li><p>
+Host-only
+用来配置静态IP 配置集群服务的时候不需要修改IP
+vi <i>etc/sysconfig/network-scripts</i>  
+</p>
+<pre class="example">
+#static assignment
+ONBOOT=yes
+BOOTPROTO=static
+IPADDR=192.168.56.10
+NETMASK=255.255.255.0
+GATEWAY=192.168.56.1
+</pre></li>
+<li>Bridge
+vbox 自动配置IP，也很方便</li>
+</ol>
+
+<p>
+这边打算使用网卡1 nat模式连接外网，网卡3的桥接模式与局域网内其他主机通信,网卡二的主机模式搭建集群
+</p>
+
+<p>
+注意： 网卡二和网卡三的 gateway 字段要注释掉
+</p></li>
+
+<li><p>
+ip tool
+</p>
+
+<p>
+Ip  [选项]  操作对象{link|addr|route&#x2026;}
+</p>
+
+<p>
+sudo service network restart
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb428624" class="outline-3">
+<h3 id="orgb428624"><span class="section-number-3">2.3</span> sshd</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+ssh 连接异常慢
+sudo vi /etc/ssh/sshd_config
+</p>
+
+<pre class="example">
+UseDNS no
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgf68e8f1" class="outline-3">
+<h3 id="orgf68e8f1"><span class="section-number-3">2.4</span> hostname</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+永久修改主机名字
+sudo hostnamectl &#x2013;static set-hostname master
+</p>
+
+<p>
+sudo vi /etc/hosts
+</p>
+
+<p>
+[manue1@localhost ~]$ cat /etc/hostname
+ master
+[manue1@localhost ~]$ cat /etc/hosts
+ 127.0.0.1 master
+ ::1 master
+</p>
+</div>
+</div>
+<div id="outline-container-orgdd117bd" class="outline-3">
+<h3 id="orgdd117bd"><span class="section-number-3">2.5</span> yum source</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+sudo yum -y install wget
+</p>
+
+<ul class="org-ul">
+<li>备份
+sudo mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</li>
+
+<li>设置aliyun source
+sudo wget -O /etc/yum.repos.d/CentOS-Base.repo <a href="http://mirrors.aliyun.com/repo/Centos-7.repo">http://mirrors.aliyun.com/repo/Centos-7.repo</a></li>
+
+<li><p>
+设置EPLEPEL source
+</p>
+
+<p>
+sudo wget -P <i>etc/yum.repos.d</i> <a href="http://mirrors.aliyun.com/repo/epel-7.repo">http://mirrors.aliyun.com/repo/epel-7.repo</a>
+</p>
+
+<p>
+添加后可以像fedora上 yum install packname
+</p></li>
+
+<li><p>
+清理缓存并生成新的缓存
+</p>
+
+<p>
+sudo yum clean all  
+sudo yum makecache  
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgdfdb88f" class="outline-3">
+<h3 id="orgdfdb88f"><span class="section-number-3">2.6</span> ntp</h3>
+<div class="outline-text-3" id="text-2-6">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">master</th>
+<th scope="col" class="org-left">server</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">slave01</td>
+<td class="org-left">client</td>
+</tr>
+
+<tr>
+<td class="org-left">slave02</td>
+<td class="org-left">client</td>
+</tr>
+</tbody>
+</table>
+
+<ul class="org-ul">
+<li><p>
+any nodes
+</p>
+
+<p>
+sudo yum -y install ntp
+</p>
+
+<p>
+timedatectl set-timezone Asia/Shanghai   # 设置上海时区
+</p>
+
+<ul class="org-ul">
+<li><p>
+server configural
+</p>
+
+<p>
+systemctl start ntpd
+</p>
+
+<p>
+systemctl enable ntpd
+</p>
+
+<p>
+vi /etc/ntp.conf 
+</p>
+
+<pre class="example">
+
+restrict 192.168.56.0 mask 255.255.0.0
+
+server 127.127.1.0
+
+fudge 127.127.1.0 stratum 10
+</pre>
+
+<p>
+systemctl restart ntpd
+</p></li>
+
+<li><p>
+client configural
+</p>
+
+<p>
+systemctl start ntpd
+</p>
+
+<p>
+systemctl enable ntpd
+</p>
+
+<p>
+vi /etc/ntp.conf
+</p>
+
+<pre class="example">
+server 192.168.56.10
+
+</pre>
+
+<p>
+netstat -anp | grep 123
+</p></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgcc5cd0c" class="outline-3">
+<h3 id="orgcc5cd0c"><span class="section-number-3">2.7</span> firewallds</h3>
+<div class="outline-text-3" id="text-2-7">
+<ul class="org-ul">
+<li>查看状态
+systemctl status firewalld</li>
+<li>关闭
+systemctl stop firewalld</li>
+<li>禁用
+systemctl disable firewalld</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge2501aa" class="outline-3">
+<h3 id="orge2501aa"><span class="section-number-3">2.8</span> disable selinux</h3>
+<div class="outline-text-3" id="text-2-8">
+<p>
+一款为了提高系统安全性的软件：对系统服务，文件权限，网络端口访问有极其严格的限制，
+例如：如果对一个文件没有正确安全上下文配置， 甚至你是root用户，你也不能启动某服务
+</p>
+
+<p>
+sudo vi /etc/sysconfig/selinux
+ selinux = disable
+</p>
+</div>
+</div>
+<div id="outline-container-org935bb0f" class="outline-3">
+<h3 id="org935bb0f"><span class="section-number-3">2.9</span> java  &amp; scala</h3>
+<div class="outline-text-3" id="text-2-9">
+<p>
+基础环境用root 配置在/etc/profile 自启动环境文件内
+refer : <a href="https://www.mtyun.com/library/how-to-setup-scala-on-centos7">https://www.mtyun.com/library/how-to-setup-scala-on-centos7</a>
+</p>
+<ul class="org-ul">
+<li>java rpm install
+
+<ol class="org-ol">
+<li>download
+<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a></li>
+<li><p>
+install
+sudo rpm -ivh jdk-8u144-linux-x64.rpm
+sudo rpm -aq | grep jdk
+</p>
+
+<p>
+sudo rpm -e jdk   无效
+sudo yum remove jdk  
+</p>
+
+<p>
+sudo vi /etc/profile
+</p>
+<pre class="example">
+#JAVA_HOME
+export JAVA_HOME=/usr/java/jdk1.8.0_144
+export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+export PATH=$PATH:$JAVA_HOME/bin
+</pre></li>
+</ol></li>
+<li><p>
+java 离线包安装
+</p>
+
+<p>
+tar -zxvf jdk-8u151-linux-x64.tar.gz
+</p>
+
+<p>
+vi /etc/profile
+</p>
+<pre class="example">
+#JAVA_HOME
+JAVA_HOME=/home/manue1/opt/jdk8
+PATH=$PATH:$JAVA_HOME/bin
+export JAVA_HOME PATH
+</pre></li>
+<li><p>
+scala 离线包安装
+当前最新版本
+tar zxvf scala-2.11.7.tgz
+</p>
+
+<pre class="example">
+SCALA_HOME=/home/manue1/opt/scala-2.11.7
+PATH=$PATH:$SCALA_HOME/bin
+export SCALA_HOME PATH
+</pre></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org639e313" class="outline-2">
+<h2 id="org639e313"><span class="section-number-2">3</span> hadoop 集群配置</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orgf573b53" class="outline-3">
+<h3 id="orgf573b53"><span class="section-number-3">3.1</span> hadoop hbase spark 版本选择</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li><p>
+hbase 支持 hadoop 版本对照表
+</p>
+
+<p>
+The 1.2.x series is the current stable release line
+</p>
+
+<p>
+<a href="http://www-us.apache.org/dist/hbase/">http://www-us.apache.org/dist/hbase/</a>
+</p>
+
+<p>
+下面查看1.2.x 需要的hadoop版本
+</p>
+
+<p>
+<a href="http://hbase.apache.org/book.html#arch.overview">http://hbase.apache.org/book.html#arch.overview</a>
+</p>
+
+<p>
+crtl + F  "s" 搜索页面
+</p>
+
+<p>
+选择 Hadoop-2.7.1+
+</p></li>
+
+<li><p>
+spark 支持 hadoop
+</p>
+
+<p>
+<a href="http://spark.apache.org/downloads.html">http://spark.apache.org/downloads.html</a>
+</p>
+
+<p>
+官方下载页面可以手动选择
+</p></li>
+
+<li><p>
+hive 支持 hadoop
+</p>
+
+<p>
+<a href="https://hive.apache.org/downloads.html">https://hive.apache.org/downloads.html</a>
+</p>
+
+<p>
+稳定版下载地址
+</p>
+
+<p>
+<a href="http://mirrors.shuosc.org/apache/hive/stable-2/">http://mirrors.shuosc.org/apache/hive/stable-2/</a>
+</p></li>
+
+<li><p>
+zookeeper
+</p>
+
+<p>
+下载稳定版即可
+</p>
+
+<p>
+<a href="http://mirrors.shuosc.org/apache/zookeeper/stable/">http://mirrors.shuosc.org/apache/zookeeper/stable/</a>
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orga04974f" class="outline-3">
+<h3 id="orga04974f"><span class="section-number-3">3.2</span> 环境准备</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+三台vbox 虚拟centos7 配置 java scala 环境 关闭防火墙和selinux
+</p>
+
+<ul class="org-ul">
+<li><p>
+cluster
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">hostname</th>
+<th scope="col" class="org-right">ip</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">master</td>
+<td class="org-right">192.168.56.10</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">slave01</td>
+<td class="org-right">192.168.56.11</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">slave02</td>
+<td class="org-right">192.168.56.12</td>
+</tr>
+</tbody>
+</table></li>
+
+<li><p>
+disable ipv6
+</p>
+
+<p>
+sudo vi /etc/sysctl.conf
+</p>
+
+<p>
+添加下面内容
+</p>
+
+<pre class="example">
+
+# disable ipv6
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+
+</pre>
+
+<p>
+解决master:50070 页面找不到live node 
+</p>
+
+<p>
+解决 connection exception
+</p>
+
+<pre class="example">
+17//23 23:19:48 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+ls:all From slave01/127.0.0.1 to master:9000 failed on connection exception: java.net.ConnectException: 拒绝连接; For more details see:  http://wiki.apache.org/hadoop/ConnectionRefused
+
+</pre></li>
+
+<li><p>
+hostname &amp; host
+三台主机都要
+修改主机名
+修改/etc/hosts 互相添加hostname访问别名
+注意； #127.0.0.1 master 这样的映射一定要注释掉,master:8088无法访问最终定位到这里了
+</p>
+<pre class="example">
+#ceos7 cluster
+19268.56.10 master
+19268.56.11 slave01
+19268.56.12 slave02
+</pre></li>
+
+<li>免登录验证
+ssh-keygen -t rsa
+ssh-copy-id -i ~/.ssh/id_rsa.pub manue1@slave01 
+ssh-copy-id -i ~/.ssh/id_rsa.pub manue1@slave02 
+ssh-copy-id -i ~/.ssh/id_rsa.pub manue1@master</li>
+
+<li>download hadoop
+tar -zxvf hadoop-2.7.5.tar.gz</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org11abe0d" class="outline-3">
+<h3 id="org11abe0d"><span class="section-number-3">3.3</span> 配置hadoop cluster</h3>
+<div class="outline-text-3" id="text-3-3">
+<ul class="org-ul">
+<li><p>
+hadoop_home
+三台节点都需要配置
+vi .bashrc
+</p>
+<pre class="example">
+# Hadoop Environment Variables
+export HADOOP_HOME=/home/manue1/opt/hadoop-2.7.5
+export HADOOP_INSTALL=$HADOOP_HOME
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_COMMON_HOME=$HADOOP_HOME
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export YARN_HOME=$HADOOP_HOME
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
+export HADOOP_OPTS="$HADOOP_OPTS -Djava.library.path=$HADOOP_HOME/lib/native" #解决WARN util.NativeCodeLoader: Unable to load native-hadoop library
+export CATALINA_BASE=$HADOOP_HOME/share/hadoop/httpfs/tomcat #支持httpfs rest api
+
+</pre></li>
+
+<li><p>
+master
+</p>
+
+<p>
+<i>home/manue1/opt/hadoop-2.7.5/etc/hadoop</i> 下6个配置文件
+</p>
+<ol class="org-ol">
+<li><p>
+core-site.xml
+</p>
+
+<pre class="example">
+&lt;configuration&gt;
+    &lt;!-- 指定HDFS老大（namenode）的通信地址 --&gt;
+    &lt;property&gt;
+        &lt;name&gt;fs.defaultFS&lt;/name&gt;
+        &lt;value&gt;hdfs://master:9000&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;!-- 指定hadoop运行时产生文件的存储路径 --&gt;
+    &lt;property&gt;
+        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+        &lt;value&gt;file:/home/manue1/opt/hadoop-2.7.5/tmp&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+    &lt;!--开启httpfs实现一种匿名的方式登陆hdfs文件系统 端口14000
+        manue1用户为hdfs的超级用户 hive启动用户
+    --&gt;
+
+    &lt;property&gt;
+         &lt;name&gt;hadoop.proxyuser.manue1.hosts&lt;/name&gt;
+         &lt;value&gt;*&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;hadoop.proxyuser.manue1.groups&lt;/name&gt;
+        &lt;value&gt;*&lt;/value&gt;
+    &lt;/property&gt;
+
+
+</pre></li>
+
+<li><p>
+hdfs-site.xml
+</p>
+
+<pre class="example">
+&lt;configuration&gt;
+        &lt;!-- 设置namenode的http通讯地址 --&gt;
+        &lt;property&gt;
+                &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;
+                &lt;value&gt;master:50090&lt;/value&gt;
+        &lt;/property&gt;
+        &lt;!-- 设置hdfs副本数量 --&gt;
+        &lt;property&gt;
+                &lt;name&gt;dfs.replication&lt;/name&gt;
+                &lt;value&gt;1&lt;/value&gt;
+        &lt;/property&gt;
+         &lt;!-- 设置namenode存放的路径 --&gt;
+        &lt;property&gt;
+                &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+                &lt;value&gt;file:/home/manue1/opt/hadoop-2.7.5/tmp/dfs/name&lt;/value&gt;
+        &lt;/property&gt;
+         &lt;!-- 设置datanode存放的路径 --&gt;
+        &lt;property&gt;
+                &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+                &lt;value&gt;file:/home/manue1/opt/hadoop-2.7.5/tmp/dfs/data&lt;/value&gt;
+        &lt;/property&gt;
+&lt;/configuration&gt;
+
+
+</pre></li>
+
+<li><p>
+mapred-site.xml
+</p>
+
+<p>
+mv mapred-site.xml.template mapred-site.xml
+</p>
+
+<pre class="example">
+&lt;configuration&gt;
+        &lt;!-- 通知框架MR使用YARN --&gt;
+        &lt;property&gt;
+                &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+                &lt;value&gt;yarn&lt;/value&gt;
+        &lt;/property&gt;
+        &lt;property&gt;
+                &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;
+                &lt;value&gt;master:10020&lt;/value&gt;
+        &lt;/property&gt;
+        &lt;property&gt;
+                &lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;
+                &lt;value&gt;master:19888&lt;/value&gt;
+        &lt;/property&gt;
+&lt;/configuration&gt;
+
+</pre></li>
+
+<li><p>
+yarn-site.xml
+</p>
+
+<pre class="example">
+&lt;configuration&gt;
+ &lt;!-- 设置 resourcemanager 在哪个节点--&gt;
+&lt;!-- Site specific YARN configuration properties --&gt;
+        &lt;property&gt;
+                &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;
+                &lt;value&gt;master&lt;/value&gt;
+        &lt;/property&gt;
+         &lt;!-- reducer取数据的方式是mapreduce_shuffle --&gt;
+        &lt;property&gt;
+                &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+                &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+        &lt;/property&gt;
+        &lt;!--所有主机访问yarn管理界面--&gt;
+        &lt;property&gt; 
+                &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;
+                &lt;value&gt;0.0.0.0:8088&lt;/value&gt;
+        &lt;/property&gt;
+
+&lt;/configuration&gt;
+
+</pre></li>
+
+<li><p>
+slaves
+</p>
+
+<pre class="example">
+slave01
+slave02
+</pre></li>
+
+<li><p>
+hadoop-env.sh
+</p>
+
+<p>
+修改
+export JAVA_HOME=/home/manue1/opt/jdk8
+</p></li>
+</ol></li>
+
+<li><p>
+slaves
+</p>
+
+<p>
+tar -zcvf hadoop-2.7.5_conf_finshed.tar.gz hadoop-2.7.5/
+</p>
+
+<p>
+scp hadoop-2.7.5_conf_finshed.tar.gz manue1@slave02:/home/manue1/opt/
+</p></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org83d6aac" class="outline-3">
+<h3 id="org83d6aac"><span class="section-number-3">3.4</span> 启动hadoop</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+hdfs namenode -format #第一次启动要执行格式化，之后启动不用执行这个
+start-dfs.sh
+start-yarn.sh
+mr-jobhistory-daemon.sh start historyserver  ??
+httpfs.sh start
+</p>
+
+
+<ul class="org-ul">
+<li><p>
+master
+</p>
+<pre class="example">
+manue1@master sbin]$ jps
+2034 NameNode
+2483 Jps
+15754 Bootstrap  #httpfs
+1652 ResourceManager
+2188 SecondaryNameNode
+2447 JobHistoryServer
+
+</pre></li>
+
+<li><p>
+slaves
+</p>
+<pre class="example">
+[manue1@slave01 hadoop]$ jps
+1360 DataNode
+1430 NodeManager
+1516 Jps
+</pre></li>
+</ul>
+
+<p>
+hadoop cluster状态展示界面 webhdfs
+<a href="http://master:50070/">http://master:50070/</a>
+curl "<a href="http://master:50070/webhdfs/v1/?op=liststatus&amp;user.name=manue1">http://master:50070/webhdfs/v1/?op=liststatus&amp;user.name=manue1</a>"
+</p>
+
+<p>
+httpfs rest api 配置HA的时候找不到namenode可以采用httpfs
+<a href="http://master:14000/">http://master:14000/</a>
+curl "<a href="http://master:14000/webhdfs/v1/?op=liststatus&amp;user.name=manue1">http://master:14000/webhdfs/v1/?op=liststatus&amp;user.name=manue1</a>"
+</p>
+
+<p>
+yarn 管理界面
+<a href="http://master:8088">http://master:8088</a>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org40ae9cf" class="outline-2">
+<h2 id="org40ae9cf"><span class="section-number-2">4</span> elasticstk 集群</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org8d314c7" class="outline-3">
+<h3 id="org8d314c7"><span class="section-number-3">4.1</span> elasticsearch-611</h3>
+<div class="outline-text-3" id="text-4-1">
+<ol class="org-ol">
+<li><p>
+环境准备
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">hostname</th>
+<th scope="col" class="org-right">ip</th>
+<th scope="col" class="org-left">&#xa0;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">master</td>
+<td class="org-right">192.168.56.10</td>
+<td class="org-left">masternode</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">slave01</td>
+<td class="org-right">192.168.56.11</td>
+<td class="org-left">datanode</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">slave02</td>
+<td class="org-right">192.168.56.12</td>
+<td class="org-left">datanode</td>
+</tr>
+</tbody>
+</table>
+
+<ul class="org-ul">
+<li><p>
+生产环境配置: 
+</p>
+
+<p>
+10节点 6个master候选节点
+</p>
+
+<p>
+1节点 4G + lucene 3G = 8G
+</p>
+
+<p>
+10T硬盘，最多存5T数据
+</p>
+
+<p>
+4c + 8g + 1T * 10台 = 10T 
+4c + 16g + 2T * 5台 = 10T
+</p></li>
+</ul></li>
+</ol>
+
+
+<ul class="org-ul">
+<li>java 环境配置，关闭firewalld,主机名配置,官网下载elasticsearch-6.1.1.tar.gz</li>
+
+<li>普通用户下安装es  username:manue1</li>
+
+<li><p>
+系统设置
+</p>
+
+<p>
+sudo -s 切换到root下执行
+</p>
+
+<pre class="example">
+
+sed -e '$a vm.max_map_count = 262144' -i /etc/sysctl.conf
+
+sysctl -p
+
+
+
+echo "ulimit -SHn 1048576" &gt;&gt; /etc/rc.local
+
+sed -e '$a DefaultLimitCORE=infinity\nDefaultLimitNOFILE=1048576\nDefaultLimitNPROC=1048576' -i /etc/systemd/system.conf
+
+cat &gt;&gt; /etc/security/limits.conf &lt;&lt; EOF
+
+ *           soft   nofile       1048576
+
+ *           hard   nofile       1048576
+
+ *           soft   nproc        1048576
+
+ *           hard   nproc        1048576
+
+EOF
+
+sed -i 's/4096/1048576/' /etc/security/limits.d/20-nproc.conf
+
+sed -e '/root       soft    nproc     unlimited/a\*           soft   nofile       1048576\n*           hard   nofile       1048576' -i /etc/security/limits.d/20-nproc.conf
+
+</pre>
+<p>
+修改系统配置文件后，重启系统生效
+</p></li>
+</ul>
+<ol class="org-ol">
+<li><p>
+配置elasticsearch
+</p>
+
+<ul class="org-ul">
+<li><p>
+elasticsearch.yml          # els的配置文件
+</p>
+<pre class="example">
+cluster.name: manue1-es-cluster  #集群名称
+
+node.name: master-node           #节点名称
+
+node.data: false
+node.master: true  #建议直接不设置，默认两个都为true.
+
+path.data: /Home/Manue1/Opt/Elasticsearch-6.1.1/Els/Data  #数据存储目录
+
+path.logs: /home/manue1/opt/elasticsearch-6.1.1/els/log   #日志存储目录
+
+network.bind_host: 0.0.0.0   #���master节点配置 ”0.0.0.0”，允许所有网络接口访问
+network.publish_host: master # 集群通信
+
+gateway.recover_after_nodes: 3  #值为n，网关控制在n个节点启动之后才恢复整个集群, 3节&gt;点启动后1分钟
+gateway.recover_after_time: 1m
+
+indices.recovery.max_bytes_per_sec: 20mb  #恢复数据时,限制的宽带流量,如果是0就是无限制
+
+node.max_local_storage_nodes: 1                  #值为n，一个系统中最多启用节点个数为n
+
+http.port: 9200                 # 对外提供服务的端口，9300为集群服务的端口
+
+
+</pre></li>
+
+<li><p>
+jvm.options                # JVM相关的配置，内存大小等等
+</p>
+<pre class="example">
+-Xms128M
+-Xmx128M
+
+ -Xmx1g与-Xms1gJVM的最大最小内存。如果太小会导致Elasticsearch刚刚启动就立刻停止。太大会拖慢系统本身
+</pre></li>
+
+<li>log4j2.properties          # 日志系统定义</li>
+</ul>
+
+<p>
+将配置好的elasticsearch 打包传到各个节点，需要注意的是，如果配置过程中运行产生的data/nodes/0 文件
+一定要删掉，再打包使用，否则各个节点启动成功了，无法加入到集群，节点id冲突
+</p>
+<pre class="example">
+with the same id but is a different node instance
+</pre></li>
+
+<li><p>
+启动elasticsearch
+</p>
+
+<p>
+su – manue1
+</p>
+
+<p>
+vi  /home/manue1/opt/elasticsearch-6.1.1/bin/elasticsearch
+</p>
+<pre class="example">
+ES_HEAP_SIZE=128m
+MAX_OPEN_FILES=262144
+</pre>
+
+<p>
+nohup ./bin/elasticsearch -d 
+</p>
+
+<p>
+关闭 ps -ef |grep elasticsearch|awk '{print $2}'|xargs kill -9
+</p></li>
+
+<li>refer
+<a href="https://blog.csdn.net/thomas0yang/article/details/55518105#%E5%86%85%E5%AD%98">https://blog.csdn.net/thomas0yang/article/details/55518105#内存</a>
+<a href="https://www.elastic.co/guide/cn/elasticsearch/guide/cn/important-configuration-changes.html#_%E6%9C%80%E5%B0%8F%E4%B8%BB%E8%8A%82%E7%82%B9%E6%95%B0">https://www.elastic.co/guide/cn/elasticsearch/guide/cn/important-configuration-changes.html#_最小主节点数</a>
+<a href="https://zhuanlan.zhihu.com/p/35291900">https://zhuanlan.zhihu.com/p/35291900</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org0d929cd" class="outline-3">
+<h3 id="org0d929cd"><span class="section-number-3">4.2</span> kibana</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+配置在es的非数据节点上: 192.168.56.10
+</p>
+
+<p>
+修改 config/kibana.yml
+</p>
+<pre class="example">
+server.host: "0.0.0.0" #不同网卡网段能够访问
+elasticsearch.url: "http://master:9200"
+</pre>
+
+<p>
+启动： nohup  bin/kibana  &amp;
+</p>
+
+<p>
+关闭: ps -ef |grep kibana |awk '{print $2}'|xargs kill -9
+</p>
+
+<p>
+ss -lnp | grep 5601
+</p>
+</div>
+</div>
+
+<div id="outline-container-org52997f5" class="outline-3">
+<h3 id="org52997f5"><span class="section-number-3">4.3</span> logstash</h3>
+<div class="outline-text-3" id="text-4-3">
+<ol class="org-ol">
+<li>download
+logstash-6.1.1.tar.gz</li>
+<li>config
+
+<ul class="org-ul">
+<li><p>
+创建logstash-conf 目录
+beat的配置文件
+vi beats.conf
+</p>
+<pre class="example">
+input {
+  beats {
+    port =&gt; 5044
+  }
+}
+
+# The filter part of this file is commented out to indicate that it is
+# optional.
+# filter {
+#
+# }
+
+output {
+  elasticsearch {
+    hosts =&gt; "master:9200"
+    manage_template =&gt; false
+    index =&gt; "%{[@metadata][beat]}-%{[@metadata][version]}-%{+YYYY.MM.dd}" 
+  }
+}
+
+</pre></li>
+
+<li>jvm.options
+修改 xms xmx 最大最小jvm 为256M 比es测试集群吃内存多</li>
+
+<li>logstash.yml</li>
+</ul></li>
+
+<li>start logstash
+
+<ul class="org-ul">
+<li>bin/logstash -e 'input { stdin { } } output { stdout {} }'
+测试启动</li>
+
+<li><p>
+./bin/logstash -f logstash-conf/beats.conf &amp;
+</p>
+
+<p>
+配置文件启动
+</p>
+
+<p>
+sudo netstat -anp | grep 5044
+</p></li>
+</ul></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org63e5226" class="outline-3">
+<h3 id="org63e5226"><span class="section-number-3">4.4</span> beats</h3>
+<div class="outline-text-3" id="text-4-4">
+</div>
+<div id="outline-container-org79c0035" class="outline-4">
+<h4 id="org79c0035"><span class="section-number-4">4.4.1</span> topbeat</h4>
+<div class="outline-text-4" id="text-4-4-1">
+<p>
+5.x版本后弃用了
+</p>
+<ol class="org-ol">
+<li>下载
+topbeat-1.3.1-x86_64.tar.gz</li>
+
+<li>配置
+
+<ul class="org-ul">
+<li>topbeat</li>
+
+<li>topbeat.template.json  
+topbeat自带的模版，用来创建存放收集数据的索引结构</li>
+
+<li><p>
+topbeat.yml
+</p>
+<pre class="example">
+input:
+  period: 10           #默认10秒收集一次
+  procs: [".*"]   #定义正则表达式，以匹配你所要监控的进程。默认是所有正在运行的进程都进行监控。
+  stats:
+    system: true
+    proc: true
+    filesystem: true
+output:
+  elasticsearch:
+    hosts: ["master:9200"]
+shipper:
+logging:
+  files:
+</pre></li>
+</ul></li>
+</ol>
+
+
+<ol class="org-ol">
+<li>es导入模版
+导入topbeat自带的模版，用来创建存放收集数据的索引结构
+
+<ul class="org-ul">
+<li><p>
+Configuring Template Loading - supported for Elasticsearch output only
+</p>
+<pre class="example">
+ERR Failed to perform any bulk index operations: 406 Not Acceptable
+错误应该是模版和6.0版本不匹配了，官网没有更新
+再去官网查看，topbeat 从5.0 已经被 Metricbeat替换了
+</pre></li>
+
+<li>Loading the Template Manually - required for Logstash output</li>
+</ul></li>
+</ol>
+
+
+<ol class="org-ol">
+<li>kibana</li>
+
+<li><p>
+启动topbeat节点
+</p>
+
+<p>
+sudo ./topbeat -e -c topbeat.yml -d "publish"
+</p></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org7b04ce7" class="outline-4">
+<h4 id="org7b04ce7"><span class="section-number-4">4.4.2</span> filebeat</h4>
+<div class="outline-text-4" id="text-4-4-2">
+<ol class="org-ol">
+<li><p>
+download
+</p>
+
+<p>
+filebeat-6.1.1-linux-x86_64.tar.gz
+</p>
+
+<p>
+<a href="https://download.elastic.co/demos/logstash/gettingstarted/logstash-tutorial.log.gz">https://download.elastic.co/demos/logstash/gettingstarted/logstash-tutorial.log.gz</a>
+logstash-tutorial.log.gz apache 的日志文件样本
+</p></li>
+
+<li>config
+
+<ul class="org-ul">
+<li><p>
+filebeat.yml
+</p>
+<pre class="example">
+- type: log
+  # Change to true to enable this prospector configuration.
+  enabled: true
+  # Paths that should be crawled and fetched. Glob based paths.
+  paths:
+    - /var/log/*.log
+    - /home/manue1/opt/source/*.log
+    #- c:\programdata\elasticsearch\logs\*
+
+
+output.logstash:
+  # The Logstash hosts
+  hosts: ["master:5044"]
+
+
+setup.kibana:
+
+  host: "master:5601"         
+
+</pre></li>
+
+<li><p>
+modules
+</p>
+
+<p>
+sudo chown -R root /home/manue1/opt/filebeat-6.1.1-linux-x86_64/module
+</p>
+
+<p>
+sudo chown -R root /home/manue1/opt/filebeat-6.1.1-linux-x86_64/modules.d
+</p>
+
+<ul class="org-ul">
+<li><p>
+Enable modules when you run Filebeatedit
+</p>
+
+<p>
+sudo ./filebeat -e &#x2013;modules system,nginx,mysql  
+</p>
+
+<p>
+./filebeat -e &#x2013;modules nginx -M "nginx.access.var.paths=[/var/log/nginx/access.log*]"
+</p></li>
+
+<li><p>
+filebeat.yml
+</p>
+
+<p>
+sudo ./filebeat modules list
+</p>
+
+<p>
+sudo ./filebeat modules enable system 
+</p>
+
+<pre class="example">
+默认配置读取所有enable
+filebeat.modules:
+- module: nginx
+- module: mysql
+- module: system
+
+</pre></li>
+</ul></li>
+</ul></li>
+</ol>
+
+
+
+
+
+<ul class="org-ul">
+<li><p>
+setup template
+</p>
+
+<p>
+for logstash manually setup
+</p>
+<pre class="example">
+./filebeat setup --template -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["localhost:9200"]'
+</pre></li>
+
+<li><p>
+setup kibana dashboards
+</p>
+
+<pre class="example">
+./filebeat setup --dashboards
+</pre></li>
+
+<li><p>
+start filebeat
+</p>
+
+<p>
+sudo chown root filebeat.yml 
+</p>
+
+<p>
+sudo -s
+</p>
+
+<p>
+nohup /home/manue1/opt/filebeat-6.1.1-linux-x86_64/filebeat -e -c /home/manue1/opt/filebeat-6.1.1-linux-x86_64/filebeat.yml -d "publish" &amp;
+</p>
+
+<p>
+ps aux |grep beat
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org440c6de" class="outline-4">
+<h4 id="org440c6de"><span class="section-number-4">4.4.3</span> metricbeat</h4>
+<div class="outline-text-4" id="text-4-4-3">
+<ol class="org-ol">
+<li><p>
+download
+</p>
+
+<p>
+metricbeat-6.1.1-linux-x86_64.tar.gz
+</p></li>
+
+<li>conf
+
+<ul class="org-ul">
+<li>metricbeat.yml
+
+<ol class="org-ol">
+<li><p>
+修改es和kibana的地址
+</p>
+
+<p>
+如果输出到logstash中，需要关闭直接写入es，并配置logstash监听5044端口
+es也要手动加载template
+</p>
+<pre class="example">
+output.logstash:
+  # The Logstash hosts
+  hosts: ["master:5044"]
+</pre></li>
+
+<li>配置template模版
+<ul class="org-ul">
+<li>Configure template loading</li>
+<li><p>
+Load the template manually  
+required for Logstash output
+</p>
+<pre class="example">
+
+sudo ./metricbeat setup --template -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["master:9200"]'
+</pre></li>
+</ul></li>
+</ol></li>
+</ul></li>
+</ol>
+
+
+<ul class="org-ul">
+<li>modules.d 
+目录下面可以配置多种模块
+修改 logstash.yml.disabled 为 logstash.yml 启动模块</li>
+
+<li><p>
+kibana dashboard
+</p>
+
+<p>
+./metricbeat setup &#x2013;dashboards
+</p></li>
+</ul>
+<ol class="org-ol">
+<li><p>
+start 
+</p>
+
+<p>
+sudo chown root metricbeat.yml 
+sudo chown root modules.d/system.yml 
+sudo ./metricbeat -e -c metricbeat.yml -d "publish"
+</p>
+
+<p>
+ps aux |grep metricbeat
+</p></li>
+</ol>
+
+
+<p>
+复制到不同节点部署
+</p>
+</div>
+</div>
+<div id="outline-container-org257214e" class="outline-4">
+<h4 id="org257214e"><span class="section-number-4">4.4.4</span> packetbeat</h4>
+<div class="outline-text-4" id="text-4-4-4">
+<ol class="org-ol">
+<li><p>
+download 
+</p>
+
+<p>
+packetbeat-6.1.1-linux-x86_64.tar.gz
+</p></li>
+
+<li>config 
+
+<ul class="org-ul">
+<li><p>
+packetbeat.yml
+</p>
+
+<p>
+logstash &amp; kibana 地址修改
+</p></li>
+
+<li><p>
+setup template
+</p>
+
+<p>
+./packetbeat setup &#x2013;template -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["master:9200"]'
+</p></li>
+
+<li><p>
+set up kibana dashboard
+</p>
+
+<p>
+./packetbeat setup &#x2013;dashboards
+</p></li>
+</ul></li>
+
+<li><p>
+start beat
+</p>
+
+<p>
+sudo chown root packetbeat.yml 
+</p>
+
+<p>
+nohup /home/manue1/opt/packetbeat-6.1.1-linux-x86_64/packetbeat -e -c  /home/manue1/opt/packetbeat-6.1.1-linux-x86_64/packetbeat.yml -d "publish" &amp;
+</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgcf1dc64" class="outline-2">
+<h2 id="orgcf1dc64"><span class="section-number-2">5</span> hive</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+hadoop namenode上安装,datanode上无需安装
+</p>
+
+<ol class="org-ol">
+<li><p>
+download install
+</p>
+
+<p>
+hive
+</p>
+
+<p>
+<a href="http://mirrors.shuosc.org/apache/hive/stable-2/">http://mirrors.shuosc.org/apache/hive/stable-2/</a>
+</p>
+
+<ul class="org-ul">
+<li><p>
+mysql 
+</p>
+
+<p>
+refer: <a href="http://blog.csdn.net/Nemo____/article/details/72897455">http://blog.csdn.net/Nemo____/article/details/72897455</a>
+</p>
+<ul class="org-ul">
+<li>remove mariadb
+rpm -qa|grep mariadb         //查询出已安装的mariadb
+rpm -e &#x2013;nodeps 文件名      //卸载 ， 文件名为使用rpm -qa|grep mariadb 命令查出的所有文件
+sudo  rpm -e &#x2013;nodeps mariadb-libscc</li>
+
+<li><p>
+install mariadb
+</p>
+
+<p>
+<a href="https://www.cnblogs.com/starof/p/4680083.html">https://www.cnblogs.com/starof/p/4680083.html</a> 
+</p>
+
+<p>
+yum install mariadb-server mariadb
+</p>
+
+<p>
+systemctl start mariadb  #启动MariaDB
+</p>
+
+<p>
+systemctl stop mariadb  #停止MariaDB
+</p>
+
+<p>
+systemctl restart mariadb  #重启MariaDB
+</p>
+
+<p>
+systemctl enable mariadb  #设置开机启动
+</p>
+
+<p>
+mysql -uroot -p #NO PASSWORD
+</p>
+
+<p>
+set password for 'root'@'localhost' =password('manue1');  # set new password
+</p>
+
+<p>
+grant all privileges on <b>.</b> to root@'%'identified by 'manue1';  #远程连接设置
+</p>
+
+<p>
+vi /etc/my.cnf
+</p>
+<pre class="example">
+ # set utf8
+[mysql]
+default-character-set=utf8  # NO SPACE
+</pre></li>
+</ul></li>
+</ul></li>
+
+<li><p>
+config
+</p>
+
+<p>
+<a href="https://cwiki.apache.org/confluence/display/Hive/GettingStarted">https://cwiki.apache.org/confluence/display/Hive/GettingStarted</a>
+</p>
+
+<p>
+<a href="http://blog.csdn.net/jssg_tzw/article/details/72354470">http://blog.csdn.net/jssg_tzw/article/details/72354470</a>
+</p>
+
+<ul class="org-ul">
+<li><p>
+vi .bashrc
+</p>
+<pre class="example">
+# Hive Environment Variables
+export HIVE_HOME=/home/manue1/opt/apache-hive-2.3.2-bin
+PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HBASE_HOME/bin:$HIVE_HOME/bin:$PATH
+</pre></li>
+
+<li><p>
+metastore conf
+</p>
+
+<pre class="example">
+mysql -h slave01 -uroot -p
+
+insert into mysql.user (Host,User,Password)values('localhost','hive',password('manue1'));
+
+create database hive;
+
+grant all privileges on hive.* to hive@'%'identified by 'manue1'; 
+
+flush privileges; 
+
+
+</pre></li>
+
+<li><p>
+hive-site.xml
+</p>
+
+<p>
+mv hive-default.xml hive-site.xml
+</p>
+
+<ol class="org-ol">
+<li><p>
+hdfs新建目录
+</p>
+<pre class="example">
+ &lt;name&gt;hive.metastore.warehouse.dir&lt;/name&gt;
+ &lt;value&gt;/user/hive/warehouse&lt;/value&gt;
+ &lt;name&gt;hive.exec.scratchdir&lt;/name&gt;
+&lt;value&gt;/tmp/hive&lt;/value&gt;
+
+
+ 所以要在Hadoop集群新建/user/hive/warehouse目录，执行命令
+
+[manue1@master conf]$ hadoop fs -mkdir -p /user/hive/warehouse
+[manue1@master conf]$ hadoop fs -chmod -R 777 /user/hive/warehouse
+[manue1@master conf]$ hadoop fs -mkdir -p /tmp/hive
+[manue1@master conf]$ hadoop fs -chmod -R 777 /tmp/hive
+</pre></li>
+
+<li><p>
+mysql相关配置
+</p>
+
+<p>
+<a href="https://dev.mysql.com/downloads/connector/j/5.1.html">https://dev.mysql.com/downloads/connector/j/5.1.html</a> download
+</p>
+
+<p>
+mv mysql-connector-java-5.1.45-bin.jar lib/
+</p>
+
+<pre class="example">
+
+1. javax.jdo.option.ConnectionDriverName，将该name对应的value修改为MySQL驱动类路径：
+&lt;property
+  &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;
+  &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;
+&lt;/property&gt;  
+
+2. javax.jdo.option.ConnectionURL，将该name对应的value修改为MySQL的地址：
+ &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;
+ &lt;value&gt;jdbc:mysql://192.168.56.101:3306/hive?createDatabaseIfNotExist=true&lt;/value&gt;
+
+3.javax.jdo.option.ConnectionUserName，将对应的value修改为MySQL数据库登录名：
+&lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;
+&lt;value&gt;hive&lt;/value&gt;
+
+4.javax.jdo.option.ConnectionPassword，将对应的value修改为MySQL数据库的登录密码：
+&lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;
+&lt;value&gt;*******&lt;/value&gt;
+
+</pre>
+
+<p>
+对mysql初始化
+</p>
+
+<p>
+schematool -initSchema -dbType mysql
+</p></li>
+
+<li><p>
+替换${system
+</p>
+
+<p>
+${system:java.io.tmpdir}替换为hive的临时目录
+/home/manue1/opt/apache-hive-2.3.2-bin/iotmp
+</p>
+
+<p>
+${system:user.name}都替换为manue1
+</p>
+
+<pre class="example">
+[manue1@master apache-hive-2.3.2-bin]$ mkdir iotmp
+[manue1@master apache-hive-2.3.2-bin]$ sudo chmod -R 777 iotmp
+
+:%s/${system:java.io.tmpdir}/\/home\/manue1\/opt\/apache-hive-2.3.2-bin\/iotmp/gg
+
+:%s/${system:user.name}/manue1/gg
+</pre></li>
+</ol></li>
+
+<li><p>
+hive-env.sh
+</p>
+
+<p>
+mv hive-env.sh.template hive-env.sh
+</p>
+
+<pre class="example">
+export HADOOP_HOME=/home/manue1/opt/hadoop-2.7.5
+
+export HIVE_CONF_DIR=/home/manue1/opt/apache-hive-2.3.2-bin/conf
+
+export HIVE_AUX_JARS_PATH=/home/manue1/opt/apache-hive-2.3.2-bin/lib
+
+</pre></li>
+</ul></li>
+
+<li><p>
+start hive
+</p>
+
+<p>
+hive &#x2013;service hiveserver2 &amp;
+</p>
+
+<p>
+netstat -anp | grep 10000
+</p>
+
+<p>
+beeline 测试jdbc连接
+</p>
+
+<p>
+beeline -u jdbc:hive2://master:10000 -n manue1 -p mmanue1
+</p>
+
+<pre class="example">
+
+     bin/beeline
+     !connect jdbc:hive2://master:10000
+ hdfs支持的用户 
+Enter username for jdbc:hive2://master:10000: manue1
+Enter password for jdbc:hive2://master:10000: *****
+
+</pre>
+
+<pre class="example">
+
+Connecting to jdbc:hive2://master:10000/default
+18/01/10 20:37:17 [main]: WARN jdbc.HiveConnection: Failed to connect to master:10000
+Error: Could not open client transport with JDBC Uri: jdbc:hive2://master:10000/default: Failed to open new session: java.lang.RuntimeException: org.apache.hadoop.ipc.RemoteException(org.apache.hadoop.security.authorize.AuthorizationException): User: manue1 is not allowed to impersonate anonymous (state=08S01,code=0)
+Beeline version 2.3.2 by Apache Hive
+beeline&gt; 
+
+分析 ： 访问权限问题
+
+解决 ：在hdfs 的配置文件core-site.xml中加入如下配置，root 为位置填入  User:*  ，etc   hadoop.proxyuser.eamon.hosts
+
+&lt;property&gt;
+  &lt;name&gt;hadoop.proxyuser.manue1.hosts&lt;/name&gt;
+  &lt;value&gt;*&lt;/value&gt;
+ &lt;/property&gt;
+ &lt;property&gt;
+  &lt;name&gt;hadoop.proxyuser.manue1.groups&lt;/name&gt;
+  &lt;value&gt;*&lt;/value&gt;
+&lt;/property&gt;
+
+
+</pre></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgf981d39" class="outline-2">
+<h2 id="orgf981d39"><span class="section-number-2">6</span> zookeeper</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-org13a0b4c" class="outline-3">
+<h3 id="org13a0b4c"><span class="section-number-3">6.1</span> Replicated ZooKeeper configural</h3>
+<div class="outline-text-3" id="text-6-1">
+<pre class="example">
+note
+
+For replicated mode, a minimum of three servers are required, and it is strongly recommended that you have an odd number of servers. If you only have two servers, then you are in a situation where if one of them fails, there are not enough machines to form a majority quorum. Two servers is inherently less stable than a single server, because there are two single points of failure.
+
+  至少3节点,每个zookeeper服务都可以成为leader， follower，observer。
+</pre>
+
+<ul class="org-ul">
+<li><p>
+vi conf/zoo.cfg
+</p>
+
+<p>
+sudo mkdir -p <i>var/lib/zookeeper
+sudo chown manue1:manue1  /var/lib/zookeeper</i> #manue1 user start service
+创建 vi /var/lib/zookeeper/myid 内容为node server.x ,如 master为1
+</p>
+
+<pre class="example">
+
+tickTime=2000
+dataDir=/var/lib/zookeeper
+clientPort=2181
+initLimit=5
+syncLimit=2
+server.1=master:2888:3888   #2888 集群互相通信 3888 leader选举
+server.2=slave01:2888:3888
+server.3=slave02:2888:3888
+
+# ，端口 2181 由 ZooKeeper 客户端使用，用于连接到 ZooKeeper 服务器；端口 2888 由对等 ZooKeeper 服务器使用，用于互相通信；而端口 3888 用于领导者选举
+
+</pre>
+<p>
+scp -r zookeeper-3.4.10 manue1@slave01:/home/manue1/opt
+scp -r zookeeper-3.4.10 manue1@slave02:/home/manue1/opt
+</p></li>
+
+<li><p>
+start service
+</p>
+
+<p>
+nohup /home/manue1/opt/zookeeper-3.4.10/bin/zkServer.sh restart
+</p>
+
+<p>
+ps -ef | grep zookeeper
+</p>
+
+<p>
+netstat -tnlpa | grep 2181 
+</p>
+
+<p>
+echo state | nc localhost 2181
+</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgfe94708" class="outline-2">
+<h2 id="orgfe94708"><span class="section-number-2">7</span> hbase</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+start hadoop &amp; zookeeper
+</p>
+</div>
+<div id="outline-container-org1a0c6d4" class="outline-3">
+<h3 id="org1a0c6d4"><span class="section-number-3">7.1</span> hbase configural</h3>
+<div class="outline-text-3" id="text-7-1">
+<ul class="org-ul">
+<li><p>
+.bashrc
+</p>
+
+<pre class="example">
+# Hbase Environment Variables
+export HBASE_HOME=/home/manue1/opt/hbase-1.2.6/
+PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HBASE_HOME/bin:$PATH
+
+
+
+</pre></li>
+
+<li><p>
+hbase-env.sh
+</p>
+<pre class="example">
+export JAVA_HOME=/home/manue1/opt/jdk8
+export HBASE_MANAGES_ZK=false
+
+</pre></li>
+
+<li>hbase-site.xml</li>
+
+<li><p>
+regionservers
+</p>
+<pre class="example">
+master
+slave01
+slave02
+</pre></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org83cdfa2" class="outline-3">
+<h3 id="org83cdfa2"><span class="section-number-3">7.2</span> hbase start</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+nohup /home/manue1/opt/hbase-1.2.6/bin/start-hbase.sh &amp;
+</p>
+
+<p>
+nohup /home/manue1/opt/hbase-1.2.6/bin/stop-hbase.sh &amp;
+</p>
+
+
+<p>
+<a href="http://master:16010/master-status">http://master:16010/master-status</a>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orga10f7c2" class="outline-2">
+<h2 id="orga10f7c2"><span class="section-number-2">8</span> kafka</h2>
+<div class="outline-text-2" id="text-8">
+</div>
+<div id="outline-container-orgd31d307" class="outline-3">
+<h3 id="orgd31d307"><span class="section-number-3">8.1</span> kafka configural</h3>
+<div class="outline-text-3" id="text-8-1">
+<ul class="org-ul">
+<li><p>
+conf/server.properties
+</p>
+
+<pre class="example">
+#指定zookeeper的连接信息
+zookeeper.connect=master:2181,slave01:2181,slave02:2181
+
+#每个broker相当于一个节点，注意各个节点的broker.id的值必须唯一
+broker.id=0
+
+#broker监听端口
+listeners=PLAINTEXT://master:9092
+
+log.dir=/var/log/kafka
+</pre>
+<p>
+sudo mkdir -p /var/log/kafka  
+sudo chown manue1:manue1 /var/log/kafka
+</p>
+
+<p>
+scp -r kafka_2.11-1.0.0/ manue1@slave01:/home/manue1/opt
+scp -r kafka_2.11-1.0.0/ manue1@slave02:/home/manue1/opt
+各个节点修改broker.id 和 listeners
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org7007340" class="outline-3">
+<h3 id="org7007340"><span class="section-number-3">8.2</span> kafka start service</h3>
+<div class="outline-text-3" id="text-8-2">
+<ul class="org-ul">
+<li><p>
+vi .bashrc
+</p>
+<pre class="example">
+# KAFKA_HOME Environment Variables
+export KAFKA_HOME=/home/manue1/opt/kafka_2.11-1.0.0
+export PATH=$PATH:$KAFKA_HOME/bin
+
+</pre></li>
+</ul>
+
+
+<p>
+nohup  $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties &amp;
+</p>
+
+<p>
+$KAFKA_HOME/bin/kafka-server-stop.sh
+</p>
+<pre class="example">
+
+   虚拟机环境内存不够，配置启动脚本 jvm heap 大小 
+
+[manue1@slave01 config]$ $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.propertie
+Java HotSpot(TM) 64-Bit Server VM warning: INFO: os::commit_memory(0x00000000c0000000, 1073741824, 0) failed; error='Cannot allocate memory' (errno=12)
+
+
+vi kafka-server-start.sh
+
+KAFKA_HEAP_OPTS="-Xmx256M -Xms128M
+</pre>
+
+<p>
+sudo netstat -anp | grep 9092
+</p>
+</div>
+</div>
+<div id="outline-container-orgdb3cc9a" class="outline-3">
+<h3 id="orgdb3cc9a"><span class="section-number-3">8.3</span> use kafka</h3>
+<div class="outline-text-3" id="text-8-3">
+<p>
+<a href="http://blog.csdn.net/u010297957/article/details/72758765">http://blog.csdn.net/u010297957/article/details/72758765</a>
+</p>
+
+<p>
+producer &amp; consumer
+</p>
+<pre class="example">
+
+[manue1@master ~]$ $KAFKA_HOME/bin/kafka-topics.sh --create --topic TestTopic001 --partitions 2 --replication-factor 1 --zookeeper master:2181,slave01:2181,slave02:2181
+Created topic "TestTopic001".
+
+[manue1@master ~]$ $KAFKA_HOME/bin/kafka-topics.sh --describe --topic TestTopic001 --zookeeper master:2181,slave01:2181,slave02:2181
+Topic:TestTopic001	PartitionCount:2	ReplicationFactor:1	Configs:
+    Topic: TestTopic001	Partition: 0	Leader: 1	Replicas: 1	Isr: 1
+    Topic: TestTopic001	Partition: 1	Leader: 2	Replicas: 2	Isr: 2
+
+[manue1@master logs]$ $KAFKA_HOME/bin/kafka-console-producer.sh --broker-list master:9092,slave01:9092,slave02:9092 --topic TestTopic001
+&gt;hi zbr
+&gt;what is your name
+&gt;i love zbr
+
+
+[manue1@slave01 kafka_2.11-1.0.0]$ $KAFKA_HOME/bin/kafka-console-consumer.sh --from-beginning --topic TestTopic001 --zookeeper master:2181,slave01:2181,slave02:2181
+Using the ConsoleConsumer with old consumer is deprecated and will be removed in a future major release. Consider using the new consumer by passing [bootstrap-server] instead of [zookeeper].
+hi zbr
+what is your name
+i love zbr
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org9cbd1b2" class="outline-2">
+<h2 id="org9cbd1b2"><span class="section-number-2">9</span> spark</h2>
+<div class="outline-text-2" id="text-9">
+</div>
+<div id="outline-container-org7332781" class="outline-3">
+<h3 id="org7332781"><span class="section-number-3">9.1</span> spark configural</h3>
+<div class="outline-text-3" id="text-9-1">
+<p>
+<a href="https://data-flair.training/blogs/install-apache-spark-multi-node-cluster/">https://data-flair.training/blogs/install-apache-spark-multi-node-cluster/</a>
+</p>
+
+
+<ul class="org-ul">
+<li><p>
+.bashrc
+</p>
+<pre class="example">
+#SPARK_HOME Environment Variables
+export SPARK_HOME=/home/manue1/opt/spark-2.2.1-bin-hadoop2.7
+export PATH=$PATH:$SPARK_HOME/bin
+</pre></li>
+</ul>
+
+
+<ul class="org-ul">
+<li><p>
+spark-env.sh
+</p>
+
+<p>
+cp spark-env.sh.template spark-env.sh
+</p>
+
+<pre class="example">
+export JAVA_HOME=/home/manue1/opt/jdk8
+
+export SCALA_HOME=/home/manue1/opt/scala-2.11.7
+
+export HADOOP_HOME=/home/manue1/opt/hadoop-2.7.5
+
+export HADOOP_CONF_DIR=/home/manue1/opt/hadoop-2.7.5/etc/hadoop
+
+export SPARK_MASTER_IP=master
+
+export SPARK_WORKER_MEMORY=64m
+
+export SPARK_WORKER_CORES=1
+
+export SPARK_WORKER_INSTANCES=2
+
+变量说明
+JAVA_HOME：Java安装目录
+SCALA_HOME：Scala安装目录
+HADOOP_HOME：hadoop安装目录
+HADOOP_CONF_DIR：hadoop集群的配置文件的目录
+SPARK_MASTER_IP：spark集群的Master节点的ip地址
+SPARK_WORKER_MEMORY：每个worker节点能够最大分配给exectors的内存大小
+SPARK_WORKER_CORES：每个worker节点所占有的CPU核数目
+SPARK_WORKER_INSTANCES：每台机器上开启的worker节点的数目
+
+</pre></li>
+</ul>
+
+
+<ul class="org-ul">
+<li><p>
+slaves
+</p>
+<pre class="example">
+master
+slave01
+slave02
+</pre></li>
+</ul>
+
+
+<p>
+slave sync
+</p>
+
+<p>
+scp -r spark-2.2.1-bin-hadoop2.7/ manue1@192.168.1.109:/home/manue1/opt
+</p>
+</div>
+</div>
+<div id="outline-container-orgbc7f7c7" class="outline-3">
+<h3 id="orgbc7f7c7"><span class="section-number-3">9.2</span> spark start</h3>
+<div class="outline-text-3" id="text-9-2">
+<p>
+nohup sh /home/manue1/opt/hadoop-2.7.5/sbin/start-all.sh &amp;  #启动hdfs即可
+</p>
+
+<p>
+$SPARK_HOME/sbin/start-all.sh
+</p>
+
+
+<p>
+WebUI
+<a href="http://master:8080/">http://master:8080/</a>
+</p>
+
+<p>
+spark-shell.sh 运行后可以访问后台执行的任务
+<a href="http://master:4040/">http://master:4040/</a>
+</p>
+
+<p>
+spark-submit yarn 管理方式
+<a href="http://master:8088/">http://master:8088/</a>
+</p>
+</div>
+</div>
+</div>
+
+</div>
+</div>]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://blog.manue1.site/blog/2018/06/03/untitled/</guid>
+    </item>
+    <item>
+      <title>Untitled</title>
+      <link>http://blog.manue1.site/wiki/untitled/</link>
+      <description><![CDATA[<div>
+<div class="post">
+<h1>Untitled</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org5aff9e1">1. api doc</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org5aff9e1" class="outline-2">
+<h2 id="org5aff9e1"><span class="section-number-2">1</span> api doc</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+文件信誉与域名信誉 api v2 文档说明
+</p>
+
+<ul class="org-ul">
+<li><p>
+文件信誉
+</p>
+
+<p>
+/api/v2/file?apikey=manue1sec&amp;param=3b405c30a7028e05742d0fbf0961e6b2&amp;timestamp=1525682461
+</p>
+
+<div class="org-center">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">参数</th>
+<th scope="col" class="org-left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">apikey</td>
+<td class="org-left">token认证信息</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">param</td>
+<td class="org-left">样本MD5、sha1</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">timestamp</td>
+<td class="org-left">用户请求当前时间戳,服务的处理最近五分钟请求</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>
+返回状态码同api v1
+</p></li>
+
+<li><p>
+域名信誉
+</p>
+
+<p>
+/api/v2/compromise?apikey=manue1sec&amp;param=daghfgdgab.lvdp.net&amp;timestamp=1525682825
+</p>
+
+<div class="org-center">
+<p>
+      
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">参数</th>
+<th scope="col" class="org-left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">apikey</td>
+<td class="org-left">token认证信息</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">param</td>
+<td class="org-left">域名、CC主机、</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">timestamp</td>
+<td class="org-left">用户请求当前时间戳,服务的处理最近五分钟请求</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>
+返回状态码同api v1
+</p></li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://blog.manue1.site/wiki/untitled/</guid>
+    </item>
+    <item>
+      <title>Untitled</title>
+      <link>http://blog.manue1.site/wiki/untitled/</link>
+      <description><![CDATA[<div>
+<div class="post">
+<h1>Untitled</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orge23572f">1. Mongo 使用笔记</a>
+<ul>
+<li><a href="#org2d32207">1.1. Mongo集群安装</a></li>
+<li><a href="#org02f4908">1.2. 常用命令</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge23572f" class="outline-2">
+<h2 id="orge23572f"><span class="section-number-2">1</span> Mongo 使用笔记</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org2d32207" class="outline-3">
+<h3 id="org2d32207"><span class="section-number-3">1.1</span> Mongo集群安装</h3>
+</div>
+<div id="outline-container-org02f4908" class="outline-3">
+<h3 id="org02f4908"><span class="section-number-3">1.2</span> 常用命令</h3>
+<div class="outline-text-3" id="text-1-2">
+<ol class="org-ol">
+<li><p>
+创建索引
+</p>
+
+<p>
+db.smrt.ensureIndex({"ip":1})
+</p></li>
+</ol>
+
+<p>
+2.聚合出字段种类
+</p>
+
+<p>
+db.smrt.distinct("tags")
+</p>
+
+<p>
+db.all<sub>iocs.find</sub>({"malicious<sub>family</sub>":{$size:3}})
+</p>
+<ol class="org-ol">
+<li>db.ip<sub>history</sub><sub>v1.find</sub>({"insert<sub>time</sub>":{"$gte":1496357774,"$lte":1496357775}})
+db.ip<sub>history</sub><sub>v1.find</sub>({"insert<sub>time</sub>":{"$gte":1498037117,"$lte":1498037119}})
+db.ip<sub>history</sub><sub>v1.find</sub>({"history":{"$elemMatch":{"source":"emergingthreats.net"}}})
+db.ip<sub>history</sub><sub>v1.remove</sub>({"history":{"$elemMatch":{"attack<sub>time</sub>":{'$gte':'2016-05-11T15:29:21','$lte':'2017-07-11T15:29:21'}}}})</li>
+</ol>
+
+
+<p>
+db.ip<sub>history</sub><sub>v1.find</sub>({"history":{"$elemMatch":{"insertime":{"$gte":"1509840000","$lte":"1509926400"}}}})
+</p>
+</div>
+</div>
+</div>
+
+</div>
+</div>]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://blog.manue1.site/wiki/untitled/</guid>
+    </item>
+    <item>
+      <title>Untitled</title>
+      <link>http://blog.manue1.site/wiki/untitled/</link>
+      <description><![CDATA[<div>
+<div class="post">
+<h1>Untitled</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org89cb2b5">1. note-Mysql</a>
+<ul>
+<li><a href="#org5d5ca46">1.1. install mysql</a></li>
+<li><a href="#org8709d19">1.2. commands</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org89cb2b5" class="outline-2">
+<h2 id="org89cb2b5"><span class="section-number-2">1</span> note-Mysql</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org5d5ca46" class="outline-3">
+<h3 id="org5d5ca46"><span class="section-number-3">1.1</span> install mysql</h3>
+<div class="outline-text-3" id="text-1-1">
+<ol class="org-ol">
+<li><p>
+检查系统中是否已经安装了 mysql
+</p>
+
+<p>
+sudo netstat -tap | grep mysql
+</p>
+
+<p>
+没有反应 说明没有安装
+</p></li>
+
+<li><p>
+安装 mysql
+</p>
+
+<p>
+sudo apt-get install mysql-server mysql-client
+</p></li>
+
+<li><p>
+测试安装
+</p>
+
+<p>
+sudo netstat -tap | grep mysql
+</p>
+
+<p>
+mysql -u root -p 
+</p></li>
+
+<li><p>
+mysql 简单管理
+</p>
+
+<p>
+启动 MySQL 服务：
+</p>
+
+<p>
+sudo service mysql start
+</p>
+
+<p>
+停止 MySQL 服务：
+</p>
+
+<p>
+sudo stop mysql
+</p>
+
+<p>
+修改 MySQL 的管理员密码：
+</p>
+
+<p>
+sudo mysqladmin -u root password newpassword
+</p></li>
+</ol>
+
+
+<ol class="org-ol">
+<li><p>
+mysql 目录结构
+</p>
+
+<p>
+数据库存放目录：               <i>var/lib/mysql</i>
+</p>
+
+<p>
+相关配置文件存放目录：          /usr/share/mysql
+</p>
+
+<p>
+相关命令存放目录：             /usr/bin(mysqladmin mysqldump 等命令)
+</p>
+
+<p>
+启动脚步存放目录：            <i>etc/rc.d/init.d</i>
+</p></li>
+</ol>
+
+
+<ol class="org-ol">
+<li>常见问题
+
+<ul class="org-ul">
+<li><p>
+删除不掉数据库
+</p>
+
+<p>
+mysql&gt; drop database elvdou;
+</p>
+<pre class="example">
+ERROR 1010 (HY000): Error dropping database (can't rmdir './elvdou', errno: 39)
+</pre></li>
+<li><p>
+设置远程访问
+</p>
+<p class="verse">
+正常情况下,mysql占用的3306端口只是在127.0.0.1上监听，<br />
+拒绝了其他IP的访问(通过netstat可以查看到)。<br />
+取消本地监听需要修改 my.cnf 文件：<br />
+sudo vi /etc/mysql/my.cnf<br />
+bind-address = 127.0.0.1 //找到此内容并且注释<br />
+</p></li>
+<li><p>
+mysql 大小写敏感问题
+</p>
+
+<p>
+sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf 
+</p>
+
+<p>
+在[mysqld]节下 添加
+</p>
+<pre class="example">
+lower_case_table_names=1 
+</pre>
+
+<p>
+备注：为 0 时大小写敏感，为 1 时大小写不敏感，默认为 0
+</p></li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org8709d19" class="outline-3">
+<h3 id="org8709d19"><span class="section-number-3">1.2</span> commands</h3>
+<div class="outline-text-3" id="text-1-2">
+<ol class="org-ol">
+<li><p>
+终端登录
+</p>
+
+<p>
+密码转义符\!
+</p>
+
+<p>
+mysql -u manue1 -p qweO1\!k -h 8.8.8.8
+</p></li>
+
+<li></li>
+</ol>
+</div>
+</div>
+</div>
+
+</div>
+</div>]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://blog.manue1.site/wiki/untitled/</guid>
+    </item>
+    <item>
+      <title>Untitled</title>
+      <link>http://blog.manue1.site/wiki/untitled/</link>
+      <description><![CDATA[<div>
+<div class="post">
+<h1>Untitled</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org2777b16">1. Ambari use</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2777b16" class="outline-2">
+<h2 id="org2777b16"><span class="section-number-2">1</span> Ambari use</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Ambari是Apache下的一个顶级项目，为了创建、管理、监视Hadoop集群(Hive,Hbase,Sqoop,Zookeeper,Spark)，Ambari就是为了让Hadoop以及相关的大数据软件更容易使用的一个工具
+</p>
+
+<p>
+Ambari自身是一个分布式框架的软件，由Ambari Service 和 Ambari Agent组成. 简单来说，用户通过Ambar Service通知Ambar Agent 安装相应的软件.
+</p>
+
+<p>
+Agent会定时发送各个机器每个软件模块的状态给Ambari Server,最终这些状态信息会呈现在Ambari的GUI
+</p>
+
+<p>
+参考:<a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-bigdata-ambari/index.html">https://www.ibm.com/developerworks/cn/opensource/os-cn-bigdata-ambari/index.html</a>
+</p>
+</div>
+</div>
+
+</div>
+</div>]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://blog.manue1.site/wiki/untitled/</guid>
+    </item>
+    <item>
+      <title>Untitled</title>
+      <link>http://blog.manue1.site/wiki/untitled/</link>
+      <description><![CDATA[<div>
+<div class="post">
+<h1>Untitled</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgdb12f51">1. 严蔚敏数据结构Video</a>
+<ul>
+<li><a href="#org9ab0c50">1.1. 绪论</a></li>
+<li><a href="#orgad0f3c2">1.2. 线性表</a></li>
+</ul>
+</li>
+<li><a href="#org22c9c92">2. 数据结构与算法分析(Java语言描述)</a>
+<ul>
+<li><a href="#orgd7c255d">2.1. 1.引论</a></li>
+<li><a href="#org20fdef3">2.2. 2.算法分析</a></li>
+<li><a href="#orgd08753e">2.3. 3.表、栈和队列</a></li>
+<li><a href="#org80dd6ba">2.4. 4.树</a></li>
+</ul>
+</li>
+<li><a href="#org939dddb">3. Introduction to Algorithms</a>
+<ul>
+<li><a href="#org792673b">3.1. 基础知识</a>
+<ul>
+<li><a href="#org9d3172b">3.1.1. 算法基础</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org0b72317">4. Leetcode</a>
+<ul>
+<li><a href="#org234caea">4.1. LeetCode 3 &#x2014; Longest Substring Without Repeating Characters</a></li>
+<li><a href="#org746268c">4.2. LeetCode 4 &#x2014; Median of Two Sorted Arrays</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgdb12f51" class="outline-2">
+<h2 id="orgdb12f51"><span class="section-number-2">1</span> 严蔚敏数据结构Video</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org9ab0c50" class="outline-3">
+<h3 id="org9ab0c50"><span class="section-number-3">1.1</span> 绪论</h3>
+<div class="outline-text-3" id="text-1-1">
+<ol class="org-ol">
+<li><p>
+数据结构范畴 
+</p>
+
+<p>
+算法 + 数据结构 = 程序设计
+</p>
+
+<p>
+算法: 对问题怎么处理
+</p>
+
+<p>
+数据结构：对条件规则,处理结果怎么输入输出
+</p></li>
+
+<li>基本概念
+
+<ul class="org-ul">
+<li><p>
+数据
+</p>
+
+<p>
+能被计算机处理的，能被计算机操作的对象，随着计算机的发展逐渐扩大，数字，图像，视频，多媒体信息
+</p></li>
+
+<li><p>
+数据元素
+</p>
+
+<p>
+数据项是数据结构中讨论的最小单位
+</p>
+
+<p>
+数据元素是数据项的集合
+</p></li>
+
+<li><p>
+数据结构
+</p>
+
+<p>
+带结构的数据元素的集合
+</p>
+
+<p>
+结构: 数据元素之间的关系
+</p>
+
+<p>
+数据的逻辑结构可归结为4类: 线性结构、树形结构、图状结构、集合结构
+</p>
+
+<p>
+数据结构的形式定义: 是一个二元组 Data-Structures = (D,S) D是数据元素上的有限集,S是D上的关系
+</p>
+
+<p>
+数据的存储结构: 逻辑结构在计算机中的表示，逻辑结构在存储器中的映象
+</p>
+
+<p>
+逻辑结构表现：数据元素的集合 + 关系的集合
+</p>
+
+<blockquote>
+<p>
+数据元素的映象方法：计算机中表示数据的最小元素是二进制位(bit) 
+</p>
+
+<p>
+关系的映象方法: 
+</p>
+<ul class="org-ul">
+<li>顺序映象 :以存储位置的相邻表示后继关系 y的存储位置和x的存储位置相差一个常量C</li>
+<li>链式映象 :以附加信息(指针)表示后继关系</li>
+</ul>
+</blockquote></li>
+
+<li><p>
+数据类型
+</p>
+
+<p>
+高级语言中每个变量常量表达式明确数据类型
+</p>
+
+<p>
+数据类型是值的集合和定义在此集合上的一组操作的总称
+</p></li>
+<li><p>
+抽象数据类型(Abstract Data Type ADT) 
+</p>
+
+<p>
+是指一个数学模型以及定义在此数学模型上的一组操作
+</p>
+
+<p>
+ADT两个特征:
+</p>
+
+<blockquote>
+<ol class="org-ol">
+<li><p>
+数据抽象
+</p>
+
+<p>
+用ADT描述程序处理的实体时,强调的是其本质的特征，其所能完成的功能以及和外部用户的接口
+</p>
+
+<p>
+复数不能直接加减
+</p>
+
+<p>
+初始化、取复数虚部、相加等方法
+</p></li>
+<li><p>
+数据封装
+</p>
+
+<p>
+外部用户不关心方法如何实现的
+</p></li>
+</ol>
+</blockquote>
+
+<p>
+ADT的表示和实现：借用固有数据类型来表示和实现
+</p></li>
+</ul></li>
+</ol>
+
+
+<ol class="org-ol">
+<li><p>
+算法和算法的衡量
+</p>
+
+<p>
+一个有限常的操作序列
+</p>
+
+<p>
+算法的五个重要特性
+有穷性、确定性、可行性、有输入、有输出
+</p></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgad0f3c2" class="outline-3">
+<h3 id="orgad0f3c2"><span class="section-number-3">1.2</span> 线性表</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+线性结构 是一个数据元素的有序(次序)集
+</p>
+
+<p>
+基本特征：
+</p>
+<blockquote>
+<ol class="org-ol">
+<li>唯一一个 第一元素</li>
+<li>唯一的 最后元素</li>
+<li>唯一的后继</li>
+<li>唯一的前继</li>
+</ol>
+</blockquote>
+
+<ul class="org-ul">
+<li>线性表的类型定义
+<ol class="org-ol">
+<li>抽象数据类型线性表的定义
+数据对象、
+数据关系</li>
+</ol></li>
+<li>线性表类型的实现-顺序映象</li>
+<li>线性表类型的实现-链式映象</li>
+<li>一元多项式的表示</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org22c9c92" class="outline-2">
+<h2 id="org22c9c92"><span class="section-number-2">2</span> 数据结构与算法分析(Java语言描述)</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgd7c255d" class="outline-3">
+<h3 id="orgd7c255d"><span class="section-number-3">2.1</span> 1.引论</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+数学、递归、java等基础
+如果除去对象的基本类型外,实现方法是相同的，那么我们可以用泛型实现来描述这种基本功能.
+泛型、自动装箱/拆箱
+泛型static方法 
+类型限界 type bound
+</p>
+</div>
+</div>
+
+<div id="outline-container-org20fdef3" class="outline-3">
+<h3 id="org20fdef3"><span class="section-number-3">2.2</span> 2.算法分析</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+数据读入是一个瓶颈
+</p>
+
+<p>
+计算运行时间，大O是一个上届，程序可能提前结束，但决不能错后
+</p>
+
+<ul class="org-ul">
+<li><p>
+一般法则:
+</p>
+
+<p>
+分析的基本策略是从内部向外展开工作的
+</p>
+
+<ul class="org-ul">
+<li><p>
+法则1 for循环
+</p>
+
+<p>
+一个for循环的运行时间至多是该for循环内部那些语句的运行时间*迭代次数
+</p></li>
+
+<li><p>
+法则2 嵌套的for循环
+</p>
+
+<p>
+从里向外分析这些循环。在一组嵌套循环内部的一条语句总的运行时间
+</p>
+
+<p>
+为该语句的运行时间乘以该组所有的for循环的大小乘积
+</p>
+
+<p>
+O(N<sup>2</sup>)
+</p></li>
+
+<li><p>
+法则3 顺序语句
+</p>
+
+<p>
+将各个语句的运行时间求和即可，意味着最大值就是所得的运行时间
+</p></li>
+
+<li><p>
+法则4 if/else语句
+</p>
+
+<p>
+if + else
+</p></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd08753e" class="outline-3">
+<h3 id="orgd08753e"><span class="section-number-3">2.3</span> 3.表、栈和队列</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+最简单和最基本的三种数据结构
+</p>
+
+<p>
+实际上，每个有意义的程序都将显式的至少使用一种这样的数据结构，
+</p>
+
+<p>
+栈在程序中总是被间接的用到，不管程序是否做了声明
+</p>
+
+<p>
+ADT 抽象数据类型 是带有一组操作的一些对象的集合
+</p>
+
+<ul class="org-ul">
+<li>表ADT list
+<ol class="org-ol">
+<li><p>
+简单数组实现
+</p>
+
+<p>
+array
+</p>
+
+<p>
+数组是由固定容量创建的，使用数组的时候需要对表的大小进行评估
+</p>
+
+<p>
+如果对表做插入和删除操作，特别是对表的前段进行操作，数组就不合适
+</p>
+
+<p>
+最坏的O(N) 最好的O(1)
+</p></li>
+<li><p>
+简单链表实现
+</p>
+
+<p>
+linked list
+</p>
+
+<p>
+为了避免插入和删除的线性开销，需要保证表可以不连续存储
+</p>
+
+<p>
+链表由一系列节点组成，这些节点不必在内存中相连。
+</p>
+
+<p>
+每个节点均含有表元素和到后继元素的link链，叫做next链
+</p>
+
+<p>
+最后一个节点的next链引用null
+</p>
+
+<p>
+在经典链表中，每个节点只存储到其下一个节点的链，
+</p>
+
+<p>
+存在指向前驱节点的链，我们称之为双链表
+</p>
+
+<p>
+LIST接口: 1.ArrayList 2.LinkedList
+</p></li>
+
+<li>list adt 两种流行的实现方式
+
+<ol class="org-ol">
+<li><p>
+ArrayList
+</p>
+
+<p>
+一种可增长数组的实现，
+优点：对get/set方法调用花费常数时间
+缺点: 插入/删除 代价昂贵    
+</p></li>
+<li><p>
+Linkedlist
+</p>
+
+<p>
+双链表的实现
+</p>
+
+<p>
+优点：插入/删除 开销很小
+缺点：get的索引操作 不容易 采用迭代器的方式更高效的取数据 
+</p></li>
+</ol></li>
+</ol></li>
+<li><p>
+栈ADT stack
+</p>
+
+<p>
+栈stack是限制插入和删除只能在一个位置的表，该位置是表的末端，叫做栈的顶端（top）
+</p>
+
+<p>
+栈有时又叫做LIFO表（后进先出）
+</p>
+
+<p>
+push 进栈
+</p>
+
+<p>
+pop  出栈
+</p></li>
+<li><p>
+队列ADT queue
+</p>
+
+<p>
+和栈一样队列也是表，使用队列时，插入在一端进行，删除则在另一端进行。
+</p>
+
+<p>
+队又叫做FIFO表（先进先出）
+</p>
+
+<p>
+enqueue：入队  在表的末端(rear)插入元素
+</p>
+
+<p>
+dequeue：出队  删除在表开头(front)的元素
+</p></li>
+</ul>
+</div>
+</div>
+
+
+
+
+
+
+
+<div id="outline-container-org80dd6ba" class="outline-3">
+<h3 id="org80dd6ba"><span class="section-number-3">2.4</span> 4.树</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+根的深度为0，树叶的高度为0
+</p>
+
+<ul class="org-ul">
+<li>树的遍历: 
+<ol class="org-ol">
+<li>先序遍历</li>
+<li>后序遍历</li>
+<li>中序遍历</li>
+</ol></li>
+
+<li><p>
+二叉树
+binary tree 是一棵树，其中每个节点都不能有多于两个的儿子
+</p>
+
+<p>
+性质：一棵平均二叉树的深度要比节点个数N小的多
+</p>
+
+<p>
+树节点的声明类似双链表，节点包含element，和leftkk、right引用
+</p>
+
+<p>
+二叉查找树: 对于树中的每个节点X,它的左子树中所有项的值小于X中的项，而它的右子树中所有项的值大于X中的项
+</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org939dddb" class="outline-2">
+<h2 id="org939dddb"><span class="section-number-2">3</span> Introduction to Algorithms</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org792673b" class="outline-3">
+<h3 id="org792673b"><span class="section-number-3">3.1</span> 基础知识</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+计算时间是一种有限的资源，存储器中的空间也是一样的,时间或空间方面有效的算法使你能够明智地使用这些资源
+</p>
+</div>
+<div id="outline-container-org9d3172b" class="outline-4">
+<h4 id="org9d3172b"><span class="section-number-4">3.1.1</span> 算法基础</h4>
+</div>
+</div>
+</div>
+<div id="outline-container-org0b72317" class="outline-2">
+<h2 id="org0b72317"><span class="section-number-2">4</span> Leetcode</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org234caea" class="outline-3">
+<h3 id="org234caea"><span class="section-number-3">4.1</span> LeetCode 3 &#x2014; Longest Substring Without Repeating Characters</h3>
+</div>
+<div id="outline-container-org746268c" class="outline-3">
+<h3 id="org746268c"><span class="section-number-3">4.2</span> LeetCode 4 &#x2014; Median of Two Sorted Arrays</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+logn 堆排序 归并排序 快速排序
+</p>
+
+<p>
+n 桶排序</p>
+</div>
+</div>
+</div>
+
+</div>
+</div>]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://blog.manue1.site/wiki/untitled/</guid>
+    </item>
+    <item>
+      <title>Untitled</title>
+      <link>http://blog.manue1.site/wiki/untitled/</link>
+      <description><![CDATA[<div>
+<div class="post">
+<h1>Untitled</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org48c6174">1. note-elasticsearch-install&amp;config</a>
+<ul>
+<li><a href="#org8fb9d98">1.1. install</a></li>
+<li><a href="#org8753acb">1.2. cat command</a></li>
+<li><a href="#orgdb43b10">1.3. Mapping</a></li>
+<li><a href="#org13862a4">1.4. CURD</a></li>
+<li><a href="#orgd682c7a">1.5. Query</a></li>
+<li><a href="#orgb3fb7a3">1.6. Alias</a></li>
+<li><a href="#org19e9355">1.7. questions</a>
+<ul>
+<li><a href="#orgf870b32">1.7.1. from szie/scroll/search after</a></li>
+<li><a href="#org88486b2">1.7.2. es shard 生命周期</a></li>
+<li><a href="#org00f542b">1.7.3. 分词</a></li>
+<li><a href="#org347a783">1.7.4. es node</a></li>
+<li><a href="#org8a46514">1.7.5. es pipeline</a></li>
+<li><a href="#org29483f9">1.7.6. es</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org48c6174" class="outline-2">
+<h2 id="org48c6174"><span class="section-number-2">1</span> note-elasticsearch-install&amp;config</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org8fb9d98" class="outline-3">
+<h3 id="org8fb9d98"><span class="section-number-3">1.1</span> install</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+安装环境: VMware12: 三台 ubuntu 14.04 内存 1g
+</p>
+<ol class="org-ol">
+<li>download es
+<a href="https://www.elastic.co/downloads/elasticsearch">https://www.elastic.co/downloads/elasticsearch</a></li>
+<li>install java 8</li>
+<li>vim elasticsearch.yml
+访问地址修改:
+network.host : 192.168.67.128
+http.port:9200</li>
+<li>sudo vi /etc/sysctl.conf
+ kernel.pid<sub>max</sub>=999999
+ kernel.thread-max=999999
+ vm.max<sub>map</sub><sub>count</sub>=999999
+ fs.file-max=999999
+sysctl -a|grep vm.max<sub>map</sub><sub>count</sub></li>
+<li>ulimit -Hn 
+/etc/security/limits.conf 配置修改为 65536  重启服务器</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org8753acb" class="outline-3">
+<h3 id="org8753acb"><span class="section-number-3">1.2</span> cat command</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+vim  /etc/security/limits.conf
+vim   /etc/security/limits.d/def.conf
+</p>
+
+<p>
+sudo netstat -anp |grep 9200
+htop
+show python
+curl localhost:9200/<sub>cat</sub>/shards/?v |grep -v STARTED |less
+curl -XGET 'localhost:9200/<sub>cat</sub>/recovery/webasset<sub>scan</sub>?v'
+</p>
+
+<p>
+ES 常用操作命令总结：
+1.索引状态
+curl localhost:9200/<sub>cat</sub>/indices?v
+2.文件描述符
+curl localhost:9200/<sub>nodes</sub>/stats/process?pretty | less
+3.集群健康
+curl localhost:9200/<sub>cluster</sub>/health?pretty | less
+curl 'localhost:9200/<sub>cluster</sub>/health?level=indices&amp;pretty' | less
+curl localhost:9200/<sub>cat</sub>/health?v| less
+</p>
+
+<p>
+curl 'localhost:9200/<sub>cat</sub>/allocation?v'
+4.分片状态
+curl localhost:9200/<sub>cat</sub>/shards/formal<sub>webasset</sub><sub>scan</sub>?v
+5.当前任务
+curl localhost:9200/<sub>tasks</sub>?pretty | less
+6.查看别名
+curl localhost:9200/webasset*/<sub>alias</sub>?pretty |less
+7.查看 relocate 进度
+curl -XGET 'localhost:9200/<sub>cat</sub>/recovery/ipasset<sub>seer4</sub>?v'
+8.优化（慎用，会消耗全部可用资源，尤其是磁盘 io）
+curl -XPOST 'localhost:9200/threat<sub>ip2</sub>/<sub>optimize</sub>?max<sub>num</sub><sub>segments</sub>=3&amp;pretty'
+9.查看 segment
+curl localhost:9200/<sub>cat</sub>/segments/ipasset<sub>seer4</sub>?v
+</p>
+
+<p>
+新建索引
+curl -XPUT 'localhost:9200/index<sub>name</sub>/?pretty' -d '{"settings":{"number<sub>of</sub><sub>replicas</sub>":0}}'
+curl -XPOST localhost:9200/index<sub>name</sub>/<sub>mapping</sub>/type<sub>name</sub>?pretty -d @mapping<sub>file</sub>
+动态改副本数量
+curl -XPUT 'localhost:9200/index<sub>name</sub>/<sub>settings</sub>?pretty' -d '{"number<sub>of</sub><sub>replicas</sub>":1}'
+设置别名
+curl -XPUT 'localhost:9200/index<sub>name</sub>/<sub>alias</sub>/alias<sub>name</sub>?pretty'
+修改别名
+curl -XPOST 'localhost:9200/<sub>aliases</sub>?pretty' -d '{"actions":[{"remove":{"index":"webasset<sub>subdomain</sub><sub>v2</sub>","alias":"formal<sub>webasset</sub><sub>subdomain</sub>"}},{"add":{"index":"webasset<sub>subdomain</sub><sub>v1</sub>","alias":"formal<sub>webasset</sub><sub>subdomain</sub>"}}]}'
+</p>
+
+<ol class="org-ol">
+<li>允许自动分配分片(alloctattion disable  关掉) 重启 es 前需要关掉
+curl -XPUT '10.24.45.94:9200/<sub>settings</sub>' -d '{
+  "index.routing.allocation.disable<sub>allocation</sub>": false
+}'</li>
+<li>curl -XPUT 10.24.45.94:9200/<sub>cluster</sub>/settings -d '
+{
+    "transient" : {
+        "cluster.routing.allocation.enable": true
+    }
+}'</li>
+<li>最大恢复</li>
+</ol>
+<p>
+curl -XPUT localhost:9200/<sub>cluster</sub>/settings -d '{
+     "transient" : {
+         "indices.recovery.max<sub>bytes</sub><sub>per</sub><sub>sec</sub>" : 80000000
+     }
+ }'
+</p>
+<ol class="org-ol">
+<li>拉取数据后挂掉 先删除任务 (shard 重路由之前可以先尝试)
+curl -XDELETE 10.24.45.94:9200/<sub>search</sub>/scroll/<sub>all</sub></li>
+<li>reroute
+curl -XPOST '10.24.45.94:9200/<sub>cluster</sub>/reroute' -d @reroute.mapping</li>
+<li></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgdb43b10" class="outline-3">
+<h3 id="orgdb43b10"><span class="section-number-3">1.3</span> Mapping</h3>
+<div class="outline-text-3" id="text-1-3">
+<ol class="org-ol">
+<li>建立索引
+curl -XPUT 'localhost:9200/threat<sub>ip</sub><sub>history</sub>/?pretty' -d{"settings":{"number<sub>of</sub><sub>shards</sub>":20}}
+curl -XPUT '10.200.1.72:9200/ipasset<sub>seer</sub><sub>lower</sub>/<sub>settings</sub>'  -d {"number<sub>of</sub><sub>replicas</sub>":1}</li>
+<li><p>
+设置 mapping 
+curl -XPOST 'localhost:9200/threat<sub>ip</sub><sub>history</sub>/<sub>mapping</sub>/ipv4?pretty' -d @mapping<sub>file</sub> 
+</p>
+
+<p>
+mapping 存放到文件内
+</p>
+<div class="org-src-container">
+<pre class="src src-python">
+{
+  "ipv4": {
+      "dynamic_templates": [
+          {
+              "notanalyzed": {
+                  "mapping": {
+                      "index": "not_analyzed",
+                      "type": "string"
+                  },
+                  "match": "*",
+                  "match_mapping_type": "string"
+              }
+          }
+      ],
+      "properties": {
+          "activity": {
+              "include_in_parent": true,
+              "properties": {
+                  "threat_type": {
+                      "index": "not_analyzed",
+                      "type": "string"
+                  },
+                  "update_time": {
+                      "format": "YYYY-MM-dd'T'HH:mm:ss",
+                      "type": "date"
+                  }
+              },
+              "type": "nested"
+          },
+          "ip": {
+              "fields": {
+                  "raw": {
+                      "type": "ip"
+                  }
+              },
+              "type": "string"
+          }
+      }
+  }
+}
+</pre>
+</div></li>
+<li>删除索引
+curl -XDELETE localhost:9200/index<sub>name</sub></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org13862a4" class="outline-3">
+<h3 id="org13862a4"><span class="section-number-3">1.4</span> CURD</h3>
+<div class="outline-text-3" id="text-1-4">
+<ol class="org-ol">
+<li>添加一条记录
+curl -XPUT 'http://localhost:9200/twitter/tweet/1' -d  '{<sub>source</sub> 内容}'</li>
+<li>删除一条记录
+curl -XDELETE 'http://localhost:9200/twitter/tweet/1'</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgd682c7a" class="outline-3">
+<h3 id="orgd682c7a"><span class="section-number-3">1.5</span> Query</h3>
+<div class="outline-text-3" id="text-1-5">
+<ol class="org-ol">
+<li><p>
+基本查询
+</p>
+
+<p>
+curl -XGET 'http://localhost:9200/ipasset<sub>seer4</sub>/asset<sub>from</sub><sub>seer</sub>/<sub>search</sub>?pretty&amp;q=ip:210.186.226.178'
+</p>
+
+<p>
+curl -XGET  'localhost:9200/webasset<sub>whois3</sub>/whois<sub>info</sub>/<sub>search</sub>?pretty&amp;q=<sub>id</sub>:PERSONALLICENCECOURSES.COM'
+</p></li>
+<li><p>
+DSL 查询
+1.query bool must/filter match/term
+</p>
+<pre class="example">
+
+{
+  "query": { 
+    "bool": { 
+      "must": [
+        { "match": { "title":   "Search"        }}, 
+        { "match": { "content": "Elasticsearch" }}  
+      ],
+      "filter": [ 
+        { "term":  { "status": "published" }}, 
+        { "range": { "publish_date": { "gte": "2015-01-01" }}} 
+      ]
+    }
+  }
+}
+
+</pre>
+<p>
+2.query/sort
+</p>
+<pre class="example">
+{
+       "query": {
+           "bool": {
+               "must": [
+                   {
+                       "term": {
+                           "ip.raw": "210.186.226.178"
+                       }
+                   }
+               ],
+               "must_not": [ ],
+               "should": [ ]
+           }
+       },
+       "sort": {
+         "started": "desc"
+       },
+   }
+</pre></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgb3fb7a3" class="outline-3">
+<h3 id="orgb3fb7a3"><span class="section-number-3">1.6</span> Alias</h3>
+<div class="outline-text-3" id="text-1-6">
+<ol class="org-ol">
+<li>创建 alias
+curl -XPOST 'localhost:9200/<sub>aliases</sub>' -d '{"actions":[{"add":{"index" : "vulnerability<sub>data</sub><sub>v4</sub>","alias" : "formal<sub>vulnerability</sub><sub>data</sub>"}}]}'</li>
+<li>删除 alias
+curl -XPOST 'localhost:9200/<sub>aliases</sub>' -d '{"actions":[{"remove":{"index" : "vulnerability<sub>data</sub><sub>v4</sub>","alias" : "formal<sub>vulnerability</sub><sub>data</sub>"}}]}'</li>
+<li><p>
+创建映射多个索引:
+</p>
+<pre class="example">
+curl -XPOST 'http://localhost:9200/_aliases'-d '  
+{  
+    "actions" : [  
+        { "add" : { "index" : "test1","alias" : "alias1" } },  
+        { "add" : { "index" : "test2","alias" : "alias1" } }  
+    ]  
+}'  
+</pre></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org19e9355" class="outline-3">
+<h3 id="org19e9355"><span class="section-number-3">1.7</span> questions</h3>
+<div class="outline-text-3" id="text-1-7">
+</div>
+<div id="outline-container-orgf870b32" class="outline-4">
+<h4 id="orgf870b32"><span class="section-number-4">1.7.1</span> from szie/scroll/search after</h4>
+<div class="outline-text-4" id="text-1-7-1">
+<p>
+<a href="http://www.jianshu.com/p/91d03b16af77">http://www.jianshu.com/p/91d03b16af77</a>
+</p>
+
+<p>
+在使用关系型数据库中，我们被告知要注意甚至被明确禁止使用深度分页，同理，在 Elasticsearch 中，也应该尽量避免使用深度分页
+</p>
+
+<p>
+深度分页的问题:CUP、内存、IO、网络带宽问题  10个shard*一亿条数据的doc<sub>id</sub>
+</p>
+
+<ul class="org-ul">
+<li><p>
+from size
+</p>
+
+<p>
+100+10、110+10&#x2026;..10000+10 越往后请求的越多
+</p></li>
+
+<li><p>
+scroll:
+</p>
+
+<p>
+query fetch merge
+</p>
+
+<p>
+查询结果缓存,每次fetch size*shard文档 merge输出
+</p>
+
+<p>
+scroll不适合做实时查询: 1.初始化结果缓存成快照 2.fetch数据，操作数据
+</p>
+
+<p>
+search<sub>type</sub>。赋值为scan，表示采用 Scroll-Scan 的方式遍历，同时告诉 Elasticsearch 搜索结果不需要排序
+</p>
+
+<p>
+size 控制的是每个分片的返回的数据量而不是整个请求返回的数据量。
+</p></li>
+
+<li><p>
+search after
+</p>
+
+<p>
+1.必须先要指定排序,记住坐标
+</p>
+
+<p>
+2.从任意一个位置 带上search<sub>after</sub>=lastEmittedDocFieldValue 偏移量查数据
+</p>
+
+<p>
+如果我要做非常多页的查询时，最起码search after是一个常量查询延迟和开销，并无什么副作用。
+</p>
+
+<p>
+无论去到多少页，请求始终就是请求了size个docs,是个常量 
+</p>
+
+<p>
+业务折衷一：禁止跳页查询 只提供下一页
+</p></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org88486b2" class="outline-4">
+<h4 id="org88486b2"><span class="section-number-4">1.7.2</span> es shard 生命周期</h4>
+<div class="outline-text-4" id="text-1-7-2">
+<p>
+<a href="http://lxwei.github.io/posts/Elasticsearch-Shard-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.html">http://lxwei.github.io/posts/Elasticsearch-Shard-生命周期.html</a>
+</p>
+<ul class="org-ul">
+<li><p>
+动态索引 
+三个关键的索引结构：倒排列表、临时索引、已删除列表 
+</p>
+
+<ul class="org-ul">
+<li>临时索引
+临时索引是在内存中实时建立的倒排索引，结果与倒排列表一样，
+只是存在于内存中，当有新文档时，实时解析文档并加到这个临时索引中</li>
+<li>已删除列表
+已删除列表存储已被删除的文档的文档ID
+一个文档被修改，搜索引擎一般删除旧文档，新建新文档,间接实现更新,
+这么做的原因主要是索引文件存储在磁盘文件，写磁盘不方便</li>
+<li>倒排列表
+倒排索引是已经建好的索引结果，倒排列表存在磁盘文件中，单词词典在内存中</li>
+</ul>
+
+<p>
+搜索操作：同时到内存和磁盘中查找，合并，然后利用已删除列表过滤文档
+</p></li>
+<li><p>
+es动态更新
+segment是lucence定义的索引段，一个索引内包含多个，segment对外提供搜索服务
+</p>
+
+<p>
+新文档&#x2013;&gt;内存的buffer内&#x2013;&gt;写到磁盘生成新的segment，对外服务 同时清空buffer
+</p>
+
+<p>
+要频繁的写入磁盘十分消耗资源,es先将文档写到filesystem cache内，此时就能被搜索到了(linux下文件句柄要调整)
+</p>
+
+<p>
+必须调用fsync将segment刷到磁盘上，才能保证数据不丢失。
+</p></li>
+
+<li><p>
+refresh/flush
+</p>
+
+<p>
+refresh是轻量级的写和打开一个新segment的操作
+</p>
+
+<p>
+Elasticsearch中，执行commit操作并删除translog的操作叫flush
+</p></li>
+
+<li><p>
+segment merge
+</p>
+
+<p>
+如果不停的产生新的segment，Elasticsearch中很快就会段爆炸，
+每个段都要消耗文件描述符、内存、CPU 周期，且每个search请求都需要遍历所有的segment，会造成搜索操作很慢。
+</p>
+
+<p>
+_optimize?max<sub>num</sub><sub>segments</sub>=1 一个segment情况下查询要快些，但是得控制大小，
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org00f542b" class="outline-4">
+<h4 id="org00f542b"><span class="section-number-4">1.7.3</span> 分词</h4>
+</div>
+<div id="outline-container-org347a783" class="outline-4">
+<h4 id="org347a783"><span class="section-number-4">1.7.4</span> es node</h4>
+<div class="outline-text-4" id="text-1-7-4">
+<ul class="org-ul">
+<li>data node 上
+http.enabled: false，同时也不要安装head, bigdesk, marvel等监控 插件
+http功能可以在非数据节点服务器上开启
+一台服务器上最好只部署一个Node</li>
+<li>避免脑裂现象
+<ol class="org-ol">
+<li><p>
+discovery.zen.minimum<sub>master</sub><sub>nodes</sub> N/2+1
+</p>
+
+<p>
+要选举一个Master需要多少了候选节点，默认为1
+3节点的集群 3/2+1 = 2(向下取整)
+</p></li>
+<li><p>
+discovery.zen.ping.timeout
+</p>
+
+<p>
+等待ping响应的超时时间，默认值是3秒。如果网络缓慢或拥塞，建议略微调大这个值
+</p></li>
+</ol></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org8a46514" class="outline-4">
+<h4 id="org8a46514"><span class="section-number-4">1.7.5</span> es pipeline</h4>
+<div class="outline-text-4" id="text-1-7-5">
+<p>
+<a href="https://www.felayman.com/articles/2017/11/24/1511527532643.html#b3_solo_h4_22">https://www.felayman.com/articles/2017/11/24/1511527532643.html#b3_solo_h4_22</a>
+</p>
+</div>
+</div>
+<div id="outline-container-org29483f9" class="outline-4">
+<h4 id="org29483f9"><span class="section-number-4">1.7.6</span> es</h4>
+<div class="outline-text-4" id="text-1-7-6">
+<p>
+<a href="https://blog.csdn.net/donghaixiaolongwang/article/category/6747676">https://blog.csdn.net/donghaixiaolongwang/article/category/6747676</a>
+</p>
+
+<p>
+Elasticsearch之四种查询类型和搜索原理</p>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://blog.manue1.site/wiki/untitled/</guid>
+    </item>
+    <item>
+      <title>Untitled</title>
+      <link>http://blog.manue1.site/wiki/untitled/</link>
+      <description><![CDATA[<div>
+<div class="post">
+<h1>Untitled</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org874ac6c">1. note-emacs</a>
+<ul>
+<li><a href="#orgf29402a">1.1. emacs tutorial</a></li>
+<li><a href="#orgce921d8">1.2. common shortcuts</a></li>
+<li><a href="#org9881d62">1.3. emacs lisp</a>
+<ul>
+<li><a href="#org373b798">1.3.1. blog</a></li>
+<li><a href="#orgab4637c">1.3.2. casting spels emacs</a></li>
+<li><a href="#org7b67ebd">1.3.3. code</a></li>
+</ul>
+</li>
+<li><a href="#org50caad5">1.4. orgmode</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org874ac6c" class="outline-2">
+<h2 id="org874ac6c"><span class="section-number-2">1</span> note-emacs</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+the learning environment is mac 
+</p>
+</div>
+<div id="outline-container-orgf29402a" class="outline-3">
+<h3 id="orgf29402a"><span class="section-number-3">1.1</span> emacs tutorial</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+use c-h t open tutorial 
+</p>
+
+<p>
+c - control  M - option
+</p>
+
+<p>
+c-x c-c  quit emacs
+</p>
+
+<p>
+c-g      quit current command
+</p>
+
+<pre class="example">
+
+
+                                上一行 C-p
+                                     :
+                                     :
+               向左移 C-b .... 目前光标位置 .... 向右移 C-f
+                                     :
+                                     :
+                                下一行 C-n
+
+</pre>
+
+
+
+<p>
+c-/ | c-x u     undo 
+</p>
+
+<p>
+c-_      undo step by step
+</p>
+
+<p>
+c-k      delete
+</p>
+
+<p>
+c-x c-f  search file
+</p>
+
+<p>
+c-x c-s  save file
+</p>
+
+<p>
+c-x s    save more buffer
+</p>
+
+<p>
+c-x c-b | c-x b  search buffer
+</p>
+
+<p>
+c-s     search forwards
+</p>
+
+<p>
+c-r     search backwards
+</p>
+
+<p>
+c-h k ()  query shortcut description
+</p>
+
+<p>
+c-h f ()  describe function
+</p>
+
+<p>
+c-h a     search for command g
+</p>
+
+<p>
+M-x linum-mode   show line number
+</p>
+</div>
+</div>
+<div id="outline-container-orgce921d8" class="outline-3">
+<h3 id="orgce921d8"><span class="section-number-3">1.2</span> common shortcuts</h3>
+<div class="outline-text-3" id="text-1-2">
+<p class="verse">
+,bb  next buffer<br />
+<br />
+,xf  search file<br />
+<br />
+,xb  search buffer<br />
+,kb  kill buffer<br />
+<br />
+,ov  my overview current buffer<br />
+,c&gt;  org do demote<br />
+,c&lt;  org do promote<br />
+<br />
+&lt;s+Tab  add source<br />
+&lt;v+Tab  ignore blank line<br />
+&lt;q+Tab  add indentation<br />
+<br />
+F1  org agenda<br />
+<br />
+F2  add TODO<br />
+c-c c-s add start time<br />
+c-c c-d add end time<br />
+c-c .   add time period<br />
+++1d    every day do<br />
+c-x a   org agenda list<br />
+<br />
+c-c | / |-  auto generate form<br />
+c-c -       add  horizontal line<br />
+<br />
+,x0  close the current window<br />
+,x1  close othe windows<br />
+,x3   ||<br />
+,x2   =<br />
+, (12345)  switch window<br />
+<br />
+spc ss create workspace<br />
+spc ll search workspace<br />
+<br />
+<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9881d62" class="outline-3">
+<h3 id="org9881d62"><span class="section-number-3">1.3</span> emacs lisp</h3>
+<div class="outline-text-3" id="text-1-3">
+</div>
+<div id="outline-container-org373b798" class="outline-4">
+<h4 id="org373b798"><span class="section-number-4">1.3.1</span> blog</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+<a href="http://www.woola.net/detail/2016-08-18-elisp.html">http://www.woola.net/detail/2016-08-18-elisp.html</a>
+</p>
+</div>
+</div>
+<div id="outline-container-orgab4637c" class="outline-4">
+<h4 id="orgab4637c"><span class="section-number-4">1.3.2</span> casting spels emacs</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<p>
+a comic book : Emacs Lisp version 
+<a href="http://www.lisperati.com/casting-spels-emacs/html/casting-spels-emacs-1.html">http://www.lisperati.com/casting-spels-emacs/html/casting-spels-emacs-1.html</a>
+</p>
+
+<p>
+Emacs <b>scratch</b> buffer is Lisp interacion : c-x b <b>scratch</b>
+</p>
+
+
+<p>
+Emacs tutorial <a href="https://www.gnu.org/software/emacs/tour/">https://www.gnu.org/software/emacs/tour/</a>
+</p>
+
+
+<p>
+Emacs manual : <a href="https://www.gnu.org/software/emacs/manual/index.html">https://www.gnu.org/software/emacs/manual/index.html</a>
+</p>
+
+<p>
+c-x c-e  : evaluable each expression (move the cursor to the end of each expression )
+</p>
+
+<p>
+M-x top-level : clears out errors
+</p>
+
+<p>
+M-x ielm  : ELISP&gt;
+</p>
+
+<p>
+(setq eval-expression-print-length nil) : prevent emacs truncate messages
+</p>
+
+<p>
+(require 'cl) : the library to make elisp run Common lisp command 
+</p>
+</div>
+
+
+<ol class="org-ol">
+<li><a id="org8a7864b"></a>Syntax and Semantic<br />
+<div class="outline-text-5" id="text-1-3-2-1">
+<p>
+any text you give elisp interprater has to be arranged into list ,can be nested into lists of
+lists,a list in elisp (bla bla bla (abc abc))
+</p>
+
+<p>
+elis: interprater uses two modes to read code:  Code mode / Data mode. 
+in data mode,you can put anything into your list ;
+in Code mode, your list need to be special type of list called a form :
+</p>
+
+<pre class="example">
+
+(foo bla bla bla)
+  ^          ^
+  |          |
+command     a form
+</pre>
+</div>
+</li>
+
+<li><a id="orgd0d3970"></a>Defining the data for our Game World<br />
+<div class="outline-text-5" id="text-1-3-2-2">
+<p>
+in order to learn some more about forms,examples:
+</p>
+<pre class="example">
+(setq objects '(whiskey-bottle bucket frog chain))
+
+| code mode    | The single quote to 'flip' the compiler into Date mode |                                     |   |   |
+|--------------+--------------------------------------------------------+-------------------------------------+---+---|
+| setq objects | '                                                      | (whiskey-bottle bucket frog chain)) |   |   |
+|--------------+--------------------------------------------------------+-------------------------------------+---+---|
+
+</pre>
+<p>
+the command sets a variable to a value : the variable is objects and the value is a list 
+</p>
+</div>
+</li>
+
+<li><a id="org44a3883"></a>Looking around in our game world<br />
+<div class="outline-text-5" id="text-1-3-2-3">
+<p>
+The word defun means, as you might expect, that we're defining a function
+</p>
+<pre class="example">
+(defun describe-location (location map)
+    (second (assoc location map)))
+</pre>
+<p>
+The assoc command does this and then returns the data describing the living-room
+</p>
+
+<p>
+Then the command second trims out the second item in that list, which is the description of the living-room
+</p>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org7b67ebd" class="outline-4">
+<h4 id="org7b67ebd"><span class="section-number-4">1.3.3</span> code</h4>
+<div class="outline-text-4" id="text-1-3-3">
+<div class="org-src-container">
+<pre class="src src-elisp">
+(setq objects '(whiskey-bottle bucket frog chain))
+
+(setq object-locations '((whiskey-bottle living-room)
+                           (bucket living-room)
+                           (chain garden)
+                           (frog garden)))
+
+(setq location 'living-room)
+
+(setq map '((living-room (you are in the living room
+                of a wizards house - there is a wizard
+                snoring loudly on the couch -)
+                (west door garden)
+                (upstairs stairway attic))
+              (garden (you are in a beautiful garden -
+                there is a well in front of you -)
+                (east door living-room))
+              (attic (you are in the attic of the
+                wizards house - there is a giant
+                welding torch in the corner -)
+                (downstairs stairway living-room))))
+
+(defun describe-location (location map)
+    (second (assoc location map)))
+
+
+(describe-location 'living-room map)
+
+(message "hello world")
+
+(defun hello-world (name)
+ "say hello to user whose name is XX"
+   (message "hello , %s" name))
+
+(hello-world "manue1")
+
+(setq foo "i'm manue1")
+(message foo)
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org50caad5" class="outline-3">
+<h3 id="org50caad5"><span class="section-number-3">1.4</span> orgmode</h3>
+<div class="outline-text-3" id="text-1-4">
+<ul class="org-ul">
+<li>alt键失灵问题,主要是因为xshell的配置问题
+文件&#x2013;&gt;属性&#x2013;&gt;终端&#x2013;&gt;键盘&#x2013;&gt;元(meta)键仿真</li>
+<li><a href="http://www.github.com/nanue1">nanue1's github</a>
+<ul class="org-ul">
+<li>c-c c-l 
+创建url</li>
+<li>c-c c-o
+打开url</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+</div>]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://blog.manue1.site/wiki/untitled/</guid>
+    </item>
+    <item>
+      <title>Untitled</title>
+      <link>http://blog.manue1.site/wiki/untitled/</link>
+      <description><![CDATA[<div>
+<div class="post">
+<h1>Untitled</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org1d419bd">1. git 独奏</a>
+<ul>
+<li><a href="#org736b995">1.1. git 初始化</a></li>
+<li><a href="#org63d4804">1.2. git 暂存区</a></li>
+<li><a href="#org7f4b6a8">1.3. git reset 重置</a></li>
+<li><a href="#org00d2acf">1.4. git 检出</a></li>
+<li><a href="#org54c28f8">1.5. git 恢复进度</a></li>
+<li><a href="#orge843431">1.6. git 基础操作</a></li>
+<li><a href="#orgbde4f16">1.7. git tools</a></li>
+<li><a href="#orgb710384">1.8. 改变历史</a></li>
+<li><a href="#org036d7be">1.9. git克隆</a></li>
+</ul>
+</li>
+<li><a href="#org6cb817d">2. git 和声</a>
+<ul>
+<li><a href="#org460aa10">2.1. git 工作协调</a></li>
+<li><a href="#orgcc999ff">2.2. git 冲突解决</a></li>
+</ul>
+</li>
+<li><a href="#org5d9e7f5">3. common questions</a>
+<ul>
+<li><a href="#org51d024f">3.1. git ls-files 乱码问题</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+蒋鑫. Git权威指南 机械工业出版社. Kindle 版本. 
+</p>
+<div id="outline-container-org1d419bd" class="outline-2">
+<h2 id="org1d419bd"><span class="section-number-2">1</span> git 独奏</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org736b995" class="outline-3">
+<h3 id="org736b995"><span class="section-number-3">1.1</span> git 初始化</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li><p>
+git init 
+</p>
+
+<p>
+初始化git项目
+</p></li>
+<li><p>
+.git
+</p>
+
+<p>
+版本库存放目录
+</p></li>
+<li>git config
+修改配置文件
+<ul class="org-ul">
+<li><p>
+git config -e 
+</p>
+
+<p>
+修改 <code>.git/config</code>
+</p></li>
+<li><p>
+git config -e &#x2013;global
+</p>
+
+<p>
+修改 <code>~/.gitconfig</code>
+</p></li>
+<li><p>
+git config -e &#x2013;system
+</p>
+
+<p>
+修改 <code>/etc/gitconfig</code>
+</p></li>
+<li><p>
+git config &lt;session&gt;.&lt;key&gt;
+</p>
+
+<p>
+读写配置文件的属性
+<code>$GIT_CONF=test.ini git config a.b</code> 来处理其他配置文件
+</p></li>
+<li>git config &#x2013;global alias.ci "commit -s"
+设置别名</li>
+</ul></li>
+<li>git clone note  note-bak
+备份项目</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org63d4804" class="outline-3">
+<h3 id="org63d4804"><span class="section-number-3">1.2</span> git 暂存区</h3>
+<div class="outline-text-3" id="text-1-2">
+
+<div class="figure">
+<p><img src="http://7xpyfe.com1.z0.glb.clouddn.com/2017101515080826245091.png" alt="2017101515080826245091.png" />
+</p>
+</div>
+
+<p>
+工作区、暂存区、版本库
+</p>
+<ul class="org-ul">
+<li>git status -s</li>
+<li>git log &#x2013;pretty=oneline</li>
+<li><p>
+git add note-git.org 
+</p>
+
+<p>
+添加到暂存区
+</p></li>
+<li><p>
+git checkout &#x2013; note-git.org
+</p>
+
+<p>
+暂存区&#x2013;&gt;工作区
+</p></li>
+<li><p>
+git diff 
+</p>
+
+
+<div class="figure">
+<p><img src="http://7xpyfe.com1.z0.glb.clouddn.com/20171015150808301278029.png" alt="20171015150808301278029.png" /> 
+</p>
+</div>
+
+<p>
+diff介绍 
+</p>
+
+<p>
+diff 比较工作区、暂存区、版本库代码
+</p>
+
+<p>
+git diff 比较工作区和暂存区
+</p>
+
+<p>
+git diff &#x2013;cached 比较暂存区和HEAD
+</p>
+
+<p>
+git diff HEAD 比较工作区和HEAD
+</p>
+
+<p>
+git diff &lt;commit1&gt;&lt;commit2&gt; &#x2013; &lt;paths&gt;  比较不同版本文件的差异
+</p></li>
+<li><p>
+git stash
+</p>
+
+<p>
+保存进度，暂存状态
+</p></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org7f4b6a8" class="outline-3">
+<h3 id="org7f4b6a8"><span class="section-number-3">1.3</span> git reset 重置</h3>
+<div class="outline-text-3" id="text-1-3">
+<ol class="org-ol">
+<li>git reset HEAD&lt;path&gt;  相当于取消 git add &lt;paths&gt; 操作</li>
+
+<li><p>
+git reset &#x2013;hard master@{2}  重置master所有位置为两次改变之前的值
+</p>
+
+<p>
+&#x2013;soft       只改变引用的指向，不改变暂存区和工作区
+</p>
+
+<p>
+&#x2013;mixed      更改引用的指向，重置暂存区，不改变工作区
+</p></li>
+
+<li>git reset &#x2013;soft HEAD^ 放弃最新的提交</li>
+<li>git reset HEAD filename</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org00d2acf" class="outline-3">
+<h3 id="org00d2acf"><span class="section-number-3">1.4</span> git 检出</h3>
+<div class="outline-text-3" id="text-1-4">
+<ul class="org-ul">
+<li><p>
+git checkout branch<sub>name</sub>
+</p>
+
+<p>
+git branch -v
+</p></li>
+<li>git checkout&#x2013;filename  用暂存区的文件覆盖工作区的 取消上次add</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org54c28f8" class="outline-3">
+<h3 id="org54c28f8"><span class="section-number-3">1.5</span> git 恢复进度</h3>
+<div class="outline-text-3" id="text-1-5">
+<ul class="org-ul">
+<li><p>
+git stash
+</p>
+
+<p>
+git stash list
+</p>
+
+<p>
+git stash pop 从最近保持的进度恢复
+</p>
+
+<p>
+git stash drop 默认删除最新的进度
+</p>
+
+<p>
+git stash clear 删除所有进度
+</p>
+
+<p>
+git stash branch &lt;branchname&gt;  基于进度创建分支
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orge843431" class="outline-3">
+<h3 id="orge843431"><span class="section-number-3">1.6</span> git 基础操作</h3>
+<div class="outline-text-3" id="text-1-6">
+<ul class="org-ul">
+<li><p>
+删除文件
+</p>
+
+<p>
+git ls-files 查看暂存区文件
+</p>
+
+<p>
+git rm filename 删除暂存区文件
+</p>
+
+<p>
+git reset &#x2013;hard HEAD^ 重置上次提交的删除操作
+</p>
+
+<p>
+git add-u 快速标记操作,下次提交会生效
+</p></li>
+<li><p>
+恢复文件
+</p>
+
+<p>
+git show HEAD~1:circl.html &gt; circl.html
+</p>
+
+<p>
+git checkout HEAD~1 &#x2013; circl.html
+</p></li>
+<li><p>
+移动文件
+</p>
+
+<p>
+git mv a b
+</p></li>
+<li><p>
+选择性添加
+</p>
+
+<p>
+git add -i 交互窗口
+</p></li>
+<li><p>
+文件忽略
+</p>
+
+<p>
+在工作目录下添加.gitignore
+</p>
+
+<p>
+<code>*.pyc</code>
+</p>
+
+<p>
+git status &#x2013;ignored -s 可以查看哪些文件被忽略了
+</p>
+
+<p>
+git add -f filename 或略的文件强制更新
+</p>
+
+<p>
+git commit -a -m  "偷懒了 直接提交 不用 git add"
+</p></li>
+<li><p>
+文件归档
+</p>
+
+<p>
+git archive -o lastest.zip HEAD  最新归档
+</p>
+
+<p>
+git archive -o partial.tar HEAD src doc  只归档两个文件夹
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgbde4f16" class="outline-3">
+<h3 id="orgbde4f16"><span class="section-number-3">1.7</span> git tools</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+版本库浏览器能更好看提交关系图
+</p>
+<ol class="org-ol">
+<li>gitk</li>
+<li>gitg</li>
+<li>qgit</li>
+<li>命令行
+<ul class="org-ul">
+<li><p>
+git log 
+</p>
+
+<p>
+git config &#x2013;global alias.glog "log &#x2013;graph"  使用:git glog &#x2013;oneline
+</p></li>
+<li><p>
+文件追溯
+</p>
+
+<p>
+git blame filename 逐行显示谁编辑的 追踪bug!
+</p></li>
+<li><p>
+二分查找
+</p>
+
+<p>
+找到一个好版本和坏版本,在中间版本的master上执行
+</p>
+
+<p>
+git bisect start
+</p></li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgb710384" class="outline-3">
+<h3 id="orgb710384"><span class="section-number-3">1.8</span> 改变历史</h3>
+<div class="outline-text-3" id="text-1-8">
+<ul class="org-ul">
+<li><p>
+单步悔棋
+</p>
+
+<p>
+git commit &#x2013;amend  修改commit原因
+</p>
+
+<p>
+git checkout HEAD^ &#x2013;filepath 还原删除的文件到暂存区
+</p></li>
+<li><p>
+多步悔棋
+git reset &#x2013;soft HEAD^^ 后退两个版本到暂存区
+</p>
+
+<p>
+git commit -m "new reason "
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org036d7be" class="outline-3">
+<h3 id="org036d7be"><span class="section-number-3">1.9</span> git克隆</h3>
+<div class="outline-text-3" id="text-1-9">
+<ul class="org-ul">
+<li><p>
+git clone
+</p>
+
+<p>
+git clone &lt;rep&gt; dir
+</p>
+
+<p>
+git clone &#x2013;bare &lt;rep&gt; dir
+</p>
+
+<p>
+git clone &#x2013;mirror &lt;rep&gt; dir
+</p></li>
+<li>git push</li>
+<li>git pull</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6cb817d" class="outline-2">
+<h2 id="org6cb817d"><span class="section-number-2">2</span> git 和声</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org460aa10" class="outline-3">
+<h3 id="org460aa10"><span class="section-number-3">2.1</span> git 工作协调</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>支持的协议
+智能协议: 数据传输过程中有清晰的进度显示,按需传输，传输量小，速度快 (ssh,git,file//)  
+哑协议: 创术速度慢，传输进度不可见，不知道什么时候完成数据传输(ftp,rsync)</li>
+<li><p>
+强制非快进式推送
+</p>
+
+<p>
+git rev-list HEAD  本地版本库最新提交
+</p>
+
+<p>
+git ls-remote origin 远程版本库的引用
+</p>
+
+<p>
+git push 报non-fast-forward updates were rejected 不可以git push -f 强制更新
+</p></li>
+<li><p>
+合并后推送
+</p>
+
+<p>
+git pull = git fetch + git merge
+</p>
+
+<p>
+git log &#x2013;graph &#x2013;oneline
+</p>
+
+<p>
+git push
+</p></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgcc999ff" class="outline-3">
+<h3 id="orgcc999ff"><span class="section-number-3">2.2</span> git 冲突解决</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+git merge
+</p>
+
+<ol class="org-ol">
+<li><p>
+自动合并
+</p>
+
+<p>
+git fetch
+</p>
+
+<p>
+git merge refs/remotes/origin/master
+</p>
+
+<p>
+git push
+</p>
+
+<p>
+git log -1 -m &#x2013;stat  m参数可以查看合并操作
+</p></li>
+<li>逻辑冲突
+<ul class="org-ul">
+<li>修改文件名，其他文件引用了原来的文件名</li>
+<li>函数修改了返回值,但其他地方调用的还是原来的返回值函数</li>
+</ul></li>
+<li><p>
+冲突解决
+</p>
+<ul class="org-ul">
+<li><p>
+&lt;&lt;&lt;&lt;&lt;&lt;&lt;(七个小于号) 和 <code>=====</code> (七个等于号)
+</p>
+
+<p>
+当前分支所更改的内容
+</p></li>
+<li><p>
+=======(七个等于号) 和 &gt;&gt;&gt;&gt;&gt;&gt;&gt; (七个大于号)
+</p>
+
+<p>
+所要合并的版本要更改的内容
+</p></li>
+</ul>
+
+<p>
+git add / git reset
+</p></li>
+<li>树冲突</li>
+<li>合并策略
+<ul class="org-ul">
+<li>resolve</li>
+<li>recursive</li>
+</ul></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5d9e7f5" class="outline-2">
+<h2 id="org5d9e7f5"><span class="section-number-2">3</span> <a href="http://mazhuang.org/wiki/git/">common questions</a></h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org51d024f" class="outline-3">
+<h3 id="org51d024f"><span class="section-number-3">3.1</span> git ls-files 乱码问题</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+在 <code>~/.gitconfig</code> 中添加如下内容
+</p>
+<pre class="example">
+[core]
+   quotepath = false
+[gui]
+   encoding = utf-8
+[i18n]
+   commitencoding = utf-8
+[svn]
+   pathnameencoding = utf-8
+</pre>
+</div>
+</div>
+</div>
+
+</div>
+</div>]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://blog.manue1.site/wiki/untitled/</guid>
+    </item>
+    <item>
+      <title>Untitled</title>
+      <link>http://blog.manue1.site/wiki/untitled/</link>
+      <description><![CDATA[<div>
+<div class="post">
+<h1>Untitled</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgcf93d39">1. Reading List</a>
+<ul>
+<li><a href="#orgd03a4e5">1.1. <span class="done DONE">DONE</span> 历史是个什么玩意</a></li>
+<li><a href="#org0fe0c31">1.2. <span class="done DONE">DONE</span> 番茄工作法</a></li>
+<li><a href="#org4e9adc6">1.3. <span class="done DONE">DONE</span> Spring Boot实战（图灵程序设计丛书）</a></li>
+<li><a href="#orgcf10904">1.4. <span class="todo TODO">TODO</span> Daily word</a></li>
+<li><a href="#org12a7eb0">1.5. <span class="todo TODO">TODO</span> 统计学习方法</a></li>
+<li><a href="#orgca90a72">1.6. <span class="todo TODO">TODO</span> 比特币:一个虚幻而真实的金融世界</a></li>
+</ul>
+</li>
+<li><a href="#org59394dc">2. Writing List</a>
+<ul>
+<li><a href="#orgd9605e9">2.1. <span class="todo TODO">TODO</span> Weekly note</a></li>
+</ul>
+</li>
+<li><a href="#org1721569">3. Body Building</a>
+<ul>
+<li><a href="#org0bf8a69">3.1. <span class="todo TODO">TODO</span> Weekly fitness</a></li>
+<li><a href="#orgebc3308">3.2. <span class="todo TODO">TODO</span> Early hours</a></li>
+</ul>
+</li>
+<li><a href="#org63d9c75">4. Common List</a>
+<ul>
+<li><a href="#org1081dca">4.1. <span class="done DONE">DONE</span> Docker learn &amp; use</a></li>
+<li><a href="#org9d606d2">4.2. <span class="todo SOMEDAY">SOMEDAY</span> wechat python learn</a></li>
+<li><a href="#orgc503e5a">4.3. <span class="todo SOMEDAY">SOMEDAY</span> 微信小程序开发测试</a></li>
+<li><a href="#org5cd0bc6">4.4. <span class="todo TODO">TODO</span> git 项目管理文章记录</a></li>
+<li><a href="#org3659f41">4.5. <span class="todo TODO">TODO</span> docker use</a></li>
+<li><a href="#org62a2b22">4.6. <span class="todo TODO">TODO</span> ML learning</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgcf93d39" class="outline-2">
+<h2 id="orgcf93d39"><span class="section-number-2">1</span> Reading List</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-orgd03a4e5" class="outline-3">
+<h3 id="orgd03a4e5"><span class="section-number-3">1.1</span> <span class="done DONE">DONE</span> 历史是个什么玩意</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-02-19 Sun 04:17]</span></span></li>
+<li>State "ABORT"      from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-02-19 Sun 04:15]</span></span></li>
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-02-19 Sun 03:53]</span></span></li>
+</ul>
+<ul class="org-ul">
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-01-15 Sun 17:12] </span></span> <br />
+good</li>
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-01-14 Sat 22:30]</span></span></li>
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-01-14 Sat 22:23]</span></span></li>
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2016-12-02 Fri 16:32]</span></span></li>
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2016-11-28 Mon 14:00]</span></span></li>
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2016-11-25 Fri 16:25]</span></span></li>
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2016-11-24 Thu 10:34]</span></span></li>
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2016-11-23 Wed 21:19]</span></span></li>
+</ul>
+<p>
+:LAST<sub>REPEAT</sub>: <span class="timestamp-wrapper"><span class="timestamp">[2017-02-19 Sun 04:15]</span></span>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0fe0c31" class="outline-3">
+<h3 id="org0fe0c31"><span class="section-number-3">1.2</span> <span class="done DONE">DONE</span> 番茄工作法</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-02-20 Mon 04:47]</span></span></li>
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-02-20 Mon 04:45] </span></span> <br />
+z</li>
+</ul>
+<p>
+:LAST<sub>REPEAT</sub>: <span class="timestamp-wrapper"><span class="timestamp">[2017-02-20 Mon 04:45]</span></span>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4e9adc6" class="outline-3">
+<h3 id="org4e9adc6"><span class="section-number-3">1.3</span> <span class="done DONE">DONE</span> Spring Boot实战（图灵程序设计丛书）</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-07-04 Tue 19:34]</span></span></li>
+
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-07-04 Tue 19:33]</span></span>
+读这本书之前怀着很大的期望值，但读完稍微有点失望，大多都在讲解spring boot在web方向的为服务应用</li>
+</ul>
+<p>
+:LAST<sub>REPEAT</sub>: <span class="timestamp-wrapper"><span class="timestamp">[2017-07-04 Tue 19:33]</span></span>
+</p>
+</div>
+</div>
+<div id="outline-container-orgcf10904" class="outline-3">
+<h3 id="orgcf10904"><span class="section-number-3">1.4</span> <span class="todo TODO">TODO</span> Daily word</h3>
+<div class="outline-text-3" id="text-1-4">
+<ul class="org-ul">
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-07-05 Wed 11:49]</span></span></li>
+<li>State "UNDO"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-11 Sun 23:57]</span></span></li>
+<li>State "UNDO"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-09 Fri 23:26]</span></span></li>
+<li>State "UNDO"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-08 Thu 23:42] </span></span> <br />
+聚会去了&#x2026;</li>
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-07 Wed 10:05] </span></span> <br />
+手误将之前的gtd记录删除了，重新建了个任务</li>
+</ul>
+<p>
+:LAST<sub>REPEAT</sub>: <span class="timestamp-wrapper"><span class="timestamp">[2017-07-05 Wed 11:49]</span></span>
+</p>
+<p>
+完成百词斩任务
+</p>
+</div>
+</div>
+
+<div id="outline-container-org12a7eb0" class="outline-3">
+<h3 id="org12a7eb0"><span class="section-number-3">1.5</span> <span class="todo TODO">TODO</span> 统计学习方法</h3>
+<div class="outline-text-3" id="text-1-5">
+<ul class="org-ul">
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-07-05 Wed 11:49]</span></span></li>
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-07-05 Wed 10:58] </span></span> <br />
+更加输入空间和输出空间的不同，预测问题被分为，回归、分类、标识</li>
+</ul>
+<p>
+:LAST<sub>REPEAT</sub>: <span class="timestamp-wrapper"><span class="timestamp">[2017-07-05 Wed 11:49]</span></span>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgca90a72" class="outline-3">
+<h3 id="orgca90a72"><span class="section-number-3">1.6</span> <span class="todo TODO">TODO</span> 比特币:一个虚幻而真实的金融世界</h3>
+<div class="outline-text-3" id="text-1-6">
+<ul class="org-ul">
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-07-18 Tue 11:06] </span></span> <br />
+当财产都被先入比特币行业的人挖掘完了,如何再去保证财产的转移,比特币本身就存在大量问题,外加先入为主的局限性,成为未来货币?通用货币??
+看不懂</li>
+</ul>
+<p>
+:LAST<sub>REPEAT</sub>: <span class="timestamp-wrapper"><span class="timestamp">[2017-07-18 Tue 11:06]</span></span>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org59394dc" class="outline-2">
+<h2 id="org59394dc"><span class="section-number-2">2</span> Writing List</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgd9605e9" class="outline-3">
+<h3 id="orgd9605e9"><span class="section-number-3">2.1</span> <span class="todo TODO">TODO</span> Weekly note</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>State "UNDO"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-30 Fri 10:30]</span></span></li>
+<li>State "UNDO"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-07 Wed 23:44] </span></span> <br />
+特殊原因。</li>
+</ul>
+<p>
+:LAST<sub>REPEAT</sub>: <span class="timestamp-wrapper"><span class="timestamp">[2017-06-30 Fri 10:30]</span></span>
+</p>
+<p>
+每周三记录下一周发生的事情
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1721569" class="outline-2">
+<h2 id="org1721569"><span class="section-number-2">3</span> Body Building</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org0bf8a69" class="outline-3">
+<h3 id="org0bf8a69"><span class="section-number-3">3.1</span> <span class="todo TODO">TODO</span> Weekly fitness</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>State "ABORT"      from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-07-18 Tue 11:10] </span></span> <br />
+轮滑很好玩嘿嘿</li>
+<li>State "UNDO"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-30 Fri 10:30]</span></span></li>
+<li>State "UNDO"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-11 Sun 23:56] </span></span> <br />
+周五晚上写了一通宵的pywx代码的文件传输功能
+白天心态爆炸 没去锻炼</li>
+</ul>
+<p>
+:LAST<sub>REPEAT</sub>: <span class="timestamp-wrapper"><span class="timestamp">[2017-07-18 Tue 11:10]</span></span>
+</p>
+<p>
+每周六健身
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgebc3308" class="outline-3">
+<h3 id="orgebc3308"><span class="section-number-3">3.2</span> <span class="todo TODO">TODO</span> Early hours</h3>
+<div class="outline-text-3" id="text-3-2">
+<ul class="org-ul">
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-07-05 Wed 11:50]</span></span></li>
+<li>State "UNDO"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-07-04 Tue 19:29]</span></span></li>
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-30 Fri 10:30]</span></span></li>
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-22 Thu 20:21]</span></span></li>
+<li>State "UNDO"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-19 Mon 10:41] </span></span> <br />
+下午吃完晚饭回家，看电视看着看着睡着了，晚上想睡就完全没有了睡意，看白鹿原看得心潮澎湃，最近有这么不错的电视剧，居然被那些垃圾快餐剧淹没了。
+不能再熬夜看剧了，有这时间还真的不如看看书呢。</li>
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-11 Sun 23:58] </span></span> <br />
+y更没睡</li>
+<li>State "UNDO"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-09 Fri 23:26]</span></span></li>
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-08 Thu 23:43]</span></span></li>
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-07 Wed 09:59]</span></span></li>
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-06 Tue 06:53] </span></span> <br />
+2017-06-06</li>
+<li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-05 Mon 19:22] </span></span> <br />
+早睡早起身体好</li>
+</ul>
+<p>
+:LAST<sub>REPEAT</sub>: <span class="timestamp-wrapper"><span class="timestamp">[2017-07-05 Wed 11:50]</span></span>
+</p>
+<p>
+每天晚上12点之前睡，早上6点起床
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org63d9c75" class="outline-2">
+<h2 id="org63d9c75"><span class="section-number-2">4</span> Common List</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org1081dca" class="outline-3">
+<h3 id="org1081dca"><span class="section-number-3">4.1</span> <span class="done DONE">DONE</span> Docker learn &amp; use</h3>
+<div class="outline-text-3" id="text-4-1">
+<ul class="org-ul">
+<li>State "DONE"       from "SOMEDAY"    <span class="timestamp-wrapper"><span class="timestamp">[2017-06-12 Mon 11:11] </span></span> <br />
+感觉现在很多服务docker都存在了，对于第一次使用新的技术的话，最好使用docker
+安装报错 配置环境问题 有的时候会浪费我们太多时间</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9d606d2" class="outline-3">
+<h3 id="org9d606d2"><span class="section-number-3">4.2</span> <span class="todo SOMEDAY">SOMEDAY</span> wechat python learn</h3>
+</div>
+
+<div id="outline-container-orgc503e5a" class="outline-3">
+<h3 id="orgc503e5a"><span class="section-number-3">4.3</span> <span class="todo SOMEDAY">SOMEDAY</span> 微信小程序开发测试</h3>
+</div>
+
+<div id="outline-container-org5cd0bc6" class="outline-3">
+<h3 id="org5cd0bc6"><span class="section-number-3">4.4</span> <span class="todo TODO">TODO</span> git 项目管理文章记录</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+X-plan
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3659f41" class="outline-3">
+<h3 id="org3659f41"><span class="section-number-3">4.5</span> <span class="todo TODO">TODO</span> docker use</h3>
+</div>
+
+<div id="outline-container-org62a2b22" class="outline-3">
+<h3 id="org62a2b22"><span class="section-number-3">4.6</span> <span class="todo TODO">TODO</span> ML learning</h3>
+</div>
+</div>
+
+</div>
+</div>]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://blog.manue1.site/wiki/untitled/</guid>
+    </item>
   </channel>
 </rss>
