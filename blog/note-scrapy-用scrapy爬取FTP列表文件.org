@@ -1,3 +1,14 @@
+#+TITLE:       scrapy-crawl-ftp
+#+AUTHOR:      manue1
+#+EMAIL:       manue1@manpc
+#+DATE:        2018-06-03 Sun
+#+URI:         /blog/%y/%m/%d/scrapy-crawl-ftp
+#+KEYWORDS:    Scrapy
+#+TAGS:        Scrapy
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: scrapy crawl ftp file
+
 * 用scrapy爬取FTP列表文件
 ** scrapy crawl ftp server
    #+BEGIN_VERSE

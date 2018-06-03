@@ -1,3 +1,14 @@
+#+TITLE:       note-ubuntu-开发环境配置
+#+AUTHOR:      manue1
+#+EMAIL:       manue1@manpc
+#+DATE:        2018-06-03 Sun
+#+URI:         /wiki/%t
+#+KEYWORDS:    ubuntu
+#+TAGS:        Ubuntu,Linux
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:1 \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: ubuntu 开发环境配置
+
 * Mint&Ubuntu install&config
  the new os should do this for update 
   - config software sources

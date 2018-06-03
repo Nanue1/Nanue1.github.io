@@ -1,3 +1,14 @@
+#+TITLE:       note-swagger-api
+#+AUTHOR:      manue1
+#+EMAIL:       manue1@manpc
+#+DATE:        2018-06-03 Sun
+#+URI:         /wiki/%t
+#+KEYWORDS:    swagger
+#+TAGS:        Swagger
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: swagger 在线api 使用记录
+
 * note-swagger
   sudo yum install docker
   sudo systemctl start docker

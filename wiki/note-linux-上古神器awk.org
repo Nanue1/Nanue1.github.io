@@ -1,5 +1,14 @@
-#+OPTIONS: toc:2
-#+OPTIONS: ^:nil
+#+TITLE:       note-awk-使用记录
+#+AUTHOR:      manue1
+#+EMAIL:       manue1@manpc
+#+DATE:        2018-06-03 Sun
+#+URI:         /wiki/%t
+#+KEYWORDS:    awk
+#+TAGS:        Awk
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:2 \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: awk使用记录
+
 * 上古神器-awk
 ** awk syntax
    最简单的awk 程序是一个或多个模式–动作语句构成的序列:

@@ -1,3 +1,14 @@
+#+TITLE:       note-spark-use
+#+AUTHOR:      manue1
+#+EMAIL:       manue1@manpc
+#+DATE:        2018-06-03 Sun
+#+URI:         /wiki/%t
+#+KEYWORDS:    spark
+#+TAGS:        Spark
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: spark使用笔记
+
 Spark快速大数据分析[美] 卡劳（Holden Karau）
 * what is spark
   spark 是一个用来实现快速而通用的集群计算的平台

@@ -1,3 +1,13 @@
+#+TITLE:       note-tmux-use
+#+AUTHOR:      manue1
+#+EMAIL:       manue1@manpc
+#+DATE:        2018-06-03 Sun
+#+URI:         /wiki/%t
+#+KEYWORDS:    tmux
+#+TAGS:        Tmux
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:1 \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: tmux 使用记录
 * tmux use
   - Server 服务器 tmux开启一个服务器,用来管理多个会话
 

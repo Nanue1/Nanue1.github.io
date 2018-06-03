@@ -1,3 +1,14 @@
+#+TITLE:       note-sed-使用记录
+#+AUTHOR:      manue1
+#+EMAIL:       manue1@manpc
+#+DATE:        2018-06-03 Sun
+#+URI:         /wiki/%t
+#+KEYWORDS:    sed
+#+TAGS:        Sed
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: sed 使用记录
+
 * sed
    1. 删除包含Love的行
       sed -i '/Love/d' 1.txt

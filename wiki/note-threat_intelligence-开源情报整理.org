@@ -15,6 +15,17 @@
 +HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
 #+OPTIONS: toc:2
 #+OPTIONS: ^:nil
+#+TITLE:       opensource-threat-intelligence
+#+AUTHOR:      manue1
+#+EMAIL:       manue1@manpc
+#+DATE:        2018-06-03 Sun
+#+URI:         /wiki/%t
+#+KEYWORDS:    threat-intelligence
+#+TAGS:        Threat-Intelligence
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: 威胁情报开源爬虫
+
 * Threat Intelligence 
 ** data source introduction
 *** DONE reputation.alienvault.com

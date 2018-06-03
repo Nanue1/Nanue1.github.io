@@ -1,7 +1,16 @@
+#+TITLE:       note-spring-boot使用记录
+#+AUTHOR:      manue1
+#+EMAIL:       manue1@manpc
+#+DATE:        2018-06-03 Sun
+#+URI:         /wiki/%t
+#+KEYWORDS:    Spring-boot
+#+TAGS:        Spring-boot
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: spring boot使用记录
+
 * note-spring-project
 ** spring-boot
-<<<<<<< HEAD
-=======
 *** spring boot cli
     https://repo.spring.io/snapshot/org/springframework/boot/spring-boot-cli/
     
@@ -106,5 +115,4 @@ echo "spring boot job start success."
        #+END_SRC
 
 
->>>>>>> f346d7973f1c8caefbad2f6e1e86f0546df81356
 

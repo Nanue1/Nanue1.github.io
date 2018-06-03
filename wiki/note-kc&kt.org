@@ -1,5 +1,14 @@
-#+OPTIONS: toc:2
-#+OPTIONS: ^:nil
+#+TITLE:       kyoto-cabinet key-value离线库
+#+AUTHOR:      manue1
+#+EMAIL:       manue1@manpc
+#+DATE:        2018-06-03 Sun
+#+URI:         /wiki/%t
+#+KEYWORDS:    kyoto-cabinet
+#+TAGS:        Kyoto-Cabinet
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: kyoto cabinet 离线key-value使用记录
+
 ** kyoto Cabinet & Tycoon 
    官方地址：
 
