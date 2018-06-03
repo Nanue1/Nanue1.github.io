@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>note-git-使用记录 - manue1&#39;s site</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="manue1" />
+    <meta name="description" content="git 使用笔记" />
+    <meta name="keywords" content="git" />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">manue1&#39;s site</a></h1>
+        <p>^_^ just for simaple</p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/wiki/">Wiki</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="https://github.com/nanue1">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="www.manue1.site">
+        </form>
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>note-git-使用记录</h1>
+<p>
+蒋鑫. Git权威指南 机械工业出版社. Kindle 版本. 
+</p>
+<div id="outline-container-orgfa418cb" class="outline-2">
+<h2 id="orgfa418cb">git 独奏</h2>
+<div class="outline-text-2" id="text-orgfa418cb">
+</div>
+<div id="outline-container-org95d5e9b" class="outline-3">
+<h3 id="org95d5e9b">git 初始化</h3>
+<div class="outline-text-3" id="text-org95d5e9b">
+<ul class="org-ul">
+<li><p>
+git init 
+</p>
+
+<p>
+初始化git项目
+</p></li>
+<li><p>
+.git
+</p>
+
+<p>
+版本库存放目录
+</p></li>
+<li>git config
+修改配置文件
+<ul class="org-ul">
+<li><p>
+git config -e 
+</p>
+
+<p>
+修改 <code>.git/config</code>
+</p></li>
+<li><p>
+git config -e --global
+</p>
+
+<p>
+修改 <code>~/.gitconfig</code>
+</p></li>
+<li><p>
+git config -e --system
+</p>
+
+<p>
+修改 <code>/etc/gitconfig</code>
+</p></li>
+<li><p>
+git config &lt;session&gt;.&lt;key&gt;
+</p>
+
+<p>
+读写配置文件的属性
+<code>$GIT_CONF=test.ini git config a.b</code> 来处理其他配置文件
+</p></li>
+<li>git config --global alias.ci "commit -s"
+设置别名</li>
+</ul></li>
+<li>git clone note  note-bak
+备份项目</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgf5a1e2b" class="outline-3">
+<h3 id="orgf5a1e2b">git 暂存区</h3>
+<div class="outline-text-3" id="text-orgf5a1e2b">
+
+<div class="figure">
+<p><img src="http://7xpyfe.com1.z0.glb.clouddn.com/2017101515080826245091.png" alt="2017101515080826245091.png" />
+</p>
+</div>
+
+<p>
+工作区、暂存区、版本库
+</p>
+<ul class="org-ul">
+<li>git status -s</li>
+<li>git log --pretty=oneline</li>
+<li><p>
+git add note-git.org 
+</p>
+
+<p>
+添加到暂存区
+</p></li>
+<li><p>
+git checkout -- note-git.org
+</p>
+
+<p>
+暂存区--&gt;工作区
+</p></li>
+<li><p>
+git diff 
+</p>
+
+
+<div class="figure">
+<p><img src="http://7xpyfe.com1.z0.glb.clouddn.com/20171015150808301278029.png" alt="20171015150808301278029.png" /> 
+</p>
+</div>
+
+<p>
+diff介绍 
+</p>
+
+<p>
+diff 比较工作区、暂存区、版本库代码
+</p>
+
+<p>
+git diff 比较工作区和暂存区
+</p>
+
+<p>
+git diff --cached 比较暂存区和HEAD
+</p>
+
+<p>
+git diff HEAD 比较工作区和HEAD
+</p>
+
+<p>
+git diff &lt;commit1&gt;&lt;commit2&gt; -- &lt;paths&gt;  比较不同版本文件的差异
+</p></li>
+<li><p>
+git stash
+</p>
+
+<p>
+保存进度，暂存状态
+</p></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org6011a1a" class="outline-3">
+<h3 id="org6011a1a">git reset 重置</h3>
+<div class="outline-text-3" id="text-org6011a1a">
+<ol class="org-ol">
+<li>git reset HEAD&lt;path&gt;  相当于取消 git add &lt;paths&gt; 操作</li>
+
+<li><p>
+git reset --hard master@{2}  重置master所有位置为两次改变之前的值
+</p>
+
+<p>
+--soft       只改变引用的指向，不改变暂存区和工作区
+</p>
+
+<p>
+--mixed      更改引用的指向，重置暂存区，不改变工作区
+</p></li>
+
+<li>git reset --soft HEAD^ 放弃最新的提交</li>
+<li>git reset HEAD filename</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orga35113f" class="outline-3">
+<h3 id="orga35113f">git 检出</h3>
+<div class="outline-text-3" id="text-orga35113f">
+<ul class="org-ul">
+<li><p>
+git checkout branch_name
+</p>
+
+<p>
+git branch -v
+</p></li>
+<li>git checkout--filename  用暂存区的文件覆盖工作区的 取消上次add</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org79dc528" class="outline-3">
+<h3 id="org79dc528">git 恢复进度</h3>
+<div class="outline-text-3" id="text-org79dc528">
+<ul class="org-ul">
+<li><p>
+git stash
+</p>
+
+<p>
+git stash list
+</p>
+
+<p>
+git stash pop 从最近保持的进度恢复
+</p>
+
+<p>
+git stash drop 默认删除最新的进度
+</p>
+
+<p>
+git stash clear 删除所有进度
+</p>
+
+<p>
+git stash branch &lt;branchname&gt;  基于进度创建分支
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgadc3657" class="outline-3">
+<h3 id="orgadc3657">git 基础操作</h3>
+<div class="outline-text-3" id="text-orgadc3657">
+<ul class="org-ul">
+<li><p>
+删除文件
+</p>
+
+<p>
+git ls-files 查看暂存区文件
+</p>
+
+<p>
+git rm filename 删除暂存区文件
+</p>
+
+<p>
+git reset --hard HEAD^ 重置上次提交的删除操作
+</p>
+
+<p>
+git add-u 快速标记操作,下次提交会生效
+</p></li>
+<li><p>
+恢复文件
+</p>
+
+<p>
+git show HEAD~1:circl.html &gt; circl.html
+</p>
+
+<p>
+git checkout HEAD~1 -- circl.html
+</p></li>
+<li><p>
+移动文件
+</p>
+
+<p>
+git mv a b
+</p></li>
+<li><p>
+选择性添加
+</p>
+
+<p>
+git add -i 交互窗口
+</p></li>
+<li><p>
+文件忽略
+</p>
+
+<p>
+在工作目录下添加.gitignore
+</p>
+
+<p>
+<code>*.pyc</code>
+</p>
+
+<p>
+git status --ignored -s 可以查看哪些文件被忽略了
+</p>
+
+<p>
+git add -f filename 或略的文件强制更新
+</p>
+
+<p>
+git commit -a -m  "偷懒了 直接提交 不用 git add"
+</p></li>
+<li><p>
+文件归档
+</p>
+
+<p>
+git archive -o lastest.zip HEAD  最新归档
+</p>
+
+<p>
+git archive -o partial.tar HEAD src doc  只归档两个文件夹
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org7c98446" class="outline-3">
+<h3 id="org7c98446">git tools</h3>
+<div class="outline-text-3" id="text-org7c98446">
+<p>
+版本库浏览器能更好看提交关系图
+</p>
+<ol class="org-ol">
+<li>gitk</li>
+<li>gitg</li>
+<li>qgit</li>
+<li>命令行
+<ul class="org-ul">
+<li><p>
+git log 
+</p>
+
+<p>
+git config --global alias.glog "log --graph"  使用:git glog --oneline
+</p></li>
+<li><p>
+文件追溯
+</p>
+
+<p>
+git blame filename 逐行显示谁编辑的 追踪bug!
+</p></li>
+<li><p>
+二分查找
+</p>
+
+<p>
+找到一个好版本和坏版本,在中间版本的master上执行
+</p>
+
+<p>
+git bisect start
+</p></li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgaa4046b" class="outline-3">
+<h3 id="orgaa4046b">改变历史</h3>
+<div class="outline-text-3" id="text-orgaa4046b">
+<ul class="org-ul">
+<li><p>
+单步悔棋
+</p>
+
+<p>
+git commit --amend  修改commit原因
+</p>
+
+<p>
+git checkout HEAD^ --filepath 还原删除的文件到暂存区
+</p></li>
+<li><p>
+多步悔棋
+git reset --soft HEAD^^ 后退两个版本到暂存区
+</p>
+
+<p>
+git commit -m "new reason "
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0a2d5b5" class="outline-3">
+<h3 id="org0a2d5b5">git克隆</h3>
+<div class="outline-text-3" id="text-org0a2d5b5">
+<ul class="org-ul">
+<li><p>
+git clone
+</p>
+
+<p>
+git clone &lt;rep&gt; dir
+</p>
+
+<p>
+git clone --bare &lt;rep&gt; dir
+</p>
+
+<p>
+git clone --mirror &lt;rep&gt; dir
+</p></li>
+<li>git push</li>
+<li>git pull</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org29c108a" class="outline-2">
+<h2 id="org29c108a">git 和声</h2>
+<div class="outline-text-2" id="text-org29c108a">
+</div>
+<div id="outline-container-org5603867" class="outline-3">
+<h3 id="org5603867">git 工作协调</h3>
+<div class="outline-text-3" id="text-org5603867">
+<ul class="org-ul">
+<li>支持的协议
+智能协议: 数据传输过程中有清晰的进度显示,按需传输，传输量小，速度快 (ssh,git,file//)  
+哑协议: 创术速度慢，传输进度不可见，不知道什么时候完成数据传输(ftp,rsync)</li>
+<li><p>
+强制非快进式推送
+</p>
+
+<p>
+git rev-list HEAD  本地版本库最新提交
+</p>
+
+<p>
+git ls-remote origin 远程版本库的引用
+</p>
+
+<p>
+git push 报non-fast-forward updates were rejected 不可以git push -f 强制更新
+</p></li>
+<li><p>
+合并后推送
+</p>
+
+<p>
+git pull = git fetch + git merge
+</p>
+
+<p>
+git log --graph --oneline
+</p>
+
+<p>
+git push
+</p></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgafd9019" class="outline-3">
+<h3 id="orgafd9019">git 冲突解决</h3>
+<div class="outline-text-3" id="text-orgafd9019">
+<p>
+git merge
+</p>
+
+<ol class="org-ol">
+<li><p>
+自动合并
+</p>
+
+<p>
+git fetch
+</p>
+
+<p>
+git merge refs/remotes/origin/master
+</p>
+
+<p>
+git push
+</p>
+
+<p>
+git log -1 -m --stat  m参数可以查看合并操作
+</p></li>
+<li>逻辑冲突
+<ul class="org-ul">
+<li>修改文件名，其他文件引用了原来的文件名</li>
+<li>函数修改了返回值,但其他地方调用的还是原来的返回值函数</li>
+</ul></li>
+<li><p>
+冲突解决
+</p>
+<ul class="org-ul">
+<li><p>
+&lt;&lt;&lt;&lt;&lt;&lt;&lt;(七个小于号) 和 <code>=====</code> (七个等于号)
+</p>
+
+<p>
+当前分支所更改的内容
+</p></li>
+<li><p>
+=======(七个等于号) 和 &gt;&gt;&gt;&gt;&gt;&gt;&gt; (七个大于号)
+</p>
+
+<p>
+所要合并的版本要更改的内容
+</p></li>
+</ul>
+
+<p>
+git add / git reset
+</p></li>
+<li>树冲突</li>
+<li>合并策略
+<ul class="org-ul">
+<li>resolve</li>
+<li>recursive</li>
+</ul></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org477b1f4" class="outline-2">
+<h2 id="org477b1f4"><a href="http://mazhuang.org/wiki/git/">common questions</a></h2>
+<div class="outline-text-2" id="text-org477b1f4">
+</div>
+<div id="outline-container-orgd02a7bb" class="outline-3">
+<h3 id="orgd02a7bb">git ls-files 乱码问题</h3>
+<div class="outline-text-3" id="text-orgd02a7bb">
+<p>
+在 <code>~/.gitconfig</code> 中添加如下内容
+</p>
+<pre class="example">
+[core]
+   quotepath = false
+[gui]
+   encoding = utf-8
+[i18n]
+   commitencoding = utf-8
+[svn]
+   pathnameencoding = utf-8
+</pre>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2018-06-03</span>
+        <span title="last modification date" class="post-info">2018-06-03</span>
+        <span title="tags" class="post-info"><a href="/tags/git/">Git</a></span>
+        <span title="author" class="post-info">manue1</span>
+      </div>
+      <script src="//code.jquery.com/jquery-latest.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/main.js"></script>
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-41088132-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:manue1 &lt;at&gt; manpc">manue1</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

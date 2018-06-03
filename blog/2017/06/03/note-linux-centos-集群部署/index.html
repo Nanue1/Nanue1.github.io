@@ -1,0 +1,2519 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>note-linux-centos-集群部署 - manue1&#39;s site</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="manue1" />
+    <meta name="description" content="vbox搭建集群开发环境" />
+    <meta name="keywords" content="Linux,Centos" />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">manue1&#39;s site</a></h1>
+        <p>^_^ just for simaple</p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/wiki/">Wiki</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="https://github.com/nanue1">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="www.manue1.site">
+        </form>
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>note-linux-centos-集群部署</h1>
+
+<div id="outline-container-orgfeffe28" class="outline-2">
+<h2 id="orgfeffe28">centos7 basic environment</h2>
+<div class="outline-text-2" id="text-orgfeffe28">
+<p>
+centos7 download
+<a href="http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso">http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso</a>
+</p>
+</div>
+
+<div id="outline-container-org545c801" class="outline-3">
+<h3 id="org545c801">lvm</h3>
+<div class="outline-text-3" id="text-org545c801">
+<p>
+在文件中添加要挂载的分区和文件目录可以修改文件
+</p>
+
+<p>
+/etc/fstab
+</p>
+
+<p>
+<i>dev/sda5</i>    media/win    ntfs    defaults   02
+</p>
+
+<p>
+然后 mount -a
+</p>
+
+<ol class="org-ol">
+<li><p>
+查看几块硬盘
+</p>
+
+<p>
+sudo fdisk -l |grep sd
+</p></li>
+
+<li><p>
+创建分区
+</p>
+
+<p>
+虚拟机现有20g的硬盘,使用fdisk划分磁盘
+</p>
+
+<p>
+sudo fdisk /dev/sda
+</p>
+
+<p class="verse">
+m  帮助信息<br />
+n 创建分区<br />
+e 扩展分区    +5G  pppp/pppe<br />
+p 打印分区<br />
+t 分区类型 L  (lvm)<br />
+w 写入保存分区<br />
+</p></li>
+
+<li>格式化 分区</li>
+
+<li><p>
+LVM
+pv --&gt; vg --&gt; lv
+参考:
+<a href="http://blog.sina.com.cn/s/blog_b77735d20101e5cn.html">http://blog.sina.com.cn/s/blog_b77735d20101e5cn.html</a>
+<a href="http://aurthurxlc.github.io/Aurthur-2017/Centos-7-extend-lvm-volume.html">http://aurthurxlc.github.io/Aurthur-2017/Centos-7-extend-lvm-volume.html</a>
+</p>
+
+<pre class="example">
+fdisk -l | grep sd
+fdisk /dev/sda
+partprobe
+pvdisplay
+pvcreate /dev/sda3
+vgdisplay
+vgextend centos /dev/sda3
+lvdisplay
+#lvcreate -L 3.31G -n manue1 centos
+#mkfs.xfs /dev/centos/manue1
+#lvremove -f /dev/centos/manue1
+lvextend -l +100%FREE /dev/centos/root
+df -Th
+xfs_growfs /dev/centos/root
+</pre></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org879392b" class="outline-3">
+<h3 id="org879392b">ip</h3>
+<div class="outline-text-3" id="text-org879392b">
+<ul class="org-ul">
+<li><p>
+联网方式: 配置三张网卡
+virtualBox 中 NAT 和 Host-only 两种模式不能同时并存，测试只能联网的时候关掉另一张网卡
+</p>
+<ol class="org-ol">
+<li>NAT 
+网卡1 用来连接外网</li>
+<li><p>
+Host-only
+用来配置静态IP 配置集群服务的时候不需要修改IP
+vi <i>etc/sysconfig/network-scripts</i>  
+</p>
+<pre class="example">
+#static assignment
+ONBOOT=yes
+BOOTPROTO=static
+IPADDR=192.168.56.10
+NETMASK=255.255.255.0
+GATEWAY=192.168.56.1
+</pre></li>
+<li>Bridge
+vbox 自动配置IP，也很方便</li>
+</ol>
+
+<p>
+这边打算使用网卡1 nat模式连接外网，网卡3的桥接模式与局域网内其他主机通信,网卡二的主机模式搭建集群
+</p>
+
+<p>
+注意： 网卡二和网卡三的 gateway 字段要注释掉
+</p></li>
+<li><p>
+ip tool
+</p>
+
+<p>
+Ip  [选项]  操作对象{link|addr|route...}
+</p>
+
+<p>
+sudo service network restart
+</p></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgbdb27c2" class="outline-3">
+<h3 id="orgbdb27c2">sshd</h3>
+<div class="outline-text-3" id="text-orgbdb27c2">
+<p>
+ssh 连接异常慢
+sudo vi /etc/ssh/sshd_config
+</p>
+
+<pre class="example">
+UseDNS no
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orge61f1fb" class="outline-3">
+<h3 id="orge61f1fb">hostname</h3>
+<div class="outline-text-3" id="text-orge61f1fb">
+<p>
+永久修改主机名字
+sudo hostnamectl --static set-hostname master
+</p>
+
+<p>
+sudo vi /etc/hosts
+</p>
+
+<p>
+[manue1@localhost ~]$ cat /etc/hostname
+ master
+[manue1@localhost ~]$ cat /etc/hosts
+ 127.0.0.1 master
+ ::1 master
+</p>
+</div>
+</div>
+<div id="outline-container-orgfe2b400" class="outline-3">
+<h3 id="orgfe2b400">yum source</h3>
+<div class="outline-text-3" id="text-orgfe2b400">
+<p>
+sudo yum -y install wget
+</p>
+
+<ul class="org-ul">
+<li>备份
+sudo mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</li>
+
+<li>设置aliyun source
+sudo wget -O /etc/yum.repos.d/CentOS-Base.repo <a href="http://mirrors.aliyun.com/repo/Centos-7.repo">http://mirrors.aliyun.com/repo/Centos-7.repo</a></li>
+
+<li><p>
+设置EPLEPEL source
+</p>
+
+<p>
+sudo wget -P <i>etc/yum.repos.d</i> <a href="http://mirrors.aliyun.com/repo/epel-7.repo">http://mirrors.aliyun.com/repo/epel-7.repo</a>
+</p>
+
+<p>
+添加后可以像fedora上 yum install packname
+</p></li>
+
+<li><p>
+清理缓存并生成新的缓存
+</p>
+
+<p>
+sudo yum clean all  
+sudo yum makecache  
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orga3c6747" class="outline-3">
+<h3 id="orga3c6747">ntp</h3>
+<div class="outline-text-3" id="text-orga3c6747">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">master</th>
+<th scope="col" class="org-left">server</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">slave01</td>
+<td class="org-left">client</td>
+</tr>
+
+<tr>
+<td class="org-left">slave02</td>
+<td class="org-left">client</td>
+</tr>
+</tbody>
+</table>
+
+<ul class="org-ul">
+<li><p>
+any nodes
+</p>
+
+<p>
+sudo yum -y install ntp
+</p>
+
+<p>
+timedatectl set-timezone Asia/Shanghai   # 设置上海时区
+</p>
+
+<ul class="org-ul">
+<li><p>
+server configural
+</p>
+
+<p>
+systemctl start ntpd
+</p>
+
+<p>
+systemctl enable ntpd
+</p>
+
+<p>
+vi /etc/ntp.conf 
+</p>
+
+<pre class="example">
+
+restrict 192.168.56.0 mask 255.255.0.0
+
+server 127.127.1.0
+
+fudge 127.127.1.0 stratum 10
+</pre>
+
+<p>
+systemctl restart ntpd
+</p></li>
+
+<li><p>
+client configural
+</p>
+
+<p>
+systemctl start ntpd
+</p>
+
+<p>
+systemctl enable ntpd
+</p>
+
+<p>
+vi /etc/ntp.conf
+</p>
+
+<pre class="example">
+server 192.168.56.10
+
+</pre>
+
+<p>
+netstat -anp | grep 123
+</p></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org486bb06" class="outline-3">
+<h3 id="org486bb06">firewallds</h3>
+<div class="outline-text-3" id="text-org486bb06">
+<ul class="org-ul">
+<li>查看状态
+systemctl status firewalld</li>
+<li>关闭
+systemctl stop firewalld</li>
+<li>禁用
+systemctl disable firewalld</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org7d86cdf" class="outline-3">
+<h3 id="org7d86cdf">disable selinux</h3>
+<div class="outline-text-3" id="text-org7d86cdf">
+<p>
+一款为了提高系统安全性的软件：对系统服务，文件权限，网络端口访问有极其严格的限制，
+例如：如果对一个文件没有正确安全上下文配置， 甚至你是root用户，你也不能启动某服务
+</p>
+
+<p>
+sudo vi /etc/sysconfig/selinux
+ selinux = disable
+</p>
+</div>
+</div>
+<div id="outline-container-org97e7da6" class="outline-3">
+<h3 id="org97e7da6">java  &amp; scala</h3>
+<div class="outline-text-3" id="text-org97e7da6">
+<p>
+基础环境用root 配置在/etc/profile 自启动环境文件内
+refer : <a href="https://www.mtyun.com/library/how-to-setup-scala-on-centos7">https://www.mtyun.com/library/how-to-setup-scala-on-centos7</a>
+</p>
+<ul class="org-ul">
+<li>java rpm install
+
+<ol class="org-ol">
+<li>download
+<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a></li>
+<li><p>
+install
+sudo rpm -ivh jdk-8u144-linux-x64.rpm
+sudo rpm -aq | grep jdk
+</p>
+
+<p>
+sudo rpm -e jdk   无效
+sudo yum remove jdk  
+</p>
+
+<p>
+sudo vi /etc/profile
+</p>
+<pre class="example">
+#JAVA_HOME
+export JAVA_HOME=/usr/java/jdk1.8.0_144
+export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+export PATH=$PATH:$JAVA_HOME/bin
+</pre></li>
+</ol></li>
+<li><p>
+java 离线包安装
+</p>
+
+<p>
+tar -zxvf jdk-8u151-linux-x64.tar.gz
+</p>
+
+<p>
+vi /etc/profile
+</p>
+<pre class="example">
+#JAVA_HOME
+JAVA_HOME=/home/manue1/opt/jdk8
+PATH=$PATH:$JAVA_HOME/bin
+export JAVA_HOME PATH
+</pre></li>
+<li><p>
+scala 离线包安装
+当前最新版本
+tar zxvf scala-2.11.7.tgz
+</p>
+
+<pre class="example">
+SCALA_HOME=/home/manue1/opt/scala-2.11.7
+PATH=$PATH:$SCALA_HOME/bin
+export SCALA_HOME PATH
+</pre></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org08ff384" class="outline-2">
+<h2 id="org08ff384">hadoop 集群配置</h2>
+<div class="outline-text-2" id="text-org08ff384">
+</div>
+<div id="outline-container-org39d9ed9" class="outline-3">
+<h3 id="org39d9ed9">hadoop hbase spark 版本选择</h3>
+<div class="outline-text-3" id="text-org39d9ed9">
+<ul class="org-ul">
+<li><p>
+hbase 支持 hadoop 版本对照表
+</p>
+
+<p>
+The 1.2.x series is the current stable release line
+</p>
+
+<p>
+<a href="http://www-us.apache.org/dist/hbase/">http://www-us.apache.org/dist/hbase/</a>
+</p>
+
+<p>
+下面查看1.2.x 需要的hadoop版本
+</p>
+
+<p>
+<a href="http://hbase.apache.org/book.html#arch.overview">http://hbase.apache.org/book.html#arch.overview</a>
+</p>
+
+<p>
+crtl + F  "s" 搜索页面
+</p>
+
+<p>
+选择 Hadoop-2.7.1+
+</p></li>
+
+<li><p>
+spark 支持 hadoop
+</p>
+
+<p>
+<a href="http://spark.apache.org/downloads.html">http://spark.apache.org/downloads.html</a>
+</p>
+
+<p>
+官方下载页面可以手动选择
+</p></li>
+
+<li><p>
+hive 支持 hadoop
+</p>
+
+<p>
+<a href="https://hive.apache.org/downloads.html">https://hive.apache.org/downloads.html</a>
+</p>
+
+<p>
+稳定版下载地址
+</p>
+
+<p>
+<a href="http://mirrors.shuosc.org/apache/hive/stable-2/">http://mirrors.shuosc.org/apache/hive/stable-2/</a>
+</p></li>
+
+<li><p>
+zookeeper
+</p>
+
+<p>
+下载稳定版即可
+</p>
+
+<p>
+<a href="http://mirrors.shuosc.org/apache/zookeeper/stable/">http://mirrors.shuosc.org/apache/zookeeper/stable/</a>
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org3790049" class="outline-3">
+<h3 id="org3790049">环境准备</h3>
+<div class="outline-text-3" id="text-org3790049">
+<p>
+三台vbox 虚拟centos7 配置 java scala 环境 关闭防火墙和selinux
+</p>
+
+<ul class="org-ul">
+<li><p>
+cluster
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">hostname</th>
+<th scope="col" class="org-right">ip</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">master</td>
+<td class="org-right">192.168.56.10</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">slave01</td>
+<td class="org-right">192.168.56.11</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">slave02</td>
+<td class="org-right">192.168.56.12</td>
+</tr>
+</tbody>
+</table></li>
+
+<li><p>
+disable ipv6
+</p>
+
+<p>
+sudo vi /etc/sysctl.conf
+</p>
+
+<p>
+添加下面内容
+</p>
+
+<pre class="example">
+
+# disable ipv6
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+
+</pre>
+
+<p>
+解决master:50070 页面找不到live node 
+</p>
+
+<p>
+解决 connection exception
+</p>
+
+<pre class="example">
+17//23 23:19:48 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+ls:all From slave01/127.0.0.1 to master:9000 failed on connection exception: java.net.ConnectException: 拒绝连接; For more details see:  http://wiki.apache.org/hadoop/ConnectionRefused
+
+</pre></li>
+
+<li><p>
+hostname &amp; host
+三台主机都要
+修改主机名
+修改/etc/hosts 互相添加hostname访问别名
+注意； #127.0.0.1 master 这样的映射一定要注释掉,master:8088无法访问最终定位到这里了
+</p>
+<pre class="example">
+#ceos7 cluster
+19268.56.10 master
+19268.56.11 slave01
+19268.56.12 slave02
+</pre></li>
+
+<li>免登录验证
+ssh-keygen -t rsa
+ssh-copy-id -i ~/.ssh/id_rsa.pub manue1@slave01 
+ssh-copy-id -i ~/.ssh/id_rsa.pub manue1@slave02 
+ssh-copy-id -i ~/.ssh/id_rsa.pub manue1@master</li>
+
+<li>download hadoop
+tar -zxvf hadoop-2.7.5.tar.gz</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org7a74d2a" class="outline-3">
+<h3 id="org7a74d2a">配置hadoop cluster</h3>
+<div class="outline-text-3" id="text-org7a74d2a">
+<ul class="org-ul">
+<li><p>
+hadoop_home
+三台节点都需要配置
+vi .bashrc
+</p>
+<pre class="example">
+# Hadoop Environment Variables
+export HADOOP_HOME=/home/manue1/opt/hadoop-2.7.5
+export HADOOP_INSTALL=$HADOOP_HOME
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_COMMON_HOME=$HADOOP_HOME
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export YARN_HOME=$HADOOP_HOME
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
+export HADOOP_OPTS="$HADOOP_OPTS -Djava.library.path=$HADOOP_HOME/lib/native" #解决WARN util.NativeCodeLoader: Unable to load native-hadoop library
+export CATALINA_BASE=$HADOOP_HOME/share/hadoop/httpfs/tomcat #支持httpfs rest api
+
+</pre></li>
+
+<li><p>
+master
+</p>
+
+<p>
+<i>home/manue1/opt/hadoop-2.7.5/etc/hadoop</i> 下6个配置文件
+</p>
+<ol class="org-ol">
+<li><p>
+core-site.xml
+</p>
+
+<pre class="example">
+&lt;configuration&gt;
+    &lt;!-- 指定HDFS老大（namenode）的通信地址 --&gt;
+    &lt;property&gt;
+        &lt;name&gt;fs.defaultFS&lt;/name&gt;
+        &lt;value&gt;hdfs://master:9000&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;!-- 指定hadoop运行时产生文件的存储路径 --&gt;
+    &lt;property&gt;
+        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+        &lt;value&gt;file:/home/manue1/opt/hadoop-2.7.5/tmp&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+    &lt;!--开启httpfs实现一种匿名的方式登陆hdfs文件系统 端口14000
+        manue1用户为hdfs的超级用户 hive启动用户
+    --&gt;
+
+    &lt;property&gt;
+         &lt;name&gt;hadoop.proxyuser.manue1.hosts&lt;/name&gt;
+         &lt;value&gt;*&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;hadoop.proxyuser.manue1.groups&lt;/name&gt;
+        &lt;value&gt;*&lt;/value&gt;
+    &lt;/property&gt;
+
+
+</pre></li>
+
+<li><p>
+hdfs-site.xml
+</p>
+
+<pre class="example">
+&lt;configuration&gt;
+        &lt;!-- 设置namenode的http通讯地址 --&gt;
+        &lt;property&gt;
+                &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;
+                &lt;value&gt;master:50090&lt;/value&gt;
+        &lt;/property&gt;
+        &lt;!-- 设置hdfs副本数量 --&gt;
+        &lt;property&gt;
+                &lt;name&gt;dfs.replication&lt;/name&gt;
+                &lt;value&gt;1&lt;/value&gt;
+        &lt;/property&gt;
+         &lt;!-- 设置namenode存放的路径 --&gt;
+        &lt;property&gt;
+                &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+                &lt;value&gt;file:/home/manue1/opt/hadoop-2.7.5/tmp/dfs/name&lt;/value&gt;
+        &lt;/property&gt;
+         &lt;!-- 设置datanode存放的路径 --&gt;
+        &lt;property&gt;
+                &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+                &lt;value&gt;file:/home/manue1/opt/hadoop-2.7.5/tmp/dfs/data&lt;/value&gt;
+        &lt;/property&gt;
+&lt;/configuration&gt;
+
+
+</pre></li>
+
+<li><p>
+mapred-site.xml
+</p>
+
+<p>
+mv mapred-site.xml.template mapred-site.xml
+</p>
+
+<pre class="example">
+&lt;configuration&gt;
+        &lt;!-- 通知框架MR使用YARN --&gt;
+        &lt;property&gt;
+                &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+                &lt;value&gt;yarn&lt;/value&gt;
+        &lt;/property&gt;
+        &lt;property&gt;
+                &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;
+                &lt;value&gt;master:10020&lt;/value&gt;
+        &lt;/property&gt;
+        &lt;property&gt;
+                &lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;
+                &lt;value&gt;master:19888&lt;/value&gt;
+        &lt;/property&gt;
+&lt;/configuration&gt;
+
+</pre></li>
+
+<li><p>
+yarn-site.xml
+</p>
+
+<pre class="example">
+&lt;configuration&gt;
+ &lt;!-- 设置 resourcemanager 在哪个节点--&gt;
+&lt;!-- Site specific YARN configuration properties --&gt;
+        &lt;property&gt;
+                &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;
+                &lt;value&gt;master&lt;/value&gt;
+        &lt;/property&gt;
+         &lt;!-- reducer取数据的方式是mapreduce_shuffle --&gt;
+        &lt;property&gt;
+                &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+                &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+        &lt;/property&gt;
+        &lt;!--所有主机访问yarn管理界面--&gt;
+        &lt;property&gt; 
+                &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;
+                &lt;value&gt;0.0.0.0:8088&lt;/value&gt;
+        &lt;/property&gt;
+
+&lt;/configuration&gt;
+
+</pre></li>
+
+<li><p>
+slaves
+</p>
+
+<pre class="example">
+slave01
+slave02
+</pre></li>
+
+<li><p>
+hadoop-env.sh
+</p>
+
+<p>
+修改
+export JAVA_HOME=/home/manue1/opt/jdk8
+</p></li>
+</ol></li>
+
+<li><p>
+slaves
+</p>
+
+<p>
+tar -zcvf hadoop-2.7.5_conf_finshed.tar.gz hadoop-2.7.5/
+</p>
+
+<p>
+scp hadoop-2.7.5_conf_finshed.tar.gz manue1@slave02:/home/manue1/opt/
+</p></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org52a005e" class="outline-3">
+<h3 id="org52a005e">启动hadoop</h3>
+<div class="outline-text-3" id="text-org52a005e">
+<p>
+hdfs namenode -format #第一次启动要执行格式化，之后启动不用执行这个
+start-dfs.sh
+start-yarn.sh
+mr-jobhistory-daemon.sh start historyserver  ??
+httpfs.sh start
+</p>
+
+
+<ul class="org-ul">
+<li><p>
+master
+</p>
+<pre class="example">
+manue1@master sbin]$ jps
+2034 NameNode
+2483 Jps
+15754 Bootstrap  #httpfs
+1652 ResourceManager
+2188 SecondaryNameNode
+2447 JobHistoryServer
+
+</pre></li>
+
+<li><p>
+slaves
+</p>
+<pre class="example">
+[manue1@slave01 hadoop]$ jps
+1360 DataNode
+1430 NodeManager
+1516 Jps
+</pre></li>
+</ul>
+
+<p>
+hadoop cluster状态展示界面 webhdfs
+<a href="http://master:50070/">http://master:50070/</a>
+curl "<a href="http://master:50070/webhdfs/v1/?op=liststatus&amp;user.name=manue1">http://master:50070/webhdfs/v1/?op=liststatus&amp;user.name=manue1</a>"
+</p>
+
+<p>
+httpfs rest api 配置HA的时候找不到namenode可以采用httpfs
+<a href="http://master:14000/">http://master:14000/</a>
+curl "<a href="http://master:14000/webhdfs/v1/?op=liststatus&amp;user.name=manue1">http://master:14000/webhdfs/v1/?op=liststatus&amp;user.name=manue1</a>"
+</p>
+
+<p>
+yarn 管理界面
+<a href="http://master:8088">http://master:8088</a>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb9437a2" class="outline-2">
+<h2 id="orgb9437a2">elasticstk 集群</h2>
+<div class="outline-text-2" id="text-orgb9437a2">
+</div>
+<div id="outline-container-org077e048" class="outline-3">
+<h3 id="org077e048">elasticsearch-611</h3>
+<div class="outline-text-3" id="text-org077e048">
+<ol class="org-ol">
+<li><p>
+环境准备
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">hostname</th>
+<th scope="col" class="org-right">ip</th>
+<th scope="col" class="org-left">&#xa0;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">master</td>
+<td class="org-right">192.168.56.10</td>
+<td class="org-left">masternode</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">slave01</td>
+<td class="org-right">192.168.56.11</td>
+<td class="org-left">datanode</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">slave02</td>
+<td class="org-right">192.168.56.12</td>
+<td class="org-left">datanode</td>
+</tr>
+</tbody>
+</table>
+
+<ul class="org-ul">
+<li><p>
+生产环境配置: 
+</p>
+
+<p>
+10节点 6个master候选节点
+</p>
+
+<p>
+1节点 4G + lucene 3G = 8G
+</p>
+
+<p>
+10T硬盘，最多存5T数据
+</p>
+
+<p>
+4c + 8g + 1T * 10台 = 10T 
+4c + 16g + 2T * 5台 = 10T
+</p></li>
+</ul></li>
+</ol>
+
+
+<ul class="org-ul">
+<li>java 环境配置，关闭firewalld,主机名配置,官网下载elasticsearch-6.1.1.tar.gz</li>
+
+<li>普通用户下安装es  username:manue1</li>
+
+<li><p>
+系统设置
+</p>
+
+<p>
+sudo -s 切换到root下执行
+</p>
+
+<pre class="example">
+
+sed -e '$a vm.max_map_count = 262144' -i /etc/sysctl.conf
+
+sysctl -p
+
+
+
+echo "ulimit -SHn 1048576" &gt;&gt; /etc/rc.local
+
+sed -e '$a DefaultLimitCORE=infinity\nDefaultLimitNOFILE=1048576\nDefaultLimitNPROC=1048576' -i /etc/systemd/system.conf
+
+cat &gt;&gt; /etc/security/limits.conf &lt;&lt; EOF
+
+ *           soft   nofile       1048576
+
+ *           hard   nofile       1048576
+
+ *           soft   nproc        1048576
+
+ *           hard   nproc        1048576
+
+EOF
+
+sed -i 's/4096/1048576/' /etc/security/limits.d/20-nproc.conf
+
+sed -e '/root       soft    nproc     unlimited/a\*           soft   nofile       1048576\n*           hard   nofile       1048576' -i /etc/security/limits.d/20-nproc.conf
+
+</pre>
+<p>
+修改系统配置文件后，重启系统生效
+</p></li>
+</ul>
+<ol class="org-ol">
+<li><p>
+配置elasticsearch
+</p>
+
+<ul class="org-ul">
+<li><p>
+elasticsearch.yml          # els的配置文件
+</p>
+<pre class="example">
+cluster.name: manue1-es-cluster  #集群名称
+
+node.name: master-node           #节点名称
+
+node.data: false
+node.master: true  #建议直接不设置，默认两个都为true.
+
+path.data: /Home/Manue1/Opt/Elasticsearch-6.1.1/Els/Data  #数据存储目录
+
+path.logs: /home/manue1/opt/elasticsearch-6.1.1/els/log   #日志存储目录
+
+network.bind_host: 0.0.0.0   #���master节点配置 ”0.0.0.0”，允许所有网络接口访问
+network.publish_host: master # 集群通信
+
+gateway.recover_after_nodes: 3  #值为n，网关控制在n个节点启动之后才恢复整个集群, 3节&gt;点启动后1分钟
+gateway.recover_after_time: 1m
+
+indices.recovery.max_bytes_per_sec: 20mb  #恢复数据时,限制的宽带流量,如果是0就是无限制
+
+node.max_local_storage_nodes: 1                  #值为n，一个系统中最多启用节点个数为n
+
+http.port: 9200                 # 对外提供服务的端口，9300为集群服务的端口
+
+
+</pre></li>
+
+<li><p>
+jvm.options                # JVM相关的配置，内存大小等等
+</p>
+<pre class="example">
+-Xms128M
+-Xmx128M
+
+ -Xmx1g与-Xms1gJVM的最大最小内存。如果太小会导致Elasticsearch刚刚启动就立刻停止。太大会拖慢系统本身
+</pre></li>
+
+<li>log4j2.properties          # 日志系统定义</li>
+</ul>
+
+<p>
+将配置好的elasticsearch 打包传到各个节点，需要注意的是，如果配置过程中运行产生的data/nodes/0 文件
+一定要删掉，再打包使用，否则各个节点启动成功了，无法加入到集群，节点id冲突
+</p>
+<pre class="example">
+with the same id but is a different node instance
+</pre></li>
+
+<li><p>
+启动elasticsearch
+</p>
+
+<p>
+su – manue1
+</p>
+
+<p>
+vi  /home/manue1/opt/elasticsearch-6.1.1/bin/elasticsearch
+</p>
+<pre class="example">
+ES_HEAP_SIZE=128m
+MAX_OPEN_FILES=262144
+</pre>
+
+<p>
+nohup ./bin/elasticsearch -d 
+</p>
+
+<p>
+关闭 ps -ef |grep elasticsearch|awk '{print $2}'|xargs kill -9
+</p></li>
+
+<li>refer
+<a href="https://blog.csdn.net/thomas0yang/article/details/55518105#%E5%86%85%E5%AD%98">https://blog.csdn.net/thomas0yang/article/details/55518105#内存</a>
+<a href="https://www.elastic.co/guide/cn/elasticsearch/guide/cn/important-configuration-changes.html#_%E6%9C%80%E5%B0%8F%E4%B8%BB%E8%8A%82%E7%82%B9%E6%95%B0">https://www.elastic.co/guide/cn/elasticsearch/guide/cn/important-configuration-changes.html#_最小主节点数</a>
+<a href="https://zhuanlan.zhihu.com/p/35291900">https://zhuanlan.zhihu.com/p/35291900</a></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orga4cc193" class="outline-3">
+<h3 id="orga4cc193">kibana</h3>
+<div class="outline-text-3" id="text-orga4cc193">
+<p>
+配置在es的非数据节点上: 192.168.56.10
+</p>
+
+<p>
+修改 config/kibana.yml
+</p>
+<pre class="example">
+server.host: "0.0.0.0" #不同网卡网段能够访问
+elasticsearch.url: "http://master:9200"
+</pre>
+
+<p>
+启动： nohup  bin/kibana  &amp;
+</p>
+
+<p>
+关闭: ps -ef |grep kibana |awk '{print $2}'|xargs kill -9
+</p>
+
+<p>
+ss -lnp | grep 5601
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7957739" class="outline-3">
+<h3 id="org7957739">logstash</h3>
+<div class="outline-text-3" id="text-org7957739">
+<ol class="org-ol">
+<li>download
+logstash-6.1.1.tar.gz</li>
+<li>config
+
+<ul class="org-ul">
+<li><p>
+创建logstash-conf 目录
+beat的配置文件
+vi beats.conf
+</p>
+<pre class="example">
+input {
+  beats {
+    port =&gt; 5044
+  }
+}
+
+# The filter part of this file is commented out to indicate that it is
+# optional.
+# filter {
+#
+# }
+
+output {
+  elasticsearch {
+    hosts =&gt; "master:9200"
+    manage_template =&gt; false
+    index =&gt; "%{[@metadata][beat]}-%{[@metadata][version]}-%{+YYYY.MM.dd}" 
+  }
+}
+
+</pre></li>
+
+<li>jvm.options
+修改 xms xmx 最大最小jvm 为256M 比es测试集群吃内存多</li>
+
+<li>logstash.yml</li>
+</ul></li>
+
+<li>start logstash
+
+<ul class="org-ul">
+<li>bin/logstash -e 'input { stdin { } } output { stdout {} }'
+测试启动</li>
+
+<li><p>
+./bin/logstash -f logstash-conf/beats.conf &amp;
+</p>
+
+<p>
+配置文件启动
+</p>
+
+<p>
+sudo netstat -anp | grep 5044
+</p></li>
+</ul></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org4bcad95" class="outline-3">
+<h3 id="org4bcad95">beats</h3>
+<div class="outline-text-3" id="text-org4bcad95">
+</div>
+<div id="outline-container-orgf528246" class="outline-4">
+<h4 id="orgf528246">topbeat</h4>
+<div class="outline-text-4" id="text-orgf528246">
+<p>
+5.x版本后弃用了
+</p>
+<ol class="org-ol">
+<li>下载
+topbeat-1.3.1-x86_64.tar.gz</li>
+
+<li>配置
+
+<ul class="org-ul">
+<li>topbeat</li>
+
+<li>topbeat.template.json  
+topbeat自带的模版，用来创建存放收集数据的索引结构</li>
+
+<li><p>
+topbeat.yml
+</p>
+<pre class="example">
+input:
+  period: 10           #默认10秒收集一次
+  procs: [".*"]   #定义正则表达式，以匹配你所要监控的进程。默认是所有正在运行的进程都进行监控。
+  stats:
+    system: true
+    proc: true
+    filesystem: true
+output:
+  elasticsearch:
+    hosts: ["master:9200"]
+shipper:
+logging:
+  files:
+</pre></li>
+</ul></li>
+</ol>
+
+
+<ol class="org-ol">
+<li>es导入模版
+导入topbeat自带的模版，用来创建存放收集数据的索引结构
+
+<ul class="org-ul">
+<li><p>
+Configuring Template Loading - supported for Elasticsearch output only
+</p>
+<pre class="example">
+ERR Failed to perform any bulk index operations: 406 Not Acceptable
+错误应该是模版和6.0版本不匹配了，官网没有更新
+再去官网查看，topbeat 从5.0 已经被 Metricbeat替换了
+</pre></li>
+
+<li>Loading the Template Manually - required for Logstash output</li>
+</ul></li>
+</ol>
+
+
+<ol class="org-ol">
+<li>kibana</li>
+
+<li><p>
+启动topbeat节点
+</p>
+
+<p>
+sudo ./topbeat -e -c topbeat.yml -d "publish"
+</p></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org9ad4b15" class="outline-4">
+<h4 id="org9ad4b15">filebeat</h4>
+<div class="outline-text-4" id="text-org9ad4b15">
+<ol class="org-ol">
+<li><p>
+download
+</p>
+
+<p>
+filebeat-6.1.1-linux-x86_64.tar.gz
+</p>
+
+<p>
+<a href="https://download.elastic.co/demos/logstash/gettingstarted/logstash-tutorial.log.gz">https://download.elastic.co/demos/logstash/gettingstarted/logstash-tutorial.log.gz</a>
+logstash-tutorial.log.gz apache 的日志文件样本
+</p></li>
+
+<li>config
+
+<ul class="org-ul">
+<li><p>
+filebeat.yml
+</p>
+<pre class="example">
+- type: log
+  # Change to true to enable this prospector configuration.
+  enabled: true
+  # Paths that should be crawled and fetched. Glob based paths.
+  paths:
+    - /var/log/*.log
+    - /home/manue1/opt/source/*.log
+    #- c:\programdata\elasticsearch\logs\*
+
+
+output.logstash:
+  # The Logstash hosts
+  hosts: ["master:5044"]
+
+
+setup.kibana:
+
+  host: "master:5601"         
+
+</pre></li>
+
+<li><p>
+modules
+</p>
+
+<p>
+sudo chown -R root /home/manue1/opt/filebeat-6.1.1-linux-x86_64/module
+</p>
+
+<p>
+sudo chown -R root /home/manue1/opt/filebeat-6.1.1-linux-x86_64/modules.d
+</p>
+
+<ul class="org-ul">
+<li><p>
+Enable modules when you run Filebeatedit
+</p>
+
+<p>
+sudo ./filebeat -e --modules system,nginx,mysql  
+</p>
+
+<p>
+./filebeat -e --modules nginx -M "nginx.access.var.paths=[/var/log/nginx/access.log*]"
+</p></li>
+
+<li><p>
+filebeat.yml
+</p>
+
+<p>
+sudo ./filebeat modules list
+</p>
+
+<p>
+sudo ./filebeat modules enable system 
+</p>
+
+<pre class="example">
+默认配置读取所有enable
+filebeat.modules:
+- module: nginx
+- module: mysql
+- module: system
+
+</pre></li>
+</ul></li>
+</ul></li>
+</ol>
+
+
+
+
+
+<ul class="org-ul">
+<li><p>
+setup template
+</p>
+
+<p>
+for logstash manually setup
+</p>
+<pre class="example">
+./filebeat setup --template -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["localhost:9200"]'
+</pre></li>
+
+<li><p>
+setup kibana dashboards
+</p>
+
+<pre class="example">
+./filebeat setup --dashboards
+</pre></li>
+
+<li><p>
+start filebeat
+</p>
+
+<p>
+sudo chown root filebeat.yml 
+</p>
+
+<p>
+sudo -s
+</p>
+
+<p>
+nohup /home/manue1/opt/filebeat-6.1.1-linux-x86_64/filebeat -e -c /home/manue1/opt/filebeat-6.1.1-linux-x86_64/filebeat.yml -d "publish" &amp;
+</p>
+
+<p>
+ps aux |grep beat
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orga6d159f" class="outline-4">
+<h4 id="orga6d159f">metricbeat</h4>
+<div class="outline-text-4" id="text-orga6d159f">
+<ol class="org-ol">
+<li><p>
+download
+</p>
+
+<p>
+metricbeat-6.1.1-linux-x86_64.tar.gz
+</p></li>
+
+<li>conf
+
+<ul class="org-ul">
+<li>metricbeat.yml
+
+<ol class="org-ol">
+<li><p>
+修改es和kibana的地址
+</p>
+
+<p>
+如果输出到logstash中，需要关闭直接写入es，并配置logstash监听5044端口
+es也要手动加载template
+</p>
+<pre class="example">
+output.logstash:
+  # The Logstash hosts
+  hosts: ["master:5044"]
+</pre></li>
+
+<li>配置template模版
+<ul class="org-ul">
+<li>Configure template loading</li>
+<li><p>
+Load the template manually  
+required for Logstash output
+</p>
+<pre class="example">
+
+sudo ./metricbeat setup --template -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["master:9200"]'
+</pre></li>
+</ul></li>
+</ol></li>
+</ul></li>
+</ol>
+
+
+<ul class="org-ul">
+<li>modules.d 
+目录下面可以配置多种模块
+修改 logstash.yml.disabled 为 logstash.yml 启动模块</li>
+
+<li><p>
+kibana dashboard
+</p>
+
+<p>
+./metricbeat setup --dashboards
+</p></li>
+</ul>
+<ol class="org-ol">
+<li><p>
+start 
+</p>
+
+<p>
+sudo chown root metricbeat.yml 
+sudo chown root modules.d/system.yml 
+sudo ./metricbeat -e -c metricbeat.yml -d "publish"
+</p>
+
+<p>
+ps aux |grep metricbeat
+</p></li>
+</ol>
+
+
+<p>
+复制到不同节点部署
+</p>
+</div>
+</div>
+<div id="outline-container-orgc076f5b" class="outline-4">
+<h4 id="orgc076f5b">packetbeat</h4>
+<div class="outline-text-4" id="text-orgc076f5b">
+<ol class="org-ol">
+<li><p>
+download 
+</p>
+
+<p>
+packetbeat-6.1.1-linux-x86_64.tar.gz
+</p></li>
+
+<li>config 
+
+<ul class="org-ul">
+<li><p>
+packetbeat.yml
+</p>
+
+<p>
+logstash &amp; kibana 地址修改
+</p></li>
+
+<li><p>
+setup template
+</p>
+
+<p>
+./packetbeat setup --template -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["master:9200"]'
+</p></li>
+
+<li><p>
+set up kibana dashboard
+</p>
+
+<p>
+./packetbeat setup --dashboards
+</p></li>
+</ul></li>
+
+<li><p>
+start beat
+</p>
+
+<p>
+sudo chown root packetbeat.yml 
+</p>
+
+<p>
+nohup /home/manue1/opt/packetbeat-6.1.1-linux-x86_64/packetbeat -e -c  /home/manue1/opt/packetbeat-6.1.1-linux-x86_64/packetbeat.yml -d "publish" &amp;
+</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb352c9c" class="outline-2">
+<h2 id="orgb352c9c">hive</h2>
+<div class="outline-text-2" id="text-orgb352c9c">
+<p>
+hadoop namenode上安装,datanode上无需安装
+</p>
+
+<ol class="org-ol">
+<li><p>
+download install
+</p>
+
+<p>
+hive
+</p>
+
+<p>
+<a href="http://mirrors.shuosc.org/apache/hive/stable-2/">http://mirrors.shuosc.org/apache/hive/stable-2/</a>
+</p>
+
+<ul class="org-ul">
+<li><p>
+mysql 
+</p>
+
+<p>
+refer: <a href="http://blog.csdn.net/Nemo____/article/details/72897455">http://blog.csdn.net/Nemo____/article/details/72897455</a>
+</p>
+<ul class="org-ul">
+<li>remove mariadb
+rpm -qa|grep mariadb         //查询出已安装的mariadb
+rpm -e --nodeps 文件名      //卸载 ， 文件名为使用rpm -qa|grep mariadb 命令查出的所有文件
+sudo  rpm -e --nodeps mariadb-libscc</li>
+
+<li><p>
+install mariadb
+</p>
+
+<p>
+<a href="https://www.cnblogs.com/starof/p/4680083.html">https://www.cnblogs.com/starof/p/4680083.html</a> 
+</p>
+
+<p>
+yum install mariadb-server mariadb
+</p>
+
+<p>
+systemctl start mariadb  #启动MariaDB
+</p>
+
+<p>
+systemctl stop mariadb  #停止MariaDB
+</p>
+
+<p>
+systemctl restart mariadb  #重启MariaDB
+</p>
+
+<p>
+systemctl enable mariadb  #设置开机启动
+</p>
+
+<p>
+mysql -uroot -p #NO PASSWORD
+</p>
+
+<p>
+set password for 'root'@'localhost' =password('manue1');  # set new password
+</p>
+
+<p>
+grant all privileges on <b>.</b> to root@'%'identified by 'manue1';  #远程连接设置
+</p>
+
+<p>
+vi /etc/my.cnf
+</p>
+<pre class="example">
+ # set utf8
+[mysql]
+default-character-set=utf8  # NO SPACE
+</pre></li>
+</ul></li>
+</ul></li>
+
+<li><p>
+config
+</p>
+
+<p>
+<a href="https://cwiki.apache.org/confluence/display/Hive/GettingStarted">https://cwiki.apache.org/confluence/display/Hive/GettingStarted</a>
+</p>
+
+<p>
+<a href="http://blog.csdn.net/jssg_tzw/article/details/72354470">http://blog.csdn.net/jssg_tzw/article/details/72354470</a>
+</p>
+
+<ul class="org-ul">
+<li><p>
+vi .bashrc
+</p>
+<pre class="example">
+# Hive Environment Variables
+export HIVE_HOME=/home/manue1/opt/apache-hive-2.3.2-bin
+PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HBASE_HOME/bin:$HIVE_HOME/bin:$PATH
+</pre></li>
+
+<li><p>
+metastore conf
+</p>
+
+<pre class="example">
+mysql -h slave01 -uroot -p
+
+insert into mysql.user (Host,User,Password)values('localhost','hive',password('manue1'));
+
+create database hive;
+
+grant all privileges on hive.* to hive@'%'identified by 'manue1'; 
+
+flush privileges; 
+
+
+</pre></li>
+
+<li><p>
+hive-site.xml
+</p>
+
+<p>
+mv hive-default.xml hive-site.xml
+</p>
+
+<ol class="org-ol">
+<li><p>
+hdfs新建目录
+</p>
+<pre class="example">
+ &lt;name&gt;hive.metastore.warehouse.dir&lt;/name&gt;
+ &lt;value&gt;/user/hive/warehouse&lt;/value&gt;
+ &lt;name&gt;hive.exec.scratchdir&lt;/name&gt;
+&lt;value&gt;/tmp/hive&lt;/value&gt;
+
+
+ 所以要在Hadoop集群新建/user/hive/warehouse目录，执行命令
+
+[manue1@master conf]$ hadoop fs -mkdir -p /user/hive/warehouse
+[manue1@master conf]$ hadoop fs -chmod -R 777 /user/hive/warehouse
+[manue1@master conf]$ hadoop fs -mkdir -p /tmp/hive
+[manue1@master conf]$ hadoop fs -chmod -R 777 /tmp/hive
+</pre></li>
+
+<li><p>
+mysql相关配置
+</p>
+
+<p>
+<a href="https://dev.mysql.com/downloads/connector/j/5.1.html">https://dev.mysql.com/downloads/connector/j/5.1.html</a> download
+</p>
+
+<p>
+mv mysql-connector-java-5.1.45-bin.jar lib/
+</p>
+
+<pre class="example">
+
+1. javax.jdo.option.ConnectionDriverName，将该name对应的value修改为MySQL驱动类路径：
+&lt;property
+  &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;
+  &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;
+&lt;/property&gt;  
+
+2. javax.jdo.option.ConnectionURL，将该name对应的value修改为MySQL的地址：
+ &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;
+ &lt;value&gt;jdbc:mysql://192.168.56.101:3306/hive?createDatabaseIfNotExist=true&lt;/value&gt;
+
+3.javax.jdo.option.ConnectionUserName，将对应的value修改为MySQL数据库登录名：
+&lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;
+&lt;value&gt;hive&lt;/value&gt;
+
+4.javax.jdo.option.ConnectionPassword，将对应的value修改为MySQL数据库的登录密码：
+&lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;
+&lt;value&gt;*******&lt;/value&gt;
+
+</pre>
+
+<p>
+对mysql初始化
+</p>
+
+<p>
+schematool -initSchema -dbType mysql
+</p></li>
+
+<li><p>
+替换${system
+</p>
+
+<p>
+${system:java.io.tmpdir}替换为hive的临时目录
+/home/manue1/opt/apache-hive-2.3.2-bin/iotmp
+</p>
+
+<p>
+${system:user.name}都替换为manue1
+</p>
+
+<pre class="example">
+[manue1@master apache-hive-2.3.2-bin]$ mkdir iotmp
+[manue1@master apache-hive-2.3.2-bin]$ sudo chmod -R 777 iotmp
+
+:%s/${system:java.io.tmpdir}/\/home\/manue1\/opt\/apache-hive-2.3.2-bin\/iotmp/gg
+
+:%s/${system:user.name}/manue1/gg
+</pre></li>
+</ol></li>
+
+<li><p>
+hive-env.sh
+</p>
+
+<p>
+mv hive-env.sh.template hive-env.sh
+</p>
+
+<pre class="example">
+export HADOOP_HOME=/home/manue1/opt/hadoop-2.7.5
+
+export HIVE_CONF_DIR=/home/manue1/opt/apache-hive-2.3.2-bin/conf
+
+export HIVE_AUX_JARS_PATH=/home/manue1/opt/apache-hive-2.3.2-bin/lib
+
+</pre></li>
+</ul></li>
+
+<li><p>
+start hive
+</p>
+
+<p>
+hive --service hiveserver2 &amp;
+</p>
+
+<p>
+netstat -anp | grep 10000
+</p>
+
+<p>
+beeline 测试jdbc连接
+</p>
+
+<p>
+beeline -u jdbc:hive2://master:10000 -n manue1 -p mmanue1
+</p>
+
+<pre class="example">
+
+     bin/beeline
+     !connect jdbc:hive2://master:10000
+ hdfs支持的用户 
+Enter username for jdbc:hive2://master:10000: manue1
+Enter password for jdbc:hive2://master:10000: *****
+
+</pre>
+
+<pre class="example">
+
+Connecting to jdbc:hive2://master:10000/default
+18/01/10 20:37:17 [main]: WARN jdbc.HiveConnection: Failed to connect to master:10000
+Error: Could not open client transport with JDBC Uri: jdbc:hive2://master:10000/default: Failed to open new session: java.lang.RuntimeException: org.apache.hadoop.ipc.RemoteException(org.apache.hadoop.security.authorize.AuthorizationException): User: manue1 is not allowed to impersonate anonymous (state=08S01,code=0)
+Beeline version 2.3.2 by Apache Hive
+beeline&gt; 
+
+分析 ： 访问权限问题
+
+解决 ：在hdfs 的配置文件core-site.xml中加入如下配置，root 为位置填入  User:*  ，etc   hadoop.proxyuser.eamon.hosts
+
+&lt;property&gt;
+  &lt;name&gt;hadoop.proxyuser.manue1.hosts&lt;/name&gt;
+  &lt;value&gt;*&lt;/value&gt;
+ &lt;/property&gt;
+ &lt;property&gt;
+  &lt;name&gt;hadoop.proxyuser.manue1.groups&lt;/name&gt;
+  &lt;value&gt;*&lt;/value&gt;
+&lt;/property&gt;
+
+
+</pre></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org8e91484" class="outline-2">
+<h2 id="org8e91484">zookeeper</h2>
+<div class="outline-text-2" id="text-org8e91484">
+</div>
+<div id="outline-container-org11e122f" class="outline-3">
+<h3 id="org11e122f">Replicated ZooKeeper configural</h3>
+<div class="outline-text-3" id="text-org11e122f">
+<pre class="example">
+note
+
+For replicated mode, a minimum of three servers are required, and it is strongly recommended that you have an odd number of servers. If you only have two servers, then you are in a situation where if one of them fails, there are not enough machines to form a majority quorum. Two servers is inherently less stable than a single server, because there are two single points of failure.
+
+  至少3节点,每个zookeeper服务都可以成为leader， follower，observer。
+</pre>
+
+<ul class="org-ul">
+<li><p>
+vi conf/zoo.cfg
+</p>
+
+<p>
+sudo mkdir -p <i>var/lib/zookeeper
+sudo chown manue1:manue1  /var/lib/zookeeper</i> #manue1 user start service
+创建 vi /var/lib/zookeeper/myid 内容为node server.x ,如 master为1
+</p>
+
+<pre class="example">
+
+tickTime=2000
+dataDir=/var/lib/zookeeper
+clientPort=2181
+initLimit=5
+syncLimit=2
+server.1=master:2888:3888   #2888 集群互相通信 3888 leader选举
+server.2=slave01:2888:3888
+server.3=slave02:2888:3888
+
+# ，端口 2181 由 ZooKeeper 客户端使用，用于连接到 ZooKeeper 服务器；端口 2888 由对等 ZooKeeper 服务器使用，用于互相通信；而端口 3888 用于领导者选举
+
+</pre>
+<p>
+scp -r zookeeper-3.4.10 manue1@slave01:/home/manue1/opt
+scp -r zookeeper-3.4.10 manue1@slave02:/home/manue1/opt
+</p></li>
+
+<li><p>
+start service
+</p>
+
+<p>
+nohup /home/manue1/opt/zookeeper-3.4.10/bin/zkServer.sh restart
+</p>
+
+<p>
+ps -ef | grep zookeeper
+</p>
+
+<p>
+netstat -tnlpa | grep 2181 
+</p>
+
+<p>
+echo state | nc localhost 2181
+</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgee018ee" class="outline-2">
+<h2 id="orgee018ee">hbase</h2>
+<div class="outline-text-2" id="text-orgee018ee">
+<p>
+start hadoop &amp; zookeeper
+</p>
+</div>
+<div id="outline-container-org40152fb" class="outline-3">
+<h3 id="org40152fb">hbase configural</h3>
+<div class="outline-text-3" id="text-org40152fb">
+<ul class="org-ul">
+<li><p>
+.bashrc
+</p>
+
+<pre class="example">
+# Hbase Environment Variables
+export HBASE_HOME=/home/manue1/opt/hbase-1.2.6/
+PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HBASE_HOME/bin:$PATH
+
+
+
+</pre></li>
+
+<li><p>
+hbase-env.sh
+</p>
+<pre class="example">
+export JAVA_HOME=/home/manue1/opt/jdk8
+export HBASE_MANAGES_ZK=false
+
+</pre></li>
+
+<li>hbase-site.xml</li>
+
+<li><p>
+regionservers
+</p>
+<pre class="example">
+master
+slave01
+slave02
+</pre></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgb953fee" class="outline-3">
+<h3 id="orgb953fee">hbase start</h3>
+<div class="outline-text-3" id="text-orgb953fee">
+<p>
+nohup /home/manue1/opt/hbase-1.2.6/bin/start-hbase.sh &amp;
+</p>
+
+<p>
+nohup /home/manue1/opt/hbase-1.2.6/bin/stop-hbase.sh &amp;
+</p>
+
+
+<p>
+<a href="http://master:16010/master-status">http://master:16010/master-status</a>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org2c7c67a" class="outline-2">
+<h2 id="org2c7c67a">kafka</h2>
+<div class="outline-text-2" id="text-org2c7c67a">
+</div>
+<div id="outline-container-org3898c60" class="outline-3">
+<h3 id="org3898c60">kafka configural</h3>
+<div class="outline-text-3" id="text-org3898c60">
+<ul class="org-ul">
+<li><p>
+conf/server.properties
+</p>
+
+<pre class="example">
+#指定zookeeper的连接信息
+zookeeper.connect=master:2181,slave01:2181,slave02:2181
+
+#每个broker相当于一个节点，注意各个节点的broker.id的值必须唯一
+broker.id=0
+
+#broker监听端口
+listeners=PLAINTEXT://master:9092
+
+log.dir=/var/log/kafka
+</pre>
+<p>
+sudo mkdir -p /var/log/kafka  
+sudo chown manue1:manue1 /var/log/kafka
+</p>
+
+<p>
+scp -r kafka_2.11-1.0.0/ manue1@slave01:/home/manue1/opt
+scp -r kafka_2.11-1.0.0/ manue1@slave02:/home/manue1/opt
+各个节点修改broker.id 和 listeners
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd39ba1d" class="outline-3">
+<h3 id="orgd39ba1d">kafka start service</h3>
+<div class="outline-text-3" id="text-orgd39ba1d">
+<ul class="org-ul">
+<li><p>
+vi .bashrc
+</p>
+<pre class="example">
+# KAFKA_HOME Environment Variables
+export KAFKA_HOME=/home/manue1/opt/kafka_2.11-1.0.0
+export PATH=$PATH:$KAFKA_HOME/bin
+
+</pre></li>
+</ul>
+
+
+<p>
+nohup  $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties &amp;
+</p>
+
+<p>
+$KAFKA_HOME/bin/kafka-server-stop.sh
+</p>
+<pre class="example">
+
+   虚拟机环境内存不够，配置启动脚本 jvm heap 大小 
+
+[manue1@slave01 config]$ $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.propertie
+Java HotSpot(TM) 64-Bit Server VM warning: INFO: os::commit_memory(0x00000000c0000000, 1073741824, 0) failed; error='Cannot allocate memory' (errno=12)
+
+
+vi kafka-server-start.sh
+
+KAFKA_HEAP_OPTS="-Xmx256M -Xms128M
+</pre>
+
+<p>
+sudo netstat -anp | grep 9092
+</p>
+</div>
+</div>
+<div id="outline-container-orgf1941ae" class="outline-3">
+<h3 id="orgf1941ae">use kafka</h3>
+<div class="outline-text-3" id="text-orgf1941ae">
+<p>
+<a href="http://blog.csdn.net/u010297957/article/details/72758765">http://blog.csdn.net/u010297957/article/details/72758765</a>
+</p>
+
+<p>
+producer &amp; consumer
+</p>
+<pre class="example">
+
+[manue1@master ~]$ $KAFKA_HOME/bin/kafka-topics.sh --create --topic TestTopic001 --partitions 2 --replication-factor 1 --zookeeper master:2181,slave01:2181,slave02:2181
+Created topic "TestTopic001".
+
+[manue1@master ~]$ $KAFKA_HOME/bin/kafka-topics.sh --describe --topic TestTopic001 --zookeeper master:2181,slave01:2181,slave02:2181
+Topic:TestTopic001	PartitionCount:2	ReplicationFactor:1	Configs:
+    Topic: TestTopic001	Partition: 0	Leader: 1	Replicas: 1	Isr: 1
+    Topic: TestTopic001	Partition: 1	Leader: 2	Replicas: 2	Isr: 2
+
+[manue1@master logs]$ $KAFKA_HOME/bin/kafka-console-producer.sh --broker-list master:9092,slave01:9092,slave02:9092 --topic TestTopic001
+&gt;hi zbr
+&gt;what is your name
+&gt;i love zbr
+
+
+[manue1@slave01 kafka_2.11-1.0.0]$ $KAFKA_HOME/bin/kafka-console-consumer.sh --from-beginning --topic TestTopic001 --zookeeper master:2181,slave01:2181,slave02:2181
+Using the ConsoleConsumer with old consumer is deprecated and will be removed in a future major release. Consider using the new consumer by passing [bootstrap-server] instead of [zookeeper].
+hi zbr
+what is your name
+i love zbr
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org840ae8a" class="outline-2">
+<h2 id="org840ae8a">spark</h2>
+<div class="outline-text-2" id="text-org840ae8a">
+</div>
+<div id="outline-container-org5090dea" class="outline-3">
+<h3 id="org5090dea">spark configural</h3>
+<div class="outline-text-3" id="text-org5090dea">
+<p>
+<a href="https://data-flair.training/blogs/install-apache-spark-multi-node-cluster/">https://data-flair.training/blogs/install-apache-spark-multi-node-cluster/</a>
+</p>
+
+
+<ul class="org-ul">
+<li><p>
+.bashrc
+</p>
+<pre class="example">
+#SPARK_HOME Environment Variables
+export SPARK_HOME=/home/manue1/opt/spark-2.2.1-bin-hadoop2.7
+export PATH=$PATH:$SPARK_HOME/bin
+</pre></li>
+</ul>
+
+
+<ul class="org-ul">
+<li><p>
+spark-env.sh
+</p>
+
+<p>
+cp spark-env.sh.template spark-env.sh
+</p>
+
+<pre class="example">
+export JAVA_HOME=/home/manue1/opt/jdk8
+
+export SCALA_HOME=/home/manue1/opt/scala-2.11.7
+
+export HADOOP_HOME=/home/manue1/opt/hadoop-2.7.5
+
+export HADOOP_CONF_DIR=/home/manue1/opt/hadoop-2.7.5/etc/hadoop
+
+export SPARK_MASTER_IP=master
+
+export SPARK_WORKER_MEMORY=64m
+
+export SPARK_WORKER_CORES=1
+
+export SPARK_WORKER_INSTANCES=2
+
+变量说明
+JAVA_HOME：Java安装目录
+SCALA_HOME：Scala安装目录
+HADOOP_HOME：hadoop安装目录
+HADOOP_CONF_DIR：hadoop集群的配置文件的目录
+SPARK_MASTER_IP：spark集群的Master节点的ip地址
+SPARK_WORKER_MEMORY：每个worker节点能够最大分配给exectors的内存大小
+SPARK_WORKER_CORES：每个worker节点所占有的CPU核数目
+SPARK_WORKER_INSTANCES：每台机器上开启的worker节点的数目
+
+</pre></li>
+</ul>
+
+
+<ul class="org-ul">
+<li><p>
+slaves
+</p>
+<pre class="example">
+master
+slave01
+slave02
+</pre></li>
+</ul>
+
+
+<p>
+slave sync
+</p>
+
+<p>
+scp -r spark-2.2.1-bin-hadoop2.7/ manue1@192.168.1.109:/home/manue1/opt
+</p>
+</div>
+</div>
+<div id="outline-container-org8944625" class="outline-3">
+<h3 id="org8944625">spark start</h3>
+<div class="outline-text-3" id="text-org8944625">
+<p>
+nohup sh /home/manue1/opt/hadoop-2.7.5/sbin/start-all.sh &amp;  #启动hdfs即可
+</p>
+
+<p>
+$SPARK_HOME/sbin/start-all.sh
+</p>
+
+
+<p>
+WebUI
+<a href="http://master:8080/">http://master:8080/</a>
+</p>
+
+<p>
+spark-shell.sh 运行后可以访问后台执行的任务
+<a href="http://master:4040/">http://master:4040/</a>
+</p>
+
+<p>
+spark-submit yarn 管理方式
+<a href="http://master:8088/">http://master:8088/</a>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4f47518" class="outline-2">
+<h2 id="org4f47518">VboxManage</h2>
+<div class="outline-text-2" id="text-org4f47518">
+<ul class="org-ul">
+<li><p>
+vms 基本信息
+</p>
+
+<p>
+VBoxManage showvminfo Centos701
+</p></li>
+
+<li><p>
+无界面启动vms
+</p>
+
+<p>
+VBoxManage startvm Centos701 --type headless
+</p>
+
+<p>
+VBoxManage controlvm ubuntu01 savestate # 保存当前状态关闭
+</p></li>
+
+<li><p>
+修改vms内存总量
+</p>
+
+<p>
+VBoxManage modifyvm Centos701 --memory 1024
+</p></li>
+
+<li><p>
+修改vms磁盘容量
+</p>
+
+<p>
+VBoxManage modifyhd Centos702.vdi --resize 7168
+</p>
+
+<pre class="example">
+
+如果创建过快照，快照的磁盘空间也需要修改
+VBoxManage modifyhd \{aea51811-5e79-46e9-b5ba-f66740e6f47b\}.vdi  --resize 10248
+
+</pre></li>
+
+<li><p>
+创建快照
+</p>
+
+<p>
+VBoxManage snapshot ubuntu01 take ubuntu_basic_ssh
+</p>
+
+<p>
+VBoxManage snapshot ubuntu01 list
+</p>
+
+<p>
+VBoxManage snapshot ubuntu01 delete ubuntu_basic
+</p>
+
+<p>
+VBoxManage snapshot ubuntu01 restore ubuntu_basic_ssh
+</p></li>
+
+<li><p>
+clone vm
+</p>
+
+<p>
+VBoxManage clonevm  Centos701 --snapshot  centos7_basic  --name Centos_basic
+</p></li>
+</ul>
+
+
+
+
+<pre class="example">
+
+查看当前虚拟机  VBoxManage list vms  
+
+查看当前正在运行的虚拟机  VBoxManage list runningvms  
+
+启动虚拟机  VBoxManage startvm 虚拟机名  
+
+无前端图形界面方式启动虚拟机  VBoxManage startvm 虚拟机名 --type headless  
+
+使用 VRDP 方式通过命令行启动虚拟机： (3389)  
+VBoxManage startvm 虚拟机名 --type vrdp  
+
+关闭虚拟机  VBoxManage controlvm 虚拟机名 poweroff  
+
+VBoxManage [-v|-version]         显示virtualbox的版本号  
+VBoxManage -nologo               隐藏logo  
+VBoxManage -convertSettings      允许自动转换设置文件  
+VBoxManage -convertSettingsBackup 允许自动转换设置文件，并在转换前作备份  
+VBoxManage -convertSettingsIgnore 允许自动转换设置文件，但是不保存结果  
+
+VBoxManage list vms|runningvms   显示列表虚拟机|正在运行的虚拟机  
+               |ostypes|hostdvds virtualbox支持的系统类型|宿主机的光盘驱动器  
+               |hostfloppies     宿主机的软盘驱动器  
+
+               |hostifs|hostinfo 宿主机的网络接口|宿主机的信息  
+               |hdds|dvds        已注册的虚拟硬盘|已注册的虚拟光盘  
+               |floppies|usbhost 已注册的虚拟软盘|宿主机的USB设备  
+               |usbfilters       USB筛选器  
+               |systemproperties 虚拟机的基本信息  
+VBoxManage showvminfo &lt;uuid&gt;|&lt;name&gt;     显示指定虚拟机的信息  
+                     [-details]         显示详细信息  
+                     [-statistics]      显示统计信息  
+                     [-machinereadable] 以清晰的格式显示虚拟机信息  
+VBoxManage registervm &lt;filename&gt;       将指定文件所在的虚拟机添加到列表  
+VBoxManage unregistervm &lt;uuid&gt;|&lt;name&gt;   从虚拟机列表清除指定的虚拟机  
+                        [-delete]       从虚拟机列表删除指定的虚拟机  
+VBoxManage createvm     -name &lt;name&gt;    创建指定名称的虚拟机  
+                        [-register]      将创建的虚拟机添加到列表  
+                        [-basefolder &lt;path&gt; 指定虚拟机的基础目录  
+                        [-settingsfile &lt;path&gt;] 指定虚拟机配置文件的基础目录  
+                        [-uuid &lt;uuid&gt;] 创建指定uuid的虚拟机  
+VBoxManage modifyvm     &lt;uuid|name&gt;       编辑指定的虚拟机的配置  
+                        [-name &lt;name&gt;]    修改虚拟机的名称  
+                        [-ostype &lt;ostype&gt;]修改虚拟机的操作系统类型  
+                        [-memory &lt;memorysize&gt;]   修改虚拟机的内存大小  
+                        [-vram &lt;vramsize&gt;]       修改虚拟机的显存大小  
+                        [-acpi on|off]           启动或禁止acpi电源管理接口  
+                        [-ioapic on|off]         启动或禁止I/O APIC电源管理接口  
+                        [-pae on|off]            启动或禁止CPU的PAE支持，PAE是  
+Physical Address Extension : 物理地址扩展  
+                        [-hwvirtex on|off|default]启动或禁止CPU的硬件虚拟化支持  
+                        [-nestedpaging on|off]    开启或关闭CPU的嵌套页面列表支持  
+                        [-monitorcount &lt;number&gt;] 设置显示器数目，VRDP多用户模式时  
+                        [-bioslogofadein on|off] 开启或关闭bioslogo渐显效果  
+                        [-bioslogofadeout on|off] 开启或关闭bioslogo渐隐效果  
+                        [-bioslogodisplaytime &lt;msec&gt;]设置bioslogo显示时间（以毫秒为单位)  
+                        [-bioslogoimagepath &lt;imagepath&gt;]设置bioslogo图像路径，用于自定义bioslogo  
+                        [-biosbootmenu disabled| 设置是否显示bios启动菜单 关闭  
+                                       menuonly| 只菜单  
+                                       messageandmenu] 信息和菜单  
+                        [-biossystemtimeoffset &lt;msec&gt;] 设置bios系统时间补偿（以毫秒为单位）  
+                        [-biospxedebug on|off] 打开或关闭biospxe调试  
+                        [-boot&lt;1-4&gt; none|floppy|dvd|disk|net&gt;] 设置启动顺序  
+                        [-hd&lt;a|b|d&gt; none|&lt;uuid&gt;|&lt;filename&gt;] 为虚拟机添加三个IDE设备之一（第2个主盘被vm保留作为光驱，不能占用）在三个IDE中，你可以指定（硬盘）的vdi文件名或者它的UUID  
+                        [-idecontroller PIIX3|PIIX4] 设置IDE控制器的类型  
+                        [-sata on|off] 开启或关闭SATA硬盘控制器  
+                        [-sataportcount &lt;1-30&gt;] 设置虚拟机最多支持的SATA控制器数目  
+                        [-sataport&lt;1-30&gt; none| 没有硬盘连接到SATA控制器  
+                                       &lt;uuid&gt;| 指定uuid的硬盘连接到SATA控制器  
+                                       &lt;filename&gt;] 指定文件名的硬盘连接到SATA控制器  
+                        [-sataideemulation&lt;1-4&gt; &lt;1-30&gt;] 指定一个SATA设备工作在IDE兼容模式，IDE设备编号是1-4，SATA设备编号是1-30  
+                        [-dvd none| 不连接DVD光驱  
+                            &lt;uuid&gt;| 指定UUID的DVD光驱连接  
+                        &lt;filename&gt;| 将指定的光盘映像文件挂接到DVD光驱  
+                      host:&lt;drive&gt;] 将宿主机的DVD光驱挂接到虚拟机的DVD光驱  
+                        [-dvdpassthrough on|off]打开|关闭虚拟机里光盘的刻录功能  
+                        [-floppy disabled| 不连接软驱  
+                                    empty| 连接软驱但不插入软盘  
+                                   &lt;uuid&gt;| 指定UUID的软驱连接  
+                               &lt;filename&gt;| 将指定的软盘映像文件挂接到软驱驱  
+                             host:&lt;drive&gt;] 将宿主机的软驱驱挂接到虚拟机的软驱  
+                        [-nic&lt;1-N&gt; none| 虚拟机不添加网卡  
+                                   null| 虚拟机有网卡但不连接  
+                                    nat| 网络连接使用NAT模式  
+                                 hostif| 网络连接使用桥接模式  
+                                 intnet] 网络连接使用内部网络模式  
+                        [-nictype&lt;1-N&gt; Am79C970A| 虚拟机连接AMD PCNet PCI II网卡  
+                                        Am79C973| 虚拟机连接AMD PCNet FAST III网卡（默认）  
+                                         82540EM| 虚拟机连接Intel PRO/1000 MT Desktop网卡  
+                                         82543GC] 虚拟机连接Intel PRO/1000 T Server网卡  
+                        [-cableconnected&lt;1-N&gt; on|off]插入或拔出网线  
+                        [-nictrace&lt;1-N&gt; on|off] 开启或关闭网络追踪  
+                        [-nictracefile&lt;1-N&gt; &lt;filename&gt;] 将网络流量追踪数据保存到文件  
+                        [-nicspeed&lt;1-N&gt; &lt;kbps&gt;] 设置网络连接的速度  
+                        [-hostifdev&lt;1-N&gt; none| 不连接到主机网络接口  
+                                 &lt;devicename&gt;] 桥接模式下连接到指定的主机接口  
+                        [-intnet&lt;1-N&gt; &lt;network name&gt;] 内网模式下为虚拟机指定内部网络名称  
+                        [-natnet&lt;1-N&gt; &lt;network&gt;| 配置NAT网络接口的地址  
+                                        default] 默认NAT网络接口的地址是10.0.x.0/24  
+                        [-macaddress&lt;1-N&gt; auto| 自动生成虚拟网卡的MAC地址  
+                                         &lt;mac&gt;] 指定虚拟网卡的MAC地址  
+                        [-uart&lt;1-N&gt; off| 不启用虚拟串口  
+                        &lt;I/O base&gt; &lt;IRQ&gt;]启用虚拟串口，并设置虚拟串口的I/O参数和IRQ参数  
+                        [-uartmode&lt;1-N&gt; disconnected| 启用虚拟串口，但不连接到宿主机的串口  
+                                       server &lt;pipe&gt;| 在宿主机创建PIPE通道，并将虚拟机串口连接到这个通道  
+                                       client &lt;pipe&gt;| 不创建PIPE通道，而是将虚拟机串口连接到已存在的通道  
+                                       &lt;devicename&gt;] 将虚拟机串口连接到宿主机的串口  
+                        [-gueststatisticsinterval &lt;seconds&gt;] 配置虚拟机静态时间间隔  
+                        [-audio none| 虚拟机不连接声卡  
+                                null| 将虚拟机的声卡连接到空的声音设备  
+                              dsound] 将虚拟机的声卡连接到宿主机的声卡  
+                        [-audiocontroller ac97| 将虚拟机声卡虚拟为ICH AC97声卡  
+                                          sb16] 将虚拟机声卡虚拟为soundblaster 16声卡  
+                        [-clipboard disabled| 不共享剪贴板  
+                                 hosttoguest| 将宿主机的剪贴板共享给虚拟机  
+                                 guesttohost| 将虚拟机的剪贴板共享给宿主机  
+                               bidirectional] 宿主机和虚拟机共使用一个剪贴板  
+                        [-vrdp on|off] 开启|关闭virtualbox内置的VRDP服务器  
+                        [-vrdpport default| 使用默认的vrdp端口3389  
+                                    &lt;port&gt;] 指定vrdp端口  
+                        [-vrdpaddress &lt;host&gt;] 指定VRDP主机地址  
+                        [-vrdpauthtype null| 不用授权，任何客户机都可以连接到VRDP服务器  
+                                   external| 只有宿主机的用户才可以连接到VRDP服务器  
+                                      guest] 只有虚拟机的用户才可以连接到VRDP服务器  
+                        [-vrdpmulticon on|off] 打开|关闭VRDP多用户连接模式  
+                        [-vrdpreusecon on|off] 打开|关闭VRDP断线重连  
+                        [-usb on|off] 打开|关闭虚拟USB控制器  
+                        [-usbehci on|off] 打开|关闭虚拟USB2.0控制器  
+                        [-snapshotfolder default| 将系统快照保存到默认文件夹  
+                                          &lt;path&gt;] 将系统快照保存到指定文件夹  
+VBoxManage startvm      &lt;uuid&gt;|&lt;name&gt; 开启指定UUID|名称的虚拟机  
+                        [-type gui|vrdp] 设置虚拟机标准显示设备GUI界面|VRDP  
+VBoxManage controlvm    &lt;uuid&gt;|&lt;name&gt; 改变正在运行的虚拟机的状态  
+                         pause| 暂停，这时虚拟机窗口显示灰色  
+                        resume| 恢复暂停的虚拟机  
+                         reset| 复位  
+                      poweroff| 强行关闭  
+               acpipowerbutton| 关机  
+               acpisleepbutton| 使虚拟机处于睡眠状态  
+                     savestate| 保存状态然后关闭，相当于休眠  
+           keyboardputscancode &lt;hex&gt; [&lt;hex&gt; ...] 键盘扫描码设置  
+               setlinkstate&lt;1-4&gt; on|off 连接|断开网络连接  
+               usbattach &lt;uuid&gt;|&lt;address&gt; 连接到指定UUDI|地址的USB设备   
+               usbdetach &lt;uuid&gt;|&lt;address&gt; 断开指定UUDI|地址的USB设备     
+               dvdattach none| 不连接虚拟DVD光驱  
+                       &lt;uuid&gt;| 连接到指定UUID的DVD光驱  
+                   &lt;filename&gt;| 连接到指定名称的DVD映像文件  
+                  host:&lt;drive&gt; 连接到宿主机的DVD光驱  
+               floppyattach none| 不连接虚拟软驱  
+                          &lt;uuid&gt;| 连接到指定UUID的虚拟软驱  
+                      &lt;filename&gt;| 连接到指定名称的软盘映像文件  
+                     host:&lt;drive&gt; 连接到宿主机的软驱  
+               setvideomodehint &lt;xres&gt; 设置虚拟机的屏幕分辨率 水平像素  
+                                &lt;yres&gt; 垂直像素  
+                                 &lt;bpp&gt; 颜色深度  
+                             [display] 刷新频率  
+               setcredentials &lt;username&gt; 指定VRDP自动连接参数 用户名  
+                              &lt;password&gt; 密码  
+                                &lt;domain&gt; 域  
+             [-allowlocallogon &lt;yes|no&gt;] 允许|禁止本地登陆  
+VBoxManage discardstate     &lt;uuid&gt;|&lt;name&gt; 丢弃指定UUID|名称的虚拟机的保存状态  
+VBoxManage adoptstate       &lt;uuid&gt;|&lt;name&gt; &lt;state_file&gt; 将虚拟机从指定的保存状态中恢复  
+VBoxManage snapshot         &lt;uuid&gt;|&lt;name&gt; 为指定的虚拟机拍快照  
+                            take &lt;name&gt; 为快照取名  
+                        [-desc &lt;desc&gt;]| 给快照添加描述  
+                        discard &lt;uuid&gt;|&lt;name&gt; | 丢弃指定的快照   
+                        discardcurrent -state| 恢复到最近的快照  
+                                        -all | 恢复到倒数第二个快照  
+                        edit &lt;uuid&gt;|&lt;name&gt;| 编辑指定的快照  
+                                   -current 编辑当前快照  
+                          [-newname &lt;name&gt;] 修改快照名称  
+                          [-newdesc &lt;desc&gt;] 修改快照描述  
+                        showvminfo &lt;uuid&gt;|&lt;name&gt; 显示快照的虚拟机信息  
+VBoxManage registerimage    disk|dvd|floppy &lt;filename&gt; 注册硬盘、光盘、软盘映像文件  
+                            [-type normal| 注册为普通类型（可创建快照，可读写）  
+                                immutable| 注册为只读类型（相当于加了硬盘卡）  
+                             writethrough] 注册为可写类型（这种类型不能创建快照）  
+                               (disk only) (注册类型选项只适用于硬盘）  
+VBoxManage unregisterimage disk| 从虚拟介质管理器删除指定的硬盘  
+                             dvd| 从虚拟介质管理器删除指定的DVD光盘   
+                           floppy 从虚拟介质管理器删除指定的软盘  
+                          &lt;uuid&gt;| 删除时指定UUID  
+                       &lt;filename&gt; 删除时指定映像文件  
+VBoxManage showvdiinfo      &lt;uuid&gt;|&lt;filename&gt; 显示指定UUID|名称虚拟硬盘的信息  
+
+VBoxManage createvdi        -filename &lt;filename&gt; 创建指定名称的虚拟硬盘  
+                            -size &lt;megabytes&gt; 指定虚拟硬盘的大小（以兆为单位）  
+                            [-static] 创建固定大小的虚拟硬盘  
+                            [-comment &lt;comment&gt;] 添加一段解释性文字  
+                            [-register] 注册新创建的虚拟硬盘  
+                            [-type normal| 注册类型 普通（可以创建快照）  
+                             writethrough] 注册类型 可写（不能创建快照）  
+                          (default: normal) 默认是普通类型  
+VBoxManage modifyvdi        &lt;uuid&gt;|&lt;filename&gt; compact 压缩指定的虚拟硬盘  
+VBoxManage clonevdi         &lt;uuid&gt;|&lt;filename&gt; &lt;outputfile&gt; 克隆指定的VDI虚拟硬盘  
+VBoxManage convertdd        [-static] &lt;filename&gt; &lt;outputfile&gt; 将raw硬盘转换成vdi虚拟硬盘  
+VBoxManage convertdd        [-static] stdin &lt;outputfile&gt; &lt;bytes&gt; 将标准输入参数指定的设备转换成vdi虚拟硬盘，比如：dd if=/dev/sda1 | VBoxManage convertdd stdin /media/disk/C.vdi 62277025792  
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2017-06-03</span>
+        <span title="last modification date" class="post-info">2018-06-03</span>
+        <span title="tags" class="post-info"><a href="/tags/vbox/">Vbox</a>, <a href="/tags/hadoop/">Hadoop</a>, <a href="/tags/elasticsearch/">Elasticsearch</a>, <a href="/tags/hive/">Hive</a>, <a href="/tags/hbase/">Hbase</a>, <a href="/tags/zookeeper/">Zookeeper</a>, <a href="/tags/kafka/">KafKa</a>, <a href="/tags/spark/">Spark</a></span>
+        <span title="author" class="post-info">manue1</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          //var disqus_developer = 1;
+          var disqus_identifier = "/blog/2017/06/03/note-linux-centos-集群部署";
+          var disqus_url = "http://www.manue1.site/blog/2017/06/03/note-linux-centos-集群部署";
+          var disqus_shortname = 'manue1-site';
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </section>
+      <script src="//code.jquery.com/jquery-latest.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/main.js"></script>
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-41088132-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:manue1 &lt;at&gt; foxmail &lt;dot&gt; com">manue1</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
