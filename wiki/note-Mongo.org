@@ -1,5 +1,15 @@
+#+TITLE:       note-Mongo
+#+AUTHOR:      manue1
+#+EMAIL:       manue1@manpc
+#+DATE:        2015-03-03 Sun
+#+URI:         /wiki/%t
+#+KEYWORDS:    Mongo,Note
+#+TAGS:        Mongo
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Mongo日常使用记录
+
 * Mongo 使用笔记
-** Mongo集群安装
 ** 常用命令
    1. 创建索引
    
@@ -18,5 +28,6 @@
       
 
       db.ip_history_v1.find({"history":{"$elemMatch":{"insertime":{"$gte":"1509840000","$lte":"1509926400"}}}})
+** Mongo集群安装
 
       
