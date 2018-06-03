@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+  <channel>
+    <title>manue1&#39;s site</title>
+    <link>http://www.manue1.site/</link>
+    <description>^_^ just for simaple</description>
+    <pubDate>Mon, 04 Jun 2018 00:15:29 CST</pubDate>
+    <lastBuildDate>Mon, 04 Jun 2018 00:15:29 CST</lastBuildDate>
+    <docs>http://www.rssboard.org/rss-specification</docs>
+    <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>note-linux-centos-集群部署</title>
+      <link>http://www.manue1.site/blog/2017/06/03/note-linux-centos-集群部署</link>
+      <description><![CDATA[vbox搭建集群开发环境]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://www.manue1.site/blog/2017/06/03/note-linux-centos-集群部署</guid>
+    </item>
+    <item>
+      <title>note-Mongo</title>
+      <link>http://www.manue1.site/wiki/note-mongo</link>
+      <description><![CDATA[Mongo日常使用记录]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://www.manue1.site/wiki/note-mongo</guid>
+    </item>
+    <item>
+      <title>note-mysql</title>
+      <link>http://www.manue1.site/wiki/note-mysql</link>
+      <description><![CDATA[mysql 使用记录]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://www.manue1.site/wiki/note-mysql</guid>
+    </item>
+    <item>
+      <title>note-data-structure</title>
+      <link>http://www.manue1.site/wiki/note-data-structure</link>
+      <description><![CDATA[数据结构知识点梳理]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://www.manue1.site/wiki/note-data-structure</guid>
+    </item>
+    <item>
+      <title>note-elasticsearch-使用记录</title>
+      <link>http://www.manue1.site/wiki/note-elasticsearch-使用记录</link>
+      <description><![CDATA[elasticsearch 使用记录]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://www.manue1.site/wiki/note-elasticsearch-使用记录</guid>
+    </item>
+    <item>
+      <title>note-emacs-使用记录</title>
+      <link>http://www.manue1.site/wiki/note-emacs-使用记录</link>
+      <description><![CDATA[emacs 使用记录]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://www.manue1.site/wiki/note-emacs-使用记录</guid>
+    </item>
+    <item>
+      <title>note-git-使用记录</title>
+      <link>http://www.manue1.site/wiki/note-git-使用记录</link>
+      <description><![CDATA[git 使用笔记]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://www.manue1.site/wiki/note-git-使用记录</guid>
+    </item>
+    <item>
+      <title>note-java-基础知识</title>
+      <link>http://www.manue1.site/wiki/note-java-基础知识</link>
+      <description><![CDATA[java 基础知识回顾]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://www.manue1.site/wiki/note-java-基础知识</guid>
+    </item>
+    <item>
+      <title>note-jvm-深入理解Java虚拟机</title>
+      <link>http://www.manue1.site/wiki/note-jvm-深入理解java虚拟机</link>
+      <description><![CDATA[jvm学习笔记]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://www.manue1.site/wiki/note-jvm-深入理解java虚拟机</guid>
+    </item>
+    <item>
+      <title>kyoto-cabinet key-value离线库</title>
+      <link>http://www.manue1.site/wiki/kyoto-cabinet-key-value离线库</link>
+      <description><![CDATA[kyoto cabinet 离线key-value使用记录]]></description>
+      <pubDate>2018-06-03</pubDate>
+      <guid>http://www.manue1.site/wiki/kyoto-cabinet-key-value离线库</guid>
+    </item>
+  </channel>
+</rss>
