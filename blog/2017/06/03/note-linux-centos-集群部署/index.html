@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="manue1" />
     <meta name="description" content="vbox搭建集群开发环境" />
-    <meta name="keywords" content="Linux Centos" />
+    <meta name="keywords" content="Linux,Centos" />
     <link rel="stylesheet" href="/media/css/main.css" type="text/css">
     <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
   </head>
@@ -32,304 +32,19 @@
 <div>
 <div class="post">
 <h1>note-linux-centos-集群部署</h1>
-<p>
-#+EXPORT_FILE_NAME centos
-</p>
 
-<div id="outline-container-org17cc334" class="outline-2">
-<h2 id="org17cc334">VboxManage</h2>
-<div class="outline-text-2" id="text-org17cc334">
-<ul class="org-ul">
-<li><p>
-vms 基本信息
-</p>
-
-<p>
-VBoxManage showvminfo Centos701
-</p></li>
-
-<li><p>
-无界面启动vms
-</p>
-
-<p>
-VBoxManage startvm Centos701 --type headless
-</p>
-
-<p>
-VBoxManage controlvm ubuntu01 savestate # 保存当前状态关闭
-</p></li>
-
-<li><p>
-修改vms内存总量
-</p>
-
-<p>
-VBoxManage modifyvm Centos701 --memory 1024
-</p></li>
-
-<li><p>
-修改vms磁盘容量
-</p>
-
-<p>
-VBoxManage modifyhd Centos702.vdi --resize 7168
-</p>
-
-<pre class="example">
-
-如果创建过快照，快照的磁盘空间也需要修改
-VBoxManage modifyhd \{aea51811-5e79-46e9-b5ba-f66740e6f47b\}.vdi  --resize 10248
-
-</pre></li>
-
-<li><p>
-创建快照
-</p>
-
-<p>
-VBoxManage snapshot ubuntu01 take ubuntu_basic_ssh
-</p>
-
-<p>
-VBoxManage snapshot ubuntu01 list
-</p>
-
-<p>
-VBoxManage snapshot ubuntu01 delete ubuntu_basic
-</p>
-
-<p>
-VBoxManage snapshot ubuntu01 restore ubuntu_basic_ssh
-</p></li>
-
-<li><p>
-clone vm
-</p>
-
-<p>
-VBoxManage clonevm  Centos701 --snapshot  centos7_basic  --name Centos_basic
-</p></li>
-</ul>
-
-
-
-
-<pre class="example">
-
-查看当前虚拟机  VBoxManage list vms  
-
-查看当前正在运行的虚拟机  VBoxManage list runningvms  
-
-启动虚拟机  VBoxManage startvm 虚拟机名  
-
-无前端图形界面方式启动虚拟机  VBoxManage startvm 虚拟机名 --type headless  
-
-使用 VRDP 方式通过命令行启动虚拟机： (3389)  
-VBoxManage startvm 虚拟机名 --type vrdp  
-
-关闭虚拟机  VBoxManage controlvm 虚拟机名 poweroff  
-
-VBoxManage [-v|-version]         显示virtualbox的版本号  
-VBoxManage -nologo               隐藏logo  
-VBoxManage -convertSettings      允许自动转换设置文件  
-VBoxManage -convertSettingsBackup 允许自动转换设置文件，并在转换前作备份  
-VBoxManage -convertSettingsIgnore 允许自动转换设置文件，但是不保存结果  
-
-VBoxManage list vms|runningvms   显示列表虚拟机|正在运行的虚拟机  
-               |ostypes|hostdvds virtualbox支持的系统类型|宿主机的光盘驱动器  
-               |hostfloppies     宿主机的软盘驱动器  
-
-               |hostifs|hostinfo 宿主机的网络接口|宿主机的信息  
-               |hdds|dvds        已注册的虚拟硬盘|已注册的虚拟光盘  
-               |floppies|usbhost 已注册的虚拟软盘|宿主机的USB设备  
-               |usbfilters       USB筛选器  
-               |systemproperties 虚拟机的基本信息  
-VBoxManage showvminfo &lt;uuid&gt;|&lt;name&gt;     显示指定虚拟机的信息  
-                     [-details]         显示详细信息  
-                     [-statistics]      显示统计信息  
-                     [-machinereadable] 以清晰的格式显示虚拟机信息  
-VBoxManage registervm &lt;filename&gt;       将指定文件所在的虚拟机添加到列表  
-VBoxManage unregistervm &lt;uuid&gt;|&lt;name&gt;   从虚拟机列表清除指定的虚拟机  
-                        [-delete]       从虚拟机列表删除指定的虚拟机  
-VBoxManage createvm     -name &lt;name&gt;    创建指定名称的虚拟机  
-                        [-register]      将创建的虚拟机添加到列表  
-                        [-basefolder &lt;path&gt; 指定虚拟机的基础目录  
-                        [-settingsfile &lt;path&gt;] 指定虚拟机配置文件的基础目录  
-                        [-uuid &lt;uuid&gt;] 创建指定uuid的虚拟机  
-VBoxManage modifyvm     &lt;uuid|name&gt;       编辑指定的虚拟机的配置  
-                        [-name &lt;name&gt;]    修改虚拟机的名称  
-                        [-ostype &lt;ostype&gt;]修改虚拟机的操作系统类型  
-                        [-memory &lt;memorysize&gt;]   修改虚拟机的内存大小  
-                        [-vram &lt;vramsize&gt;]       修改虚拟机的显存大小  
-                        [-acpi on|off]           启动或禁止acpi电源管理接口  
-                        [-ioapic on|off]         启动或禁止I/O APIC电源管理接口  
-                        [-pae on|off]            启动或禁止CPU的PAE支持，PAE是  
-Physical Address Extension : 物理地址扩展  
-                        [-hwvirtex on|off|default]启动或禁止CPU的硬件虚拟化支持  
-                        [-nestedpaging on|off]    开启或关闭CPU的嵌套页面列表支持  
-                        [-monitorcount &lt;number&gt;] 设置显示器数目，VRDP多用户模式时  
-                        [-bioslogofadein on|off] 开启或关闭bioslogo渐显效果  
-                        [-bioslogofadeout on|off] 开启或关闭bioslogo渐隐效果  
-                        [-bioslogodisplaytime &lt;msec&gt;]设置bioslogo显示时间（以毫秒为单位)  
-                        [-bioslogoimagepath &lt;imagepath&gt;]设置bioslogo图像路径，用于自定义bioslogo  
-                        [-biosbootmenu disabled| 设置是否显示bios启动菜单 关闭  
-                                       menuonly| 只菜单  
-                                       messageandmenu] 信息和菜单  
-                        [-biossystemtimeoffset &lt;msec&gt;] 设置bios系统时间补偿（以毫秒为单位）  
-                        [-biospxedebug on|off] 打开或关闭biospxe调试  
-                        [-boot&lt;1-4&gt; none|floppy|dvd|disk|net&gt;] 设置启动顺序  
-                        [-hd&lt;a|b|d&gt; none|&lt;uuid&gt;|&lt;filename&gt;] 为虚拟机添加三个IDE设备之一（第2个主盘被vm保留作为光驱，不能占用）在三个IDE中，你可以指定（硬盘）的vdi文件名或者它的UUID  
-                        [-idecontroller PIIX3|PIIX4] 设置IDE控制器的类型  
-                        [-sata on|off] 开启或关闭SATA硬盘控制器  
-                        [-sataportcount &lt;1-30&gt;] 设置虚拟机最多支持的SATA控制器数目  
-                        [-sataport&lt;1-30&gt; none| 没有硬盘连接到SATA控制器  
-                                       &lt;uuid&gt;| 指定uuid的硬盘连接到SATA控制器  
-                                       &lt;filename&gt;] 指定文件名的硬盘连接到SATA控制器  
-                        [-sataideemulation&lt;1-4&gt; &lt;1-30&gt;] 指定一个SATA设备工作在IDE兼容模式，IDE设备编号是1-4，SATA设备编号是1-30  
-                        [-dvd none| 不连接DVD光驱  
-                            &lt;uuid&gt;| 指定UUID的DVD光驱连接  
-                        &lt;filename&gt;| 将指定的光盘映像文件挂接到DVD光驱  
-                      host:&lt;drive&gt;] 将宿主机的DVD光驱挂接到虚拟机的DVD光驱  
-                        [-dvdpassthrough on|off]打开|关闭虚拟机里光盘的刻录功能  
-                        [-floppy disabled| 不连接软驱  
-                                    empty| 连接软驱但不插入软盘  
-                                   &lt;uuid&gt;| 指定UUID的软驱连接  
-                               &lt;filename&gt;| 将指定的软盘映像文件挂接到软驱驱  
-                             host:&lt;drive&gt;] 将宿主机的软驱驱挂接到虚拟机的软驱  
-                        [-nic&lt;1-N&gt; none| 虚拟机不添加网卡  
-                                   null| 虚拟机有网卡但不连接  
-                                    nat| 网络连接使用NAT模式  
-                                 hostif| 网络连接使用桥接模式  
-                                 intnet] 网络连接使用内部网络模式  
-                        [-nictype&lt;1-N&gt; Am79C970A| 虚拟机连接AMD PCNet PCI II网卡  
-                                        Am79C973| 虚拟机连接AMD PCNet FAST III网卡（默认）  
-                                         82540EM| 虚拟机连接Intel PRO/1000 MT Desktop网卡  
-                                         82543GC] 虚拟机连接Intel PRO/1000 T Server网卡  
-                        [-cableconnected&lt;1-N&gt; on|off]插入或拔出网线  
-                        [-nictrace&lt;1-N&gt; on|off] 开启或关闭网络追踪  
-                        [-nictracefile&lt;1-N&gt; &lt;filename&gt;] 将网络流量追踪数据保存到文件  
-                        [-nicspeed&lt;1-N&gt; &lt;kbps&gt;] 设置网络连接的速度  
-                        [-hostifdev&lt;1-N&gt; none| 不连接到主机网络接口  
-                                 &lt;devicename&gt;] 桥接模式下连接到指定的主机接口  
-                        [-intnet&lt;1-N&gt; &lt;network name&gt;] 内网模式下为虚拟机指定内部网络名称  
-                        [-natnet&lt;1-N&gt; &lt;network&gt;| 配置NAT网络接口的地址  
-                                        default] 默认NAT网络接口的地址是10.0.x.0/24  
-                        [-macaddress&lt;1-N&gt; auto| 自动生成虚拟网卡的MAC地址  
-                                         &lt;mac&gt;] 指定虚拟网卡的MAC地址  
-                        [-uart&lt;1-N&gt; off| 不启用虚拟串口  
-                        &lt;I/O base&gt; &lt;IRQ&gt;]启用虚拟串口，并设置虚拟串口的I/O参数和IRQ参数  
-                        [-uartmode&lt;1-N&gt; disconnected| 启用虚拟串口，但不连接到宿主机的串口  
-                                       server &lt;pipe&gt;| 在宿主机创建PIPE通道，并将虚拟机串口连接到这个通道  
-                                       client &lt;pipe&gt;| 不创建PIPE通道，而是将虚拟机串口连接到已存在的通道  
-                                       &lt;devicename&gt;] 将虚拟机串口连接到宿主机的串口  
-                        [-gueststatisticsinterval &lt;seconds&gt;] 配置虚拟机静态时间间隔  
-                        [-audio none| 虚拟机不连接声卡  
-                                null| 将虚拟机的声卡连接到空的声音设备  
-                              dsound] 将虚拟机的声卡连接到宿主机的声卡  
-                        [-audiocontroller ac97| 将虚拟机声卡虚拟为ICH AC97声卡  
-                                          sb16] 将虚拟机声卡虚拟为soundblaster 16声卡  
-                        [-clipboard disabled| 不共享剪贴板  
-                                 hosttoguest| 将宿主机的剪贴板共享给虚拟机  
-                                 guesttohost| 将虚拟机的剪贴板共享给宿主机  
-                               bidirectional] 宿主机和虚拟机共使用一个剪贴板  
-                        [-vrdp on|off] 开启|关闭virtualbox内置的VRDP服务器  
-                        [-vrdpport default| 使用默认的vrdp端口3389  
-                                    &lt;port&gt;] 指定vrdp端口  
-                        [-vrdpaddress &lt;host&gt;] 指定VRDP主机地址  
-                        [-vrdpauthtype null| 不用授权，任何客户机都可以连接到VRDP服务器  
-                                   external| 只有宿主机的用户才可以连接到VRDP服务器  
-                                      guest] 只有虚拟机的用户才可以连接到VRDP服务器  
-                        [-vrdpmulticon on|off] 打开|关闭VRDP多用户连接模式  
-                        [-vrdpreusecon on|off] 打开|关闭VRDP断线重连  
-                        [-usb on|off] 打开|关闭虚拟USB控制器  
-                        [-usbehci on|off] 打开|关闭虚拟USB2.0控制器  
-                        [-snapshotfolder default| 将系统快照保存到默认文件夹  
-                                          &lt;path&gt;] 将系统快照保存到指定文件夹  
-VBoxManage startvm      &lt;uuid&gt;|&lt;name&gt; 开启指定UUID|名称的虚拟机  
-                        [-type gui|vrdp] 设置虚拟机标准显示设备GUI界面|VRDP  
-VBoxManage controlvm    &lt;uuid&gt;|&lt;name&gt; 改变正在运行的虚拟机的状态  
-                         pause| 暂停，这时虚拟机窗口显示灰色  
-                        resume| 恢复暂停的虚拟机  
-                         reset| 复位  
-                      poweroff| 强行关闭  
-               acpipowerbutton| 关机  
-               acpisleepbutton| 使虚拟机处于睡眠状态  
-                     savestate| 保存状态然后关闭，相当于休眠  
-           keyboardputscancode &lt;hex&gt; [&lt;hex&gt; ...] 键盘扫描码设置  
-               setlinkstate&lt;1-4&gt; on|off 连接|断开网络连接  
-               usbattach &lt;uuid&gt;|&lt;address&gt; 连接到指定UUDI|地址的USB设备   
-               usbdetach &lt;uuid&gt;|&lt;address&gt; 断开指定UUDI|地址的USB设备     
-               dvdattach none| 不连接虚拟DVD光驱  
-                       &lt;uuid&gt;| 连接到指定UUID的DVD光驱  
-                   &lt;filename&gt;| 连接到指定名称的DVD映像文件  
-                  host:&lt;drive&gt; 连接到宿主机的DVD光驱  
-               floppyattach none| 不连接虚拟软驱  
-                          &lt;uuid&gt;| 连接到指定UUID的虚拟软驱  
-                      &lt;filename&gt;| 连接到指定名称的软盘映像文件  
-                     host:&lt;drive&gt; 连接到宿主机的软驱  
-               setvideomodehint &lt;xres&gt; 设置虚拟机的屏幕分辨率 水平像素  
-                                &lt;yres&gt; 垂直像素  
-                                 &lt;bpp&gt; 颜色深度  
-                             [display] 刷新频率  
-               setcredentials &lt;username&gt; 指定VRDP自动连接参数 用户名  
-                              &lt;password&gt; 密码  
-                                &lt;domain&gt; 域  
-             [-allowlocallogon &lt;yes|no&gt;] 允许|禁止本地登陆  
-VBoxManage discardstate     &lt;uuid&gt;|&lt;name&gt; 丢弃指定UUID|名称的虚拟机的保存状态  
-VBoxManage adoptstate       &lt;uuid&gt;|&lt;name&gt; &lt;state_file&gt; 将虚拟机从指定的保存状态中恢复  
-VBoxManage snapshot         &lt;uuid&gt;|&lt;name&gt; 为指定的虚拟机拍快照  
-                            take &lt;name&gt; 为快照取名  
-                        [-desc &lt;desc&gt;]| 给快照添加描述  
-                        discard &lt;uuid&gt;|&lt;name&gt; | 丢弃指定的快照   
-                        discardcurrent -state| 恢复到最近的快照  
-                                        -all | 恢复到倒数第二个快照  
-                        edit &lt;uuid&gt;|&lt;name&gt;| 编辑指定的快照  
-                                   -current 编辑当前快照  
-                          [-newname &lt;name&gt;] 修改快照名称  
-                          [-newdesc &lt;desc&gt;] 修改快照描述  
-                        showvminfo &lt;uuid&gt;|&lt;name&gt; 显示快照的虚拟机信息  
-VBoxManage registerimage    disk|dvd|floppy &lt;filename&gt; 注册硬盘、光盘、软盘映像文件  
-                            [-type normal| 注册为普通类型（可创建快照，可读写）  
-                                immutable| 注册为只读类型（相当于加了硬盘卡）  
-                             writethrough] 注册为可写类型（这种类型不能创建快照）  
-                               (disk only) (注册类型选项只适用于硬盘）  
-VBoxManage unregisterimage disk| 从虚拟介质管理器删除指定的硬盘  
-                             dvd| 从虚拟介质管理器删除指定的DVD光盘   
-                           floppy 从虚拟介质管理器删除指定的软盘  
-                          &lt;uuid&gt;| 删除时指定UUID  
-                       &lt;filename&gt; 删除时指定映像文件  
-VBoxManage showvdiinfo      &lt;uuid&gt;|&lt;filename&gt; 显示指定UUID|名称虚拟硬盘的信息  
-
-VBoxManage createvdi        -filename &lt;filename&gt; 创建指定名称的虚拟硬盘  
-                            -size &lt;megabytes&gt; 指定虚拟硬盘的大小（以兆为单位）  
-                            [-static] 创建固定大小的虚拟硬盘  
-                            [-comment &lt;comment&gt;] 添加一段解释性文字  
-                            [-register] 注册新创建的虚拟硬盘  
-                            [-type normal| 注册类型 普通（可以创建快照）  
-                             writethrough] 注册类型 可写（不能创建快照）  
-                          (default: normal) 默认是普通类型  
-VBoxManage modifyvdi        &lt;uuid&gt;|&lt;filename&gt; compact 压缩指定的虚拟硬盘  
-VBoxManage clonevdi         &lt;uuid&gt;|&lt;filename&gt; &lt;outputfile&gt; 克隆指定的VDI虚拟硬盘  
-VBoxManage convertdd        [-static] &lt;filename&gt; &lt;outputfile&gt; 将raw硬盘转换成vdi虚拟硬盘  
-VBoxManage convertdd        [-static] stdin &lt;outputfile&gt; &lt;bytes&gt; 将标准输入参数指定的设备转换成vdi虚拟硬盘，比如：dd if=/dev/sda1 | VBoxManage convertdd stdin /media/disk/C.vdi 62277025792  
-
-</pre>
-</div>
-</div>
-
-<div id="outline-container-orgb2f6321" class="outline-2">
-<h2 id="orgb2f6321">centos7 basic environment</h2>
-<div class="outline-text-2" id="text-orgb2f6321">
+<div id="outline-container-org7ccc8b5" class="outline-2">
+<h2 id="org7ccc8b5">centos7 basic environment</h2>
+<div class="outline-text-2" id="text-org7ccc8b5">
 <p>
 centos7 download
 <a href="http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso">http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso</a>
 </p>
 </div>
 
-<div id="outline-container-org8cbbdf6" class="outline-3">
-<h3 id="org8cbbdf6">lvm</h3>
-<div class="outline-text-3" id="text-org8cbbdf6">
+<div id="outline-container-org672e8dd" class="outline-3">
+<h3 id="org672e8dd">lvm</h3>
+<div class="outline-text-3" id="text-org672e8dd">
 <p>
 在文件中添加要挂载的分区和文件目录可以修改文件
 </p>
@@ -405,9 +120,9 @@ xfs_growfs /dev/centos/root
 </ol>
 </div>
 </div>
-<div id="outline-container-org4f13c81" class="outline-3">
-<h3 id="org4f13c81">ip</h3>
-<div class="outline-text-3" id="text-org4f13c81">
+<div id="outline-container-org2c1a314" class="outline-3">
+<h3 id="org2c1a314">ip</h3>
+<div class="outline-text-3" id="text-org2c1a314">
 <ul class="org-ul">
 <li><p>
 联网方式: 配置三张网卡
@@ -440,7 +155,6 @@ vbox 自动配置IP，也很方便</li>
 <p>
 注意： 网卡二和网卡三的 gateway 字段要注释掉
 </p></li>
-
 <li><p>
 ip tool
 </p>
@@ -455,10 +169,9 @@ sudo service network restart
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orge366c0e" class="outline-3">
-<h3 id="orge366c0e">sshd</h3>
-<div class="outline-text-3" id="text-orge366c0e">
+<div id="outline-container-org2e5aa14" class="outline-3">
+<h3 id="org2e5aa14">sshd</h3>
+<div class="outline-text-3" id="text-org2e5aa14">
 <p>
 ssh 连接异常慢
 sudo vi /etc/ssh/sshd_config
@@ -470,9 +183,9 @@ UseDNS no
 </div>
 </div>
 
-<div id="outline-container-org1b39f6b" class="outline-3">
-<h3 id="org1b39f6b">hostname</h3>
-<div class="outline-text-3" id="text-org1b39f6b">
+<div id="outline-container-orgd1fac94" class="outline-3">
+<h3 id="orgd1fac94">hostname</h3>
+<div class="outline-text-3" id="text-orgd1fac94">
 <p>
 永久修改主机名字
 sudo hostnamectl --static set-hostname master
@@ -491,9 +204,9 @@ sudo vi /etc/hosts
 </p>
 </div>
 </div>
-<div id="outline-container-org204b6e4" class="outline-3">
-<h3 id="org204b6e4">yum source</h3>
-<div class="outline-text-3" id="text-org204b6e4">
+<div id="outline-container-org5a5af4e" class="outline-3">
+<h3 id="org5a5af4e">yum source</h3>
+<div class="outline-text-3" id="text-org5a5af4e">
 <p>
 sudo yum -y install wget
 </p>
@@ -529,9 +242,9 @@ sudo yum makecache
 </div>
 </div>
 
-<div id="outline-container-orgb40b105" class="outline-3">
-<h3 id="orgb40b105">ntp</h3>
-<div class="outline-text-3" id="text-orgb40b105">
+<div id="outline-container-orge2af890" class="outline-3">
+<h3 id="orge2af890">ntp</h3>
+<div class="outline-text-3" id="text-orge2af890">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -631,9 +344,9 @@ netstat -anp | grep 123
 </div>
 </div>
 
-<div id="outline-container-org61a61e4" class="outline-3">
-<h3 id="org61a61e4">firewallds</h3>
-<div class="outline-text-3" id="text-org61a61e4">
+<div id="outline-container-org7a3ba2e" class="outline-3">
+<h3 id="org7a3ba2e">firewallds</h3>
+<div class="outline-text-3" id="text-org7a3ba2e">
 <ul class="org-ul">
 <li>查看状态
 systemctl status firewalld</li>
@@ -644,9 +357,9 @@ systemctl disable firewalld</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orga1dd613" class="outline-3">
-<h3 id="orga1dd613">disable selinux</h3>
-<div class="outline-text-3" id="text-orga1dd613">
+<div id="outline-container-org5cc17c5" class="outline-3">
+<h3 id="org5cc17c5">disable selinux</h3>
+<div class="outline-text-3" id="text-org5cc17c5">
 <p>
 一款为了提高系统安全性的软件：对系统服务，文件权限，网络端口访问有极其严格的限制，
 例如：如果对一个文件没有正确安全上下文配置， 甚至你是root用户，你也不能启动某服务
@@ -658,9 +371,9 @@ sudo vi /etc/sysconfig/selinux
 </p>
 </div>
 </div>
-<div id="outline-container-org556ea72" class="outline-3">
-<h3 id="org556ea72">java  &amp; scala</h3>
-<div class="outline-text-3" id="text-org556ea72">
+<div id="outline-container-org613a4eb" class="outline-3">
+<h3 id="org613a4eb">java  &amp; scala</h3>
+<div class="outline-text-3" id="text-org613a4eb">
 <p>
 基础环境用root 配置在/etc/profile 自启动环境文件内
 refer : <a href="https://www.mtyun.com/library/how-to-setup-scala-on-centos7">https://www.mtyun.com/library/how-to-setup-scala-on-centos7</a>
@@ -725,13 +438,13 @@ export SCALA_HOME PATH
 </div>
 </div>
 
-<div id="outline-container-org4f8a109" class="outline-2">
-<h2 id="org4f8a109">hadoop 集群配置</h2>
-<div class="outline-text-2" id="text-org4f8a109">
+<div id="outline-container-orgcdda760" class="outline-2">
+<h2 id="orgcdda760">hadoop 集群配置</h2>
+<div class="outline-text-2" id="text-orgcdda760">
 </div>
-<div id="outline-container-org32a80ee" class="outline-3">
-<h3 id="org32a80ee">hadoop hbase spark 版本选择</h3>
-<div class="outline-text-3" id="text-org32a80ee">
+<div id="outline-container-org4503ce8" class="outline-3">
+<h3 id="org4503ce8">hadoop hbase spark 版本选择</h3>
+<div class="outline-text-3" id="text-org4503ce8">
 <ul class="org-ul">
 <li><p>
 hbase 支持 hadoop 版本对照表
@@ -804,9 +517,9 @@ zookeeper
 </div>
 </div>
 
-<div id="outline-container-orgd6ee512" class="outline-3">
-<h3 id="orgd6ee512">环境准备</h3>
-<div class="outline-text-3" id="text-orgd6ee512">
+<div id="outline-container-org7968fa7" class="outline-3">
+<h3 id="org7968fa7">环境准备</h3>
+<div class="outline-text-3" id="text-org7968fa7">
 <p>
 三台vbox 虚拟centos7 配置 java scala 环境 关闭防火墙和selinux
 </p>
@@ -909,9 +622,9 @@ tar -zxvf hadoop-2.7.5.tar.gz</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orge390aef" class="outline-3">
-<h3 id="orge390aef">配置hadoop cluster</h3>
-<div class="outline-text-3" id="text-orge390aef">
+<div id="outline-container-orgce1740c" class="outline-3">
+<h3 id="orgce1740c">配置hadoop cluster</h3>
+<div class="outline-text-3" id="text-orgce1740c">
 <ul class="org-ul">
 <li><p>
 hadoop_home
@@ -1092,9 +805,9 @@ scp hadoop-2.7.5_conf_finshed.tar.gz manue1@slave02:/home/manue1/opt/
 </ul>
 </div>
 </div>
-<div id="outline-container-org2341df1" class="outline-3">
-<h3 id="org2341df1">启动hadoop</h3>
-<div class="outline-text-3" id="text-org2341df1">
+<div id="outline-container-orga357a6f" class="outline-3">
+<h3 id="orga357a6f">启动hadoop</h3>
+<div class="outline-text-3" id="text-orga357a6f">
 <p>
 hdfs namenode -format #第一次启动要执行格式化，之后启动不用执行这个
 start-dfs.sh
@@ -1150,13 +863,13 @@ yarn 管理界面
 </div>
 </div>
 
-<div id="outline-container-orgbd7022e" class="outline-2">
-<h2 id="orgbd7022e">elasticstk 集群</h2>
-<div class="outline-text-2" id="text-orgbd7022e">
+<div id="outline-container-org2aeef41" class="outline-2">
+<h2 id="org2aeef41">elasticstk 集群</h2>
+<div class="outline-text-2" id="text-org2aeef41">
 </div>
-<div id="outline-container-orgf28d591" class="outline-3">
-<h3 id="orgf28d591">elasticsearch-611</h3>
-<div class="outline-text-3" id="text-orgf28d591">
+<div id="outline-container-org95f96e8" class="outline-3">
+<h3 id="org95f96e8">elasticsearch-611</h3>
+<div class="outline-text-3" id="text-org95f96e8">
 <ol class="org-ol">
 <li><p>
 环境准备
@@ -1362,9 +1075,9 @@ nohup ./bin/elasticsearch -d
 </div>
 </div>
 
-<div id="outline-container-org451844b" class="outline-3">
-<h3 id="org451844b">kibana</h3>
-<div class="outline-text-3" id="text-org451844b">
+<div id="outline-container-org84fe9a8" class="outline-3">
+<h3 id="org84fe9a8">kibana</h3>
+<div class="outline-text-3" id="text-org84fe9a8">
 <p>
 配置在es的非数据节点上: 192.168.56.10
 </p>
@@ -1391,9 +1104,9 @@ ss -lnp | grep 5601
 </div>
 </div>
 
-<div id="outline-container-org672cb3c" class="outline-3">
-<h3 id="org672cb3c">logstash</h3>
-<div class="outline-text-3" id="text-org672cb3c">
+<div id="outline-container-org9e2dc5c" class="outline-3">
+<h3 id="org9e2dc5c">logstash</h3>
+<div class="outline-text-3" id="text-org9e2dc5c">
 <ol class="org-ol">
 <li>download
 logstash-6.1.1.tar.gz</li>
@@ -1455,13 +1168,13 @@ sudo netstat -anp | grep 5044
 </ol>
 </div>
 </div>
-<div id="outline-container-orge19ebcd" class="outline-3">
-<h3 id="orge19ebcd">beats</h3>
-<div class="outline-text-3" id="text-orge19ebcd">
+<div id="outline-container-orga16e6ff" class="outline-3">
+<h3 id="orga16e6ff">beats</h3>
+<div class="outline-text-3" id="text-orga16e6ff">
 </div>
-<div id="outline-container-orgd1fad81" class="outline-4">
-<h4 id="orgd1fad81">topbeat</h4>
-<div class="outline-text-4" id="text-orgd1fad81">
+<div id="outline-container-org0ccc57d" class="outline-4">
+<h4 id="org0ccc57d">topbeat</h4>
+<div class="outline-text-4" id="text-org0ccc57d">
 <p>
 5.x版本后弃用了
 </p>
@@ -1531,9 +1244,9 @@ sudo ./topbeat -e -c topbeat.yml -d "publish"
 </ol>
 </div>
 </div>
-<div id="outline-container-org04fe862" class="outline-4">
-<h4 id="org04fe862">filebeat</h4>
-<div class="outline-text-4" id="text-org04fe862">
+<div id="outline-container-org6321b00" class="outline-4">
+<h4 id="org6321b00">filebeat</h4>
+<div class="outline-text-4" id="text-org6321b00">
 <ol class="org-ol">
 <li><p>
 download
@@ -1672,9 +1385,9 @@ ps aux |grep beat
 </div>
 </div>
 
-<div id="outline-container-org8aa4737" class="outline-4">
-<h4 id="org8aa4737">metricbeat</h4>
-<div class="outline-text-4" id="text-org8aa4737">
+<div id="outline-container-org6f3ec3f" class="outline-4">
+<h4 id="org6f3ec3f">metricbeat</h4>
+<div class="outline-text-4" id="text-org6f3ec3f">
 <ol class="org-ol">
 <li><p>
 download
@@ -1756,9 +1469,9 @@ ps aux |grep metricbeat
 </p>
 </div>
 </div>
-<div id="outline-container-orgb96fd46" class="outline-4">
-<h4 id="orgb96fd46">packetbeat</h4>
-<div class="outline-text-4" id="text-orgb96fd46">
+<div id="outline-container-orgb703713" class="outline-4">
+<h4 id="orgb703713">packetbeat</h4>
+<div class="outline-text-4" id="text-orgb703713">
 <ol class="org-ol">
 <li><p>
 download 
@@ -1813,9 +1526,9 @@ nohup /home/manue1/opt/packetbeat-6.1.1-linux-x86_64/packetbeat -e -c  /home/man
 </div>
 </div>
 
-<div id="outline-container-org5c26777" class="outline-2">
-<h2 id="org5c26777">hive</h2>
-<div class="outline-text-2" id="text-org5c26777">
+<div id="outline-container-org58bfda8" class="outline-2">
+<h2 id="org58bfda8">hive</h2>
+<div class="outline-text-2" id="text-org58bfda8">
 <p>
 hadoop namenode上安装,datanode上无需安装
 </p>
@@ -2104,13 +1817,13 @@ beeline&gt;
 </ol>
 </div>
 </div>
-<div id="outline-container-org13b30ee" class="outline-2">
-<h2 id="org13b30ee">zookeeper</h2>
-<div class="outline-text-2" id="text-org13b30ee">
+<div id="outline-container-orgda34755" class="outline-2">
+<h2 id="orgda34755">zookeeper</h2>
+<div class="outline-text-2" id="text-orgda34755">
 </div>
-<div id="outline-container-org4e48aab" class="outline-3">
-<h3 id="org4e48aab">Replicated ZooKeeper configural</h3>
-<div class="outline-text-3" id="text-org4e48aab">
+<div id="outline-container-org8dda60b" class="outline-3">
+<h3 id="org8dda60b">Replicated ZooKeeper configural</h3>
+<div class="outline-text-3" id="text-org8dda60b">
 <pre class="example">
 note
 
@@ -2172,16 +1885,16 @@ echo state | nc localhost 2181
 </div>
 </div>
 </div>
-<div id="outline-container-org346ded8" class="outline-2">
-<h2 id="org346ded8">hbase</h2>
-<div class="outline-text-2" id="text-org346ded8">
+<div id="outline-container-org6e21bf8" class="outline-2">
+<h2 id="org6e21bf8">hbase</h2>
+<div class="outline-text-2" id="text-org6e21bf8">
 <p>
 start hadoop &amp; zookeeper
 </p>
 </div>
-<div id="outline-container-org519316d" class="outline-3">
-<h3 id="org519316d">hbase configural</h3>
-<div class="outline-text-3" id="text-org519316d">
+<div id="outline-container-org395b54d" class="outline-3">
+<h3 id="org395b54d">hbase configural</h3>
+<div class="outline-text-3" id="text-org395b54d">
 <ul class="org-ul">
 <li><p>
 .bashrc
@@ -2220,9 +1933,9 @@ slave02
 </div>
 
 
-<div id="outline-container-org0e5622c" class="outline-3">
-<h3 id="org0e5622c">hbase start</h3>
-<div class="outline-text-3" id="text-org0e5622c">
+<div id="outline-container-orgda34dbf" class="outline-3">
+<h3 id="orgda34dbf">hbase start</h3>
+<div class="outline-text-3" id="text-orgda34dbf">
 <p>
 nohup /home/manue1/opt/hbase-1.2.6/bin/start-hbase.sh &amp;
 </p>
@@ -2238,13 +1951,13 @@ nohup /home/manue1/opt/hbase-1.2.6/bin/stop-hbase.sh &amp;
 </div>
 </div>
 </div>
-<div id="outline-container-orgad454fe" class="outline-2">
-<h2 id="orgad454fe">kafka</h2>
-<div class="outline-text-2" id="text-orgad454fe">
+<div id="outline-container-orgc05d910" class="outline-2">
+<h2 id="orgc05d910">kafka</h2>
+<div class="outline-text-2" id="text-orgc05d910">
 </div>
-<div id="outline-container-org9c18e4c" class="outline-3">
-<h3 id="org9c18e4c">kafka configural</h3>
-<div class="outline-text-3" id="text-org9c18e4c">
+<div id="outline-container-org598c365" class="outline-3">
+<h3 id="org598c365">kafka configural</h3>
+<div class="outline-text-3" id="text-org598c365">
 <ul class="org-ul">
 <li><p>
 conf/server.properties
@@ -2276,9 +1989,9 @@ scp -r kafka_2.11-1.0.0/ manue1@slave02:/home/manue1/opt
 </div>
 </div>
 
-<div id="outline-container-org9c05717" class="outline-3">
-<h3 id="org9c05717">kafka start service</h3>
-<div class="outline-text-3" id="text-org9c05717">
+<div id="outline-container-org1191a5b" class="outline-3">
+<h3 id="org1191a5b">kafka start service</h3>
+<div class="outline-text-3" id="text-org1191a5b">
 <ul class="org-ul">
 <li><p>
 vi .bashrc
@@ -2317,9 +2030,9 @@ sudo netstat -anp | grep 9092
 </p>
 </div>
 </div>
-<div id="outline-container-org6863eba" class="outline-3">
-<h3 id="org6863eba">use kafka</h3>
-<div class="outline-text-3" id="text-org6863eba">
+<div id="outline-container-orgff9f14d" class="outline-3">
+<h3 id="orgff9f14d">use kafka</h3>
+<div class="outline-text-3" id="text-orgff9f14d">
 <p>
 <a href="http://blog.csdn.net/u010297957/article/details/72758765">http://blog.csdn.net/u010297957/article/details/72758765</a>
 </p>
@@ -2353,13 +2066,13 @@ i love zbr
 </div>
 </div>
 </div>
-<div id="outline-container-orgaac7c7e" class="outline-2">
-<h2 id="orgaac7c7e">spark</h2>
-<div class="outline-text-2" id="text-orgaac7c7e">
+<div id="outline-container-orgaf03818" class="outline-2">
+<h2 id="orgaf03818">spark</h2>
+<div class="outline-text-2" id="text-orgaf03818">
 </div>
-<div id="outline-container-org85996c2" class="outline-3">
-<h3 id="org85996c2">spark configural</h3>
-<div class="outline-text-3" id="text-org85996c2">
+<div id="outline-container-org204297f" class="outline-3">
+<h3 id="org204297f">spark configural</h3>
+<div class="outline-text-3" id="text-org204297f">
 <p>
 <a href="https://data-flair.training/blogs/install-apache-spark-multi-node-cluster/">https://data-flair.training/blogs/install-apache-spark-multi-node-cluster/</a>
 </p>
@@ -2438,9 +2151,9 @@ scp -r spark-2.2.1-bin-hadoop2.7/ manue1@192.168.1.109:/home/manue1/opt
 </p>
 </div>
 </div>
-<div id="outline-container-org011ff4f" class="outline-3">
-<h3 id="org011ff4f">spark start</h3>
-<div class="outline-text-3" id="text-org011ff4f">
+<div id="outline-container-org80e2cb7" class="outline-3">
+<h3 id="org80e2cb7">spark start</h3>
+<div class="outline-text-3" id="text-org80e2cb7">
 <p>
 nohup sh /home/manue1/opt/hadoop-2.7.5/sbin/start-all.sh &amp;  #启动hdfs即可
 </p>
@@ -2468,13 +2181,295 @@ spark-submit yarn 管理方式
 </div>
 </div>
 
+<div id="outline-container-org54d0f00" class="outline-2">
+<h2 id="org54d0f00">VboxManage</h2>
+<div class="outline-text-2" id="text-org54d0f00">
+<ul class="org-ul">
+<li><p>
+vms 基本信息
+</p>
+
+<p>
+VBoxManage showvminfo Centos701
+</p></li>
+
+<li><p>
+无界面启动vms
+</p>
+
+<p>
+VBoxManage startvm Centos701 --type headless
+</p>
+
+<p>
+VBoxManage controlvm ubuntu01 savestate # 保存当前状态关闭
+</p></li>
+
+<li><p>
+修改vms内存总量
+</p>
+
+<p>
+VBoxManage modifyvm Centos701 --memory 1024
+</p></li>
+
+<li><p>
+修改vms磁盘容量
+</p>
+
+<p>
+VBoxManage modifyhd Centos702.vdi --resize 7168
+</p>
+
+<pre class="example">
+
+如果创建过快照，快照的磁盘空间也需要修改
+VBoxManage modifyhd \{aea51811-5e79-46e9-b5ba-f66740e6f47b\}.vdi  --resize 10248
+
+</pre></li>
+
+<li><p>
+创建快照
+</p>
+
+<p>
+VBoxManage snapshot ubuntu01 take ubuntu_basic_ssh
+</p>
+
+<p>
+VBoxManage snapshot ubuntu01 list
+</p>
+
+<p>
+VBoxManage snapshot ubuntu01 delete ubuntu_basic
+</p>
+
+<p>
+VBoxManage snapshot ubuntu01 restore ubuntu_basic_ssh
+</p></li>
+
+<li><p>
+clone vm
+</p>
+
+<p>
+VBoxManage clonevm  Centos701 --snapshot  centos7_basic  --name Centos_basic
+</p></li>
+</ul>
+
+
+
+
+<pre class="example">
+
+查看当前虚拟机  VBoxManage list vms  
+
+查看当前正在运行的虚拟机  VBoxManage list runningvms  
+
+启动虚拟机  VBoxManage startvm 虚拟机名  
+
+无前端图形界面方式启动虚拟机  VBoxManage startvm 虚拟机名 --type headless  
+
+使用 VRDP 方式通过命令行启动虚拟机： (3389)  
+VBoxManage startvm 虚拟机名 --type vrdp  
+
+关闭虚拟机  VBoxManage controlvm 虚拟机名 poweroff  
+
+VBoxManage [-v|-version]         显示virtualbox的版本号  
+VBoxManage -nologo               隐藏logo  
+VBoxManage -convertSettings      允许自动转换设置文件  
+VBoxManage -convertSettingsBackup 允许自动转换设置文件，并在转换前作备份  
+VBoxManage -convertSettingsIgnore 允许自动转换设置文件，但是不保存结果  
+
+VBoxManage list vms|runningvms   显示列表虚拟机|正在运行的虚拟机  
+               |ostypes|hostdvds virtualbox支持的系统类型|宿主机的光盘驱动器  
+               |hostfloppies     宿主机的软盘驱动器  
+
+               |hostifs|hostinfo 宿主机的网络接口|宿主机的信息  
+               |hdds|dvds        已注册的虚拟硬盘|已注册的虚拟光盘  
+               |floppies|usbhost 已注册的虚拟软盘|宿主机的USB设备  
+               |usbfilters       USB筛选器  
+               |systemproperties 虚拟机的基本信息  
+VBoxManage showvminfo &lt;uuid&gt;|&lt;name&gt;     显示指定虚拟机的信息  
+                     [-details]         显示详细信息  
+                     [-statistics]      显示统计信息  
+                     [-machinereadable] 以清晰的格式显示虚拟机信息  
+VBoxManage registervm &lt;filename&gt;       将指定文件所在的虚拟机添加到列表  
+VBoxManage unregistervm &lt;uuid&gt;|&lt;name&gt;   从虚拟机列表清除指定的虚拟机  
+                        [-delete]       从虚拟机列表删除指定的虚拟机  
+VBoxManage createvm     -name &lt;name&gt;    创建指定名称的虚拟机  
+                        [-register]      将创建的虚拟机添加到列表  
+                        [-basefolder &lt;path&gt; 指定虚拟机的基础目录  
+                        [-settingsfile &lt;path&gt;] 指定虚拟机配置文件的基础目录  
+                        [-uuid &lt;uuid&gt;] 创建指定uuid的虚拟机  
+VBoxManage modifyvm     &lt;uuid|name&gt;       编辑指定的虚拟机的配置  
+                        [-name &lt;name&gt;]    修改虚拟机的名称  
+                        [-ostype &lt;ostype&gt;]修改虚拟机的操作系统类型  
+                        [-memory &lt;memorysize&gt;]   修改虚拟机的内存大小  
+                        [-vram &lt;vramsize&gt;]       修改虚拟机的显存大小  
+                        [-acpi on|off]           启动或禁止acpi电源管理接口  
+                        [-ioapic on|off]         启动或禁止I/O APIC电源管理接口  
+                        [-pae on|off]            启动或禁止CPU的PAE支持，PAE是  
+Physical Address Extension : 物理地址扩展  
+                        [-hwvirtex on|off|default]启动或禁止CPU的硬件虚拟化支持  
+                        [-nestedpaging on|off]    开启或关闭CPU的嵌套页面列表支持  
+                        [-monitorcount &lt;number&gt;] 设置显示器数目，VRDP多用户模式时  
+                        [-bioslogofadein on|off] 开启或关闭bioslogo渐显效果  
+                        [-bioslogofadeout on|off] 开启或关闭bioslogo渐隐效果  
+                        [-bioslogodisplaytime &lt;msec&gt;]设置bioslogo显示时间（以毫秒为单位)  
+                        [-bioslogoimagepath &lt;imagepath&gt;]设置bioslogo图像路径，用于自定义bioslogo  
+                        [-biosbootmenu disabled| 设置是否显示bios启动菜单 关闭  
+                                       menuonly| 只菜单  
+                                       messageandmenu] 信息和菜单  
+                        [-biossystemtimeoffset &lt;msec&gt;] 设置bios系统时间补偿（以毫秒为单位）  
+                        [-biospxedebug on|off] 打开或关闭biospxe调试  
+                        [-boot&lt;1-4&gt; none|floppy|dvd|disk|net&gt;] 设置启动顺序  
+                        [-hd&lt;a|b|d&gt; none|&lt;uuid&gt;|&lt;filename&gt;] 为虚拟机添加三个IDE设备之一（第2个主盘被vm保留作为光驱，不能占用）在三个IDE中，你可以指定（硬盘）的vdi文件名或者它的UUID  
+                        [-idecontroller PIIX3|PIIX4] 设置IDE控制器的类型  
+                        [-sata on|off] 开启或关闭SATA硬盘控制器  
+                        [-sataportcount &lt;1-30&gt;] 设置虚拟机最多支持的SATA控制器数目  
+                        [-sataport&lt;1-30&gt; none| 没有硬盘连接到SATA控制器  
+                                       &lt;uuid&gt;| 指定uuid的硬盘连接到SATA控制器  
+                                       &lt;filename&gt;] 指定文件名的硬盘连接到SATA控制器  
+                        [-sataideemulation&lt;1-4&gt; &lt;1-30&gt;] 指定一个SATA设备工作在IDE兼容模式，IDE设备编号是1-4，SATA设备编号是1-30  
+                        [-dvd none| 不连接DVD光驱  
+                            &lt;uuid&gt;| 指定UUID的DVD光驱连接  
+                        &lt;filename&gt;| 将指定的光盘映像文件挂接到DVD光驱  
+                      host:&lt;drive&gt;] 将宿主机的DVD光驱挂接到虚拟机的DVD光驱  
+                        [-dvdpassthrough on|off]打开|关闭虚拟机里光盘的刻录功能  
+                        [-floppy disabled| 不连接软驱  
+                                    empty| 连接软驱但不插入软盘  
+                                   &lt;uuid&gt;| 指定UUID的软驱连接  
+                               &lt;filename&gt;| 将指定的软盘映像文件挂接到软驱驱  
+                             host:&lt;drive&gt;] 将宿主机的软驱驱挂接到虚拟机的软驱  
+                        [-nic&lt;1-N&gt; none| 虚拟机不添加网卡  
+                                   null| 虚拟机有网卡但不连接  
+                                    nat| 网络连接使用NAT模式  
+                                 hostif| 网络连接使用桥接模式  
+                                 intnet] 网络连接使用内部网络模式  
+                        [-nictype&lt;1-N&gt; Am79C970A| 虚拟机连接AMD PCNet PCI II网卡  
+                                        Am79C973| 虚拟机连接AMD PCNet FAST III网卡（默认）  
+                                         82540EM| 虚拟机连接Intel PRO/1000 MT Desktop网卡  
+                                         82543GC] 虚拟机连接Intel PRO/1000 T Server网卡  
+                        [-cableconnected&lt;1-N&gt; on|off]插入或拔出网线  
+                        [-nictrace&lt;1-N&gt; on|off] 开启或关闭网络追踪  
+                        [-nictracefile&lt;1-N&gt; &lt;filename&gt;] 将网络流量追踪数据保存到文件  
+                        [-nicspeed&lt;1-N&gt; &lt;kbps&gt;] 设置网络连接的速度  
+                        [-hostifdev&lt;1-N&gt; none| 不连接到主机网络接口  
+                                 &lt;devicename&gt;] 桥接模式下连接到指定的主机接口  
+                        [-intnet&lt;1-N&gt; &lt;network name&gt;] 内网模式下为虚拟机指定内部网络名称  
+                        [-natnet&lt;1-N&gt; &lt;network&gt;| 配置NAT网络接口的地址  
+                                        default] 默认NAT网络接口的地址是10.0.x.0/24  
+                        [-macaddress&lt;1-N&gt; auto| 自动生成虚拟网卡的MAC地址  
+                                         &lt;mac&gt;] 指定虚拟网卡的MAC地址  
+                        [-uart&lt;1-N&gt; off| 不启用虚拟串口  
+                        &lt;I/O base&gt; &lt;IRQ&gt;]启用虚拟串口，并设置虚拟串口的I/O参数和IRQ参数  
+                        [-uartmode&lt;1-N&gt; disconnected| 启用虚拟串口，但不连接到宿主机的串口  
+                                       server &lt;pipe&gt;| 在宿主机创建PIPE通道，并将虚拟机串口连接到这个通道  
+                                       client &lt;pipe&gt;| 不创建PIPE通道，而是将虚拟机串口连接到已存在的通道  
+                                       &lt;devicename&gt;] 将虚拟机串口连接到宿主机的串口  
+                        [-gueststatisticsinterval &lt;seconds&gt;] 配置虚拟机静态时间间隔  
+                        [-audio none| 虚拟机不连接声卡  
+                                null| 将虚拟机的声卡连接到空的声音设备  
+                              dsound] 将虚拟机的声卡连接到宿主机的声卡  
+                        [-audiocontroller ac97| 将虚拟机声卡虚拟为ICH AC97声卡  
+                                          sb16] 将虚拟机声卡虚拟为soundblaster 16声卡  
+                        [-clipboard disabled| 不共享剪贴板  
+                                 hosttoguest| 将宿主机的剪贴板共享给虚拟机  
+                                 guesttohost| 将虚拟机的剪贴板共享给宿主机  
+                               bidirectional] 宿主机和虚拟机共使用一个剪贴板  
+                        [-vrdp on|off] 开启|关闭virtualbox内置的VRDP服务器  
+                        [-vrdpport default| 使用默认的vrdp端口3389  
+                                    &lt;port&gt;] 指定vrdp端口  
+                        [-vrdpaddress &lt;host&gt;] 指定VRDP主机地址  
+                        [-vrdpauthtype null| 不用授权，任何客户机都可以连接到VRDP服务器  
+                                   external| 只有宿主机的用户才可以连接到VRDP服务器  
+                                      guest] 只有虚拟机的用户才可以连接到VRDP服务器  
+                        [-vrdpmulticon on|off] 打开|关闭VRDP多用户连接模式  
+                        [-vrdpreusecon on|off] 打开|关闭VRDP断线重连  
+                        [-usb on|off] 打开|关闭虚拟USB控制器  
+                        [-usbehci on|off] 打开|关闭虚拟USB2.0控制器  
+                        [-snapshotfolder default| 将系统快照保存到默认文件夹  
+                                          &lt;path&gt;] 将系统快照保存到指定文件夹  
+VBoxManage startvm      &lt;uuid&gt;|&lt;name&gt; 开启指定UUID|名称的虚拟机  
+                        [-type gui|vrdp] 设置虚拟机标准显示设备GUI界面|VRDP  
+VBoxManage controlvm    &lt;uuid&gt;|&lt;name&gt; 改变正在运行的虚拟机的状态  
+                         pause| 暂停，这时虚拟机窗口显示灰色  
+                        resume| 恢复暂停的虚拟机  
+                         reset| 复位  
+                      poweroff| 强行关闭  
+               acpipowerbutton| 关机  
+               acpisleepbutton| 使虚拟机处于睡眠状态  
+                     savestate| 保存状态然后关闭，相当于休眠  
+           keyboardputscancode &lt;hex&gt; [&lt;hex&gt; ...] 键盘扫描码设置  
+               setlinkstate&lt;1-4&gt; on|off 连接|断开网络连接  
+               usbattach &lt;uuid&gt;|&lt;address&gt; 连接到指定UUDI|地址的USB设备   
+               usbdetach &lt;uuid&gt;|&lt;address&gt; 断开指定UUDI|地址的USB设备     
+               dvdattach none| 不连接虚拟DVD光驱  
+                       &lt;uuid&gt;| 连接到指定UUID的DVD光驱  
+                   &lt;filename&gt;| 连接到指定名称的DVD映像文件  
+                  host:&lt;drive&gt; 连接到宿主机的DVD光驱  
+               floppyattach none| 不连接虚拟软驱  
+                          &lt;uuid&gt;| 连接到指定UUID的虚拟软驱  
+                      &lt;filename&gt;| 连接到指定名称的软盘映像文件  
+                     host:&lt;drive&gt; 连接到宿主机的软驱  
+               setvideomodehint &lt;xres&gt; 设置虚拟机的屏幕分辨率 水平像素  
+                                &lt;yres&gt; 垂直像素  
+                                 &lt;bpp&gt; 颜色深度  
+                             [display] 刷新频率  
+               setcredentials &lt;username&gt; 指定VRDP自动连接参数 用户名  
+                              &lt;password&gt; 密码  
+                                &lt;domain&gt; 域  
+             [-allowlocallogon &lt;yes|no&gt;] 允许|禁止本地登陆  
+VBoxManage discardstate     &lt;uuid&gt;|&lt;name&gt; 丢弃指定UUID|名称的虚拟机的保存状态  
+VBoxManage adoptstate       &lt;uuid&gt;|&lt;name&gt; &lt;state_file&gt; 将虚拟机从指定的保存状态中恢复  
+VBoxManage snapshot         &lt;uuid&gt;|&lt;name&gt; 为指定的虚拟机拍快照  
+                            take &lt;name&gt; 为快照取名  
+                        [-desc &lt;desc&gt;]| 给快照添加描述  
+                        discard &lt;uuid&gt;|&lt;name&gt; | 丢弃指定的快照   
+                        discardcurrent -state| 恢复到最近的快照  
+                                        -all | 恢复到倒数第二个快照  
+                        edit &lt;uuid&gt;|&lt;name&gt;| 编辑指定的快照  
+                                   -current 编辑当前快照  
+                          [-newname &lt;name&gt;] 修改快照名称  
+                          [-newdesc &lt;desc&gt;] 修改快照描述  
+                        showvminfo &lt;uuid&gt;|&lt;name&gt; 显示快照的虚拟机信息  
+VBoxManage registerimage    disk|dvd|floppy &lt;filename&gt; 注册硬盘、光盘、软盘映像文件  
+                            [-type normal| 注册为普通类型（可创建快照，可读写）  
+                                immutable| 注册为只读类型（相当于加了硬盘卡）  
+                             writethrough] 注册为可写类型（这种类型不能创建快照）  
+                               (disk only) (注册类型选项只适用于硬盘）  
+VBoxManage unregisterimage disk| 从虚拟介质管理器删除指定的硬盘  
+                             dvd| 从虚拟介质管理器删除指定的DVD光盘   
+                           floppy 从虚拟介质管理器删除指定的软盘  
+                          &lt;uuid&gt;| 删除时指定UUID  
+                       &lt;filename&gt; 删除时指定映像文件  
+VBoxManage showvdiinfo      &lt;uuid&gt;|&lt;filename&gt; 显示指定UUID|名称虚拟硬盘的信息  
+
+VBoxManage createvdi        -filename &lt;filename&gt; 创建指定名称的虚拟硬盘  
+                            -size &lt;megabytes&gt; 指定虚拟硬盘的大小（以兆为单位）  
+                            [-static] 创建固定大小的虚拟硬盘  
+                            [-comment &lt;comment&gt;] 添加一段解释性文字  
+                            [-register] 注册新创建的虚拟硬盘  
+                            [-type normal| 注册类型 普通（可以创建快照）  
+                             writethrough] 注册类型 可写（不能创建快照）  
+                          (default: normal) 默认是普通类型  
+VBoxManage modifyvdi        &lt;uuid&gt;|&lt;filename&gt; compact 压缩指定的虚拟硬盘  
+VBoxManage clonevdi         &lt;uuid&gt;|&lt;filename&gt; &lt;outputfile&gt; 克隆指定的VDI虚拟硬盘  
+VBoxManage convertdd        [-static] &lt;filename&gt; &lt;outputfile&gt; 将raw硬盘转换成vdi虚拟硬盘  
+VBoxManage convertdd        [-static] stdin &lt;outputfile&gt; &lt;bytes&gt; 将标准输入参数指定的设备转换成vdi虚拟硬盘，比如：dd if=/dev/sda1 | VBoxManage convertdd stdin /media/disk/C.vdi 62277025792  
+
+</pre>
+</div>
+</div>
+
 </div>
 </div>
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2017-06-03</span>
         <span title="last modification date" class="post-info">2018-06-03</span>
-        <span title="tags" class="post-info"><a href="/tags/vbox-hadoop-elasticsearch-hive-hbase-zookeeper-kafka-spark/">Vbox Hadoop Elasticsearch Hive Hbase Zookeeper KafKa Spark</a></span>
+        <span title="tags" class="post-info"><a href="/tags/vbox/">Vbox</a>, <a href="/tags/hadoop/">Hadoop</a>, <a href="/tags/elasticsearch/">Elasticsearch</a>, <a href="/tags/hive/">Hive</a>, <a href="/tags/hbase/">Hbase</a>, <a href="/tags/zookeeper/">Zookeeper</a>, <a href="/tags/kafka/">KafKa</a>, <a href="/tags/spark/">Spark</a></span>
         <span title="author" class="post-info">manue1</span>
       </div>
       <section>

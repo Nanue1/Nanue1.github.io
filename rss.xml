@@ -4,16 +4,16 @@
     <title>manue1&#39;s site</title>
     <link>http://www.manue1.site/</link>
     <description>^_^ just for simaple</description>
-    <pubDate>Sun, 03 Jun 2018 22:00:38 CST</pubDate>
-    <lastBuildDate>Sun, 03 Jun 2018 22:00:38 CST</lastBuildDate>
+    <pubDate>Sun, 03 Jun 2018 22:10:16 CST</pubDate>
+    <lastBuildDate>Sun, 03 Jun 2018 22:10:16 CST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
     <item>
       <title>note-linux-centos-集群部署</title>
-      <link>http://www.manue1.site/blog/2018/06/03/note-linux-centos-集群部署</link>
+      <link>http://www.manue1.site/blog/2017/06/03/note-linux-centos-集群部署</link>
       <description><![CDATA[vbox搭建集群开发环境]]></description>
       <pubDate>2018-06-03</pubDate>
-      <guid>http://www.manue1.site/blog/2018/06/03/note-linux-centos-集群部署</guid>
+      <guid>http://www.manue1.site/blog/2017/06/03/note-linux-centos-集群部署</guid>
     </item>
     <item>
       <title>Untitled</title>
@@ -25,13 +25,13 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org4691ccf">1. api doc</a></li>
+<li><a href="#org0b36ff8">1. api doc</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org4691ccf" class="outline-2">
-<h2 id="org4691ccf"><span class="section-number-2">1</span> api doc</h2>
+<div id="outline-container-org0b36ff8" class="outline-2">
+<h2 id="org0b36ff8"><span class="section-number-2">1</span> api doc</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 文件信誉与域名信誉 api v2 文档说明
@@ -155,24 +155,24 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org5806237">1. Mongo 使用笔记</a>
+<li><a href="#org9bee6e4">1. Mongo 使用笔记</a>
 <ul>
-<li><a href="#org1370426">1.1. Mongo集群安装</a></li>
-<li><a href="#org20414aa">1.2. 常用命令</a></li>
+<li><a href="#org04542ea">1.1. Mongo集群安装</a></li>
+<li><a href="#orge0ca792">1.2. 常用命令</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org5806237" class="outline-2">
-<h2 id="org5806237"><span class="section-number-2">1</span> Mongo 使用笔记</h2>
+<div id="outline-container-org9bee6e4" class="outline-2">
+<h2 id="org9bee6e4"><span class="section-number-2">1</span> Mongo 使用笔记</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org1370426" class="outline-3">
-<h3 id="org1370426"><span class="section-number-3">1.1</span> Mongo集群安装</h3>
+<div id="outline-container-org04542ea" class="outline-3">
+<h3 id="org04542ea"><span class="section-number-3">1.1</span> Mongo集群安装</h3>
 </div>
-<div id="outline-container-org20414aa" class="outline-3">
-<h3 id="org20414aa"><span class="section-number-3">1.2</span> 常用命令</h3>
+<div id="outline-container-orge0ca792" class="outline-3">
+<h3 id="orge0ca792"><span class="section-number-3">1.2</span> 常用命令</h3>
 <div class="outline-text-3" id="text-1-2">
 <ol class="org-ol">
 <li><p>
@@ -225,21 +225,21 @@ db.ip<sub>history</sub><sub>v1.find</sub>({"history":{"$elemMatch":{"insertime":
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org1675eba">1. note-Mysql</a>
+<li><a href="#org2faf5af">1. note-Mysql</a>
 <ul>
-<li><a href="#orgfdf0ff2">1.1. install mysql</a></li>
-<li><a href="#org89905a1">1.2. commands</a></li>
+<li><a href="#org52b233c">1.1. install mysql</a></li>
+<li><a href="#org796f95b">1.2. commands</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org1675eba" class="outline-2">
-<h2 id="org1675eba"><span class="section-number-2">1</span> note-Mysql</h2>
+<div id="outline-container-org2faf5af" class="outline-2">
+<h2 id="org2faf5af"><span class="section-number-2">1</span> note-Mysql</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orgfdf0ff2" class="outline-3">
-<h3 id="orgfdf0ff2"><span class="section-number-3">1.1</span> install mysql</h3>
+<div id="outline-container-org52b233c" class="outline-3">
+<h3 id="org52b233c"><span class="section-number-3">1.1</span> install mysql</h3>
 <div class="outline-text-3" id="text-1-1">
 <ol class="org-ol">
 <li><p>
@@ -374,8 +374,8 @@ lower_case_table_names=1
 </div>
 </div>
 
-<div id="outline-container-org89905a1" class="outline-3">
-<h3 id="org89905a1"><span class="section-number-3">1.2</span> commands</h3>
+<div id="outline-container-org796f95b" class="outline-3">
+<h3 id="org796f95b"><span class="section-number-3">1.2</span> commands</h3>
 <div class="outline-text-3" id="text-1-2">
 <ol class="org-ol">
 <li><p>
@@ -411,12 +411,12 @@ mysql -u manue1 -p qweO1\!k -h 8.8.8.8
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org7ed81be">1. Ambari use</a></li>
+<li><a href="#org1780d9b">1. Ambari use</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org7ed81be" class="outline-2">
-<h2 id="org7ed81be"><span class="section-number-2">1</span> Ambari use</h2>
+<div id="outline-container-org1780d9b" class="outline-2">
+<h2 id="org1780d9b"><span class="section-number-2">1</span> Ambari use</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Ambari是Apache下的一个顶级项目，为了创建、管理、监视Hadoop集群(Hive,Hbase,Sqoop,Zookeeper,Spark)，Ambari就是为了让Hadoop以及相关的大数据软件更容易使用的一个工具
@@ -451,44 +451,44 @@ Agent会定时发送各个机器每个软件模块的状态给Ambari Server,最�
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orga75f67c">1. 严蔚敏数据结构Video</a>
+<li><a href="#orgb16f80e">1. 严蔚敏数据结构Video</a>
 <ul>
-<li><a href="#orga84bef9">1.1. 绪论</a></li>
-<li><a href="#org7e99b41">1.2. 线性表</a></li>
+<li><a href="#org6e9238a">1.1. 绪论</a></li>
+<li><a href="#org596c12d">1.2. 线性表</a></li>
 </ul>
 </li>
-<li><a href="#orgcafbdd6">2. 数据结构与算法分析(Java语言描述)</a>
+<li><a href="#org8345311">2. 数据结构与算法分析(Java语言描述)</a>
 <ul>
-<li><a href="#org3d294ac">2.1. 1.引论</a></li>
-<li><a href="#orgd7b16de">2.2. 2.算法分析</a></li>
-<li><a href="#org467068e">2.3. 3.表、栈和队列</a></li>
-<li><a href="#org0da5329">2.4. 4.树</a></li>
+<li><a href="#org168941a">2.1. 1.引论</a></li>
+<li><a href="#orgda2501c">2.2. 2.算法分析</a></li>
+<li><a href="#org30ec91f">2.3. 3.表、栈和队列</a></li>
+<li><a href="#org08c57bf">2.4. 4.树</a></li>
 </ul>
 </li>
-<li><a href="#org6341a9c">3. Introduction to Algorithms</a>
+<li><a href="#org81b953e">3. Introduction to Algorithms</a>
 <ul>
-<li><a href="#orgc70666a">3.1. 基础知识</a>
+<li><a href="#org5ff53f8">3.1. 基础知识</a>
 <ul>
-<li><a href="#orgce59d04">3.1.1. 算法基础</a></li>
+<li><a href="#orgc9dd14a">3.1.1. 算法基础</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org121973e">4. Leetcode</a>
+<li><a href="#org7661232">4. Leetcode</a>
 <ul>
-<li><a href="#org64f4af8">4.1. LeetCode 3 &#x2014; Longest Substring Without Repeating Characters</a></li>
-<li><a href="#orgce54121">4.2. LeetCode 4 &#x2014; Median of Two Sorted Arrays</a></li>
+<li><a href="#org7da10f4">4.1. LeetCode 3 &#x2014; Longest Substring Without Repeating Characters</a></li>
+<li><a href="#org38dac9c">4.2. LeetCode 4 &#x2014; Median of Two Sorted Arrays</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orga75f67c" class="outline-2">
-<h2 id="orga75f67c"><span class="section-number-2">1</span> 严蔚敏数据结构Video</h2>
+<div id="outline-container-orgb16f80e" class="outline-2">
+<h2 id="orgb16f80e"><span class="section-number-2">1</span> 严蔚敏数据结构Video</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orga84bef9" class="outline-3">
-<h3 id="orga84bef9"><span class="section-number-3">1.1</span> 绪论</h3>
+<div id="outline-container-org6e9238a" class="outline-3">
+<h3 id="org6e9238a"><span class="section-number-3">1.1</span> 绪论</h3>
 <div class="outline-text-3" id="text-1-1">
 <ol class="org-ol">
 <li><p>
@@ -646,8 +646,8 @@ ADT的表示和实现：借用固有数据类型来表示和实现
 </div>
 </div>
 
-<div id="outline-container-org7e99b41" class="outline-3">
-<h3 id="org7e99b41"><span class="section-number-3">1.2</span> 线性表</h3>
+<div id="outline-container-org596c12d" class="outline-3">
+<h3 id="org596c12d"><span class="section-number-3">1.2</span> 线性表</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 线性结构 是一个数据元素的有序(次序)集
@@ -679,12 +679,12 @@ ADT的表示和实现：借用固有数据类型来表示和实现
 </div>
 </div>
 </div>
-<div id="outline-container-orgcafbdd6" class="outline-2">
-<h2 id="orgcafbdd6"><span class="section-number-2">2</span> 数据结构与算法分析(Java语言描述)</h2>
+<div id="outline-container-org8345311" class="outline-2">
+<h2 id="org8345311"><span class="section-number-2">2</span> 数据结构与算法分析(Java语言描述)</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org3d294ac" class="outline-3">
-<h3 id="org3d294ac"><span class="section-number-3">2.1</span> 1.引论</h3>
+<div id="outline-container-org168941a" class="outline-3">
+<h3 id="org168941a"><span class="section-number-3">2.1</span> 1.引论</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 数学、递归、java等基础
@@ -696,8 +696,8 @@ ADT的表示和实现：借用固有数据类型来表示和实现
 </div>
 </div>
 
-<div id="outline-container-orgd7b16de" class="outline-3">
-<h3 id="orgd7b16de"><span class="section-number-3">2.2</span> 2.算法分析</h3>
+<div id="outline-container-orgda2501c" class="outline-3">
+<h3 id="orgda2501c"><span class="section-number-3">2.2</span> 2.算法分析</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 数据读入是一个瓶颈
@@ -761,8 +761,8 @@ if + else
 </div>
 </div>
 
-<div id="outline-container-org467068e" class="outline-3">
-<h3 id="org467068e"><span class="section-number-3">2.3</span> 3.表、栈和队列</h3>
+<div id="outline-container-org30ec91f" class="outline-3">
+<h3 id="org30ec91f"><span class="section-number-3">2.3</span> 3.表、栈和队列</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 最简单和最基本的三种数据结构
@@ -912,8 +912,8 @@ dequeue：出队  删除在表开头(front)的元素
 
 
 
-<div id="outline-container-org0da5329" class="outline-3">
-<h3 id="org0da5329"><span class="section-number-3">2.4</span> 4.树</h3>
+<div id="outline-container-org08c57bf" class="outline-3">
+<h3 id="org08c57bf"><span class="section-number-3">2.4</span> 4.树</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 根的深度为0，树叶的高度为0
@@ -948,31 +948,31 @@ binary tree 是一棵树，其中每个节点都不能有多于两个的儿子
 </div>
 </div>
 
-<div id="outline-container-org6341a9c" class="outline-2">
-<h2 id="org6341a9c"><span class="section-number-2">3</span> Introduction to Algorithms</h2>
+<div id="outline-container-org81b953e" class="outline-2">
+<h2 id="org81b953e"><span class="section-number-2">3</span> Introduction to Algorithms</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgc70666a" class="outline-3">
-<h3 id="orgc70666a"><span class="section-number-3">3.1</span> 基础知识</h3>
+<div id="outline-container-org5ff53f8" class="outline-3">
+<h3 id="org5ff53f8"><span class="section-number-3">3.1</span> 基础知识</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 计算时间是一种有限的资源，存储器中的空间也是一样的,时间或空间方面有效的算法使你能够明智地使用这些资源
 </p>
 </div>
-<div id="outline-container-orgce59d04" class="outline-4">
-<h4 id="orgce59d04"><span class="section-number-4">3.1.1</span> 算法基础</h4>
+<div id="outline-container-orgc9dd14a" class="outline-4">
+<h4 id="orgc9dd14a"><span class="section-number-4">3.1.1</span> 算法基础</h4>
 </div>
 </div>
 </div>
-<div id="outline-container-org121973e" class="outline-2">
-<h2 id="org121973e"><span class="section-number-2">4</span> Leetcode</h2>
+<div id="outline-container-org7661232" class="outline-2">
+<h2 id="org7661232"><span class="section-number-2">4</span> Leetcode</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-org64f4af8" class="outline-3">
-<h3 id="org64f4af8"><span class="section-number-3">4.1</span> LeetCode 3 &#x2014; Longest Substring Without Repeating Characters</h3>
+<div id="outline-container-org7da10f4" class="outline-3">
+<h3 id="org7da10f4"><span class="section-number-3">4.1</span> LeetCode 3 &#x2014; Longest Substring Without Repeating Characters</h3>
 </div>
-<div id="outline-container-orgce54121" class="outline-3">
-<h3 id="orgce54121"><span class="section-number-3">4.2</span> LeetCode 4 &#x2014; Median of Two Sorted Arrays</h3>
+<div id="outline-container-org38dac9c" class="outline-3">
+<h3 id="org38dac9c"><span class="section-number-3">4.2</span> LeetCode 4 &#x2014; Median of Two Sorted Arrays</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 logn 堆排序 归并排序 快速排序
@@ -999,22 +999,22 @@ n 桶排序</p>
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgcd88889">1. note-elasticsearch-install&amp;config</a>
+<li><a href="#orgb91a3cc">1. note-elasticsearch-install&amp;config</a>
 <ul>
-<li><a href="#org7030733">1.1. install</a></li>
-<li><a href="#org2c6859d">1.2. cat command</a></li>
-<li><a href="#org25b8dc9">1.3. Mapping</a></li>
-<li><a href="#org0c28679">1.4. CURD</a></li>
-<li><a href="#orgf225069">1.5. Query</a></li>
-<li><a href="#org6bec634">1.6. Alias</a></li>
-<li><a href="#org8d7b8c0">1.7. questions</a>
+<li><a href="#orga9a4d5b">1.1. install</a></li>
+<li><a href="#org6ba24e2">1.2. cat command</a></li>
+<li><a href="#org3c2bf86">1.3. Mapping</a></li>
+<li><a href="#org16d9ace">1.4. CURD</a></li>
+<li><a href="#orgaa95331">1.5. Query</a></li>
+<li><a href="#org7192811">1.6. Alias</a></li>
+<li><a href="#org143d4e2">1.7. questions</a>
 <ul>
-<li><a href="#org693d312">1.7.1. from szie/scroll/search after</a></li>
-<li><a href="#orgf6df7ec">1.7.2. es shard 生命周期</a></li>
-<li><a href="#org1cf7ef7">1.7.3. 分词</a></li>
-<li><a href="#orgf1a7857">1.7.4. es node</a></li>
-<li><a href="#orge14924b">1.7.5. es pipeline</a></li>
-<li><a href="#org0264773">1.7.6. es</a></li>
+<li><a href="#orgecfae34">1.7.1. from szie/scroll/search after</a></li>
+<li><a href="#org0af98a9">1.7.2. es shard 生命周期</a></li>
+<li><a href="#orgaff188f">1.7.3. 分词</a></li>
+<li><a href="#org153fe1c">1.7.4. es node</a></li>
+<li><a href="#org2c22ba8">1.7.5. es pipeline</a></li>
+<li><a href="#org73431c8">1.7.6. es</a></li>
 </ul>
 </li>
 </ul>
@@ -1022,12 +1022,12 @@ n 桶排序</p>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgcd88889" class="outline-2">
-<h2 id="orgcd88889"><span class="section-number-2">1</span> note-elasticsearch-install&amp;config</h2>
+<div id="outline-container-orgb91a3cc" class="outline-2">
+<h2 id="orgb91a3cc"><span class="section-number-2">1</span> note-elasticsearch-install&amp;config</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org7030733" class="outline-3">
-<h3 id="org7030733"><span class="section-number-3">1.1</span> install</h3>
+<div id="outline-container-orga9a4d5b" class="outline-3">
+<h3 id="orga9a4d5b"><span class="section-number-3">1.1</span> install</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 安装环境: VMware12: 三台 ubuntu 14.04 内存 1g
@@ -1052,8 +1052,8 @@ sysctl -a|grep vm.max<sub>map</sub><sub>count</sub></li>
 </div>
 </div>
 
-<div id="outline-container-org2c6859d" class="outline-3">
-<h3 id="org2c6859d"><span class="section-number-3">1.2</span> cat command</h3>
+<div id="outline-container-org6ba24e2" class="outline-3">
+<h3 id="org6ba24e2"><span class="section-number-3">1.2</span> cat command</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 vim  /etc/security/limits.conf
@@ -1137,8 +1137,8 @@ curl -XPOST '10.24.45.94:9200/<sub>cluster</sub>/reroute' -d @reroute.mapping</l
 </ol>
 </div>
 </div>
-<div id="outline-container-org25b8dc9" class="outline-3">
-<h3 id="org25b8dc9"><span class="section-number-3">1.3</span> Mapping</h3>
+<div id="outline-container-org3c2bf86" class="outline-3">
+<h3 id="org3c2bf86"><span class="section-number-3">1.3</span> Mapping</h3>
 <div class="outline-text-3" id="text-1-3">
 <ol class="org-ol">
 <li>建立索引
@@ -1202,8 +1202,8 @@ curl -XDELETE localhost:9200/index<sub>name</sub></li>
 </div>
 </div>
 
-<div id="outline-container-org0c28679" class="outline-3">
-<h3 id="org0c28679"><span class="section-number-3">1.4</span> CURD</h3>
+<div id="outline-container-org16d9ace" class="outline-3">
+<h3 id="org16d9ace"><span class="section-number-3">1.4</span> CURD</h3>
 <div class="outline-text-3" id="text-1-4">
 <ol class="org-ol">
 <li>添加一条记录
@@ -1213,8 +1213,8 @@ curl -XDELETE 'http://localhost:9200/twitter/tweet/1'</li>
 </ol>
 </div>
 </div>
-<div id="outline-container-orgf225069" class="outline-3">
-<h3 id="orgf225069"><span class="section-number-3">1.5</span> Query</h3>
+<div id="outline-container-orgaa95331" class="outline-3">
+<h3 id="orgaa95331"><span class="section-number-3">1.5</span> Query</h3>
 <div class="outline-text-3" id="text-1-5">
 <ol class="org-ol">
 <li><p>
@@ -1276,8 +1276,8 @@ DSL 查询
 </ol>
 </div>
 </div>
-<div id="outline-container-org6bec634" class="outline-3">
-<h3 id="org6bec634"><span class="section-number-3">1.6</span> Alias</h3>
+<div id="outline-container-org7192811" class="outline-3">
+<h3 id="org7192811"><span class="section-number-3">1.6</span> Alias</h3>
 <div class="outline-text-3" id="text-1-6">
 <ol class="org-ol">
 <li>创建 alias
@@ -1299,12 +1299,12 @@ curl -XPOST 'http://localhost:9200/_aliases'-d '
 </ol>
 </div>
 </div>
-<div id="outline-container-org8d7b8c0" class="outline-3">
-<h3 id="org8d7b8c0"><span class="section-number-3">1.7</span> questions</h3>
+<div id="outline-container-org143d4e2" class="outline-3">
+<h3 id="org143d4e2"><span class="section-number-3">1.7</span> questions</h3>
 <div class="outline-text-3" id="text-1-7">
 </div>
-<div id="outline-container-org693d312" class="outline-4">
-<h4 id="org693d312"><span class="section-number-4">1.7.1</span> from szie/scroll/search after</h4>
+<div id="outline-container-orgecfae34" class="outline-4">
+<h4 id="orgecfae34"><span class="section-number-4">1.7.1</span> from szie/scroll/search after</h4>
 <div class="outline-text-4" id="text-1-7-1">
 <p>
 <a href="http://www.jianshu.com/p/91d03b16af77">http://www.jianshu.com/p/91d03b16af77</a>
@@ -1377,8 +1377,8 @@ search after
 </ul>
 </div>
 </div>
-<div id="outline-container-orgf6df7ec" class="outline-4">
-<h4 id="orgf6df7ec"><span class="section-number-4">1.7.2</span> es shard 生命周期</h4>
+<div id="outline-container-org0af98a9" class="outline-4">
+<h4 id="org0af98a9"><span class="section-number-4">1.7.2</span> es shard 生命周期</h4>
 <div class="outline-text-4" id="text-1-7-2">
 <p>
 <a href="http://lxwei.github.io/posts/Elasticsearch-Shard-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.html">http://lxwei.github.io/posts/Elasticsearch-Shard-生命周期.html</a>
@@ -1449,11 +1449,11 @@ _optimize?max<sub>num</sub><sub>segments</sub>=1 一个segment情况下查询要
 </div>
 </div>
 
-<div id="outline-container-org1cf7ef7" class="outline-4">
-<h4 id="org1cf7ef7"><span class="section-number-4">1.7.3</span> 分词</h4>
+<div id="outline-container-orgaff188f" class="outline-4">
+<h4 id="orgaff188f"><span class="section-number-4">1.7.3</span> 分词</h4>
 </div>
-<div id="outline-container-orgf1a7857" class="outline-4">
-<h4 id="orgf1a7857"><span class="section-number-4">1.7.4</span> es node</h4>
+<div id="outline-container-org153fe1c" class="outline-4">
+<h4 id="org153fe1c"><span class="section-number-4">1.7.4</span> es node</h4>
 <div class="outline-text-4" id="text-1-7-4">
 <ul class="org-ul">
 <li>data node 上
@@ -1481,16 +1481,16 @@ discovery.zen.ping.timeout
 </ul>
 </div>
 </div>
-<div id="outline-container-orge14924b" class="outline-4">
-<h4 id="orge14924b"><span class="section-number-4">1.7.5</span> es pipeline</h4>
+<div id="outline-container-org2c22ba8" class="outline-4">
+<h4 id="org2c22ba8"><span class="section-number-4">1.7.5</span> es pipeline</h4>
 <div class="outline-text-4" id="text-1-7-5">
 <p>
 <a href="https://www.felayman.com/articles/2017/11/24/1511527532643.html#b3_solo_h4_22">https://www.felayman.com/articles/2017/11/24/1511527532643.html#b3_solo_h4_22</a>
 </p>
 </div>
 </div>
-<div id="outline-container-org0264773" class="outline-4">
-<h4 id="org0264773"><span class="section-number-4">1.7.6</span> es</h4>
+<div id="outline-container-org73431c8" class="outline-4">
+<h4 id="org73431c8"><span class="section-number-4">1.7.6</span> es</h4>
 <div class="outline-text-4" id="text-1-7-6">
 <p>
 <a href="https://blog.csdn.net/donghaixiaolongwang/article/category/6747676">https://blog.csdn.net/donghaixiaolongwang/article/category/6747676</a>
@@ -1518,32 +1518,32 @@ Elasticsearch之四种查询类型和搜索原理</p>
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org74b9859">1. note-emacs</a>
+<li><a href="#org7a3a7c3">1. note-emacs</a>
 <ul>
-<li><a href="#orgbc2b445">1.1. emacs tutorial</a></li>
-<li><a href="#org0680a80">1.2. common shortcuts</a></li>
-<li><a href="#org0cd32e6">1.3. emacs lisp</a>
+<li><a href="#org00cdf2d">1.1. emacs tutorial</a></li>
+<li><a href="#org5029c7a">1.2. common shortcuts</a></li>
+<li><a href="#orged31d42">1.3. emacs lisp</a>
 <ul>
-<li><a href="#org94cf9d3">1.3.1. blog</a></li>
-<li><a href="#orgf8cc668">1.3.2. casting spels emacs</a></li>
-<li><a href="#org36afaf9">1.3.3. code</a></li>
+<li><a href="#org10f3b04">1.3.1. blog</a></li>
+<li><a href="#org02fc7e6">1.3.2. casting spels emacs</a></li>
+<li><a href="#orgb934c5f">1.3.3. code</a></li>
 </ul>
 </li>
-<li><a href="#org0895740">1.4. orgmode</a></li>
+<li><a href="#orgfbd1737">1.4. orgmode</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org74b9859" class="outline-2">
-<h2 id="org74b9859"><span class="section-number-2">1</span> note-emacs</h2>
+<div id="outline-container-org7a3a7c3" class="outline-2">
+<h2 id="org7a3a7c3"><span class="section-number-2">1</span> note-emacs</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 the learning environment is mac 
 </p>
 </div>
-<div id="outline-container-orgbc2b445" class="outline-3">
-<h3 id="orgbc2b445"><span class="section-number-3">1.1</span> emacs tutorial</h3>
+<div id="outline-container-org00cdf2d" class="outline-3">
+<h3 id="org00cdf2d"><span class="section-number-3">1.1</span> emacs tutorial</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 use c-h t open tutorial 
@@ -1629,8 +1629,8 @@ M-x linum-mode   show line number
 </p>
 </div>
 </div>
-<div id="outline-container-org0680a80" class="outline-3">
-<h3 id="org0680a80"><span class="section-number-3">1.2</span> common shortcuts</h3>
+<div id="outline-container-org5029c7a" class="outline-3">
+<h3 id="org5029c7a"><span class="section-number-3">1.2</span> common shortcuts</h3>
 <div class="outline-text-3" id="text-1-2">
 <p class="verse">
 ,bb  next buffer<br />
@@ -1674,20 +1674,20 @@ spc ll search workspace<br />
 </div>
 </div>
 
-<div id="outline-container-org0cd32e6" class="outline-3">
-<h3 id="org0cd32e6"><span class="section-number-3">1.3</span> emacs lisp</h3>
+<div id="outline-container-orged31d42" class="outline-3">
+<h3 id="orged31d42"><span class="section-number-3">1.3</span> emacs lisp</h3>
 <div class="outline-text-3" id="text-1-3">
 </div>
-<div id="outline-container-org94cf9d3" class="outline-4">
-<h4 id="org94cf9d3"><span class="section-number-4">1.3.1</span> blog</h4>
+<div id="outline-container-org10f3b04" class="outline-4">
+<h4 id="org10f3b04"><span class="section-number-4">1.3.1</span> blog</h4>
 <div class="outline-text-4" id="text-1-3-1">
 <p>
 <a href="http://www.woola.net/detail/2016-08-18-elisp.html">http://www.woola.net/detail/2016-08-18-elisp.html</a>
 </p>
 </div>
 </div>
-<div id="outline-container-orgf8cc668" class="outline-4">
-<h4 id="orgf8cc668"><span class="section-number-4">1.3.2</span> casting spels emacs</h4>
+<div id="outline-container-org02fc7e6" class="outline-4">
+<h4 id="org02fc7e6"><span class="section-number-4">1.3.2</span> casting spels emacs</h4>
 <div class="outline-text-4" id="text-1-3-2">
 <p>
 a comic book : Emacs Lisp version 
@@ -1731,7 +1731,7 @@ M-x ielm  : ELISP&gt;
 
 
 <ol class="org-ol">
-<li><a id="orga054f9c"></a>Syntax and Semantic<br />
+<li><a id="org22f11c0"></a>Syntax and Semantic<br />
 <div class="outline-text-5" id="text-1-3-2-1">
 <p>
 any text you give elisp interprater has to be arranged into list ,can be nested into lists of
@@ -1754,7 +1754,7 @@ command     a form
 </div>
 </li>
 
-<li><a id="org4d9e73b"></a>Defining the data for our Game World<br />
+<li><a id="orgce23641"></a>Defining the data for our Game World<br />
 <div class="outline-text-5" id="text-1-3-2-2">
 <p>
 in order to learn some more about forms,examples:
@@ -1774,7 +1774,7 @@ the command sets a variable to a value : the variable is objects and the value i
 </div>
 </li>
 
-<li><a id="orgf487391"></a>Looking around in our game world<br />
+<li><a id="org9614d39"></a>Looking around in our game world<br />
 <div class="outline-text-5" id="text-1-3-2-3">
 <p>
 The word defun means, as you might expect, that we're defining a function
@@ -1795,8 +1795,8 @@ Then the command second trims out the second item in that list, which is the des
 </ol>
 </div>
 
-<div id="outline-container-org36afaf9" class="outline-4">
-<h4 id="org36afaf9"><span class="section-number-4">1.3.3</span> code</h4>
+<div id="outline-container-orgb934c5f" class="outline-4">
+<h4 id="orgb934c5f"><span class="section-number-4">1.3.3</span> code</h4>
 <div class="outline-text-4" id="text-1-3-3">
 <div class="org-src-container">
 <pre class="src src-elisp">
@@ -1844,8 +1844,8 @@ Then the command second trims out the second item in that list, which is the des
 </div>
 </div>
 </div>
-<div id="outline-container-org0895740" class="outline-3">
-<h3 id="org0895740"><span class="section-number-3">1.4</span> orgmode</h3>
+<div id="outline-container-orgfbd1737" class="outline-3">
+<h3 id="orgfbd1737"><span class="section-number-3">1.4</span> orgmode</h3>
 <div class="outline-text-3" id="text-1-4">
 <ul class="org-ul">
 <li>alt键失灵问题,主要是因为xshell的配置问题
@@ -1877,28 +1877,28 @@ Then the command second trims out the second item in that list, which is the des
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgb7916de">1. git 独奏</a>
+<li><a href="#orgbe67602">1. git 独奏</a>
 <ul>
-<li><a href="#orga987f8c">1.1. git 初始化</a></li>
-<li><a href="#orgf045ea1">1.2. git 暂存区</a></li>
-<li><a href="#org1f6a2d0">1.3. git reset 重置</a></li>
-<li><a href="#org72b0e03">1.4. git 检出</a></li>
-<li><a href="#org05a0169">1.5. git 恢复进度</a></li>
-<li><a href="#org282a85e">1.6. git 基础操作</a></li>
-<li><a href="#org66e157a">1.7. git tools</a></li>
-<li><a href="#org8d4bce1">1.8. 改变历史</a></li>
-<li><a href="#org675003e">1.9. git克隆</a></li>
+<li><a href="#org4ba6293">1.1. git 初始化</a></li>
+<li><a href="#orga227d4b">1.2. git 暂存区</a></li>
+<li><a href="#org0314108">1.3. git reset 重置</a></li>
+<li><a href="#org3ea0e5d">1.4. git 检出</a></li>
+<li><a href="#orgd31a426">1.5. git 恢复进度</a></li>
+<li><a href="#org501128f">1.6. git 基础操作</a></li>
+<li><a href="#org6bc781e">1.7. git tools</a></li>
+<li><a href="#org93e9ddc">1.8. 改变历史</a></li>
+<li><a href="#orgecd7b2c">1.9. git克隆</a></li>
 </ul>
 </li>
-<li><a href="#org20d8082">2. git 和声</a>
+<li><a href="#orgb07529d">2. git 和声</a>
 <ul>
-<li><a href="#org2bac4f1">2.1. git 工作协调</a></li>
-<li><a href="#orgcd43c94">2.2. git 冲突解决</a></li>
+<li><a href="#org98e578b">2.1. git 工作协调</a></li>
+<li><a href="#orga548146">2.2. git 冲突解决</a></li>
 </ul>
 </li>
-<li><a href="#orgc4a2c40">3. common questions</a>
+<li><a href="#org2288613">3. common questions</a>
 <ul>
-<li><a href="#org645d587">3.1. git ls-files 乱码问题</a></li>
+<li><a href="#org6af56ce">3.1. git ls-files 乱码问题</a></li>
 </ul>
 </li>
 </ul>
@@ -1907,12 +1907,12 @@ Then the command second trims out the second item in that list, which is the des
 <p>
 蒋鑫. Git权威指南 机械工业出版社. Kindle 版本. 
 </p>
-<div id="outline-container-orgb7916de" class="outline-2">
-<h2 id="orgb7916de"><span class="section-number-2">1</span> git 独奏</h2>
+<div id="outline-container-orgbe67602" class="outline-2">
+<h2 id="orgbe67602"><span class="section-number-2">1</span> git 独奏</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orga987f8c" class="outline-3">
-<h3 id="orga987f8c"><span class="section-number-3">1.1</span> git 初始化</h3>
+<div id="outline-container-org4ba6293" class="outline-3">
+<h3 id="org4ba6293"><span class="section-number-3">1.1</span> git 初始化</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li><p>
@@ -1969,8 +1969,8 @@ git config &lt;session&gt;.&lt;key&gt;
 </ul>
 </div>
 </div>
-<div id="outline-container-orgf045ea1" class="outline-3">
-<h3 id="orgf045ea1"><span class="section-number-3">1.2</span> git 暂存区</h3>
+<div id="outline-container-orga227d4b" class="outline-3">
+<h3 id="orga227d4b"><span class="section-number-3">1.2</span> git 暂存区</h3>
 <div class="outline-text-3" id="text-1-2">
 
 <div class="figure">
@@ -2041,8 +2041,8 @@ git stash
 </ul>
 </div>
 </div>
-<div id="outline-container-org1f6a2d0" class="outline-3">
-<h3 id="org1f6a2d0"><span class="section-number-3">1.3</span> git reset 重置</h3>
+<div id="outline-container-org0314108" class="outline-3">
+<h3 id="org0314108"><span class="section-number-3">1.3</span> git reset 重置</h3>
 <div class="outline-text-3" id="text-1-3">
 <ol class="org-ol">
 <li>git reset HEAD&lt;path&gt;  相当于取消 git add &lt;paths&gt; 操作</li>
@@ -2065,8 +2065,8 @@ git reset &#x2013;hard master@{2}  重置master所有位置为两次改变之前
 </div>
 </div>
 
-<div id="outline-container-org72b0e03" class="outline-3">
-<h3 id="org72b0e03"><span class="section-number-3">1.4</span> git 检出</h3>
+<div id="outline-container-org3ea0e5d" class="outline-3">
+<h3 id="org3ea0e5d"><span class="section-number-3">1.4</span> git 检出</h3>
 <div class="outline-text-3" id="text-1-4">
 <ul class="org-ul">
 <li><p>
@@ -2080,8 +2080,8 @@ git branch -v
 </ul>
 </div>
 </div>
-<div id="outline-container-org05a0169" class="outline-3">
-<h3 id="org05a0169"><span class="section-number-3">1.5</span> git 恢复进度</h3>
+<div id="outline-container-orgd31a426" class="outline-3">
+<h3 id="orgd31a426"><span class="section-number-3">1.5</span> git 恢复进度</h3>
 <div class="outline-text-3" id="text-1-5">
 <ul class="org-ul">
 <li><p>
@@ -2111,8 +2111,8 @@ git stash branch &lt;branchname&gt;  基于进度创建分支
 </div>
 </div>
 
-<div id="outline-container-org282a85e" class="outline-3">
-<h3 id="org282a85e"><span class="section-number-3">1.6</span> git 基础操作</h3>
+<div id="outline-container-org501128f" class="outline-3">
+<h3 id="org501128f"><span class="section-number-3">1.6</span> git 基础操作</h3>
 <div class="outline-text-3" id="text-1-6">
 <ul class="org-ul">
 <li><p>
@@ -2197,8 +2197,8 @@ git archive -o partial.tar HEAD src doc  只归档两个文件夹
 </div>
 </div>
 
-<div id="outline-container-org66e157a" class="outline-3">
-<h3 id="org66e157a"><span class="section-number-3">1.7</span> git tools</h3>
+<div id="outline-container-org6bc781e" class="outline-3">
+<h3 id="org6bc781e"><span class="section-number-3">1.7</span> git tools</h3>
 <div class="outline-text-3" id="text-1-7">
 <p>
 版本库浏览器能更好看提交关系图
@@ -2239,8 +2239,8 @@ git bisect start
 </div>
 </div>
 
-<div id="outline-container-org8d4bce1" class="outline-3">
-<h3 id="org8d4bce1"><span class="section-number-3">1.8</span> 改变历史</h3>
+<div id="outline-container-org93e9ddc" class="outline-3">
+<h3 id="org93e9ddc"><span class="section-number-3">1.8</span> 改变历史</h3>
 <div class="outline-text-3" id="text-1-8">
 <ul class="org-ul">
 <li><p>
@@ -2266,8 +2266,8 @@ git commit -m "new reason "
 </div>
 </div>
 
-<div id="outline-container-org675003e" class="outline-3">
-<h3 id="org675003e"><span class="section-number-3">1.9</span> git克隆</h3>
+<div id="outline-container-orgecd7b2c" class="outline-3">
+<h3 id="orgecd7b2c"><span class="section-number-3">1.9</span> git克隆</h3>
 <div class="outline-text-3" id="text-1-9">
 <ul class="org-ul">
 <li><p>
@@ -2292,12 +2292,12 @@ git clone &#x2013;mirror &lt;rep&gt; dir
 </div>
 </div>
 
-<div id="outline-container-org20d8082" class="outline-2">
-<h2 id="org20d8082"><span class="section-number-2">2</span> git 和声</h2>
+<div id="outline-container-orgb07529d" class="outline-2">
+<h2 id="orgb07529d"><span class="section-number-2">2</span> git 和声</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org2bac4f1" class="outline-3">
-<h3 id="org2bac4f1"><span class="section-number-3">2.1</span> git 工作协调</h3>
+<div id="outline-container-org98e578b" class="outline-3">
+<h3 id="org98e578b"><span class="section-number-3">2.1</span> git 工作协调</h3>
 <div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>支持的协议
@@ -2338,8 +2338,8 @@ git push
 </div>
 
 
-<div id="outline-container-orgcd43c94" class="outline-3">
-<h3 id="orgcd43c94"><span class="section-number-3">2.2</span> git 冲突解决</h3>
+<div id="outline-container-orga548146" class="outline-3">
+<h3 id="orga548146"><span class="section-number-3">2.2</span> git 冲突解决</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 git merge
@@ -2404,12 +2404,12 @@ git add / git reset
 </div>
 </div>
 
-<div id="outline-container-orgc4a2c40" class="outline-2">
-<h2 id="orgc4a2c40"><span class="section-number-2">3</span> <a href="http://mazhuang.org/wiki/git/">common questions</a></h2>
+<div id="outline-container-org2288613" class="outline-2">
+<h2 id="org2288613"><span class="section-number-2">3</span> <a href="http://mazhuang.org/wiki/git/">common questions</a></h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org645d587" class="outline-3">
-<h3 id="org645d587"><span class="section-number-3">3.1</span> git ls-files 乱码问题</h3>
+<div id="outline-container-org6af56ce" class="outline-3">
+<h3 id="org6af56ce"><span class="section-number-3">3.1</span> git ls-files 乱码问题</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 在 <code>~/.gitconfig</code> 中添加如下内容
@@ -2443,46 +2443,46 @@ git add / git reset
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org6bbb58f">1. Reading List</a>
+<li><a href="#orgc810d82">1. Reading List</a>
 <ul>
-<li><a href="#orga423b96">1.1. <span class="done DONE">DONE</span> 历史是个什么玩意</a></li>
-<li><a href="#org724537a">1.2. <span class="done DONE">DONE</span> 番茄工作法</a></li>
-<li><a href="#orgc8b3813">1.3. <span class="done DONE">DONE</span> Spring Boot实战（图灵程序设计丛书）</a></li>
-<li><a href="#org2d98d0e">1.4. <span class="todo TODO">TODO</span> Daily word</a></li>
-<li><a href="#org9722205">1.5. <span class="todo TODO">TODO</span> 统计学习方法</a></li>
-<li><a href="#orgb7ef1ba">1.6. <span class="todo TODO">TODO</span> 比特币:一个虚幻而真实的金融世界</a></li>
+<li><a href="#org4f6860a">1.1. <span class="done DONE">DONE</span> 历史是个什么玩意</a></li>
+<li><a href="#orgbcb1d29">1.2. <span class="done DONE">DONE</span> 番茄工作法</a></li>
+<li><a href="#org9497512">1.3. <span class="done DONE">DONE</span> Spring Boot实战（图灵程序设计丛书）</a></li>
+<li><a href="#org60dcf92">1.4. <span class="todo TODO">TODO</span> Daily word</a></li>
+<li><a href="#org1bc34eb">1.5. <span class="todo TODO">TODO</span> 统计学习方法</a></li>
+<li><a href="#org59a06dc">1.6. <span class="todo TODO">TODO</span> 比特币:一个虚幻而真实的金融世界</a></li>
 </ul>
 </li>
-<li><a href="#org54c6f17">2. Writing List</a>
+<li><a href="#orga0e551d">2. Writing List</a>
 <ul>
-<li><a href="#orga249ba6">2.1. <span class="todo TODO">TODO</span> Weekly note</a></li>
+<li><a href="#org098806c">2.1. <span class="todo TODO">TODO</span> Weekly note</a></li>
 </ul>
 </li>
-<li><a href="#org1283970">3. Body Building</a>
+<li><a href="#org4d55a76">3. Body Building</a>
 <ul>
-<li><a href="#orgd2e8de7">3.1. <span class="todo TODO">TODO</span> Weekly fitness</a></li>
-<li><a href="#org05c0c7c">3.2. <span class="todo TODO">TODO</span> Early hours</a></li>
+<li><a href="#org8a4d670">3.1. <span class="todo TODO">TODO</span> Weekly fitness</a></li>
+<li><a href="#orgfd90ea7">3.2. <span class="todo TODO">TODO</span> Early hours</a></li>
 </ul>
 </li>
-<li><a href="#org453abc8">4. Common List</a>
+<li><a href="#org494c9ad">4. Common List</a>
 <ul>
-<li><a href="#orge8b7484">4.1. <span class="done DONE">DONE</span> Docker learn &amp; use</a></li>
-<li><a href="#org95af31d">4.2. <span class="todo SOMEDAY">SOMEDAY</span> wechat python learn</a></li>
-<li><a href="#orgdc4932f">4.3. <span class="todo SOMEDAY">SOMEDAY</span> 微信小程序开发测试</a></li>
-<li><a href="#org937404a">4.4. <span class="todo TODO">TODO</span> git 项目管理文章记录</a></li>
-<li><a href="#orgd53e456">4.5. <span class="todo TODO">TODO</span> docker use</a></li>
-<li><a href="#orgb89c604">4.6. <span class="todo TODO">TODO</span> ML learning</a></li>
+<li><a href="#orga63fcba">4.1. <span class="done DONE">DONE</span> Docker learn &amp; use</a></li>
+<li><a href="#org6ae0a61">4.2. <span class="todo SOMEDAY">SOMEDAY</span> wechat python learn</a></li>
+<li><a href="#orgbc5fe1d">4.3. <span class="todo SOMEDAY">SOMEDAY</span> 微信小程序开发测试</a></li>
+<li><a href="#orgc753051">4.4. <span class="todo TODO">TODO</span> git 项目管理文章记录</a></li>
+<li><a href="#orgd998860">4.5. <span class="todo TODO">TODO</span> docker use</a></li>
+<li><a href="#orgef41c73">4.6. <span class="todo TODO">TODO</span> ML learning</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org6bbb58f" class="outline-2">
-<h2 id="org6bbb58f"><span class="section-number-2">1</span> Reading List</h2>
+<div id="outline-container-orgc810d82" class="outline-2">
+<h2 id="orgc810d82"><span class="section-number-2">1</span> Reading List</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orga423b96" class="outline-3">
-<h3 id="orga423b96"><span class="section-number-3">1.1</span> <span class="done DONE">DONE</span> 历史是个什么玩意</h3>
+<div id="outline-container-org4f6860a" class="outline-3">
+<h3 id="org4f6860a"><span class="section-number-3">1.1</span> <span class="done DONE">DONE</span> 历史是个什么玩意</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-02-19 Sun 04:17]</span></span></li>
@@ -2506,8 +2506,8 @@ good</li>
 </div>
 </div>
 
-<div id="outline-container-org724537a" class="outline-3">
-<h3 id="org724537a"><span class="section-number-3">1.2</span> <span class="done DONE">DONE</span> 番茄工作法</h3>
+<div id="outline-container-orgbcb1d29" class="outline-3">
+<h3 id="orgbcb1d29"><span class="section-number-3">1.2</span> <span class="done DONE">DONE</span> 番茄工作法</h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
 <li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-02-20 Mon 04:47]</span></span></li>
@@ -2520,8 +2520,8 @@ z</li>
 </div>
 </div>
 
-<div id="outline-container-orgc8b3813" class="outline-3">
-<h3 id="orgc8b3813"><span class="section-number-3">1.3</span> <span class="done DONE">DONE</span> Spring Boot实战（图灵程序设计丛书）</h3>
+<div id="outline-container-org9497512" class="outline-3">
+<h3 id="org9497512"><span class="section-number-3">1.3</span> <span class="done DONE">DONE</span> Spring Boot实战（图灵程序设计丛书）</h3>
 <div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
 <li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-07-04 Tue 19:34]</span></span></li>
@@ -2534,8 +2534,8 @@ z</li>
 </p>
 </div>
 </div>
-<div id="outline-container-org2d98d0e" class="outline-3">
-<h3 id="org2d98d0e"><span class="section-number-3">1.4</span> <span class="todo TODO">TODO</span> Daily word</h3>
+<div id="outline-container-org60dcf92" class="outline-3">
+<h3 id="org60dcf92"><span class="section-number-3">1.4</span> <span class="todo TODO">TODO</span> Daily word</h3>
 <div class="outline-text-3" id="text-1-4">
 <ul class="org-ul">
 <li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-07-05 Wed 11:49]</span></span></li>
@@ -2555,8 +2555,8 @@ z</li>
 </div>
 </div>
 
-<div id="outline-container-org9722205" class="outline-3">
-<h3 id="org9722205"><span class="section-number-3">1.5</span> <span class="todo TODO">TODO</span> 统计学习方法</h3>
+<div id="outline-container-org1bc34eb" class="outline-3">
+<h3 id="org1bc34eb"><span class="section-number-3">1.5</span> <span class="todo TODO">TODO</span> 统计学习方法</h3>
 <div class="outline-text-3" id="text-1-5">
 <ul class="org-ul">
 <li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-07-05 Wed 11:49]</span></span></li>
@@ -2569,8 +2569,8 @@ z</li>
 </div>
 </div>
 
-<div id="outline-container-orgb7ef1ba" class="outline-3">
-<h3 id="orgb7ef1ba"><span class="section-number-3">1.6</span> <span class="todo TODO">TODO</span> 比特币:一个虚幻而真实的金融世界</h3>
+<div id="outline-container-org59a06dc" class="outline-3">
+<h3 id="org59a06dc"><span class="section-number-3">1.6</span> <span class="todo TODO">TODO</span> 比特币:一个虚幻而真实的金融世界</h3>
 <div class="outline-text-3" id="text-1-6">
 <ul class="org-ul">
 <li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-07-18 Tue 11:06] </span></span> <br />
@@ -2584,12 +2584,12 @@ z</li>
 </div>
 </div>
 
-<div id="outline-container-org54c6f17" class="outline-2">
-<h2 id="org54c6f17"><span class="section-number-2">2</span> Writing List</h2>
+<div id="outline-container-orga0e551d" class="outline-2">
+<h2 id="orga0e551d"><span class="section-number-2">2</span> Writing List</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orga249ba6" class="outline-3">
-<h3 id="orga249ba6"><span class="section-number-3">2.1</span> <span class="todo TODO">TODO</span> Weekly note</h3>
+<div id="outline-container-org098806c" class="outline-3">
+<h3 id="org098806c"><span class="section-number-3">2.1</span> <span class="todo TODO">TODO</span> Weekly note</h3>
 <div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>State "UNDO"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-06-30 Fri 10:30]</span></span></li>
@@ -2606,12 +2606,12 @@ z</li>
 </div>
 </div>
 
-<div id="outline-container-org1283970" class="outline-2">
-<h2 id="org1283970"><span class="section-number-2">3</span> Body Building</h2>
+<div id="outline-container-org4d55a76" class="outline-2">
+<h2 id="org4d55a76"><span class="section-number-2">3</span> Body Building</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgd2e8de7" class="outline-3">
-<h3 id="orgd2e8de7"><span class="section-number-3">3.1</span> <span class="todo TODO">TODO</span> Weekly fitness</h3>
+<div id="outline-container-org8a4d670" class="outline-3">
+<h3 id="org8a4d670"><span class="section-number-3">3.1</span> <span class="todo TODO">TODO</span> Weekly fitness</h3>
 <div class="outline-text-3" id="text-3-1">
 <ul class="org-ul">
 <li>State "ABORT"      from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-07-18 Tue 11:10] </span></span> <br />
@@ -2630,8 +2630,8 @@ z</li>
 </div>
 </div>
 
-<div id="outline-container-org05c0c7c" class="outline-3">
-<h3 id="org05c0c7c"><span class="section-number-3">3.2</span> <span class="todo TODO">TODO</span> Early hours</h3>
+<div id="outline-container-orgfd90ea7" class="outline-3">
+<h3 id="orgfd90ea7"><span class="section-number-3">3.2</span> <span class="todo TODO">TODO</span> Early hours</h3>
 <div class="outline-text-3" id="text-3-2">
 <ul class="org-ul">
 <li>State "DONE"       from "TODO"       <span class="timestamp-wrapper"><span class="timestamp">[2017-07-05 Wed 11:50]</span></span></li>
@@ -2661,12 +2661,12 @@ y更没睡</li>
 </div>
 </div>
 
-<div id="outline-container-org453abc8" class="outline-2">
-<h2 id="org453abc8"><span class="section-number-2">4</span> Common List</h2>
+<div id="outline-container-org494c9ad" class="outline-2">
+<h2 id="org494c9ad"><span class="section-number-2">4</span> Common List</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-orge8b7484" class="outline-3">
-<h3 id="orge8b7484"><span class="section-number-3">4.1</span> <span class="done DONE">DONE</span> Docker learn &amp; use</h3>
+<div id="outline-container-orga63fcba" class="outline-3">
+<h3 id="orga63fcba"><span class="section-number-3">4.1</span> <span class="done DONE">DONE</span> Docker learn &amp; use</h3>
 <div class="outline-text-3" id="text-4-1">
 <ul class="org-ul">
 <li>State "DONE"       from "SOMEDAY"    <span class="timestamp-wrapper"><span class="timestamp">[2017-06-12 Mon 11:11] </span></span> <br />
@@ -2676,16 +2676,16 @@ y更没睡</li>
 </div>
 </div>
 
-<div id="outline-container-org95af31d" class="outline-3">
-<h3 id="org95af31d"><span class="section-number-3">4.2</span> <span class="todo SOMEDAY">SOMEDAY</span> wechat python learn</h3>
+<div id="outline-container-org6ae0a61" class="outline-3">
+<h3 id="org6ae0a61"><span class="section-number-3">4.2</span> <span class="todo SOMEDAY">SOMEDAY</span> wechat python learn</h3>
 </div>
 
-<div id="outline-container-orgdc4932f" class="outline-3">
-<h3 id="orgdc4932f"><span class="section-number-3">4.3</span> <span class="todo SOMEDAY">SOMEDAY</span> 微信小程序开发测试</h3>
+<div id="outline-container-orgbc5fe1d" class="outline-3">
+<h3 id="orgbc5fe1d"><span class="section-number-3">4.3</span> <span class="todo SOMEDAY">SOMEDAY</span> 微信小程序开发测试</h3>
 </div>
 
-<div id="outline-container-org937404a" class="outline-3">
-<h3 id="org937404a"><span class="section-number-3">4.4</span> <span class="todo TODO">TODO</span> git 项目管理文章记录</h3>
+<div id="outline-container-orgc753051" class="outline-3">
+<h3 id="orgc753051"><span class="section-number-3">4.4</span> <span class="todo TODO">TODO</span> git 项目管理文章记录</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 X-plan
@@ -2693,12 +2693,12 @@ X-plan
 </div>
 </div>
 
-<div id="outline-container-orgd53e456" class="outline-3">
-<h3 id="orgd53e456"><span class="section-number-3">4.5</span> <span class="todo TODO">TODO</span> docker use</h3>
+<div id="outline-container-orgd998860" class="outline-3">
+<h3 id="orgd998860"><span class="section-number-3">4.5</span> <span class="todo TODO">TODO</span> docker use</h3>
 </div>
 
-<div id="outline-container-orgb89c604" class="outline-3">
-<h3 id="orgb89c604"><span class="section-number-3">4.6</span> <span class="todo TODO">TODO</span> ML learning</h3>
+<div id="outline-container-orgef41c73" class="outline-3">
+<h3 id="orgef41c73"><span class="section-number-3">4.6</span> <span class="todo TODO">TODO</span> ML learning</h3>
 </div>
 </div>
 
