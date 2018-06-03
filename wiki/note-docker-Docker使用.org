@@ -1,5 +1,16 @@
 #+OPTIONS: toc:2
 #+OPTIONS: ^:nil
+#+TITLE:       note-docker-使用记录
+#+AUTHOR:      manue1
+#+EMAIL:       manue1@manpc
+#+DATE:        2018-06-03 Sun
+#+URI:         /wiki/%t
+#+KEYWORDS:    Docker
+#+TAGS:        Docker
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: docker 使用记录
+
 * Docker入门
   杨保华 Docker技术入门与实战
 ** 初识Docker

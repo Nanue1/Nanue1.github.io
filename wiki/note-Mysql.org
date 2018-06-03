@@ -1,3 +1,14 @@
+#+TITLE:       note-mysql
+#+AUTHOR:      manue1
+#+EMAIL:       manue1@manpc
+#+DATE:        2018-06-03 Sun
+#+URI:         /wiki/%t
+#+KEYWORDS:    Mysql
+#+TAGS:        Mysql
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: mysql 使用记录
+
 * note-Mysql
 ** install mysql
    1. 检查系统中是否已经安装了 mysql
@@ -5,7 +16,7 @@
      sudo netstat -tap | grep mysql
 
      没有反应 说明没有安装
-
+     
    2. 安装 mysql
 
      sudo apt-get install mysql-server mysql-client

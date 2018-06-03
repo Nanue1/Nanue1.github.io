@@ -1,3 +1,14 @@
+#+TITLE:       note-git-使用记录
+#+AUTHOR:      manue1
+#+EMAIL:       manue1@manpc
+#+DATE:        2018-06-03 Sun
+#+URI:         /wiki/%t
+#+KEYWORDS:    git
+#+TAGS:        Git
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: git 使用笔记
+
 蒋鑫. Git权威指南 机械工业出版社. Kindle 版本. 
 * git 独奏
 ** git 初始化

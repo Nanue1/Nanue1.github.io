@@ -1,3 +1,14 @@
+#+TITLE:       note-options-期权、期货及其他衍生产品
+#+AUTHOR:      manue1
+#+EMAIL:       manue1@manpc
+#+DATE:        2018-06-03 Sun
+#+URI:         /wiki/%t
+#+KEYWORDS:    Quantitative trading
+#+TAGS:        Quantitative-trading
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: 期权期货知识学习
+
 * options,futures and other derivatives
   期权 期货 及其他衍生产品
 ** 引言

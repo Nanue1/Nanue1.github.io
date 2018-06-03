@@ -1,5 +1,16 @@
 #+OPTIONS: toc:2
 #+OPTIONS: ^:nil
+#+TITLE:       note-jvm-深入理解Java虚拟机
+#+AUTHOR:      manue1
+#+EMAIL:       manue1@manpc
+#+DATE:        2018-06-03 Sun
+#+URI:         /wiki/%t
+#+KEYWORDS:    jvm
+#+TAGS:        Jvm
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: jvm学习笔记
+
 * jvm
 ** Q & A
 - 垃圾回收器需要关注的内容：

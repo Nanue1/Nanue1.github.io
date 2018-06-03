@@ -1,3 +1,14 @@
+#+TITLE:       note-data-structure
+#+AUTHOR:      manue1
+#+EMAIL:       manue1@manpc
+#+DATE:        2018-06-03 Sun
+#+URI:         /wiki/%t
+#+KEYWORDS:    Leetcode
+#+TAGS:        Leetcode,Data-Structure
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: 数据结构知识点梳理
+
 * 严蔚敏数据结构Video
 ** 绪论
   1. 数据结构范畴 
@@ -206,7 +217,6 @@
         
 
 
-     
 ** 4.树
    
    根的深度为0，树叶的高度为0
