@@ -2,7 +2,7 @@
 #+AUTHOR:      manue1
 #+EMAIL:       manue1@manpc
 #+DATE:        2018-06-03 Sun
-#+URI:         /wiki/%t
+#+URI:         /blog/%y/%m/%d/opensource-threat-intelligence
 #+KEYWORDS:    threat-intelligence
 #+TAGS:        Threat-Intelligence
 #+LANGUAGE:    en
