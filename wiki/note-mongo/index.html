@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <title>Untitled - manue1&#39;s site</title>
+    <title>note-Mongo - manue1&#39;s site</title>
     <meta charset="utf-8" />
     <meta name="author" content="manue1" />
+    <meta name="description" content="Mongo日常使用记录" />
+    <meta name="keywords" content="Mongo,Note" />
     <link rel="stylesheet" href="/media/css/main.css" type="text/css">
     <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
   </head>
@@ -29,31 +31,51 @@
 
 <div>
 <div class="post">
-<h1>Untitled</h1>
-<div id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#orge980da9">1. 4k</a></li>
-</ul>
+<h1>note-Mongo</h1>
+
+<div id="outline-container-orgff5656b" class="outline-2">
+<h2 id="orgff5656b">Mongo 使用笔记</h2>
+<div class="outline-text-2" id="text-orgff5656b">
 </div>
-</div>
-<div id="outline-container-orge980da9" class="outline-2">
-<h2 id="orge980da9"><span class="section-number-2">1</span> 4k</h2>
-<div class="outline-text-2" id="text-1">
-<p>
-1.张志华-机器想学习导论 上海交通大学
-  <a href="https://www.youtube.com/watch?v=QjW--CyDgvA&amp;list=PLwTxjmW4U1YTri169gr5rAZUDxNsMBLxa">https://www.youtube.com/watch?v=QjW--CyDgvA&amp;list=PLwTxjmW4U1YTri169gr5rAZUDxNsMBLxa</a>
-</p>
+<div id="outline-container-orgc97cfb2" class="outline-3">
+<h3 id="orgc97cfb2">常用命令</h3>
+<div class="outline-text-3" id="text-orgc97cfb2">
 <ol class="org-ol">
-<li>leetcode</li>
-</ol>
-<p>
-<a href="https://www.youtube.com/channel/UCTWuRL33U8xBPqk3LehXjFw/playlists">https://www.youtube.com/channel/UCTWuRL33U8xBPqk3LehXjFw/playlists</a>
+<li><p>
+创建索引
 </p>
 
 <p>
-<a href="https://www.youtube.com/watch?v=6GnaTKD_Y0I&amp;list=PLvyIyKZVcfAnWXGDMdRbuWHTEh3XoKWOW">https://www.youtube.com/watch?v=6GnaTKD_Y0I&amp;list=PLvyIyKZVcfAnWXGDMdRbuWHTEh3XoKWOW</a></p>
+db.smrt.ensureIndex({"ip":1})
+</p></li>
+</ol>
+
+<p>
+2.聚合出字段种类
+</p>
+
+<p>
+db.smrt.distinct("tags")
+</p>
+
+<p>
+db.all_iocs.find({"malicious_family":{$size:3}})
+</p>
+<ol class="org-ol">
+<li>db.ip_history_v1.find({"insert_time":{"$gte":1496357774,"$lte":1496357775}})
+db.ip_history_v1.find({"insert_time":{"$gte":1498037117,"$lte":1498037119}})
+db.ip_history_v1.find({"history":{"$elemMatch":{"source":"emergingthreats.net"}}})
+db.ip_history_v1.remove({"history":{"$elemMatch":{"attack_time":{'$gte':'2016-05-11T15:29:21','$lte':'2017-07-11T15:29:21'}}}})</li>
+</ol>
+
+
+<p>
+db.ip_history_v1.find({"history":{"$elemMatch":{"insertime":{"$gte":"1509840000","$lte":"1509926400"}}}})
+</p>
+</div>
+</div>
+<div id="outline-container-orgb485344" class="outline-3">
+<h3 id="orgb485344">Mongo集群安装</h3>
 </div>
 </div>
 
@@ -61,9 +83,9 @@
 </div>
     <div>
       <div class="post-meta">
-        <span title="post date" class="post-info">2018-06-03</span>
+        <span title="post date" class="post-info">2015-03-03</span>
         <span title="last modification date" class="post-info">2018-06-03</span>
-        <span title="tags" class="post-info">N/A</span>
+        <span title="tags" class="post-info"><a href="/tags/mongo/">Mongo</a></span>
         <span title="author" class="post-info">manue1</span>
       </div>
       <script src="//code.jquery.com/jquery-latest.min.js"></script>
