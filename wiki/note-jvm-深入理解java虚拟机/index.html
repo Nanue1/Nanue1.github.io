@@ -33,13 +33,13 @@
 <div class="post">
 <h1>note-jvm-深入理解Java虚拟机</h1>
 
-<div id="outline-container-orgf5d5ebd" class="outline-2">
-<h2 id="orgf5d5ebd">jvm</h2>
-<div class="outline-text-2" id="text-orgf5d5ebd">
+<div id="outline-container-orgfe79ffd" class="outline-2">
+<h2 id="orgfe79ffd">jvm</h2>
+<div class="outline-text-2" id="text-orgfe79ffd">
 </div>
-<div id="outline-container-org0496636" class="outline-3">
-<h3 id="org0496636">Q &amp; A</h3>
-<div class="outline-text-3" id="text-org0496636">
+<div id="outline-container-orgecb2c22" class="outline-3">
+<h3 id="orgecb2c22">Q &amp; A</h3>
+<div class="outline-text-3" id="text-orgecb2c22">
 <ul class="org-ul">
 <li>垃圾回收器需要关注的内容：
 <ol class="org-ol">
@@ -62,22 +62,22 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org04fa303" class="outline-3">
-<h3 id="org04fa303">深入理解Java虚拟机</h3>
-<div class="outline-text-3" id="text-org04fa303">
+<div id="outline-container-org3198624" class="outline-3">
+<h3 id="org3198624">深入理解Java虚拟机</h3>
+<div class="outline-text-3" id="text-org3198624">
 <p>
 周志明. 深入理解Java虚拟机
 </p>
 </div>
-<div id="outline-container-orgd9d7315" class="outline-4">
-<h4 id="orgd9d7315">自动内存管理机制</h4>
-<div class="outline-text-4" id="text-orgd9d7315">
+<div id="outline-container-orgacd2297" class="outline-4">
+<h4 id="orgacd2297">自动内存管理机制</h4>
+<div class="outline-text-4" id="text-orgacd2297">
 </div>
 <ul class="org-ul">
-<li><a id="org1773f33"></a>java内存区域与内存溢出异常<br />
+<li><a id="org500b8ad"></a>java内存区域与内存溢出异常<br />
 <ul class="org-ul">
-<li><a id="orgfa065f9"></a>运行时数据区域<br />
-<div class="outline-text-6" id="text-orgfa065f9">
+<li><a id="orge68831d"></a>运行时数据区域<br />
+<div class="outline-text-6" id="text-orge68831d">
 <pre class="example">
   线程共享数据区     线程隔离数据区
 | Method Area |   | VM Stack | Native Method Stack |
@@ -182,8 +182,8 @@ OutOfMemoryError
 </div>
 </li>
 
-<li><a id="org95918a7"></a>对象访问<br />
-<div class="outline-text-6" id="text-org95918a7">
+<li><a id="org08ebbb8"></a>对象访问<br />
+<div class="outline-text-6" id="text-org08ebbb8">
 <p>
 最简单的访问,也会涉及java stack, java heap , method area 这三个最重要的内存区域
 </p>
@@ -268,8 +268,8 @@ reference变量中直接存储的就是对象的地址
 </pre>
 </div>
 </li>
-<li><a id="orgc22b6b0"></a>OutOfMemoryError异常<br />
-<div class="outline-text-6" id="text-orgc22b6b0">
+<li><a id="org81d639d"></a>OutOfMemoryError异常<br />
+<div class="outline-text-6" id="text-org81d639d">
 <p>
 内存 泄漏（ Memory Leak） 
 </p>
@@ -342,10 +342,10 @@ PermGen space 永久代 常量池溢出
 </ul>
 </li>
 
-<li><a id="org29e3f38"></a>垃圾回收器与内存分配策略<br />
+<li><a id="org9e93c12"></a>垃圾回收器与内存分配策略<br />
 <ul class="org-ul">
-<li><a id="org508184a"></a>为什么要回收和分配<br />
-<div class="outline-text-6" id="text-org508184a">
+<li><a id="orgd25ff59"></a>为什么要回收和分配<br />
+<div class="outline-text-6" id="text-orgd25ff59">
 <ol class="org-ol">
 <li><p>
 哪些内存需要回收？ 
@@ -403,8 +403,8 @@ java采用根搜索算法来判断对象是否存活,以GC root的对象作为�
 </div>
 </li>
 
-<li><a id="org9937a62"></a>垃圾收集算法<br />
-<div class="outline-text-6" id="text-org9937a62">
+<li><a id="orgcd22382"></a>垃圾收集算法<br />
+<div class="outline-text-6" id="text-orgcd22382">
 <ol class="org-ol">
 <li>标记-清除算法
 清除之后产生大量不连续内存碎片</li>
@@ -428,8 +428,8 @@ java采用根搜索算法来判断对象是否存活,以GC root的对象作为�
 </ul>
 </li>
 
-<li><a id="org283b4be"></a>jvm监控与故障处理工具<br />
-<div class="outline-text-5" id="text-org283b4be">
+<li><a id="orgad86dd7"></a>jvm监控与故障处理工具<br />
+<div class="outline-text-5" id="text-orgad86dd7">
 <ol class="org-ol">
 <li>jps jinfo
 运行的使用jvm的进程</li>
@@ -461,9 +461,9 @@ jconsole
 </ul>
 </div>
 
-<div id="outline-container-orgc23fcd3" class="outline-4">
-<h4 id="orgc23fcd3">高效并发</h4>
-<div class="outline-text-4" id="text-orgc23fcd3">
+<div id="outline-container-orgf9f2070" class="outline-4">
+<h4 id="orgf9f2070">高效并发</h4>
+<div class="outline-text-4" id="text-orgf9f2070">
 <ol class="org-ol">
 <li><p>
 java内存模型
