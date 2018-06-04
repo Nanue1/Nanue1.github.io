@@ -171,7 +171,6 @@ class MedisumSpider(CrawlSpider):
       #+END_SRC
 
       代码托管位置:[[https://github.com/Nanue1/opensource_threat_intel/tree/master/opensource_threat_intel][github]]
-
 ** error note
    1. NotImplementedError
       parse()函数得存在
