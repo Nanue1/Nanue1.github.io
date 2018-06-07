@@ -10,8 +10,7 @@
 #+DESCRIPTION: vbox搭建集群开发环境
 
 * centos7 basic environment
-  centos7 download
-  http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso
+  [[https://www.centos.org/download/mirrors/][centos官方镜像源]]
 
 ** lvm 
    在文件中添加要挂载的分区和文件目录可以修改文件
@@ -1627,3 +1626,4 @@ VBoxManage convertdd        [-static] <filename> <outputfile> 将raw硬盘转换
 VBoxManage convertdd        [-static] stdin <outputfile> <bytes> 将标准输入参数指定的设备转换成vdi虚拟硬盘，比如：dd if=/dev/sda1 | VBoxManage convertdd stdin /media/disk/C.vdi 62277025792  
 
 #+END_SRC
+
