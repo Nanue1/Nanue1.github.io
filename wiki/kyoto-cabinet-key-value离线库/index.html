@@ -33,9 +33,9 @@
 <div class="post">
 <h1>kyoto-cabinet key-value离线库</h1>
 
-<div id="outline-container-org8b73ec0" class="outline-2">
-<h2 id="org8b73ec0">kyoto Cabinet &amp; Tycoon</h2>
-<div class="outline-text-2" id="text-org8b73ec0">
+<div id="outline-container-org845355d" class="outline-2">
+<h2 id="org845355d">kyoto Cabinet &amp; Tycoon</h2>
+<div class="outline-text-2" id="text-org845355d">
 <p>
 官方地址：
 </p>
@@ -53,9 +53,9 @@
 <li>以kct结尾的文件，代表使用B+ tree表存储数据，每个操作的时间复杂度是 O(log N),但B+ tree数据库支持对 key 顺序的连续访问，这可以实现对字符串的前向匹配查找和整数的范围查找</li>
 </ul>
 </div>
-<div id="outline-container-org9e21469" class="outline-3">
-<h3 id="org9e21469">install cabinet &amp; Tycoon</h3>
-<div class="outline-text-3" id="text-org9e21469">
+<div id="outline-container-orgcd800d7" class="outline-3">
+<h3 id="orgcd800d7">install cabinet &amp; Tycoon</h3>
+<div class="outline-text-3" id="text-orgcd800d7">
 <pre class="example">
 ##centos 6
 #install kyotocabinet pkg
@@ -88,9 +88,9 @@ rm kyototycoon* -rf
 </pre>
 </div>
 </div>
-<div id="outline-container-org58f6ca8" class="outline-3">
-<h3 id="org58f6ca8">ktserver</h3>
-<div class="outline-text-3" id="text-org58f6ca8">
+<div id="outline-container-orgddb1eb2" class="outline-3">
+<h3 id="orgddb1eb2">ktserver</h3>
+<div class="outline-text-3" id="text-orgddb1eb2">
 <p class="verse">
 -port num : 指定需要绑定的端口号。默认端口号为1978<br />
 -th num : 指定线程数<br />
@@ -175,9 +175,9 @@ ktremotemgr list  -port 2000
 </div>
 </div>
 
-<div id="outline-container-orgb404b03" class="outline-3">
-<h3 id="orgb404b03">ktremotemgr</h3>
-<div class="outline-text-3" id="text-orgb404b03">
+<div id="outline-container-org65c0d3d" class="outline-3">
+<h3 id="org65c0d3d">ktremotemgr</h3>
+<div class="outline-text-3" id="text-org65c0d3d">
 <pre class="example">
 插入数据
 ktremotemgr set -host 127.0.0.1 -port 8901 manue1 360
@@ -190,9 +190,9 @@ ktremotemgr list -host 127.0.0.1 -port 8901
 </pre>
 </div>
 </div>
-<div id="outline-container-orgebb65f5" class="outline-3">
-<h3 id="orgebb65f5">hot backup</h3>
-<div class="outline-text-3" id="text-orgebb65f5">
+<div id="outline-container-org2151047" class="outline-3">
+<h3 id="org2151047">hot backup</h3>
+<div class="outline-text-3" id="text-org2151047">
 <ol class="org-ol">
 <li><p>
 dbbackup.sh It must have executable permissions
