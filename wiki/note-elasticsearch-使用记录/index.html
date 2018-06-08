@@ -33,13 +33,13 @@
 <div class="post">
 <h1>note-elasticsearch-使用记录</h1>
 
-<div id="outline-container-org0849e87" class="outline-2">
-<h2 id="org0849e87">note-elasticsearch-install&amp;config</h2>
-<div class="outline-text-2" id="text-org0849e87">
+<div id="outline-container-org4bca1b7" class="outline-2">
+<h2 id="org4bca1b7">note-elasticsearch-install&amp;config</h2>
+<div class="outline-text-2" id="text-org4bca1b7">
 </div>
-<div id="outline-container-orgd2ad982" class="outline-3">
-<h3 id="orgd2ad982">install</h3>
-<div class="outline-text-3" id="text-orgd2ad982">
+<div id="outline-container-org0d9d050" class="outline-3">
+<h3 id="org0d9d050">install</h3>
+<div class="outline-text-3" id="text-org0d9d050">
 <p>
 安装环境: VMware12: 三台 ubuntu 14.04 内存 1g
 </p>
@@ -63,9 +63,9 @@ sysctl -a|grep vm.max_map_count</li>
 </div>
 </div>
 
-<div id="outline-container-org5e998e1" class="outline-3">
-<h3 id="org5e998e1">cat command</h3>
-<div class="outline-text-3" id="text-org5e998e1">
+<div id="outline-container-orgbdd7a2a" class="outline-3">
+<h3 id="orgbdd7a2a">cat command</h3>
+<div class="outline-text-3" id="text-orgbdd7a2a">
 <p>
 vim  /etc/security/limits.conf
 vim   /etc/security/limits.d/def.conf
@@ -148,9 +148,9 @@ curl -XPOST '10.24.45.94:9200/_cluster/reroute' -d @reroute.mapping</li>
 </ol>
 </div>
 </div>
-<div id="outline-container-org991f75d" class="outline-3">
-<h3 id="org991f75d">Mapping</h3>
-<div class="outline-text-3" id="text-org991f75d">
+<div id="outline-container-org2e743a5" class="outline-3">
+<h3 id="org2e743a5">Mapping</h3>
+<div class="outline-text-3" id="text-org2e743a5">
 <ol class="org-ol">
 <li>建立索引
 curl -XPUT 'localhost:9200/threat_ip_history/?pretty' -d{"settings":{"number_of_shards":20}}
@@ -213,9 +213,9 @@ curl -XDELETE localhost:9200/index_name</li>
 </div>
 </div>
 
-<div id="outline-container-org26d3ca9" class="outline-3">
-<h3 id="org26d3ca9">CURD</h3>
-<div class="outline-text-3" id="text-org26d3ca9">
+<div id="outline-container-org55a21ef" class="outline-3">
+<h3 id="org55a21ef">CURD</h3>
+<div class="outline-text-3" id="text-org55a21ef">
 <ol class="org-ol">
 <li>添加一条记录
 curl -XPUT 'http://localhost:9200/twitter/tweet/1' -d  '{_source 内容}'</li>
@@ -224,9 +224,9 @@ curl -XDELETE 'http://localhost:9200/twitter/tweet/1'</li>
 </ol>
 </div>
 </div>
-<div id="outline-container-orga654a73" class="outline-3">
-<h3 id="orga654a73">Query</h3>
-<div class="outline-text-3" id="text-orga654a73">
+<div id="outline-container-org8431302" class="outline-3">
+<h3 id="org8431302">Query</h3>
+<div class="outline-text-3" id="text-org8431302">
 <ol class="org-ol">
 <li><p>
 基本查询
@@ -287,9 +287,9 @@ DSL 查询
 </ol>
 </div>
 </div>
-<div id="outline-container-org2bdad59" class="outline-3">
-<h3 id="org2bdad59">Alias</h3>
-<div class="outline-text-3" id="text-org2bdad59">
+<div id="outline-container-org5268d4d" class="outline-3">
+<h3 id="org5268d4d">Alias</h3>
+<div class="outline-text-3" id="text-org5268d4d">
 <ol class="org-ol">
 <li>创建 alias
 curl -XPOST 'localhost:9200/_aliases' -d '{"actions":[{"add":{"index" : "vulnerability_data_v4","alias" : "formal_vulnerability_data"}}]}'</li>
@@ -310,13 +310,13 @@ curl -XPOST 'http://localhost:9200/_aliases'-d '
 </ol>
 </div>
 </div>
-<div id="outline-container-org1d7e352" class="outline-3">
-<h3 id="org1d7e352">questions</h3>
-<div class="outline-text-3" id="text-org1d7e352">
+<div id="outline-container-orgf999534" class="outline-3">
+<h3 id="orgf999534">questions</h3>
+<div class="outline-text-3" id="text-orgf999534">
 </div>
-<div id="outline-container-orgeefef9e" class="outline-4">
-<h4 id="orgeefef9e">from szie/scroll/search after</h4>
-<div class="outline-text-4" id="text-orgeefef9e">
+<div id="outline-container-org402e1f5" class="outline-4">
+<h4 id="org402e1f5">from szie/scroll/search after</h4>
+<div class="outline-text-4" id="text-org402e1f5">
 <p>
 <a href="http://www.jianshu.com/p/91d03b16af77">http://www.jianshu.com/p/91d03b16af77</a>
 </p>
@@ -388,9 +388,9 @@ search after
 </ul>
 </div>
 </div>
-<div id="outline-container-orga997740" class="outline-4">
-<h4 id="orga997740">es shard 生命周期</h4>
-<div class="outline-text-4" id="text-orga997740">
+<div id="outline-container-org90a6481" class="outline-4">
+<h4 id="org90a6481">es shard 生命周期</h4>
+<div class="outline-text-4" id="text-org90a6481">
 <p>
 <a href="http://lxwei.github.io/posts/Elasticsearch-Shard-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.html">http://lxwei.github.io/posts/Elasticsearch-Shard-生命周期.html</a>
 </p>
@@ -460,12 +460,12 @@ _optimize?max_num_segments=1 一个segment情况下查询要快些，但是得�
 </div>
 </div>
 
-<div id="outline-container-org5551c0f" class="outline-4">
-<h4 id="org5551c0f">分词</h4>
+<div id="outline-container-orgd355fb8" class="outline-4">
+<h4 id="orgd355fb8">分词</h4>
 </div>
-<div id="outline-container-org2edf0b8" class="outline-4">
-<h4 id="org2edf0b8">es node</h4>
-<div class="outline-text-4" id="text-org2edf0b8">
+<div id="outline-container-org002985b" class="outline-4">
+<h4 id="org002985b">es node</h4>
+<div class="outline-text-4" id="text-org002985b">
 <ul class="org-ul">
 <li>data node 上
 http.enabled: false，同时也不要安装head, bigdesk, marvel等监控 插件
@@ -492,17 +492,17 @@ discovery.zen.ping.timeout
 </ul>
 </div>
 </div>
-<div id="outline-container-org77472d9" class="outline-4">
-<h4 id="org77472d9">es pipeline</h4>
-<div class="outline-text-4" id="text-org77472d9">
+<div id="outline-container-orgd1e7a12" class="outline-4">
+<h4 id="orgd1e7a12">es pipeline</h4>
+<div class="outline-text-4" id="text-orgd1e7a12">
 <p>
 <a href="https://www.felayman.com/articles/2017/11/24/1511527532643.html#b3_solo_h4_22">https://www.felayman.com/articles/2017/11/24/1511527532643.html#b3_solo_h4_22</a>
 </p>
 </div>
 </div>
-<div id="outline-container-org28223b6" class="outline-4">
-<h4 id="org28223b6">es</h4>
-<div class="outline-text-4" id="text-org28223b6">
+<div id="outline-container-orgf0976a4" class="outline-4">
+<h4 id="orgf0976a4">es</h4>
+<div class="outline-text-4" id="text-orgf0976a4">
 <p>
 <a href="https://blog.csdn.net/donghaixiaolongwang/article/category/6747676">https://blog.csdn.net/donghaixiaolongwang/article/category/6747676</a>
 </p>
