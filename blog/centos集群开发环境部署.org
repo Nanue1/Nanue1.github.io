@@ -1,4 +1,4 @@
-#+TITLE:       note-linux-centos-集群部署
+#+TITLE:       centos集群开发环境部署
 #+AUTHOR:      manue1
 #+EMAIL:       manue1@foxmail.com
 #+DATE:        2017-06-03 Sun
@@ -6,47 +6,46 @@
 #+KEYWORDS:    Linux,Centos
 #+TAGS:        Vbox,Hadoop,Elasticsearch,Hive,Hbase,Zookeeper,KafKa,Spark
 #+LANGUAGE:    en
-#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+OPTIONS:     H:3 num:nil toc:2 \n:nil ::t |:t  ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: vbox搭建集群开发环境
 
 * centos7 basic environment
   [[https://www.centos.org/download/mirrors/][centos官方镜像源]]
-
-** lvm 
-   在文件中添加要挂载的分区和文件目录可以修改文件
+** LVM磁盘管理
+   Linux中逻辑卷管理磁盘分区与传统分期方法相比更加灵活
    
-   /etc/fstab
-
-   /dev/sda5/    media/win    ntfs    defaults   02
-
-   然后 mount -a
-
-   1. 查看几块硬盘
+   使用LVM逻辑卷管理磁盘之前首先需要将插入的硬盘分区,然后再通过LVM管理分区
    
-      sudo fdisk -l |grep sd
-   
-   2. 创建分区
-   
-      虚拟机现有20g的硬盘,使用fdisk划分磁盘
-       
-      sudo fdisk /dev/sda
-   
-      #+BEGIN_VERSE
-         m  帮助信息  
-         n 创建分区
-         e 扩展分区    +5G  pppp/pppe
-         p 打印分区
-         t 分区类型 L  (lvm)
-         w 写入保存分区
-      #+END_VERSE
-
-   3. 格式化 分区
-
-   - LVM
+   * 硬盘分区
+     - 查看硬盘
+        sudo fdisk -l |grep sd 
+     - 创建分区
+       比如对刚插入的20g的硬盘,使用fdisk进行分区
+       #+BEGIN_VERSE
+          sudo fdisk /dev/sdb
+          m  帮助信息  
+          n 创建分区
+          e 扩展分区    +5G  pppp/pppe
+          p 打印分区
+          t 分区类型 L  (lvm)
+          w 写入保存分区
+       #+END_VERSE            
+       创建分区后可以发现sdb磁盘上的分区已经是Linux LVM 类型了
+       #+BEGIN_SRC 
+      ~ » sudo fdisk -l  | grep sdb
+      Disk /dev/mapper/ubuntu01--vg-root doesn't contain a valid partition table
+      Disk /dev/mapper/ubuntu01--vg-swap_1 doesn't contain a valid partition table
+      14:Disk /dev/sdb: 21.5 GB, 21474836480 bytes
+      22:/dev/sdb1            2048    20973567    10485760   8e  Linux LVM
+       #+END_SRC
+   * 传统分区挂载
+     在`/etc/fstab`文件中添加要挂载的`/dev/sda5`分区和`/media/win`文件目录
+     #+begin_example
+     /dev/sda5/    /media/win    ntfs    defaults   0  2
+     #+end_example
+     手动执行 `mount -a` 永久挂载分区
+   * LVM分区挂载
      pv --> vg --> lv
-     参考:
-     http://blog.sina.com.cn/s/blog_b77735d20101e5cn.html
-     http://aurthurxlc.github.io/Aurthur-2017/Centos-7-extend-lvm-volume.html
 
      #+BEGIN_SRC 
      fdisk -l | grep sd
@@ -64,6 +63,9 @@
      df -Th
      xfs_growfs /dev/centos/root
      #+END_SRC
+     参考:
+     http://blog.sina.com.cn/s/blog_b77735d20101e5cn.html
+     http://aurthurxlc.github.io/Aurthur-2017/Centos-7-extend-lvm-volume.html
 ** ip
   * 联网方式: 配置三张网卡
     virtualBox 中 NAT 和 Host-only 两种模式不能同时并存，测试只能联网的时候关掉另一张网卡
