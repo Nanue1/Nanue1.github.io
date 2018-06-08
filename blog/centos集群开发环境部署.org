@@ -18,7 +18,7 @@
    * 硬盘分区
      - 查看硬盘
 
-       sudo fdisk -l |grep sd 
+       =sudo fdisk -l |grep sd=
      - 创建分区
 
        比如对刚插入的20g的硬盘,使用fdisk进行分区
@@ -41,11 +41,11 @@
        #+END_SRC
    * 传统分区挂载
 
-     在`/etc/fstab`文件中添加要挂载的`/dev/sda5`分区和`/media/win`文件目录
+     在 =/etc/fstab= 文件中添加要挂载的 =/dev/sda5= 分区和 =/media/win= 文件目录
      #+begin_example
      /dev/sda5/    /media/win    ntfs    defaults   0  2
      #+end_example
-     手动执行 `mount -a` 永久挂载分区
+     手动执行 =mount -a= 永久挂载分区
    * LVM分区挂载
      pv --> vg --> lv
 
