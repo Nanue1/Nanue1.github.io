@@ -19,7 +19,7 @@
           <li><a href="/wiki/">Wiki</a></li>
           <li><a href="/tags/">Tags</a></li>
           <li><a href="/about/">About</a></li>
-          <li><a href="https://github.com/nanue1">GitHub</a></li>
+          <li><a href="https://github.com/kelvinh/org-page">GitHub</a></li>
           <li><a href="/rss.xml">RSS</a></li>
         </ul>
         <form method="get" id="searchform" action="//www.google.com/search">
@@ -33,6 +33,7 @@
 <div class="post">
 <h1>note-jvm-深入理解Java虚拟机</h1>
 
+<<<<<<< HEAD
 <div id="outline-container-org58b8ec5" class="outline-2">
 <h2 id="org58b8ec5">jvm</h2>
 <div class="outline-text-2" id="text-org58b8ec5">
@@ -40,6 +41,15 @@
 <div id="outline-container-org3efcd90" class="outline-3">
 <h3 id="org3efcd90">Q &amp; A</h3>
 <div class="outline-text-3" id="text-org3efcd90">
+=======
+<div id="outline-container-org75475c5" class="outline-2">
+<h2 id="org75475c5">jvm</h2>
+<div class="outline-text-2" id="text-org75475c5">
+</div>
+<div id="outline-container-org81b8ec8" class="outline-3">
+<h3 id="org81b8ec8">Q &amp; A</h3>
+<div class="outline-text-3" id="text-org81b8ec8">
+>>>>>>> ef85b8679a1e8328f37afd33d2edd50b2695781e
 <ul class="org-ul">
 <li>垃圾回收器需要关注的内容：
 <ol class="org-ol">
@@ -62,13 +72,20 @@
 </ul>
 </div>
 </div>
+<<<<<<< HEAD
 <div id="outline-container-orgf0cd751" class="outline-3">
 <h3 id="orgf0cd751">深入理解Java虚拟机</h3>
 <div class="outline-text-3" id="text-orgf0cd751">
+=======
+<div id="outline-container-org5b0f82a" class="outline-3">
+<h3 id="org5b0f82a">深入理解Java虚拟机</h3>
+<div class="outline-text-3" id="text-org5b0f82a">
+>>>>>>> ef85b8679a1e8328f37afd33d2edd50b2695781e
 <p>
 周志明. 深入理解Java虚拟机
 </p>
 </div>
+<<<<<<< HEAD
 <div id="outline-container-org9258cb8" class="outline-4">
 <h4 id="org9258cb8">自动内存管理机制</h4>
 <div class="outline-text-4" id="text-org9258cb8">
@@ -78,6 +95,17 @@
 <ul class="org-ul">
 <li><a id="org4e0c02e"></a>运行时数据区域<br />
 <div class="outline-text-6" id="text-org4e0c02e">
+=======
+<div id="outline-container-org035787b" class="outline-4">
+<h4 id="org035787b">自动内存管理机制</h4>
+<div class="outline-text-4" id="text-org035787b">
+</div>
+<ul class="org-ul">
+<li><a id="orgff6b007"></a>java内存区域与内存溢出异常<br />
+<ul class="org-ul">
+<li><a id="org96d4f2c"></a>运行时数据区域<br />
+<div class="outline-text-6" id="text-org96d4f2c">
+>>>>>>> ef85b8679a1e8328f37afd33d2edd50b2695781e
 <pre class="example">
   线程共享数据区     线程隔离数据区
 | Method Area |   | VM Stack | Native Method Stack |
@@ -182,8 +210,13 @@ OutOfMemoryError
 </div>
 </li>
 
+<<<<<<< HEAD
 <li><a id="org7f0358e"></a>对象访问<br />
 <div class="outline-text-6" id="text-org7f0358e">
+=======
+<li><a id="org5238c5f"></a>对象访问<br />
+<div class="outline-text-6" id="text-org5238c5f">
+>>>>>>> ef85b8679a1e8328f37afd33d2edd50b2695781e
 <p>
 最简单的访问,也会涉及java stack, java heap , method area 这三个最重要的内存区域
 </p>
@@ -268,8 +301,13 @@ reference变量中直接存储的就是对象的地址
 </pre>
 </div>
 </li>
+<<<<<<< HEAD
 <li><a id="org28ea6d9"></a>OutOfMemoryError异常<br />
 <div class="outline-text-6" id="text-org28ea6d9">
+=======
+<li><a id="org4ea335d"></a>OutOfMemoryError异常<br />
+<div class="outline-text-6" id="text-org4ea335d">
+>>>>>>> ef85b8679a1e8328f37afd33d2edd50b2695781e
 <p>
 内存 泄漏（ Memory Leak） 
 </p>
@@ -342,10 +380,17 @@ PermGen space 永久代 常量池溢出
 </ul>
 </li>
 
+<<<<<<< HEAD
 <li><a id="org9dac679"></a>垃圾回收器与内存分配策略<br />
 <ul class="org-ul">
 <li><a id="org14b22be"></a>为什么要回收和分配<br />
 <div class="outline-text-6" id="text-org14b22be">
+=======
+<li><a id="orgeab8206"></a>垃圾回收器与内存分配策略<br />
+<ul class="org-ul">
+<li><a id="org0cd71d2"></a>为什么要回收和分配<br />
+<div class="outline-text-6" id="text-org0cd71d2">
+>>>>>>> ef85b8679a1e8328f37afd33d2edd50b2695781e
 <ol class="org-ol">
 <li><p>
 哪些内存需要回收？ 
@@ -403,8 +448,13 @@ java采用根搜索算法来判断对象是否存活,以GC root的对象作为�
 </div>
 </li>
 
+<<<<<<< HEAD
 <li><a id="org93635b5"></a>垃圾收集算法<br />
 <div class="outline-text-6" id="text-org93635b5">
+=======
+<li><a id="orgdf5e172"></a>垃圾收集算法<br />
+<div class="outline-text-6" id="text-orgdf5e172">
+>>>>>>> ef85b8679a1e8328f37afd33d2edd50b2695781e
 <ol class="org-ol">
 <li>标记-清除算法
 清除之后产生大量不连续内存碎片</li>
@@ -428,8 +478,13 @@ java采用根搜索算法来判断对象是否存活,以GC root的对象作为�
 </ul>
 </li>
 
+<<<<<<< HEAD
 <li><a id="org728c1fb"></a>jvm监控与故障处理工具<br />
 <div class="outline-text-5" id="text-org728c1fb">
+=======
+<li><a id="org375bcc1"></a>jvm监控与故障处理工具<br />
+<div class="outline-text-5" id="text-org375bcc1">
+>>>>>>> ef85b8679a1e8328f37afd33d2edd50b2695781e
 <ol class="org-ol">
 <li>jps jinfo
 运行的使用jvm的进程</li>
@@ -461,9 +516,15 @@ jconsole
 </ul>
 </div>
 
+<<<<<<< HEAD
 <div id="outline-container-org2dd8a8b" class="outline-4">
 <h4 id="org2dd8a8b">高效并发</h4>
 <div class="outline-text-4" id="text-org2dd8a8b">
+=======
+<div id="outline-container-orgd8f39df" class="outline-4">
+<h4 id="orgd8f39df">高效并发</h4>
+<div class="outline-text-4" id="text-orgd8f39df">
+>>>>>>> ef85b8679a1e8328f37afd33d2edd50b2695781e
 <ol class="org-ol">
 <li><p>
 java内存模型
@@ -520,7 +581,7 @@ java.lang.Thread类的实例就是一个线程
         })();
       </script>
       <div class="footer">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:manue1 &lt;at&gt; manpc">manue1</a>
           &nbsp;&nbsp;-&nbsp;&nbsp;
