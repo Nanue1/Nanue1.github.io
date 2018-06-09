@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>note-elasticsearch-使用记录 - manue1&#39;s site</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="manue1" />
+    <meta name="description" content="elasticsearch 使用记录" />
+    <meta name="keywords" content="Elasticsearch" />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">manue1&#39;s site</a></h1>
+        <p>^_^ just for simaple</p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/wiki/">Wiki</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="https://github.com/nanue1">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="www.manue1.site">
+        </form>
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>note-elasticsearch-使用记录</h1>
+
+<div id="outline-container-org9b4d009" class="outline-2">
+<h2 id="org9b4d009">note-elasticsearch-install&amp;config</h2>
+<div class="outline-text-2" id="text-org9b4d009">
+</div>
+<div id="outline-container-org13c4d98" class="outline-3">
+<h3 id="org13c4d98">install</h3>
+<div class="outline-text-3" id="text-org13c4d98">
+<p>
+安装环境: VMware12: 三台 ubuntu 14.04 内存 1g
+</p>
+<ol class="org-ol">
+<li>download es
+<a href="https://www.elastic.co/downloads/elasticsearch">https://www.elastic.co/downloads/elasticsearch</a></li>
+<li>install java 8</li>
+<li>vim elasticsearch.yml
+访问地址修改:
+network.host : 192.168.67.128
+http.port:9200</li>
+<li>sudo vi /etc/sysctl.conf
+ kernel.pid_max=999999
+ kernel.thread-max=999999
+ vm.max_map_count=999999
+ fs.file-max=999999
+sysctl -a|grep vm.max_map_count</li>
+<li>ulimit -Hn 
+/etc/security/limits.conf 配置修改为 65536  重启服务器</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org7b38931" class="outline-3">
+<h3 id="org7b38931">cat command</h3>
+<div class="outline-text-3" id="text-org7b38931">
+<p>
+vim  /etc/security/limits.conf
+vim   /etc/security/limits.d/def.conf
+</p>
+
+<p>
+sudo netstat -anp |grep 9200
+htop
+show python
+curl localhost:9200/_cat/shards/?v |grep -v STARTED |less
+curl -XGET 'localhost:9200/_cat/recovery/webasset_scan?v'
+</p>
+
+<p>
+ES 常用操作命令总结：
+1.索引状态
+curl localhost:9200/_cat/indices?v
+2.文件描述符
+curl localhost:9200/_nodes/stats/process?pretty | less
+3.集群健康
+curl localhost:9200/_cluster/health?pretty | less
+curl 'localhost:9200/_cluster/health?level=indices&amp;pretty' | less
+curl localhost:9200/_cat/health?v| less
+</p>
+
+<p>
+curl 'localhost:9200/_cat/allocation?v'
+4.分片状态
+curl localhost:9200/_cat/shards/formal_webasset_scan?v
+5.当前任务
+curl localhost:9200/_tasks?pretty | less
+6.查看别名
+curl localhost:9200/webasset*/_alias?pretty |less
+7.查看 relocate 进度
+curl -XGET 'localhost:9200/_cat/recovery/ipasset_seer4?v'
+8.优化（慎用，会消耗全部可用资源，尤其是磁盘 io）
+curl -XPOST 'localhost:9200/threat_ip2/_optimize?max_num_segments=3&amp;pretty'
+9.查看 segment
+curl localhost:9200/_cat/segments/ipasset_seer4?v
+</p>
+
+<p>
+新建索引
+curl -XPUT 'localhost:9200/index_name/?pretty' -d '{"settings":{"number_of_replicas":0}}'
+curl -XPOST localhost:9200/index_name/_mapping/type_name?pretty -d @mapping_file
+动态改副本数量
+curl -XPUT 'localhost:9200/index_name/_settings?pretty' -d '{"number_of_replicas":1}'
+设置别名
+curl -XPUT 'localhost:9200/index_name/_alias/alias_name?pretty'
+修改别名
+curl -XPOST 'localhost:9200/_aliases?pretty' -d '{"actions":[{"remove":{"index":"webasset_subdomain_v2","alias":"formal_webasset_subdomain"}},{"add":{"index":"webasset_subdomain_v1","alias":"formal_webasset_subdomain"}}]}'
+</p>
+
+<ol class="org-ol">
+<li>允许自动分配分片(alloctattion disable  关掉) 重启 es 前需要关掉
+curl -XPUT '10.24.45.94:9200/_settings' -d '{
+  "index.routing.allocation.disable_allocation": false
+}'</li>
+<li>curl -XPUT 10.24.45.94:9200/_cluster/settings -d '
+{
+    "transient" : {
+        "cluster.routing.allocation.enable": true
+    }
+}'</li>
+<li>最大恢复</li>
+</ol>
+<p>
+curl -XPUT localhost:9200/_cluster/settings -d '{
+     "transient" : {
+         "indices.recovery.max_bytes_per_sec" : 80000000
+     }
+ }'
+</p>
+<ol class="org-ol">
+<li>拉取数据后挂掉 先删除任务 (shard 重路由之前可以先尝试)
+curl -XDELETE 10.24.45.94:9200/_search/scroll/_all</li>
+<li>reroute
+curl -XPOST '10.24.45.94:9200/_cluster/reroute' -d @reroute.mapping</li>
+<li></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org87d6fdb" class="outline-3">
+<h3 id="org87d6fdb">Mapping</h3>
+<div class="outline-text-3" id="text-org87d6fdb">
+<ol class="org-ol">
+<li>建立索引
+curl -XPUT 'localhost:9200/threat_ip_history/?pretty' -d{"settings":{"number_of_shards":20}}
+curl -XPUT '10.200.1.72:9200/ipasset_seer_lower/_settings'  -d {"number_of_replicas":1}</li>
+<li><p>
+设置 mapping 
+curl -XPOST 'localhost:9200/threat_ip_history/_mapping/ipv4?pretty' -d @mapping_file 
+</p>
+
+<p>
+mapping 存放到文件内
+</p>
+<div class="org-src-container">
+<pre class="src src-python">
+{
+  "ipv4": {
+      "dynamic_templates": [
+          {
+              "notanalyzed": {
+                  "mapping": {
+                      "index": "not_analyzed",
+                      "type": "string"
+                  },
+                  "match": "*",
+                  "match_mapping_type": "string"
+              }
+          }
+      ],
+      "properties": {
+          "activity": {
+              "include_in_parent": true,
+              "properties": {
+                  "threat_type": {
+                      "index": "not_analyzed",
+                      "type": "string"
+                  },
+                  "update_time": {
+                      "format": "YYYY-MM-dd'T'HH:mm:ss",
+                      "type": "date"
+                  }
+              },
+              "type": "nested"
+          },
+          "ip": {
+              "fields": {
+                  "raw": {
+                      "type": "ip"
+                  }
+              },
+              "type": "string"
+          }
+      }
+  }
+}
+</pre>
+</div></li>
+<li>删除索引
+curl -XDELETE localhost:9200/index_name</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org1f93d9c" class="outline-3">
+<h3 id="org1f93d9c">CURD</h3>
+<div class="outline-text-3" id="text-org1f93d9c">
+<ol class="org-ol">
+<li>添加一条记录
+curl -XPUT 'http://localhost:9200/twitter/tweet/1' -d  '{_source 内容}'</li>
+<li>删除一条记录
+curl -XDELETE 'http://localhost:9200/twitter/tweet/1'</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org77b362d" class="outline-3">
+<h3 id="org77b362d">Query</h3>
+<div class="outline-text-3" id="text-org77b362d">
+<ol class="org-ol">
+<li><p>
+基本查询
+</p>
+
+<p>
+curl -XGET 'http://localhost:9200/ipasset_seer4/asset_from_seer/_search?pretty&amp;q=ip:210.186.226.178'
+</p>
+
+<p>
+curl -XGET  'localhost:9200/webasset_whois3/whois_info/_search?pretty&amp;q=_id:PERSONALLICENCECOURSES.COM'
+</p></li>
+<li><p>
+DSL 查询
+1.query bool must/filter match/term
+</p>
+<pre class="example">
+
+{
+  "query": { 
+    "bool": { 
+      "must": [
+        { "match": { "title":   "Search"        }}, 
+        { "match": { "content": "Elasticsearch" }}  
+      ],
+      "filter": [ 
+        { "term":  { "status": "published" }}, 
+        { "range": { "publish_date": { "gte": "2015-01-01" }}} 
+      ]
+    }
+  }
+}
+
+</pre>
+<p>
+2.query/sort
+</p>
+<pre class="example">
+{
+       "query": {
+           "bool": {
+               "must": [
+                   {
+                       "term": {
+                           "ip.raw": "210.186.226.178"
+                       }
+                   }
+               ],
+               "must_not": [ ],
+               "should": [ ]
+           }
+       },
+       "sort": {
+         "started": "desc"
+       },
+   }
+</pre></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgcad03dc" class="outline-3">
+<h3 id="orgcad03dc">Alias</h3>
+<div class="outline-text-3" id="text-orgcad03dc">
+<ol class="org-ol">
+<li>创建 alias
+curl -XPOST 'localhost:9200/_aliases' -d '{"actions":[{"add":{"index" : "vulnerability_data_v4","alias" : "formal_vulnerability_data"}}]}'</li>
+<li>删除 alias
+curl -XPOST 'localhost:9200/_aliases' -d '{"actions":[{"remove":{"index" : "vulnerability_data_v4","alias" : "formal_vulnerability_data"}}]}'</li>
+<li><p>
+创建映射多个索引:
+</p>
+<pre class="example">
+curl -XPOST 'http://localhost:9200/_aliases'-d '  
+{  
+    "actions" : [  
+        { "add" : { "index" : "test1","alias" : "alias1" } },  
+        { "add" : { "index" : "test2","alias" : "alias1" } }  
+    ]  
+}'  
+</pre></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org8a4a4ba" class="outline-3">
+<h3 id="org8a4a4ba">questions</h3>
+<div class="outline-text-3" id="text-org8a4a4ba">
+</div>
+<div id="outline-container-org7ff68a3" class="outline-4">
+<h4 id="org7ff68a3">from szie/scroll/search after</h4>
+<div class="outline-text-4" id="text-org7ff68a3">
+<p>
+<a href="http://www.jianshu.com/p/91d03b16af77">http://www.jianshu.com/p/91d03b16af77</a>
+</p>
+
+<p>
+在使用关系型数据库中，我们被告知要注意甚至被明确禁止使用深度分页，同理，在 Elasticsearch 中，也应该尽量避免使用深度分页
+</p>
+
+<p>
+深度分页的问题:CUP、内存、IO、网络带宽问题  10个shard*一亿条数据的doc_id
+</p>
+
+<ul class="org-ul">
+<li><p>
+from size
+</p>
+
+<p>
+100+10、110+10.....10000+10 越往后请求的越多
+</p></li>
+
+<li><p>
+scroll:
+</p>
+
+<p>
+query fetch merge
+</p>
+
+<p>
+查询结果缓存,每次fetch size*shard文档 merge输出
+</p>
+
+<p>
+scroll不适合做实时查询: 1.初始化结果缓存成快照 2.fetch数据，操作数据
+</p>
+
+<p>
+search_type。赋值为scan，表示采用 Scroll-Scan 的方式遍历，同时告诉 Elasticsearch 搜索结果不需要排序
+</p>
+
+<p>
+size 控制的是每个分片的返回的数据量而不是整个请求返回的数据量。
+</p></li>
+
+<li><p>
+search after
+</p>
+
+<p>
+1.必须先要指定排序,记住坐标
+</p>
+
+<p>
+2.从任意一个位置 带上search_after=lastEmittedDocFieldValue 偏移量查数据
+</p>
+
+<p>
+如果我要做非常多页的查询时，最起码search after是一个常量查询延迟和开销，并无什么副作用。
+</p>
+
+<p>
+无论去到多少页，请求始终就是请求了size个docs,是个常量 
+</p>
+
+<p>
+业务折衷一：禁止跳页查询 只提供下一页
+</p></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org7b6ac1e" class="outline-4">
+<h4 id="org7b6ac1e">es shard 生命周期</h4>
+<div class="outline-text-4" id="text-org7b6ac1e">
+<p>
+<a href="http://lxwei.github.io/posts/Elasticsearch-Shard-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.html">http://lxwei.github.io/posts/Elasticsearch-Shard-生命周期.html</a>
+</p>
+<ul class="org-ul">
+<li><p>
+动态索引 
+三个关键的索引结构：倒排列表、临时索引、已删除列表 
+</p>
+
+<ul class="org-ul">
+<li>临时索引
+临时索引是在内存中实时建立的倒排索引，结果与倒排列表一样，
+只是存在于内存中，当有新文档时，实时解析文档并加到这个临时索引中</li>
+<li>已删除列表
+已删除列表存储已被删除的文档的文档ID
+一个文档被修改，搜索引擎一般删除旧文档，新建新文档,间接实现更新,
+这么做的原因主要是索引文件存储在磁盘文件，写磁盘不方便</li>
+<li>倒排列表
+倒排索引是已经建好的索引结果，倒排列表存在磁盘文件中，单词词典在内存中</li>
+</ul>
+
+<p>
+搜索操作：同时到内存和磁盘中查找，合并，然后利用已删除列表过滤文档
+</p></li>
+<li><p>
+es动态更新
+segment是lucence定义的索引段，一个索引内包含多个，segment对外提供搜索服务
+</p>
+
+<p>
+新文档--&gt;内存的buffer内--&gt;写到磁盘生成新的segment，对外服务 同时清空buffer
+</p>
+
+<p>
+要频繁的写入磁盘十分消耗资源,es先将文档写到filesystem cache内，此时就能被搜索到了(linux下文件句柄要调整)
+</p>
+
+<p>
+必须调用fsync将segment刷到磁盘上，才能保证数据不丢失。
+</p></li>
+
+<li><p>
+refresh/flush
+</p>
+
+<p>
+refresh是轻量级的写和打开一个新segment的操作
+</p>
+
+<p>
+Elasticsearch中，执行commit操作并删除translog的操作叫flush
+</p></li>
+
+<li><p>
+segment merge
+</p>
+
+<p>
+如果不停的产生新的segment，Elasticsearch中很快就会段爆炸，
+每个段都要消耗文件描述符、内存、CPU 周期，且每个search请求都需要遍历所有的segment，会造成搜索操作很慢。
+</p>
+
+<p>
+_optimize?max_num_segments=1 一个segment情况下查询要快些，但是得控制大小，
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgfcaa108" class="outline-4">
+<h4 id="orgfcaa108">分词</h4>
+</div>
+<div id="outline-container-org83d22be" class="outline-4">
+<h4 id="org83d22be">es node</h4>
+<div class="outline-text-4" id="text-org83d22be">
+<ul class="org-ul">
+<li>data node 上
+http.enabled: false，同时也不要安装head, bigdesk, marvel等监控 插件
+http功能可以在非数据节点服务器上开启
+一台服务器上最好只部署一个Node</li>
+<li>避免脑裂现象
+<ol class="org-ol">
+<li><p>
+discovery.zen.minimum_master_nodes N/2+1
+</p>
+
+<p>
+要选举一个Master需要多少了候选节点，默认为1
+3节点的集群 3/2+1 = 2(向下取整)
+</p></li>
+<li><p>
+discovery.zen.ping.timeout
+</p>
+
+<p>
+等待ping响应的超时时间，默认值是3秒。如果网络缓慢或拥塞，建议略微调大这个值
+</p></li>
+</ol></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org8921712" class="outline-4">
+<h4 id="org8921712">es pipeline</h4>
+<div class="outline-text-4" id="text-org8921712">
+<p>
+<a href="https://www.felayman.com/articles/2017/11/24/1511527532643.html#b3_solo_h4_22">https://www.felayman.com/articles/2017/11/24/1511527532643.html#b3_solo_h4_22</a>
+</p>
+</div>
+</div>
+<div id="outline-container-org0c7d965" class="outline-4">
+<h4 id="org0c7d965">es</h4>
+<div class="outline-text-4" id="text-org0c7d965">
+<p>
+<a href="https://blog.csdn.net/donghaixiaolongwang/article/category/6747676">https://blog.csdn.net/donghaixiaolongwang/article/category/6747676</a>
+</p>
+
+<p>
+Elasticsearch之四种查询类型和搜索原理</p>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2018-06-03</span>
+        <span title="last modification date" class="post-info">2018-06-03</span>
+        <span title="tags" class="post-info"><a href="/tags/elasticsearch/">Elasticsearch</a></span>
+        <span title="author" class="post-info">manue1</span>
+      </div>
+      <script src="//code.jquery.com/jquery-latest.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/main.js"></script>
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-92179266-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:manue1 &lt;at&gt; manpc">manue1</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

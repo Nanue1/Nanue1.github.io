@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>note-emacs-使用记录 - manue1&#39;s site</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="manue1" />
+    <meta name="description" content="emacs 使用记录" />
+    <meta name="keywords" content="emacs" />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">manue1&#39;s site</a></h1>
+        <p>^_^ just for simaple</p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/wiki/">Wiki</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="https://github.com/nanue1">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="www.manue1.site">
+        </form>
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>note-emacs-使用记录</h1>
+
+<div id="outline-container-org13617b4" class="outline-2">
+<h2 id="org13617b4">note-emacs</h2>
+<div class="outline-text-2" id="text-org13617b4">
+<p>
+the learning environment is mac 
+</p>
+</div>
+<div id="outline-container-org859be1f" class="outline-3">
+<h3 id="org859be1f">emacs tutorial</h3>
+<div class="outline-text-3" id="text-org859be1f">
+<p>
+use c-h t open tutorial 
+</p>
+
+<p>
+c - control  M - option
+</p>
+
+<p>
+c-x c-c  quit emacs
+</p>
+
+<p>
+c-g      quit current command
+</p>
+
+<pre class="example">
+
+
+                                上一行 C-p
+                                     :
+                                     :
+               向左移 C-b .... 目前光标位置 .... 向右移 C-f
+                                     :
+                                     :
+                                下一行 C-n
+
+</pre>
+
+
+
+<p>
+c-/ | c-x u     undo 
+</p>
+
+<p>
+c-_      undo step by step
+</p>
+
+<p>
+c-k      delete
+</p>
+
+<p>
+c-x c-f  search file
+</p>
+
+<p>
+c-x c-s  save file
+</p>
+
+<p>
+c-x s    save more buffer
+</p>
+
+<p>
+c-x c-b | c-x b  search buffer
+</p>
+
+<p>
+c-s     search forwards
+</p>
+
+<p>
+c-r     search backwards
+</p>
+
+<p>
+c-h k ()  query shortcut description
+</p>
+
+<p>
+c-h f ()  describe function
+</p>
+
+<p>
+c-h a     search for command g
+</p>
+
+<p>
+M-x linum-mode   show line number
+</p>
+</div>
+</div>
+<div id="outline-container-org54af437" class="outline-3">
+<h3 id="org54af437">common shortcuts</h3>
+<div class="outline-text-3" id="text-org54af437">
+<p class="verse">
+,bb  next buffer<br />
+<br />
+,xf  search file<br />
+<br />
+,xb  search buffer<br />
+,kb  kill buffer<br />
+<br />
+,ov  my overview current buffer<br />
+,c&gt;  org do demote<br />
+,c&lt;  org do promote<br />
+<br />
+&lt;s+Tab  add source<br />
+&lt;v+Tab  ignore blank line<br />
+&lt;q+Tab  add indentation<br />
+<br />
+F1  org agenda<br />
+<br />
+F2  add TODO<br />
+c-c c-s add start time<br />
+c-c c-d add end time<br />
+c-c .   add time period<br />
+++1d    every day do<br />
+c-x a   org agenda list<br />
+<br />
+c-c | / |-  auto generate form<br />
+c-c -       add  horizontal line<br />
+<br />
+,x0  close the current window<br />
+,x1  close othe windows<br />
+,x3   ||<br />
+,x2   =<br />
+, (12345)  switch window<br />
+<br />
+spc ss create workspace<br />
+spc ll search workspace<br />
+<br />
+<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org71d972a" class="outline-3">
+<h3 id="org71d972a">emacs lisp</h3>
+<div class="outline-text-3" id="text-org71d972a">
+</div>
+<div id="outline-container-org5294de9" class="outline-4">
+<h4 id="org5294de9">blog</h4>
+<div class="outline-text-4" id="text-org5294de9">
+<p>
+<a href="http://www.woola.net/detail/2016-08-18-elisp.html">http://www.woola.net/detail/2016-08-18-elisp.html</a>
+</p>
+</div>
+</div>
+<div id="outline-container-orgc6602df" class="outline-4">
+<h4 id="orgc6602df">casting spels emacs</h4>
+<div class="outline-text-4" id="text-orgc6602df">
+<p>
+a comic book : Emacs Lisp version 
+<a href="http://www.lisperati.com/casting-spels-emacs/html/casting-spels-emacs-1.html">http://www.lisperati.com/casting-spels-emacs/html/casting-spels-emacs-1.html</a>
+</p>
+
+<p>
+Emacs <b>scratch</b> buffer is Lisp interacion : c-x b <b>scratch</b>
+</p>
+
+
+<p>
+Emacs tutorial <a href="https://www.gnu.org/software/emacs/tour/">https://www.gnu.org/software/emacs/tour/</a>
+</p>
+
+
+<p>
+Emacs manual : <a href="https://www.gnu.org/software/emacs/manual/index.html">https://www.gnu.org/software/emacs/manual/index.html</a>
+</p>
+
+<p>
+c-x c-e  : evaluable each expression (move the cursor to the end of each expression )
+</p>
+
+<p>
+M-x top-level : clears out errors
+</p>
+
+<p>
+M-x ielm  : ELISP&gt;
+</p>
+
+<p>
+(setq eval-expression-print-length nil) : prevent emacs truncate messages
+</p>
+
+<p>
+(require 'cl) : the library to make elisp run Common lisp command 
+</p>
+</div>
+
+
+<ul class="org-ul">
+<li><a id="orgfe4ec8a"></a>Syntax and Semantic<br />
+<div class="outline-text-5" id="text-orgfe4ec8a">
+<p>
+any text you give elisp interprater has to be arranged into list ,can be nested into lists of
+lists,a list in elisp (bla bla bla (abc abc))
+</p>
+
+<p>
+elis: interprater uses two modes to read code:  Code mode / Data mode. 
+in data mode,you can put anything into your list ;
+in Code mode, your list need to be special type of list called a form :
+</p>
+
+<pre class="example">
+
+(foo bla bla bla)
+  ^          ^
+  |          |
+command     a form
+</pre>
+</div>
+</li>
+
+<li><a id="orgc6750c2"></a>Defining the data for our Game World<br />
+<div class="outline-text-5" id="text-orgc6750c2">
+<p>
+in order to learn some more about forms,examples:
+</p>
+<pre class="example">
+(setq objects '(whiskey-bottle bucket frog chain))
+
+| code mode    | The single quote to 'flip' the compiler into Date mode |                                     |   |   |
+|--------------+--------------------------------------------------------+-------------------------------------+---+---|
+| setq objects | '                                                      | (whiskey-bottle bucket frog chain)) |   |   |
+|--------------+--------------------------------------------------------+-------------------------------------+---+---|
+
+</pre>
+<p>
+the command sets a variable to a value : the variable is objects and the value is a list 
+</p>
+</div>
+</li>
+
+<li><a id="org2b9160f"></a>Looking around in our game world<br />
+<div class="outline-text-5" id="text-org2b9160f">
+<p>
+The word defun means, as you might expect, that we're defining a function
+</p>
+<pre class="example">
+(defun describe-location (location map)
+    (second (assoc location map)))
+</pre>
+<p>
+The assoc command does this and then returns the data describing the living-room
+</p>
+
+<p>
+Then the command second trims out the second item in that list, which is the description of the living-room
+</p>
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-orge0429f1" class="outline-4">
+<h4 id="orge0429f1">code</h4>
+<div class="outline-text-4" id="text-orge0429f1">
+<div class="org-src-container">
+<pre class="src src-elisp">
+(setq objects '(whiskey-bottle bucket frog chain))
+
+(setq object-locations '((whiskey-bottle living-room)
+                           (bucket living-room)
+                           (chain garden)
+                           (frog garden)))
+
+(setq location 'living-room)
+
+(setq map '((living-room (you are in the living room
+                of a wizards house - there is a wizard
+                snoring loudly on the couch -)
+                (west door garden)
+                (upstairs stairway attic))
+              (garden (you are in a beautiful garden -
+                there is a well in front of you -)
+                (east door living-room))
+              (attic (you are in the attic of the
+                wizards house - there is a giant
+                welding torch in the corner -)
+                (downstairs stairway living-room))))
+
+(defun describe-location (location map)
+    (second (assoc location map)))
+
+
+(describe-location 'living-room map)
+
+(message "hello world")
+
+(defun hello-world (name)
+ "say hello to user whose name is XX"
+   (message "hello , %s" name))
+
+(hello-world "manue1")
+
+(setq foo "i'm manue1")
+(message foo)
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org848a183" class="outline-3">
+<h3 id="org848a183">orgmode</h3>
+<div class="outline-text-3" id="text-org848a183">
+<ul class="org-ul">
+<li>alt键失灵问题,主要是因为xshell的配置问题
+文件--&gt;属性--&gt;终端--&gt;键盘--&gt;元(meta)键仿真</li>
+<li><a href="http://www.github.com/nanue1">nanue1's github</a>
+<ul class="org-ul">
+<li>c-c c-l 
+创建url</li>
+<li>c-c c-o
+打开url</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2018-06-03</span>
+        <span title="last modification date" class="post-info">2018-06-03</span>
+        <span title="tags" class="post-info"><a href="/tags/emacs/">Emacs</a></span>
+        <span title="author" class="post-info">manue1</span>
+      </div>
+      <script src="//code.jquery.com/jquery-latest.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/main.js"></script>
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-92179266-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:manue1 &lt;at&gt; manpc">manue1</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>note-spark-use - manue1&#39;s site</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="manue1" />
+    <meta name="description" content="spark使用笔记" />
+    <meta name="keywords" content="spark" />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">manue1&#39;s site</a></h1>
+        <p>^_^ just for simaple</p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/wiki/">Wiki</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="https://github.com/nanue1">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="www.manue1.site">
+        </form>
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>note-spark-use</h1>
+<p>
+Spark快速大数据分析[美] 卡劳（Holden Karau）
+</p>
+<div id="outline-container-orga5be5bf" class="outline-2">
+<h2 id="orga5be5bf">what is spark</h2>
+<div class="outline-text-2" id="text-orga5be5bf">
+<p>
+spark 是一个用来实现快速而通用的集群计算的平台
+</p>
+<ul class="org-ul">
+<li>spark core</li>
+<li>spark sql</li>
+<li>spark streaming</li>
+<li>MLlib</li>
+<li>GraphX</li>
+<li>集群管理器
+<ul class="org-ul">
+<li>自带简易调度器，独立调度器</li>
+<li>Hadoop YARN</li>
+<li>Apache Mesos</li>
+</ul></li>
+<li>Spark的存储层次
+<ul class="org-ul">
+<li>支持本地文件,HDFS,Hive,HBase</li>
+<li>文件格式:文本文件,SequenceFile,Avro,Parquet</li>
+</ul></li>
+<li>shell
+spark shell 可用来与分布式存储在许多机器的内存或者硬盘上的数据进行交互
+python shell / scala shell</li>
+<li>SparkContext
+每个Sparkyingy</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org1f684b0" class="outline-2">
+<h2 id="org1f684b0">RDD</h2>
+<div class="outline-text-2" id="text-org1f684b0">
+<p>
+RDD(resilient distributed dataset)
+</p>
+</div>
+<div id="outline-container-orgcf02846" class="outline-3">
+<h3 id="orgcf02846">RDD基础</h3>
+<div class="outline-text-3" id="text-orgcf02846">
+<p>
+Spark中的RDD是一个不可变的分布式对象集合
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0258e87" class="outline-2">
+<h2 id="org0258e87">spark use</h2>
+<div class="outline-text-2" id="text-org0258e87">
+</div>
+<div id="outline-container-orgb84ec9b" class="outline-3">
+<h3 id="orgb84ec9b">spark base</h3>
+<div class="outline-text-3" id="text-orgb84ec9b">
+<p>
+rdd(resilient distributed dataset)
+</p>
+</div>
+</div>
+<div id="outline-container-orgfe4ef21" class="outline-3">
+<h3 id="orgfe4ef21">spark install</h3>
+<div class="outline-text-3" id="text-orgfe4ef21">
+<p>
+函数式编程
+shell下执行:paste
+</p>
+</div>
+</div>
+<div id="outline-container-orgb08fd1b" class="outline-3">
+<h3 id="orgb08fd1b">spark shell</h3>
+<div class="outline-text-3" id="text-orgb08fd1b">
+<p>
+bin/spark-shell
+</p>
+<ul class="org-ul">
+<li>创建RDD
+sc.parallelize()</li>
+<li>RDD操作
+<ul class="org-ul">
+<li>转化操作
+返回的是RDD
+map()
+filter()</li>
+<li>行动操作
+返回结果或把结果写入外部系统的操作,返回的是其他数据类型</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org6388bdc" class="outline-3">
+<h3 id="org6388bdc">idea spark scala</h3>
+<div class="outline-text-3" id="text-org6388bdc">
+<p>
+scala 项目手动打包
+删除scala 和spark的包
+</p>
+
+<p>
+执行中 spark-submit --class com.nti.spark.SparkTags spark_scala_jar.jar
+</p>
+
+<p>
+sbt 构建项目 需要等待sbt版本下载好才会生成src目录
+</p>
+</div>
+</div>
+
+<div id="outline-container-org17b978e" class="outline-3">
+<h3 id="org17b978e">idea spark java</h3>
+<div class="outline-text-3" id="text-org17b978e">
+<ol class="org-ol">
+<li>jre 1.5 换成1.8</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orga0ec621" class="outline-3">
+<h3 id="orga0ec621">rdd &amp; dataframe</h3>
+</div>
+</div>
+<div id="outline-container-orgafc5e6c" class="outline-2">
+<h2 id="orgafc5e6c">docker spark</h2>
+<div class="outline-text-2" id="text-orgafc5e6c">
+</div>
+<div id="outline-container-org906dea8" class="outline-3">
+<h3 id="org906dea8">docker for mac install spark 2.2.0 + hadoop 2.8.0</h3>
+<div class="outline-text-3" id="text-org906dea8">
+<p>
+refer : <a href="http://blog.csdn.net/gogo_yao/article/details/76863201">http://blog.csdn.net/gogo_yao/article/details/76863201</a>
+</p>
+
+<ol class="org-ol">
+<li>启动容器
+docker run --name centos-6 -tid centos:6 /bin/bash</li>
+<li>复制安装包到centos容器
+docker cp scala-2.12.3.tgz 23288ad95817:/
+docker cp jdk-8u144-linux-x64.rpm 23288ad95817:/
+docker cp spark-2.2.0-bin-without-hadoop.tgz 23288ad95817:/
+docker cp hadoop-2.8.0.tar.gz 23288ad95817:/root/.local</li>
+<li>进入容器
+docker exec -it 23288ad9581 /bin/bash
+hadoop spark install</li>
+<li><p>
+保存镜像
+docker commit -m "centos-6 with spark 2.2.0 and hadoop 2.8.0" 23288ad95817 centos:with-saprk-hadoop
+</p>
+
+<p>
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+centos              with-saprk-hadoop   30333b7011ce        20 seconds ago      3.84GB
+</p></li>
+<li><p>
+使用保存的镜像搭建集群
+</p>
+
+<p>
+#端口50070和8088，8080是用来在浏览器中访问hadoop、yarn、spark的WEB界面，这里分别映射到物理机的50070和8088，8080端口。
+docker run -itd -P -p 50070:50070 -p 8088:8088 -p 8080:8080 --name master -h master --add-host slave01:172.17.0.4 --add-host slave02:172.17.0.5 centos:with-saprk-hadoop
+docker run -itd -P --name slave01 -h slave01 --add-host master:172.17.0.3 --add-host slave02:172.17.0.5  centos:with-saprk-hadoop
+docker run -itd -P --name slave02 -h slave02 --add-host master:172.17.0.3 --add-host slave01:172.17.0.4  centos:with-saprk-hadoop
+</p></li>
+<li><p>
+进入集群管理
+docker exec -it master /bin/bash
+</p>
+
+<p>
+service sshd restart
+</p>
+
+<p>
+cd <i>root</i>.local/hadoop-2.8.0/sbin;sh start-all.sh   
+cd <i>root</i>.local/spark-2.2.0-bin-without-hadoop/sbin; sh start-all.sh
+</p></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org042855c" class="outline-3">
+<h3 id="org042855c">docker search spark</h3>
+<div class="outline-text-3" id="text-org042855c">
+<p>
+docker pull sequenceiq/spark:1.6.0
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org931b2e3" class="outline-2">
+<h2 id="org931b2e3">docker hbase</h2>
+</div>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2018-06-03</span>
+        <span title="last modification date" class="post-info">2018-06-03</span>
+        <span title="tags" class="post-info"><a href="/tags/spark/">Spark</a></span>
+        <span title="author" class="post-info">manue1</span>
+      </div>
+      <script src="//code.jquery.com/jquery-latest.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/main.js"></script>
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-92179266-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:manue1 &lt;at&gt; manpc">manue1</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
