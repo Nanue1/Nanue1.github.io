@@ -220,3 +220,17 @@ Then the command second trims out the second item in that list, which is the des
     - c-c c-o
       打开url
       
+** emacs chinese encode
+- 直接在缓冲区修改编码 打开文件出现乱码时，可以尝试修改字符的编码：
+
+  M-x revert-buffer-with-coding-system RET（回车）
+
+  然后输入对应编码，如：utf-8 或者 chinese-gbk
+
+- 在保存的时候还可以指定文件的保存编码：
+
+  M-x set-buffer-file-coding-system
+
+- 查看Emacs编码格式 
+
+  M-x describe-coding-system
